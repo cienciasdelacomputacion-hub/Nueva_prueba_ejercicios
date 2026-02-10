@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>CEIBAL IDE | v45 Responsive</title>
+  <title>CEIBAL IDE | v46 Link Fix</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   
@@ -14,50 +14,39 @@
   <style>
     :root { --bg: #1e1e1e; --panel: #252526; --border: #3c3c3c; --accent: #007acc; --text: #cccccc; }
     body, html { height: 100%; margin: 0; background: #0a0a0a; color: var(--text); font-family: 'Inter', sans-serif; overflow: hidden; }
-    
-    /* DASHBOARD */
     #dashboard { height: 100vh; overflow-y: auto; padding: 20px; box-sizing: border-box; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; max-width: 1200px; margin: 0 auto; }
     .card { background: var(--panel); border: 1px solid var(--border); padding: 25px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
     .card:hover { border-color: var(--accent); background: #2d2d2d; }
-    
-    /* WORKSPACE STRUCTURE */
     #workspace { display: none; height: 100vh; flex-direction: column; background: var(--bg); }
     .topbar { height: 50px; display: flex; align-items: center; padding: 0 15px; background: #323233; border-bottom: 1px solid var(--border); gap: 10px; flex-shrink: 0; }
-    
     .main-container { flex: 1; display: flex; flex-direction: row; min-height: 0; overflow: hidden; }
-    
-    /* SECTIONS */
     .editor-section { flex: 1; display: flex; flex-direction: column; min-width: 0; border-right: 1px solid var(--border); }
     .output-section { width: 45%; display: flex; flex-direction: column; background: #0f0f1b; position: relative; min-height: 200px; }
-    
-    /* COMPONENTS */
     .viewer-overlay { position: absolute; inset: 0; background: #1a1a2e; color: #e0e0e0; padding: 30px; font-size: 14px; line-height: 1.6; overflow-y: auto; display: none; z-index: 5; white-space: pre-wrap; font-family: 'Fira Code', monospace; }
     .viewer-overlay.active { display: block; }
     .tabs { display: flex; background: #252526; height: 35px; border-bottom: 1px solid #1e1e1e; overflow-x: auto; scrollbar-width: none; flex-shrink: 0; }
     .tab { padding: 0 15px; display: flex; align-items: center; font-size: 11px; cursor: pointer; color: #969696; border-right: 1px solid #1e1e1e; white-space: nowrap; }
     .tab.active { background: #1e1e1e; color: white; border-top: 2px solid var(--accent); }
-    
     #editor { flex: 1; min-height: 0; }
     iframe { flex: 1; border: none; background: #1a1a2e; width: 100%; }
     .btn { padding: 8px 15px; border-radius: 4px; border: none; cursor: pointer; font-size: 11px; font-weight: 700; background: #3a3d3e; color: white; white-space: nowrap; }
     .btn-run { background: #2ea043; }
 
-    /* MEDIA QUERY: MOBILE & TABLETS */
     @media (max-width: 800px) {
       .main-container { flex-direction: column; overflow-y: auto; }
       .editor-section { flex: none; height: 50vh; border-right: none; border-bottom: 2px solid var(--border); }
       .output-section { width: 100%; flex: none; height: 50vh; }
       .grid { grid-template-columns: 1fr; }
-      #ws-title { display: none; } /* Ocultar path largo en móvil para ahorrar espacio */
+      #ws-title { display: none; }
     }
   </style>
 </head>
 <body onload="initApp()">
 
   <div id="dashboard">
-    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v45</h1>
-    <p id="debug-log" style="text-align:center; color: #007acc; font-family: monospace; font-size: 11px;">Iniciando...</p>
+    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v46</h1>
+    <p id="debug-log" style="text-align:center; color: #007acc; font-family: monospace; font-size: 11px;">Cargando sistema...</p>
     <div id="exercise-grid" class="grid"></div>
   </div>
 
@@ -81,7 +70,6 @@
   </div>
 
 <script>
-// Mantenemos toda tu lógica funcional intacta
 let editor, pyodide, allFiles = [], projectFiles = {}, activeFile = "", currentFolderPath = "";
 
 const getBaseUrl = () => {
@@ -99,17 +87,11 @@ async function initApp() {
             let p = typeof f === 'string' ? f : f.path;
             return p.replace(/\\/g, '/').replace(/^\.\//, '').replace(/^\//, '');
         });
-        const folders = [...new Set(allFiles.map(f => {
-            const parts = f.split('/');
-            return parts.length > 1 ? parts.slice(0, -1).join('/') : null;
-        }))].filter(Boolean).sort();
-        renderGrid(folders);
+        renderGrid([...new Set(allFiles.map(f => f.split('/').length > 1 ? f.split('/').slice(0, -1).join('/') : null))].filter(Boolean).sort());
         if (window.location.hash.includes('/ejercicio/')) {
             enterExercise(decodeURIComponent(window.location.hash.split('/ejercicio/')[1]));
         }
-    } catch (e) {
-        document.getElementById('debug-log').innerText = "Error: " + e.message;
-    }
+    } catch (e) { document.getElementById('debug-log').innerText = "Error: " + e.message; }
 }
 
 function renderGrid(folders) {
@@ -122,9 +104,7 @@ function renderGrid(folders) {
 }
 
 async function enterExercise(folderPath) {
-    currentFolderPath = folderPath;
-    activeFile = "";
-    projectFiles = {};
+    currentFolderPath = folderPath; activeFile = ""; projectFiles = {};
     window.location.hash = `/ejercicio/${encodeURIComponent(folderPath)}`;
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('workspace').style.display = 'flex';
@@ -137,19 +117,13 @@ async function enterExercise(folderPath) {
         try {
             const lsKey = `IDE_v43_${folderPath}_${fileName}`;
             const saved = localStorage.getItem(lsKey);
-            if (saved) { projectFiles[fileName] = saved; } 
-            else {
-                const response = await fetch(safeUrl);
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                projectFiles[fileName] = await response.text();
-            }
-        } catch (err) {
-            projectFiles[fileName] = `// ERROR 404\n// No se pudo cargar: ${fileName}\n// URL: ${safeUrl}`;
-        }
-        if (fileName.toLowerCase() === 'instructions.txt') activeFile = fileName;
-        else if (!activeFile && fileName.toLowerCase() === 'index.html') activeFile = fileName;
-        else if (!activeFile) activeFile = fileName;
+            projectFiles[fileName] = saved || await (await fetch(safeUrl)).text();
+        } catch (err) { projectFiles[fileName] = `// Error 404: ${fileName}`; }
+        
+        if (fileName.toLowerCase() === 'instructions.txt' && !activeFile) activeFile = fileName;
+        else if (fileName.toLowerCase() === 'index.html') activeFile = fileName;
     }
+    if(!activeFile) activeFile = Object.keys(projectFiles)[0];
     initMonaco();
 }
 
@@ -157,9 +131,7 @@ function initMonaco() {
     require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs' } });
     require(['vs/editor/editor.main'], () => {
         if (!editor) {
-            editor = monaco.editor.create(document.getElementById('editor'), {
-                theme: 'vs-dark', automaticLayout: true, fontSize: 14, wordWrap: "on"
-            });
+            editor = monaco.editor.create(document.getElementById('editor'), { theme: 'vs-dark', automaticLayout: true, fontSize: 14, wordWrap: "on" });
             editor.onDidChangeModelContent(() => {
                 if (activeFile) {
                     projectFiles[activeFile] = editor.getValue();
@@ -185,13 +157,31 @@ function updateTabs() {
     runProject();
 }
 
+// ✅ INTERCEPTOR DE ENLACES PARA NAVEGACIÓN VIRTUAL
+function setupIframeInterception(iframe) {
+    iframe.onload = () => {
+        const doc = iframe.contentDocument || iframe.contentWindow.document;
+        doc.querySelectorAll('a').forEach(link => {
+            link.onclick = (e) => {
+                const href = link.getAttribute('href');
+                // Si es un link a un archivo que tenemos cargado
+                if (href && projectFiles[href]) {
+                    e.preventDefault();
+                    activeFile = href; // Cambiamos el archivo activo
+                    updateTabs();      // Refrescamos editor e iframe
+                }
+            };
+        });
+    };
+}
+
 async function runProject() {
     const web = document.getElementById('web-preview');
     const viewer = document.getElementById('txt-viewer');
     if (!activeFile) return;
+
     if (activeFile.toLowerCase().endsWith('.txt') || activeFile.toLowerCase().endsWith('.py')) {
-        web.style.display = 'none';
-        viewer.classList.add('active');
+        web.style.display = 'none'; viewer.classList.add('active');
         if (activeFile.toLowerCase().endsWith('.py')) {
             viewer.innerText = ">>> Ejecutando...";
             if(!pyodide) pyodide = await loadPyodide();
@@ -202,11 +192,12 @@ async function runProject() {
             } catch (e) { viewer.innerText = e; }
         } else { viewer.innerText = projectFiles[activeFile]; }
     } else {
-        viewer.classList.remove('active');
-        web.style.display = 'block';
+        viewer.classList.remove('active'); web.style.display = 'block';
         const css = Object.keys(projectFiles).filter(n => n.endsWith('.css')).map(n => `<style>${projectFiles[n]}</style>`).join("");
         const js = Object.keys(projectFiles).filter(n => n.endsWith('.js')).map(n => `<script>${projectFiles[n]}<\/script>`).join("");
-        const html = projectFiles[activeFile.endsWith('.html') ? activeFile : 'index.html'] || projectFiles[Object.keys(projectFiles)[0]] || "";
+        const html = projectFiles[activeFile] || "";
+        
+        setupIframeInterception(web); // Activamos el interceptor antes de cargar
         web.srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8">${css}</head><body style="margin:0; background:#1a1a2e; color:white; padding:15px;">${html}${js}</body></html>`;
     }
 }
