@@ -94,8 +94,8 @@ async function initApp() {
         renderGrid(folders);
 
         const hash = window.location.hash;
-        if (hash.includes('/ejercicio/')) {
-            const folderName = decodeURIComponent(hash.split('/ejercicio/')[1]);
+        if (hash.includes('/Ejercicio/')) {
+            const folderName = decodeURIComponent(hash.split('/Ejercicio/')[1]);
             enterExercise(folderName);
         }
     } catch (e) {
@@ -117,7 +117,7 @@ async function enterExercise(folderPath) {
     currentFolderPath = folderPath;
     activeFile = "";
     projectFiles = {};
-    window.location.hash = `/ejercicio/${encodeURIComponent(folderPath)}`;
+    window.location.hash = `/Ejercicio/${encodeURIComponent(folderPath)}`;
     
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('workspace').style.display = 'flex';
