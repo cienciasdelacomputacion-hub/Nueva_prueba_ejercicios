@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>CEIBAL IDE | v42 Case Sensitive Fix</title>
+  <title>CEIBAL IDE | v43 Case Fix</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   
@@ -25,7 +25,7 @@
     .output-section { width: 45%; display: flex; flex-direction: column; background: #0f0f1b; border-left: 1px solid var(--border); position: relative; }
     .viewer-overlay { position: absolute; inset: 0; background: #1a1a2e; color: #e0e0e0; padding: 30px; font-size: 14px; line-height: 1.6; overflow-y: auto; display: none; z-index: 5; white-space: pre-wrap; font-family: 'Fira Code', monospace; }
     .viewer-overlay.active { display: block; }
-    .tabs { display: flex; background: #252526; height: 35px; border-bottom: 1px solid #1e1e1e; overflow-x: auto; }
+    .tabs { display: flex; background: #252526; height: 35px; border-bottom: 1px solid #1e1e1e; overflow-x: auto; scrollbar-width: none; }
     .tab { padding: 0 15px; display: flex; align-items: center; font-size: 11px; cursor: pointer; color: #969696; border-right: 1px solid #1e1e1e; white-space: nowrap; }
     .tab.active { background: #1e1e1e; color: white; border-top: 2px solid var(--accent); }
     #editor { flex: 1; }
@@ -37,8 +37,8 @@
 <body onload="initApp()">
 
   <div id="dashboard">
-    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v42</h1>
-    <p id="debug-log" style="text-align:center; color: #007acc; font-family: monospace; font-size: 11px;"></p>
+    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v43</h1>
+    <p id="debug-log" style="text-align:center; color: #007acc; font-family: monospace; font-size: 11px;">Iniciando...</p>
     <div id="exercise-grid" class="grid"></div>
   </div>
 
@@ -72,18 +72,16 @@ const getBaseUrl = () => {
 const BASE_URL = getBaseUrl();
 
 async function initApp() {
-    const log = document.getElementById('debug-log');
     try {
         const res = await fetch(BASE_URL + 'mapa_del_proyecto.json?t=' + Date.now());
         const data = await res.json();
         
+        // Mantenemos la capitalización original del JSON
         allFiles = data.files.map(f => {
             let p = typeof f === 'string' ? f : f.path;
-            // Normalizamos para el manejo interno pero conservamos la ruta para el fetch
             return p.replace(/\\/g, '/').replace(/^\.\//, '').replace(/^\//, '');
         });
 
-        // Carpetas basadas en el mapa real (respeta Ejercicios con E mayúscula si así viene)
         const folders = [...new Set(allFiles.map(f => {
             const parts = f.split('/');
             return parts.length > 1 ? parts.slice(0, -1).join('/') : null;
@@ -91,13 +89,11 @@ async function initApp() {
 
         renderGrid(folders);
 
-        const hash = window.location.hash;
-        if (hash.includes('/ejercicio/')) {
-            const folderName = decodeURIComponent(hash.split('/ejercicio/')[1]);
-            enterExercise(folderName);
+        if (window.location.hash.includes('/ejercicio/')) {
+            enterExercise(decodeURIComponent(window.location.hash.split('/ejercicio/')[1]));
         }
     } catch (e) {
-        log.innerText = "Error cargando mapa: " + e.message;
+        document.getElementById('debug-log').innerText = "Error: " + e.message;
     }
 }
 
@@ -118,18 +114,18 @@ async function enterExercise(folderPath) {
     
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('workspace').style.display = 'flex';
-    document.getElementById('ws-title').innerText = "Cargando: " + folderPath;
+    document.getElementById('ws-title').innerText = "Cargando archivos...";
 
     const filesInFolder = allFiles.filter(f => f.startsWith(folderPath + '/'));
     
     for (let fullPath of filesInFolder) {
         const fileName = fullPath.split('/').pop();
         
-        // ✅ CORRECCIÓN CLAVE: Codificar cada parte de la ruta por separado para respetar "Ejercicios" y espacios
+        // Codificamos conservando las mayúsculas/minúsculas exactas del JSON
         const safeUrl = BASE_URL + fullPath.split('/').map(p => encodeURIComponent(p)).join('/');
 
         try {
-            const lsKey = `IDE_v42_${folderPath}_${fileName}`;
+            const lsKey = `IDE_v43_${folderPath}_${fileName}`;
             const saved = localStorage.getItem(lsKey);
             if (saved) {
                 projectFiles[fileName] = saved;
@@ -139,7 +135,7 @@ async function enterExercise(folderPath) {
                 projectFiles[fileName] = await response.text();
             }
         } catch (err) {
-            projectFiles[fileName] = `// ERROR 404\n// No se pudo cargar: ${fileName}\n// URL: ${safeUrl}\n// Revisa si en GitHub es "Ejercicios" o "ejercicios"`;
+            projectFiles[fileName] = `// ERROR 404\n// No se pudo cargar: ${fileName}\n// URL INTENTADA: ${safeUrl}\n// Por favor, verifica que en tu repositorio la carpeta sea "Ejercicios" con E mayúscula.`;
         }
 
         if (fileName.toLowerCase() === 'instructions.txt') activeFile = fileName;
@@ -161,7 +157,7 @@ function initMonaco() {
             editor.onDidChangeModelContent(() => {
                 if (activeFile) {
                     projectFiles[activeFile] = editor.getValue();
-                    localStorage.setItem(`IDE_v42_${currentFolderPath}_${activeFile}`, editor.getValue());
+                    localStorage.setItem(`IDE_v43_${currentFolderPath}_${activeFile}`, editor.getValue());
                 }
             });
         }
@@ -186,15 +182,14 @@ function updateTabs() {
 async function runProject() {
     const web = document.getElementById('web-preview');
     const viewer = document.getElementById('txt-viewer');
-    const low = activeFile.toLowerCase();
     if (!activeFile) return;
 
-    if (low.endsWith('.txt') || low.endsWith('.py')) {
+    if (activeFile.toLowerCase().endsWith('.txt') || activeFile.toLowerCase().endsWith('.py')) {
         web.style.display = 'none';
         viewer.classList.add('active');
-        if (low.endsWith('.py')) {
-            viewer.innerText = ">>> Ejecutando Python...";
-            if(!pyodide) pyodide = await loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.1/full/" });
+        if (activeFile.toLowerCase().endsWith('.py')) {
+            viewer.innerText = ">>> Ejecutando...";
+            if(!pyodide) pyodide = await loadPyodide();
             try {
                 await pyodide.runPythonAsync(`import sys, io\nsys.stdout = io.StringIO()`);
                 await pyodide.runPythonAsync(projectFiles[activeFile]);
@@ -223,7 +218,7 @@ async function exportToPDF() {
         doc.setFontSize(10); doc.text(`ARCHIVO: ${name}`, 15, 15);
         doc.setFontSize(8); doc.text(doc.splitTextToSize(code, 180), 15, 25);
     });
-    doc.save(`entrega.pdf`);
+    doc.save(`proyecto.pdf`);
 }
 </script>
 </body>
