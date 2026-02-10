@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>CEIBAL IDE | v39 Debugger</title>
+  <title>CEIBAL IDE | v42 Case Sensitive Fix</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   
@@ -37,7 +37,7 @@
 <body onload="initApp()">
 
   <div id="dashboard">
-    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v40</h1>
+    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v42</h1>
     <p id="debug-log" style="text-align:center; color: #007acc; font-family: monospace; font-size: 11px;"></p>
     <div id="exercise-grid" class="grid"></div>
   </div>
@@ -64,8 +64,6 @@
 <script>
 let editor, pyodide, allFiles = [], projectFiles = {}, activeFile = "", currentFolderPath = "";
 
-// ✅ DETECCIÓN DE RUTA BASE MEJORADA
-// Esto asegura que si estás en https://.../repo/, la base sea exactamente esa carpeta.
 const getBaseUrl = () => {
     const loc = window.location;
     const path = loc.pathname.endsWith('/') ? loc.pathname : loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
@@ -75,17 +73,17 @@ const BASE_URL = getBaseUrl();
 
 async function initApp() {
     const log = document.getElementById('debug-log');
-    log.innerText = "Detectando base: " + BASE_URL;
-
     try {
         const res = await fetch(BASE_URL + 'mapa_del_proyecto.json?t=' + Date.now());
         const data = await res.json();
         
         allFiles = data.files.map(f => {
             let p = typeof f === 'string' ? f : f.path;
+            // Normalizamos para el manejo interno pero conservamos la ruta para el fetch
             return p.replace(/\\/g, '/').replace(/^\.\//, '').replace(/^\//, '');
         });
 
+        // Carpetas basadas en el mapa real (respeta Ejercicios con E mayúscula si así viene)
         const folders = [...new Set(allFiles.map(f => {
             const parts = f.split('/');
             return parts.length > 1 ? parts.slice(0, -1).join('/') : null;
@@ -94,8 +92,8 @@ async function initApp() {
         renderGrid(folders);
 
         const hash = window.location.hash;
-        if (hash.includes('/Ejercicios/')) {
-            const folderName = decodeURIComponent(hash.split('/Ejercicios/')[1]);
+        if (hash.includes('/ejercicio/')) {
+            const folderName = decodeURIComponent(hash.split('/ejercicio/')[1]);
             enterExercise(folderName);
         }
     } catch (e) {
@@ -104,8 +102,7 @@ async function initApp() {
 }
 
 function renderGrid(folders) {
-    const grid = document.getElementById('exercise-grid');
-    grid.innerHTML = folders.map(f => `
+    document.getElementById('exercise-grid').innerHTML = folders.map(f => `
         <div class="card" onclick="enterExercise('${f}')">
             <h3 style="margin:0; color:white; font-size:14px;">${f.split('/').pop().toUpperCase()}</h3>
             <div style="color:#666; font-size:10px; margin-top:5px;">${f}</div>
@@ -117,7 +114,7 @@ async function enterExercise(folderPath) {
     currentFolderPath = folderPath;
     activeFile = "";
     projectFiles = {};
-    window.location.hash = `/Ejercicios/${encodeURIComponent(folderPath)}`;
+    window.location.hash = `/ejercicio/${encodeURIComponent(folderPath)}`;
     
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('workspace').style.display = 'flex';
@@ -127,21 +124,22 @@ async function enterExercise(folderPath) {
     
     for (let fullPath of filesInFolder) {
         const fileName = fullPath.split('/').pop();
-        const finalUrl = BASE_URL + fullPath;
-        console.log("Intentando cargar:", finalUrl);
+        
+        // ✅ CORRECCIÓN CLAVE: Codificar cada parte de la ruta por separado para respetar "Ejercicios" y espacios
+        const safeUrl = BASE_URL + fullPath.split('/').map(p => encodeURIComponent(p)).join('/');
 
         try {
-            const lsKey = `IDE_v39_${folderPath}_${fileName}`;
+            const lsKey = `IDE_v42_${folderPath}_${fileName}`;
             const saved = localStorage.getItem(lsKey);
             if (saved) {
                 projectFiles[fileName] = saved;
             } else {
-                const response = await fetch(finalUrl);
+                const response = await fetch(safeUrl);
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 projectFiles[fileName] = await response.text();
             }
         } catch (err) {
-            projectFiles[fileName] = `// Error 404 / No se pudo cargar.\n// URL intentada: ${finalUrl}\n// Detalle: ${err.message}`;
+            projectFiles[fileName] = `// ERROR 404\n// No se pudo cargar: ${fileName}\n// URL: ${safeUrl}\n// Revisa si en GitHub es "Ejercicios" o "ejercicios"`;
         }
 
         if (fileName.toLowerCase() === 'instructions.txt') activeFile = fileName;
@@ -163,7 +161,7 @@ function initMonaco() {
             editor.onDidChangeModelContent(() => {
                 if (activeFile) {
                     projectFiles[activeFile] = editor.getValue();
-                    localStorage.setItem(`IDE_v39_${currentFolderPath}_${activeFile}`, editor.getValue());
+                    localStorage.setItem(`IDE_v42_${currentFolderPath}_${activeFile}`, editor.getValue());
                 }
             });
         }
@@ -189,13 +187,14 @@ async function runProject() {
     const web = document.getElementById('web-preview');
     const viewer = document.getElementById('txt-viewer');
     const low = activeFile.toLowerCase();
+    if (!activeFile) return;
 
     if (low.endsWith('.txt') || low.endsWith('.py')) {
         web.style.display = 'none';
         viewer.classList.add('active');
         if (low.endsWith('.py')) {
-            viewer.innerText = ">>> Ejecutando...";
-            if(!pyodide) pyodide = await loadPyodide();
+            viewer.innerText = ">>> Ejecutando Python...";
+            if(!pyodide) pyodide = await loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.1/full/" });
             try {
                 await pyodide.runPythonAsync(`import sys, io\nsys.stdout = io.StringIO()`);
                 await pyodide.runPythonAsync(projectFiles[activeFile]);
