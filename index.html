@@ -37,7 +37,7 @@
 <body onload="initApp()">
 
   <div id="dashboard">
-    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v39.9</h1>
+    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v40</h1>
     <p id="debug-log" style="text-align:center; color: #007acc; font-family: monospace; font-size: 11px;"></p>
     <div id="exercise-grid" class="grid"></div>
   </div>
@@ -94,8 +94,8 @@ async function initApp() {
         renderGrid(folders);
 
         const hash = window.location.hash;
-        if (hash.includes('/Ejercicio/')) {
-            const folderName = decodeURIComponent(hash.split('/Ejercicio/')[1]);
+        if (hash.includes('/Ejercicios/')) {
+            const folderName = decodeURIComponent(hash.split('/Ejercicios/')[1]);
             enterExercise(folderName);
         }
     } catch (e) {
@@ -117,7 +117,7 @@ async function enterExercise(folderPath) {
     currentFolderPath = folderPath;
     activeFile = "";
     projectFiles = {};
-    window.location.hash = `/Ejercicio/${encodeURIComponent(folderPath)}`;
+    window.location.hash = `/Ejercicios/${encodeURIComponent(folderPath)}`;
     
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('workspace').style.display = 'flex';
