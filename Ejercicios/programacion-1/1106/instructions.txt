@@ -1,0 +1,31 @@
+📌 Ejercicio: Sistema de gestión de tareas con cadenas
+
+Vas a programar un sistema básico de gestión de tareas en Python sin usar listas ni bucles. Todas las tareas se guardarán dentro de una sola cadena de texto, separadas por ", ".
+
+agregar_tarea(tareas, tarea_nueva)
+
+Esta función se encarga de añadir una nueva tarea.
+
+Si la lista de tareas está vacía (""), devuelve solo la nueva tarea.
+Si ya hay tareas, añade la nueva al final, separada por ", ".
+
+mostrar_tareas(tareas)
+Si la cadena está vacía, imprime "No hay tareas".
+Si no, imprime la cadena completa.
+
+Esta función te ayuda a ver todas tus tareas.
+
+Si la lista está vacía, imprime "No hay tareas".
+Si no está vacía, imprime la cadena completa de tareas.
+
+eliminar_tarea(tareas, tarea_a_borrar)
+
+Esta función sirve para borrar una tarea específica.
+
+Busca si la tarea que quieres borrar se encuentra en la lista.
+Si la encuentra, la elimina usando replace() y maneja los siguientes casos:
+Única tarea: Si la lista contiene solo esa tarea, devuelve una cadena vacía.
+Al principio: La elimina junto con la coma que la sigue.
+Al final: La elimina junto con la coma que la precede.
+En el medio: La elimina junto con la coma que la precede.
+Si no la encuentra, devuelve la cadena sin cambios.

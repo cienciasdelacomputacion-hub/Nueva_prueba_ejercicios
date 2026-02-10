@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller HTML: Estructura Web</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #4834d4;   /* Azul Intenso */
+            --secondary: #686de0; /* Azul Suave */
+            --accent: #f0932b;    /* Naranja (para contraste) */
+            --bg: #f9f9f9;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --success: #6ab04c;
+            --error: #eb4d4b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .student-input {
+            margin-top: 1rem;
+            padding: 10px 15px;
+            border-radius: 25px;
+            border: none;
+            width: 80%;
+            max-width: 350px;
+            text-align: center;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--accent);
+        }
+
+        h2 { color: var(--primary); border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 0; }
+        
+        /* --- FASE 1: FLASHCARDS (TARJETAS) --- */
+        .flashcards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background-color: transparent;
+            height: 180px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .card:hover .card-inner { transform: rotateY(180deg); }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            box-sizing: border-box;
+            border-radius: 12px;
+        }
+
+        .card-front { background-color: var(--primary); color: white; }
+        .card-front i { font-size: 2.5rem; margin-bottom: 10px; }
+        .card-front h3 { margin: 0; font-size: 1.2rem; }
+        
+        .card-back { 
+            background-color: var(--accent); 
+            color: white; 
+            transform: rotateY(180deg); 
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* --- FASE 2: QUIZ --- */
+        .quiz-item { margin-bottom: 1.5rem; }
+        .quiz-options label {
+            display: block;
+            background: #f1f2f6;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .quiz-options label:hover { background: #e0e0e0; }
+        
+        .feedback {
+            margin-top: 5px;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: none;
+        }
+        .feedback.correct { background: #dff9fb; color: var(--success); border: 1px solid var(--success); }
+        .feedback.wrong { background: #ff797933; color: var(--error); border: 1px solid var(--error); }
+
+        /* --- FASE 3: EDITOR --- */
+        .editor-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            height: 450px;
+        }
+        
+        @media (max-width: 768px) {
+            .editor-wrapper { grid-template-columns: 1fr; height: auto; }
+        }
+
+        textarea {
+            width: 100%;
+            height: 100%;
+            background: #1e272e;
+            color: #d2dae2;
+            padding: 15px;
+            border-radius: 8px;
+            border: none;
+            font-family: 'Courier New', Courier, monospace;
+            resize: none;
+            box-sizing: border-box;
+        }
+
+        .preview-pane {
+            background: white;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            overflow-y: auto;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        /* --- VALIDACIÓN Y BOTONES --- */
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn:hover { background-color: var(--secondary); transform: translateY(-2px); }
+
+        table.results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table.results-table td { padding: 10px; border-bottom: 1px solid #eee; }
+        .icon-pass { color: var(--success); }
+        .icon-fail { color: var(--error); }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1><i class="fas fa-laptop-code"></i> HTML: Estructura y Listas</h1>
+    <p>Unidad de Aprendizaje: Jerarquías y Textos</p>
+    <input type="text" id="studentName" class="student-input" placeholder="Escribe tu Nombre y Apellido">
+</header>
+
+<div class="container">
+
+    <section>
+        <h2>1. Activación: Conceptos Clave</h2>
+        <p>Para crear una web ordenada, usamos etiquetas específicas para títulos, párrafos y listas. Pasa el mouse (o toca) las tarjetas para repasar.</p>
+        
+        <div class="flashcards-grid">
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <i class="fas fa-heading"></i>
+                        <h3>Encabezados</h3>
+                        <code>&lt;h1&gt; a &lt;h6&gt;</code>
+                    </div>
+                    <div class="card-back">
+                        <p>Definen la jerarquía.<br><strong>&lt;h1&gt;</strong>: Título principal (solo uno).<br><strong>&lt;h2&gt;</strong>: Subtítulos.<br><strong>&lt;h6&gt;</strong>: El más pequeño.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <i class="fas fa-align-left"></i>
+                        <h3>Párrafos</h3>
+                        <code>&lt;p&gt;, &lt;br&gt;, &lt;hr&gt;</code>
+                    </div>
+                    <div class="card-back">
+                        <p><strong>&lt;p&gt;</strong>: Bloque de texto.<br><strong>&lt;br&gt;</strong>: Salto de línea simple.<br><strong>&lt;hr&gt;</strong>: Línea horizontal separadora.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <i class="fas fa-list"></i>
+                        <h3>Listas</h3>
+                        <code>&lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;</code>
+                    </div>
+                    <div class="card-back">
+                        <p><strong>&lt;ul&gt;</strong>: Desordenada (puntos).<br><strong>&lt;ol&gt;</strong>: Ordenada (números).<br><strong>&lt;li&gt;</strong>: Elemento de la lista.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>2. Quiz Rápido</h2>
+        <p>Puntaje: <span id="score">0</span>/3</p>
+
+        <div class="quiz-item">
+            <p><strong>1. ¿Qué etiqueta usarías para crear una lista numerada de pasos a seguir?</strong></p>
+            <div class="quiz-options">
+                <label><input type="radio" name="q1" onclick="checkQuiz(1, false, 'Incorrecto. <ul> crea puntos (bullets), no números.')"> &lt;ul&gt;</label>
+                <label><input type="radio" name="q1" onclick="checkQuiz(1, true, '¡Correcto! <ol> significa Ordered List (Lista Ordenada).')"> &lt;ol&gt;</label>
+                <label><input type="radio" name="q1" onclick="checkQuiz(1, false, 'Incorrecto. <li> es el ítem, no la lista completa.')"> &lt;li&gt;</label>
+            </div>
+            <div id="fb1" class="feedback"></div>
+        </div>
+
+        <div class="quiz-item">
+            <p><strong>2. ¿Cuál es la diferencia entre &lt;br&gt; y &lt;hr&gt;?</strong></p>
+            <div class="quiz-options">
+                <label><input type="radio" name="q2" onclick="checkQuiz(2, false, 'Incorrecto. <br> no dibuja líneas.')"> &lt;br&gt; dibuja una línea y &lt;hr&gt; salta el renglón.</label>
+                <label><input type="radio" name="q2" onclick="checkQuiz(2, true, '¡Exacto! <br> (break) rompe la línea, <hr> (horizontal rule) dibuja una línea.')"> &lt;br&gt; es salto de línea, &lt;hr&gt; es línea horizontal.</label>
+            </div>
+            <div id="fb2" class="feedback"></div>
+        </div>
+
+        <div class="quiz-item">
+            <p><strong>3. ¿Es correcto usar tres &lt;h1&gt; en una misma página?</strong></p>
+            <div class="quiz-options">
+                <label><input type="radio" name="q3" onclick="checkQuiz(3, true, '¡Correcto! Por semántica y SEO, solo debe haber un título principal.')"> No, solo debería haber un &lt;h1&gt; principal.</label>
+                <label><input type="radio" name="q3" onclick="checkQuiz(3, false, 'Incorrecto. Visualmente se puede, pero semánticamente es un error.')"> Sí, puedo poner los que quiera.</label>
+            </div>
+            <div id="fb3" class="feedback"></div>
+        </div>
+    </section>
+
+    <section>
+        <h2>3. Desafío Práctico: Ritmo de Candombe 🥁</h2>
+        <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+            <p><strong>Contexto:</strong> Debes crear la estructura para una entrada de blog sobre el Candombe.</p>
+            <p><strong>Instrucciones:</strong> Escribe el código HTML que cumpla con:</p>
+            <ul style="font-size: 0.9rem;">
+                <li>Usa un <strong>&lt;h1&gt;</strong> con el título "El Candombe".</li>
+                <li>Agrega una línea horizontal <strong>&lt;hr&gt;</strong> debajo del título.</li>
+                <li>Escribe un párrafo <strong>&lt;p&gt;</strong> describiendo qué es.</li>
+                <li>Dentro del párrafo, usa un <strong>&lt;br&gt;</strong> para separar una frase larga.</li>
+                <li>Crea un subtítulo <strong>&lt;h2&gt;</strong> que diga "Instrumentos".</li>
+                <li>Crea una Lista Desordenada <strong>&lt;ul&gt;</strong> con los 3 tambores: Chico, Repique y Piano (usa <strong>&lt;li&gt;</strong>).</li>
+            </ul>
+        </div>
+
+        <div class="editor-wrapper">
+            <div>
+                <strong>CÓDIGO HTML:</strong>
+                <textarea id="codeEditor" spellcheck="false" placeholder="Escribe tu código aquí..."></textarea>
+            </div>
+            <div>
+                <strong>VISTA PREVIA:</strong>
+                <div id="preview" class="preview-pane"></div>
+            </div>
+        </div>
+
+        <button class="btn" onclick="validateCode()">
+            <i class="fas fa-check-circle"></i> Validar Código
+        </button>
+
+        <div id="validationResult" class="hidden">
+            <h3>Resultados de la Validación:</h3>
+            <table class="results-table">
+                <tbody id="resultsBody"></tbody>
+            </table>
+        </div>
+
+        <div id="successMessage" class="hidden" style="text-align: center; margin-top: 2rem;">
+            <h2 style="color: var(--success);">¡Misión Cumplida! 🎉</h2>
+            <p>Has dominado la estructura básica web.</p>
+            <button class="btn" onclick="generatePDF()" style="background-color: #e67e22;">
+                <i class="fas fa-file-pdf"></i> Descargar Evidencia PDF
+            </button>
+        </div>
+    </section>
+
+    <footer>
+        <p style="text-align: center; color: #7f8c8d; font-size: 0.8rem;">
+            Generado por Shanuki AI | Docente Digital
+        </p>
+    </footer>
+
+</div>
+
+<script>
+    // --- LÓGICA DE QUIZ ---
+    let quizScore = 0;
+    let quizAnswers = {1: false, 2: false, 3: false};
+
+    function checkQuiz(qNum, isCorrect, msg) {
+        const feedback = document.getElementById(`fb${qNum}`);
+        feedback.style.display = 'block';
+        feedback.className = isCorrect ? 'feedback correct' : 'feedback wrong';
+        feedback.innerText = msg;
+        
+        quizAnswers[qNum] = isCorrect;
+        updateScore();
+    }
+
+    function updateScore() {
+        let total = 0;
+        for (let k in quizAnswers) if (quizAnswers[k]) total++;
+        quizScore = total;
+        document.getElementById('score').innerText = total;
+    }
+
+    // --- EDITOR Y PREVIEW ---
+    const editor = document.getElementById('codeEditor');
+    const preview = document.getElementById('preview');
+
+    editor.addEventListener('input', () => {
+        preview.innerHTML = editor.value;
+    });
+
+    // Permitir tabulaciones en el textarea
+    editor.addEventListener('keydown', function(e) {
+        if (e.key == 'Tab') {
+            e.preventDefault();
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+            this.value = this.value.substring(0, start) + "  " + this.value.substring(end);
+            this.selectionStart = this.selectionEnd = start + 2;
+        }
+    });
+
+    // --- VALIDACIÓN ---
+    let passedValidation = false;
+
+    function validateCode() {
+        const code = editor.value;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(code, 'text/html');
+        const tbody = document.getElementById('resultsBody');
+        tbody.innerHTML = '';
+
+        // Criterios de evaluación
+        const criteria = [
+            { desc: "Etiqueta H1 presente", valid: doc.querySelector('h1') !== null },
+            { desc: "Separador Horizontal (<hr>)", valid: doc.querySelector('hr') !== null },
+            { desc: "Párrafo (<p>)", valid: doc.querySelector('p') !== null },
+            { desc: "Salto de Línea (<br>)", valid: code.includes('<br') }, // DOM a veces oculta BR vacíos
+            { desc: "Subtítulo H2", valid: doc.querySelector('h2') !== null },
+            { desc: "Lista Desordenada (<ul>)", valid: doc.querySelector('ul') !== null },
+            { desc: "Al menos 3 ítems de lista (<li>)", valid: doc.querySelectorAll('li').length >= 3 }
+        ];
+
+        let passCount = 0;
+        criteria.forEach(c => {
+            if (c.valid) passCount++;
+            const icon = c.valid ? '<i class="fas fa-check icon-pass"></i>' : '<i class="fas fa-times icon-fail"></i>';
+            tbody.innerHTML += `<tr><td>${c.desc}</td><td style="text-align:right;">${icon}</td></tr>`;
+        });
+
+        document.getElementById('validationResult').classList.remove('hidden');
+
+        if (passCount === criteria.length) {
+            passedValidation = true;
+            document.getElementById('successMessage').classList.remove('hidden');
+        } else {
+            passedValidation = false;
+            document.getElementById('successMessage').classList.add('hidden');
+        }
+    }
+
+    // --- PDF ---
+    function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const name = document.getElementById('studentName').value || "Estudiante";
+
+        // Estilo PDF
+        doc.setFillColor(72, 52, 212); // Color primario
+        doc.rect(0, 0, 210, 25, 'F');
+        
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(18);
+        doc.text("Evidencia de Aprendizaje: HTML Básico", 10, 16);
+
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(12);
+        doc.text(`Alumno: ${name}`, 10, 40);
+        doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 10, 48);
+        doc.text(`Puntaje Quiz Teórico: ${quizScore}/3`, 10, 56);
+        
+        doc.setLineWidth(0.5);
+        doc.line(10, 60, 200, 60);
+
+        doc.setFontSize(14);
+        doc.text("Código Escrito:", 10, 70);
+        
+        doc.setFont("courier", "normal");
+        doc.setFontSize(10);
+        
+        const codeLines = doc.splitTextToSize(editor.value, 180);
+        doc.text(codeLines, 10, 80);
+
+        let finalY = 80 + (codeLines.length * 5) + 10;
+        
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(0, 128, 0);
+        doc.text("ESTADO: APROBADO - Estructura Correcta", 10, finalY);
+
+        doc.save(`HTML_Candombe_${name}.pdf`);
+    }
+</script>
+
+</body>
+</html>

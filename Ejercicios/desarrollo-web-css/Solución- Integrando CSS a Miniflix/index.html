@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MiniFlix</title>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="encabezado">
+    <h1 class="logo">MiniFlix</h1>
+    <nav class="menu">
+      <a href="#destacadas">Destacadas</a>
+      <a href="#formulario">Suscribite</a>
+    </nav>
+  </header>
+
+  <main>
+      
+    <section id="destacadas">
+      <h2>Películas destacadas</h2>
+      <p>Según tus 🍪🍪🍪 , Seleccionamos estas pelis ara vos:</p>
+      <div class="peliculas">
+        <div class="pelicula">
+          <img src="https://cartelera.montevideo.com.uy/imagenes_espectaculos/moviedetail13/16477.jpg" alt="Póster de El código secreto">
+          <h3 class="titulo-pelicula">El código Enigma</h3>
+          <p class="sinopsis">Un enigma que cambiará el destino del mundo.</p>
+        </div>
+         <div class="pelicula">
+          <img src="https://cartelera.montevideo.com.uy/imagenes_espectaculos/moviedetail13/16477.jpg" alt="Póster de El código secreto">
+          <h3 class="titulo-pelicula">El código Enigma</h3>
+          <p class="sinopsis">Un enigma que cambiará el destino del mundo.</p>
+        </div>
+         <div class="pelicula">
+          <img src="https://cartelera.montevideo.com.uy/imagenes_espectaculos/moviedetail13/16477.jpg" alt="Póster de El código secreto">
+          <h3 class="titulo-pelicula">El código Enigma</h3>
+          <p class="sinopsis">Un enigma que cambiará el destino del mundo.</p>
+        </div>
+      </div>
+      
+      <hr>
+      <h3 class="titulos">¿Por qué ver estas películas?</h3>
+      <ul class="beneficios">
+        <li>Top 10 en varios países</li>
+        <li>Alta calidad de producción</li>
+        <li>Subtítulos y doblaje</li>
+      </ul>
+    </section>
+
+    <section>
+      <hr>
+      <h2 class="titulos">Tráiler destacado</h2>
+      <video src="trailer.mp4" controls width="400"></video>
+    </section>
+
+    <section id="formulario">
+      <h2>Suscribite a MiniFlix</h2>
+      <form>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre">
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email">
+        <button type="submit" class="btn btn-primary">Suscribirme</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 MiniFlix. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>

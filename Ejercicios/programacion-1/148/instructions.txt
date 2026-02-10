@@ -1,0 +1,16 @@
+Comienzos y finales de strings — startswith() y endswith()
+
+Como vimos, in nos puede decir si un string está incluido en otro. Hay dos casos particulares de esta operación: cuando un string comienza o termina con otro.
+
+La sintaxis de estas operaciones es un poco diferente: se prefijan con str.. Para verificar si un string comienza con otro se usa startswith(), y para saber si termina con otro se usa endswith().
+
+Ejemplos
+
+# Verifica si la cadena "Python" comienza con "Py"
+print("Python".startswith("Py"))  # True
+
+# Verifica si la cadena "Python" termina con "thon"
+print("Python".endswith("thon"))   # True
+
+
+Probá el código en el editor. También podés crear tus propios ejemplos, por ejemplo:

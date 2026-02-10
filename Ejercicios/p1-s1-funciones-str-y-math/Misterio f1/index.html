@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Misterio Fase 1</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f1e3; padding: 20px; }
+    .caja { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    input, button { padding: 10px; margin-top: 10px; border-radius: 6px; border: 1px solid #ccc; }
+    .correcto { color: green; font-weight: bold; }
+    .incorrecto { color: red; font-weight: bold; }
+    pre { background: #eee; padding: 10px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <div class="caja">
+    <h3>🔎 Misterio de asesinato – Fase 1</h3>
+    <p>Encuentras una nota arrugada con la siguiente variable en Python:</p>
+    
+    <p>Tu tarea: limpia los espacios sobrantes  y convierte todo a mayúsculas .  
+    Muestra en pantalla el resultado con <code>print()</code> y escribe la palabra final en la respuesta.</p>
+    
+    <iframe src="https://trinket.io/embed/python3/58560194b1e2" width="100%" height="200" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+    <input type="text" id="respuesta">
+    <button onclick="verificar()">Enviar</button>
+    <p id="feedback"></p>
+  </div>
+
+  <script>
+    function verificar() {
+      let r = document.getElementById("respuesta").value.trim();
+      let fb = document.getElementById("feedback");
+      // Respuesta correcta: aplicando strip() y upper() => "CUCHILLO ENCONTRADO EN LA BIBLIOTECA"
+      if (r.toUpperCase() === "CUCHILLO ENCONTRADO EN LA BIBLIOTECA") {
+        fb.innerHTML = "✅ Correcto. Código secreto: <b>X9T2A</b><br>Di"    ;
+        fb.className = "correcto";
+      } else {
+        fb.innerHTML = "❌ Incorrecto. Pista: usa str.strip() para quitar espacios y str.upper() para mayúsculas.";
+        fb.className = "incorrecto";
+      }
+    }
+  </script>
+</body>
+</html>

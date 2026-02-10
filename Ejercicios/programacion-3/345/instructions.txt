@@ -1,0 +1,14 @@
+Identificando Clases Abstractas
+
+Observá la jerarquía de clases:
+📌 Ahora respondé:
+¿Cuáles de las siguientes afirmaciones son correctas?
+🔘 1️⃣ Dispositivo es una clase concreta.
+🔘 2️⃣ Dispositivo es una clase abstracta.
+🔘 3️⃣ Tablet es una clase concreta.
+🔘 4️⃣ Notebook es una clase abstracta.
+🔘 5️⃣ Tablet hereda de Dispositivo.
+🔘 6️⃣ Dispositivo hereda de Notebook.
+🔘 7️⃣ Notebook hereda de Dispositivo.
+🔘 8️⃣ Las clases abstractas sirven para proveer comportamiento a las subclases.
+🔘 9️⃣ Las clases concretas se usan para crear instancias.

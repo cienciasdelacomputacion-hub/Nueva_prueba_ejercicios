@@ -1,0 +1,9 @@
+Prueba tú mismo:
+
+Cambia el valor de border-radius a un porcentaje (ej: 50%). ¿Qué forma obtiene la imagen si es cuadrada? (Sugerencia: ¡círculo!).
+
+Intenta dar diferentes radios a las esquinas. Puedes usar hasta cuatro valores, que se aplican en el orden Top-Left, Top-Right, Bottom-Right, Bottom-Left (ej: border-radius: 10px 50px 30px 0;).
+
+Aplica border-radius a un div con un color de fondo en lugar de una imagen.
+
+Investiga cómo aplicar radios elípticos usando dos valores por esquina (ej: border-radius: 10px / 20px;).

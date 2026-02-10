@@ -1,0 +1,40 @@
+🎯 ¿Qué hicimos?
+
+Transformamos el sitio original en 3 páginas HTML separadas:
+
+index.html → Página de Inicio
+destacadas.html → Página con Películas Destacadas
+formulario.html → Página con Formulario de Suscripción
+
+Cada una tiene una estructura completa con <header>, <main> y <footer>.
+
+🔗 ¿Cómo funciona el menú de navegación?
+
+El menú está presente en todas las páginas del sitio para que puedas navegar desde cualquier parte. Es decir: no importa en qué página estés, siempre vas a ver el mismo menú arriba.
+
+<nav>
+  <ul>
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="destacadas.html">Películas Destacadas</a></li>
+    <li><a href="formulario.html">Suscribite</a></li>
+  </ul>
+</nav>
+
+
+✅ ¿Por qué es importante esto?
+
+✅ Uniformidad: El usuario siempre sabe dónde está y cómo volver.
+✅ Enlaces Absolutos entre páginas: Cada <a href="..."> va directamente al archivo HTML de otra página.
+
+Ejemplos:
+
+href="formulario.html" abre el formulario.
+href="index.html" te lleva al inicio.
+
+✅ No depende de anclas internas (#), sino que navega entre archivos reales en tu proyecto.
+
+🧩 ¿Qué deberías tener en cuenta?
+
+Guardá todas las páginas en la misma carpeta para que los enlaces funcionen bien.
+Asegurate de nombrarlas exactamente igual (por ejemplo: formulario.html y no Formulario.html).
+Si probás el sitio en tu navegador, verás cómo al hacer clic en “Suscribite” o “Destacadas”, se abre otra página... ¡y el menú sigue ahí!

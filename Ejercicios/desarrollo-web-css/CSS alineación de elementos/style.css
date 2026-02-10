@@ -1,0 +1,29 @@
+/* Estilos Generales */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0; /* Elimina el margen por defecto del body */
+    background-color: #e0f7fa; /* Fondo suave para la página */
+    padding: 20px; /* Añade un poco de padding general */
+}
+
+h1 {
+    text-align: center; /* Centra el título dentro del contenedor */
+    color: #0077a6;
+}
+
+/* Estilos para el contenedor que queremos centrar */
+.centered-container {
+    /* 1. Limitar el ancho del contenedor */
+    max-width: 800px; /* Propiedad max-width: El contenedor tendrá como máximo 800px de ancho */
+    /* Puedes usar width: 800px; si quieres un ancho fijo, pero max-width es mejor para responsividad */
+
+    /* 2. Centrar el bloque horizontalmente */
+    /* Propiedad margin: auto; en los lados izquierdo y derecho */
+    margin: 20px auto; /* 20px de margen arriba/abajo, 'auto' a los lados para centrar */
+
+}
+
+/* Propiedad text-align: center: Centra los elementos inline/inline-block dentro de este div */
+.inline-elements {
+    text-align: center; 
+}

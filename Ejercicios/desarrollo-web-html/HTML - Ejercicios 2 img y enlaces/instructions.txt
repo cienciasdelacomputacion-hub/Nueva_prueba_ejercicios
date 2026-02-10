@@ -1,0 +1,10 @@
+🖼️Práctica: Imágenes y Enlaces en HTML
+
+El autor de esta página ha añadido mucho contenido, pero no ha organizado la información adecuadamente. Todo el texto está agrupado, lo que dificulta su lectura.
+
+🧪 Actividad
+Revisa el contenido y decide la mejor estructura para organizar la página.
+Añade comentarios al código para explicar la estructura.
+Usa etiquetas de encabezado, párrafo y lista para organizar el contenido.
+Crea enlaces para cada mascota que redirijan a una página externa ficticia.
+Agrega imágenes de las mascotas (lula.jpg, slowpoke.jpg, fluffy.jpg) y usa el atributo alt para mejorar la accesibilidad.

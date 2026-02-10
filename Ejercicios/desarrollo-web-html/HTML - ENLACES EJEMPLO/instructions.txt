@@ -1,0 +1,9 @@
+🔗 Probalo tu mismo: Enlaces
+
+Observá los ejemplos de enlaces a continuación. Luego seguí las instrucciones para practicar.
+
+🧪 Actividad
+
+1. Agrega un enlace a un sitio que vos uses todos los días.
+2. Prueba usar el atributo para abrirlo en otra pestaña.
+3. Crea un enlace que te lleve a una sección más abajo de esta misma página.

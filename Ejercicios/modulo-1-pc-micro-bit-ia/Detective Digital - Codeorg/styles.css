@@ -1,0 +1,87 @@
+/* Fondo oscuro con textura sutil */
+body {
+    background-color: #1e1e1e;
+    color: #dcdcdc;
+    font-family: 'Georgia', serif; /* Fuente elegante */
+}
+
+/* Encabezados con estilo detective */
+h1, h2, h3 {
+    color: #f2a900; /* Toques dorados para dar énfasis */
+    text-shadow: 1px 1px 2px black; /* Sombra sutil para dar un toque misterioso */
+    font-family: 'Courier New', Courier, monospace; /* Estilo de máquina de escribir */
+}
+
+/* Enlaces con un estilo de "pista" */
+a {
+    color: #f2a900;
+    text-decoration: none;
+    border-bottom: 2px solid #f2a900;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: #ff0000; /* Rojo brillante al pasar el ratón */
+    border-bottom: 2px solid #ff0000;
+}
+
+/* Botones con apariencia de acción */
+button {
+    background-color: #444;
+    color: white;
+    border: 2px solid #f2a900;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f2a900;
+    color: black;
+    border: 2px solid #ff0000;
+}
+
+/* Estilo de las listas, tipo lista de pistas */
+ul {
+    list-style-type: square;
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* Fondo de sección o contenido */
+section {
+    background-color: #333;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    border: 2px solid #444;
+}
+
+/* Sombra alrededor de los elementos para darles un toque más dramático */
+div, section, ul {
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.6);
+}
+
+/* Imagen de detective como fondo o elemento decorativo */
+.detective-bg {
+    background-image: url('ruta/a/imagen/detective.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    position: relative;
+}
+
+/* Texto en el fondo de detective */
+.detective-bg h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    color: #f2a900;
+    text-shadow: 2px 2px 10px black;
+}

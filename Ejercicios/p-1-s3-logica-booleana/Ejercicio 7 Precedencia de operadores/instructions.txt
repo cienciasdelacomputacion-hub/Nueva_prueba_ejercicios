@@ -1,0 +1,49 @@
+🧮 Ejercicio 7: Precedencia
+
+Cuando una expresión matemática tiene varios operadores, sabemos que las multiplicaciones y divisiones se realizan antes que las sumas y las restas:
+
+Ejemplo: 5 * 3 + 8 / 4 - 3 = 14
+
+Al igual que en matemáticas, los operadores lógicos también se evalúan siguiendo un orden específico llamado precedencia.
+¿Querés descubrir cuál es ese orden?
+
+Vamos a practicar la precedencia de los operadores lógicos con un ejemplo simple.
+Consideremos la expresión:
+
+resultado = True or False and not False
+
+
+Intentá adivinar qué valor tendrá resultado sin ejecutar la expresión.
+Luego comprobalo en Python para ver si acertaste.
+
+Actividad interactiva
+Evaluá paso a paso la expresión: True or False and not False.
+Escribí en Python cada paso y verificá si tu resultado coincide con la evaluación de Python.
+Probá cambiando los valores de True y False para ver cómo cambia el resultado.
+Tabla de precedencia de operadores
+Prioridad	Operaciones	Descripción
+1	*	Exponenciación
+2	, /, %	Multiplicación, división, resto
+3	+, -	Suma, resta
+4	in, <, <=, >, >=, ==, !=	Pertenencia, comparaciones
+5	not	Negación lógica
+6	and	Conjunción lógica
+7	or	Disyunción lógica
+
+En esta tabla, la prioridad va de mayor a menor: la 1 es la más alta y la 7 la más baja.
+
+Ejemplo de evaluación paso a paso
+
+Si evaluamos la expresión:
+
+8 + 2 * 3 < 15 and not 5 == 4
+
+
+Python la resuelve en este orden:
+
+2 * 3 = 6 → 8 + 6 < 15 and not 5 == 4
+8 + 6 = 14 → 14 < 15 and not 5 == 4
+14 < 15 = True → True and not 5 == 4
+5 == 4 = False → True and not False
+not False = True → True and True
+True and True = True

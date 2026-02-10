@@ -1,0 +1,138 @@
+/* new_activity.css (Estilo: Fenómenos Naturales / Data Atmosférica) */
+:root {
+    --natural-sky: #42a5f5; /* Azul Cielo: Color principal */
+    --natural-success: #66bb6a; /* Verde Naturaleza: Éxito */
+    --natural-warning: #ffb300; /* Amarillo Sol: Advertencia */
+    --natural-error: #ef5350; /* Rojo Emergencia */
+    --bg-light: #f5f5f5; /* Fondo claro */
+    --card-light: #ffffff; /* Fondo de tarjetas claro */
+    --text-dark: #333333; /* Texto oscuro */
+    --text-code: #00796b; /* Código en tono verde/azul oscuro */
+    --glow: rgba(66, 165, 245, 0.4);
+    --font-header: 'Orbitron', sans-serif;
+    --font-code: 'Roboto Mono', monospace;
+    --font-body: 'Fira Sans', sans-serif;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    padding: 30px;
+    background-image: radial-gradient(at 80% 80%, rgba(66, 165, 245, 0.1), transparent 70%); 
+}
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 15px;
+    background: var(--card-light);
+    border: 2px solid var(--natural-sky);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    font-family: var(--font-header);
+    color: var(--natural-sky);
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+}
+h3 {
+    font-family: var(--font-header);
+    color: var(--natural-success);
+    margin-top: 1.5rem;
+    border-bottom: 1px dashed rgba(102, 187, 106, 0.5);
+    padding-bottom: 8px;
+}
+textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 16px;
+    border-radius: 10px;
+    background: #f0f8ff; /* Azul muy claro */
+    border: 1px solid var(--natural-sky);
+    color: var(--text-code); 
+    resize: vertical;
+    font-family: var(--font-code);
+    font-size: 16px;
+    box-shadow: inset 0 0 8px rgba(0, 121, 107, 0.1);
+}
+textarea:focus {
+    outline: none;
+    border-color: var(--natural-success);
+    box-shadow: 0 0 10px rgba(102, 187, 106, 0.5), inset 0 0 8px rgba(102, 187, 106, 0.2);
+}
+button {
+    background-color: var(--natural-sky);
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--font-header);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    transition: transform 0.2s, background-color 0.2s;
+}
+button:hover {
+    background-color: #64b5f6;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(66, 165, 245, 0.4);
+}
+.console {
+    background: #e1f5fe; /* Azul muy claro para consola */
+    border-radius: 10px;
+    padding: 15px;
+    min-height: 40px;
+    border: 2px dashed var(--natural-warning);
+    color: var(--text-dark);
+    font-family: var(--font-code);
+    white-space: pre-wrap;
+    font-size: 1rem;
+    margin-top: 15px;
+}
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    font-family: var(--font-code);
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid rgba(66, 165, 245, 0.2);
+}
+th {
+    background-color: #e3f2fd;
+    color: var(--natural-sky);
+    font-family: var(--font-header);
+    font-weight: 400;
+}
+td {
+    color: var(--text-dark);
+    font-size: 0.9rem;
+}
+.status-pass { background-color: #e8f5e9; color: var(--natural-success); font-weight: bold; }
+.status-fail { background-color: #ffebee; color: var(--natural-error); font-weight: bold; }
+.hint {
+    background: #e3f2fd; /* Azul claro para pista */
+    border-left: 5px solid var(--natural-warning);
+    padding: 15px;
+    margin: 15px 0;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+.final-message {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-family: var(--font-header);
+    font-size: 1.1rem;
+    margin-top: 25px;
+}
+.message-pass { background-color: #e8f5e9; color: var(--natural-success); border: 2px solid var(--natural-success); }
+.message-fail { background-color: #ffebee; color: var(--natural-error); border: 2px solid var(--natural-error); }

@@ -1,0 +1,8 @@
+Ejercicio 5: El desenlace 🎭
+
+Ha llegado el momento de resolver el misterio.
+El inspector podrá revelar al culpable si un mensaje es más largo que otro y además es una pregunta.
+
+Si devuelve True, el inspector podrá exclamar: "¡El Programador Fantasma ha sido desenmascarado!" 👻
+
+Tu turno 📝: inventá 2 mensajes propios (uno que sea una pregunta y otro más corto). Probá si tu función descubre al culpable.

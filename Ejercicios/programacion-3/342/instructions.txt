@@ -1,0 +1,12 @@
+Modelando una Notebook
+
+Ahora vamos a modelar una Notebook. Y tiene las siguientes caracteristicas:
+
+Tiene un atributo bateria que se indica al crearla.
+Puede recibir el mensaje tiene_bateria(), que devuelve True si su batería es mayor a 20.
+Puede utilizar(minutos), lo que reduce su batería en la cantidad de minutos utilizados.
+Puede cargar_a_tope(), que deja la batería en 100.
+Puede recibir el mensaje tiene_bateria_maxima(), que devuelve True si la batería está en 100.
+La batería nunca puede ser menor de 0.
+
+Definí la clase Notebook con su constructor y los métodos utilizar, tiene_bateria, cargar_a_tope y tiene_bateria_maxima.

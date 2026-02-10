@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🗺️ Diccionarios en Python</title>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    <style>
+        /* ====== PALETA Y VARIABLES (Sin cambios) ====== */
+        :root {
+            --color-primary: #005eff; /* Azul vibrante (Banda Oriental) */
+            --color-accent: #3d8bfd;
+            --color-success: #28a745; 
+            --color-error: #dc3545;
+            --color-warn: #ffc107; 
+            --color-muted: #6c757d;
+            --color-bg: #f4f6f8;
+            --color-card: #ffffff;
+            --color-console-bg: #212529;
+            --color-console-text: #f8f9fa;
+            --radius: 10px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ====== ESTILOS GENERALES (Sin cambios) ====== */
+        body {
+            font-family: "Segoe UI", Roboto, Helvetica, sans-serif;
+            margin: 0;
+            padding: 30px;
+            background-color: var(--color-bg);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background-color: var(--color-card);
+            padding: 35px 40px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.9em;
+            margin-bottom: 30px;
+            line-height: 1.3;
+            color: #2b4b80;
+        }
+
+        h2 {
+            border-left: 5px solid var(--color-accent);
+            padding-left: 12px;
+            margin-top: 40px;
+        }
+        
+        h4 {
+            color: #333;
+        }
+
+        code {
+            background: #eaf0ff;
+            border: 1px solid #d0dbff;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+            font-size: 0.95em;
+        }
+
+        /* ====== LÍNEA DE TIEMPO / NAVEGACIÓN (Sin cambios) ====== */
+        #timeline {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+            overflow-x: auto;
+            /* Encabezado fijo */
+            position: sticky;
+            top: 0;
+            background: var(--color-card);
+            z-index: 50;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .mission-step {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            opacity: 0.6;
+            transition: all 0.3s ease-in-out;
+            margin: 0 5px;
+            width: 70px;
+            text-align: center;
+        }
+
+        .mission-step.active, .mission-step:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #f1f1f1;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 2px solid #ccc;
+            margin-bottom: 5px;
+        }
+        
+        /* ESTILO PARA LA MISIÓN ACTIVA (NO PASS/FAIL) */
+        .mission-step.active .step-circle:not(.pass):not(.error) {
+            background-color: var(--color-primary); 
+            color: white;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px rgba(0, 94, 255, 0.3);
+        }
+
+        .step-circle.pass {
+            background-color: var(--color-success);
+            color: white;
+            border-color: var(--color-success);
+        }
+
+        .step-circle.error {
+            background-color: var(--color-warn);
+            color: #333;
+            border-color: var(--color-warn);
+        }
+
+        /* ====== ACORDEÓN / CONTEXTO - CSS AJUSTADO PARA USAR max-height: null ====== */
+        #accordion-context {
+            margin-bottom: 25px;
+            border: 1px solid #ddd;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .accordion-header {
+            background: var(--color-primary);
+            color: white;
+            padding: 15px 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+        
+        .accordion-header:hover {
+            background: var(--color-accent);
+        }
+
+        .accordion-icon {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+        
+        .accordion-content {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            /* Se ha modificado el transition para que funcione bien con max-height: null */
+            transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out; 
+            background: var(--color-card);
+        }
+
+        #accordion-context.open .accordion-content {
+            /* **IMPORTANTE:** Se quita el max-height fijo, ahora JS maneja el scrollHeight */
+            padding: 25px;
+        }
+
+        #accordion-context.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Contenido interno del acordeón (contexto original) */
+        .contexto, .didactica, .ejemplo-salida {
+            background: #f0f5ff;
+            border-left: 5px solid var(--color-accent);
+            padding: 18px 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        
+        .didactica {
+            background: #fff8f0;
+            border-left-color: #ff9900;
+        }
+        
+        .ejemplo-salida {
+            background: #f3f3f3;
+            border-left-color: #555;
+        }
+        .ejemplo-salida p {
+            margin: 0;
+        }
+        .ejemplo-salida code {
+            font-size: 1.1em;
+            color: #111;
+        }
+
+        /* Ajustes para Tablas */
+        .accordion-content table {
+            margin-top: 15px;
+            margin-bottom: 25px;
+            box-shadow: none; /* Quitamos sombra doble */
+        }
+
+
+
+        /* ====== EDITOR Y CONSOLA (DUAL) (Sin cambios) ====== */
+        .code-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .editor-container, .console-container {
+            flex: 1 1 48%;
+            min-width: 300px;
+        }
+        
+        .dual-editor-wrapper {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .editor-part {
+            flex: 1;
+            min-width: 300px;
+            border: 1px solid #eee;
+            border-radius: var(--radius);
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .editor-part h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .code-editor {
+            width: 100%;
+            min-height: 280px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            background: #f9fbfd;
+            font-family: Consolas, monospace;
+            font-size: 14px;
+            padding: 14px;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .code-editor:disabled {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+        }
+
+        #output {
+            background-color: var(--color-console-bg);
+            color: var(--color-console-text);
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 120px;
+            white-space: pre-wrap;
+            font-family: Consolas, monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+        
+        /* Botón y Tabla (Sin cambios) */
+        .actions { margin: 15px 0; display: flex; align-items: center; gap: 20px; }
+        .run-button { background-color: var(--color-success); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-size: 15px; cursor: pointer; transition: all 0.3s ease-in-out; }
+        .run-button:hover:not(:disabled) { background-color: #1e7e34; transform: scale(1.03); }
+        
+        .run-button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        #attempts-counter { font-weight: 600; color: var(--color-primary); }
+
+        table {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        #validation-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.95em; }
+        #validation-table th, #validation-table td { border: 1px solid #dee2e6; padding: 10px 12px; text-align: left; }
+        #validation-table th { background-color: var(--color-primary); color: white; }
+        #validation-table tr:nth-child(even) { background-color: #f9fafb; }
+        .status-pass { color: var(--color-success); font-weight: bold; }
+        .status-fail { color: var(--color-error); font-weight: bold; }
+        
+        
+        h1 {
+            color: #2b4b80;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .status-message {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .status-message.pass {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .status-message.fail {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>De boliche en boliche 🍕🎶</h1>
+
+        <div id="timeline">
+        </div>
+
+        <div id="accordion-context" class="open">
+            <div class="accordion-header" onclick="toggleAccordion('accordion-context')">
+                <span>📚 Contexto y Referencia de Diccionarios</span>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+                <section class="mission">
+                    <h2>💡 Introducción: ¿Qué es un diccionario en Python?</h2>
+                    <p>
+                        Un <b>diccionario</b> en Python es una estructura que nos permite 
+                        <b>guardar información relacionada</b> bajo un mismo nombre. 
+                        Funciona como una <b>lista de datos, pero con etiquetas</b> 
+                        (llamadas <i>claves</i>) en lugar de posiciones numéricas.
+                    </p>
+
+                    <h3>🗂️ Ejemplo para entenderlo</h3>
+                    <p>
+                        Imaginemos que queremos representar un <b>boliche</b> dentro del programa. 
+                        Podríamos tener varios datos sobre él:
+                    </p>
+                    <ul>
+                        <li>Nombre</li>
+                        <li>Dirección</li>
+                        <li>Capacidad máxima</li>
+                        <li>Precio de entrada</li>
+                        <li>Si tiene pista de baile</li>
+                    </ul>
+
+                    <p>En lugar de usar muchas variables sueltas como:</p>
+                    <pre><code>nombre = "El Cometa Rojo"
+direccion = "Av. Estelar 123"
+capacidad = 200
+entrada = 1500
+pista = True
+</code></pre>
+
+                    <p>Podemos agrupar todo eso en un solo <b>diccionario</b>:</p>
+                    <pre><code>boliche = {
+    "nombre": "El Cometa Rojo",
+    "direccion": "Av. Estelar 123",
+    "capacidad": 200,
+    "entrada": 1500,
+    "pista": True
+}
+</code></pre>
+
+                    <h3>💬 Cómo pensarlo con una analogía</h3>
+                    <p>
+                        Un diccionario en programación es como una 
+                        <b>tarjeta de identidad digital</b>: cada persona (u objeto del mundo real) 
+                        tiene varios datos (nombre, edad, dirección…), 
+                        y todos esos datos están juntos en una misma ficha.
+                    </p>
+
+                    <pre><code>persona = {
+    "nombre": "Luna",
+    "edad": 25,
+    "profesion": "DJ"
+}
+</code></pre>
+
+                    <p>
+                        Así, con una sola variable (<code>persona</code>), 
+                        el programa puede manejar <b>toda la información relacionada</b> 
+                        con ese objeto real.
+                    </p>
+
+                    <h3>🔑 Claves y valores</h3>
+                    <p>
+                        Cada elemento tiene una <b>clave</b> (la etiqueta del dato) 
+                        y un <b>valor</b> (la información guardada).  
+                        Por ejemplo:
+                    </p>
+                    <ul>
+                        <li><code>"nombre"</code> → clave</li>
+                        <li><code>"El Cometa Rojo"</code> → valor</li>
+                    </ul>
+
+                    <p>Podemos acceder a un dato puntual escribiendo su clave:</p>
+                    <pre><code>print(boliche["capacidad"])  # Muestra: 200
+</code></pre>
+
+                    <h3>🚀 Por qué es tan útil</h3>
+                    <p>
+                        Los diccionarios nos permiten <b>representar objetos más complejos del mundo real</b> 
+                        dentro de un programa, agrupando muchas características en una sola estructura.  
+                        Con ellos podemos modelar <b>productos, clientes, lugares, pedidos o eventos</b>, 
+                        todo lo que en la vida real tiene múltiples atributos.
+                    </p>
+                </section>
+                
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="background-color: #005eff; color: white; padding: 8px;">Operación</th>
+                            <th style="background-color: #005eff; color: white; padding: 8px;">Sintaxis de Python</th>
+                            <th style="background-color: #005eff; color: white; padding: 8px;">Explicación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;"><b>Declaración</b></td>
+                            <td style="border: 1px solid #ddd; padding: 8px;"><code>plato = { "clave": "valor", "numero": 10 }</code></td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Se usan **llaves** <code>{}</code> y cada elemento es un par `clave: valor`.</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;"><b>Acceso (Lectura)</b></td>
+                            <td style="border: 1px solid #ddd; padding: 8px;"><code>plato["clave"]</code></td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Usamos corchetes <code>[]</code> con la clave deseada.</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;"><b>Adición/Modificación</b></td>
+                            <td style="border: 1px solid #ddd; padding: 8px;"><code>plato["nueva_clave"] = "nuevo_valor"</code></td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Asignas un valor a una clave que **no existe** para agregarla, o a una que **sí existe** para modificarla.</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;"><b>Mostrar con Bucle</b></td>
+                            <td style="border: 1px solid #ddd; padding: 8px;"><code>for clave in plato: </code>
+                            <pre>  print(plato[clave])</pre>
+                            </td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">El <code>for</code> itera sobre las **claves**. Usas <code>plato[clave]</code> para obtener el valor.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="exercise-content">
+        </div>
+
+        <div class="code-area">
+            
+            <div id="single-editor-container" class="editor-container" style="display: none;">
+                <h3>🧠 Editor de Código</h3>
+                <textarea id="code-editor-single" class="code-editor" spellcheck="false"></textarea>
+                <div class="actions">
+                    <button id="run-button-single" class="run-button" onclick="runCodeSingle()">▶ Ejecutar Código</button>
+                </div>
+            </div>
+
+            <div id="dual-editor-container" style="display: none;">
+                <h3>🧠 Editores de Código</h3>
+                <div class="dual-editor-wrapper">
+                    <div class="editor-part">
+                        <h4 id="editor-title-a">Parte A: Registro de Pedidos</h4>
+                        <textarea id="code-editor-a" class="code-editor" spellcheck="false"></textarea>
+                        <div class="actions">
+                            <button id="run-button-a" class="run-button" onclick="runPartA()">▶ Ejecutar Parte A</button>
+                        </div>
+                        <p id="status-message-a" class="status-message" style="display:none;"></p>
+                    </div>
+                    
+                    <div class="editor-part">
+                        <h4 id="editor-title-b">Parte B: Resumen de Historial</h4>
+                        <textarea id="code-editor-b" class="code-editor" spellcheck="false" disabled></textarea>
+                        <div class="actions">
+                            <button id="run-button-b" class="run-button" onclick="runPartB()" disabled>▶ Ejecutar Parte B</button>
+                        </div>
+                        <p id="status-message-b" class="status-message" style="display:none;"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="console-container">
+                <h3>💬 Consola de Salida</h3>
+                <pre id="output">Cargando Pyodide...</pre>
+            </div>
+        </div>
+
+        <h3>✅ Validación Automática</h3>
+        <p id="attempts-counter" style="text-align: right;">Intentos Totales: 0</p>
+        <table id="validation-table">
+            <thead>
+                <tr>
+                    <th>Consulta</th>
+                    <th>Descripción</th>
+                    <th>Esperado</th>
+                    <th>Obtenido</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody id="validation-body"></tbody>
+        </table>
+    </div>
+
+    <script>
+        let pyodide = null;
+        let attempts = 0;
+        let currentExercise = '1';
+        let exerciseStates = {}; 
+        let partAisPassed = false;
+        
+        // Diccionario de todos los ejercicios (Misión 11 eliminada y Misión 12 renombrada a 11)
+        const ALL_EXERCISES = {
+            '1': {
+                title: 'Variables dispersas',
+                intro: "Comprende por qué los diccionarios son esenciales para agrupar datos.",
+                consigna: 'Una historiadora registró datos de monumentos uruguayos en variables separadas. Observa en el código cómo se agrupa esa información en diccionarios. **No necesitas escribir código, solo presiona Ejecutar** para ver la diferencia en la consola.',
+                ejemplos: `<p>La información del Faro de Punta Brava y el Palacio Salvo ya está agrupada. Revisa la consola para ver el resultado de los <code>print()</code>.</p>`,
+                didactica: `<h4>🎯 Aprenderás a:</h4><ul><li>Diferenciar variables sueltas de un diccionario.</li><li>Leer la salida de <code>print()</code>.</li></ul>`,
+                code: `nombre_faros = "Faro de Punta Brava"
+locacion_faros = "Montevideo"
+anio_faros = 1876
+
+# La forma eficiente: usando diccionarios
+
+faro_punta_brava = { "nombre": "Faro de Punta Brava", 
+                     "locacion": "Montevideo", 
+                     "anio": 1876 
+                     }
+palacio_salvo = { "nombre": "Palacio Salvo", 
+                "locacion": "Montevideo", 
+                "anio": 1928 
+                }
+
+print("Faros del Puerto (variables separadas):", nombre_faros, anio_faros)
+print("Palacio Salvo (diccionario):", palacio_salvo["nombre"], palacio_salvo["anio"])`,
+                tests: [
+                    { query: 'palacio_salvo["anio"]', description: 'Acceso al año del Palacio Salvo', expected: 1928 },
+                    { query: 'faro_punta_brava["nombre"]', description: 'Acceso al nombre del Faro de Punta Brava', expected: 'Faro de Punta Brava' },
+                ]
+            },
+            '2': {
+                title: 'Catalogando Monumentos',
+                intro: "Practica la sintaxis básica para crear (declarar) un diccionario.",
+                consigna: 'Crea dos diccionarios, **`monumento_las_piedras`** y **`monumento_artigas`**, que representen monumentos uruguayos. Cada diccionario debe tener las claves **"nombre"** (<code>str</code>), **"locacion"** (<code>str</code>) y **"anio_construccion"** (<code>int</code>).',
+                ejemplos: `<ul><li><b>Monumento Las Piedras:</b> Las Piedras, Uruguay — año 1911</li><li><b>Monumento Artigas:</b> Montevideo, Uruguay — año 1923</li></ul>`,
+                didactica: `<h4>🎯 Aprenderás a:</h4><ul><li>Usar la sintaxis <code>{ "clave": "valor" }</code>.</li><li>Asignar diccionarios a variables.</li><li>Usar <code>int</code> y <code>str</code> como valores.</li></ul>`,
+                code: `#Tu código:
+`,
+                tests: [
+                    { query: 'isinstance(monumento_las_piedras, dict)', description: 'monumento_las_piedras es un diccionario', expected: true },
+                    { query: 'monumento_las_piedras.get("anio_construccion")', description: 'Año de construcción de Las Piedras', expected: 1911 },
+                    { query: 'isinstance(monumento_artigas.get("anio_construccion"), int)', description: 'El año es tipo int', expected: true },
+                    { query: 'monumento_artigas.get("nombre")', description: 'Nombre del monumento uruguayo', expected: 'Monumento a Artigas' },
+                ]
+            },
+            '3': {
+                title: 'El Mercado del Puerto',
+                intro: "Refuerza la creación de diccionarios modelando platos del Mercado del Puerto.",
+                consigna: 'Inicializa los platos típicos <code>chivito</code>, <code>asado</code> y <code>milanesa</code> como diccionarios. Cada diccionario debe tener las claves **"nombre"** (<code>str</code>), **"precio_uy"** (<code>int</code>) y **"apto_vegetariano"** (<code>bool</code>).',
+                ejemplos: `<ul><li><b>Chivito:</b>"Chivito al Plato", $450, vegetariano: No</li><li><b>Asado:</b> "Asado con Guarnición", $600, vegetariano: No</li><li><b>Milanesa:</b>"Milanesa Napolitana", $350, vegetariano: Si</li></ul>`,
+                didactica: `<h4>🎯 Aprenderás a:</h4><ul><li>Usar <code>bool</code> (<code>True</code>/<code>False</code>) como valores.</li><li>Crear múltiples diccionarios con la misma estructura.</li></ul>`,
+                code: `# Tu cód aqui: `,
+                tests: [
+                    { query: 'chivito.get("precio_uy")', description: 'Precio del Chivito', expected: 450 },
+                    { query: 'asado.get("apto_vegetariano")', description: 'Asado es vegetariano (False)', expected: false },
+                    { query: 'isinstance(milanesa.get("precio_uy"), int)', description: 'Precio de Milanesa es int', expected: true },
+                ]
+            },
+            '4': {
+                title: ' Reporte de Platos',
+                intro: "Aprende a acceder a los datos de un diccionario dentro de una función.",
+                consigna: 'Define una función <code>reporte_de_plato(plato)</code> que reciba un diccionario de plato y **retorne** un <code>str</code> formateado con su nombre y precio. Usa la conversión <code>str()</code> para concatenar el precio.',
+                ejemplos: `<div class="ejemplo-salida"><p><b>Ejemplo de salida esperada:</b> <code>"El Chivito al Plato tiene un precio de 450 pesos"</code></p></div>`,
+                didactica: `<h4>🎯 Aprenderás a:</h4><ul><li>Recibir un diccionario como parámetro de una función.</li><li>Acceder a valores usando <code>diccionario["clave"]</code>.</li><li>Convertir números a texto con <code>str()</code>.</li></ul>`,
+                code: `# Diccionarios de prueba (no modificar)
+chivito = {"nombre": "Chivito al Plato", "precio_uy": 450}
+milanesa = {"nombre": "Milanesa Napolitana", "precio_uy": 350}
+
+#Define tu función aqui:
+
+`,
+                tests: [
+                    { query: 'reporte_de_plato(chivito)', description: 'Prueba con Chivito', expected: 'El Chivito al Plato tiene un precio de 450 pesos' },
+                    { query: 'reporte_de_plato(milanesa)', description: 'Prueba con Milanesa', expected: 'El Milanesa Napolitana tiene un precio de 350 pesos' },
+                ]
+            },
+            '5': {
+                title: ' Modificando Precios',
+                intro: "Practica cómo modificar el valor de una clave existente.",
+                consigna: 'Define el procedimiento <code>actualizar_precio(plato, nuevo_precio)</code>. Este recibe un diccionario <code>plato</code> y un <code>int</code> <code>nuevo_precio</code>, y **modifica** el valor de la clave <strong>"precio_uy"</strong> dentro del diccionario.',
+                ejemplos: `Si <code>chivito["precio_uy"]</code> es 450 y el nuevo valor es 500, la función debe actualizar ese valor a 500 usando asignación.`,
+                didactica: `<h4>🎯 Aprenderás a:</h4><ul><li>Modificar un diccionario (es mutable).</li><li>Usar la sintaxis <code>diccionario["clave"] = nuevo_valor</code>.</li></ul>`,
+                code: `# Diccionario de prueba (no modificar)
+chivito = { "nombre": "Chivito al Plato", "precio_uy": 450, "apto_vegetariano": False }
+
+# Define tu procedimiento aqui:
+`,
+                tests: [
+                    { query: 'actualizar_precio(chivito, 500); chivito["precio_uy"]', description: 'Precio modificado a 500', expected: 500 },
+                    { query: 'chivito["apto_vegetariano"]', description: 'Campo vegetariano sin modificar', expected: false },
+                ]
+            },
+            '6': {
+                title: ' Productos de Época',
+                intro: "Usa funciones auxiliares para procesar datos de un diccionario.",
+                consigna: 'Define la función <code>es_de_la_vieja_escuela(producto)</code>. Retorna **<code>True</code>** si el año en el campo <strong>"fecha_lanzamiento"</strong> (formato DD/MM/AAAA) es **anterior a 2005**. Usa la función auxiliar <code>obtener_anio(fecha_str)</code>.',
+                ejemplos: `<ul><li>Fecha "14/09/2004" retorna <code>True</code></li><li>Fecha "25/09/2017" retorna <code>False</code></li></ul>`,
+                didactica: `<h4>🎯 Aprenderás a:</h4><ul><li>Pasar datos de un diccionario a otra función.</li><li>Retornar <code>True</code> o <code>False</code> basado en una condición.</li></ul>`,
+                code: `# Función auxiliar (NO MODIFICAR)
+def obtener_anio(fecha_str):
+    return int(fecha_str.split('/')[-1])
+    
+# Diccionarios de prueba (no modificar)
+prod_viejo = { "fecha_lanzamiento": "14/09/2004" }
+prod_nuevo = { "fecha_lanzamiento": "25/09/2017" }
+
+#Define tu funcion aquí: 
+
+`,
+                tests: [
+                    { query: 'es_de_la_vieja_escuela(prod_viejo)', description: 'Producto de 2004', expected: true },
+                    { query: 'es_de_la_vieja_escuela(prod_nuevo)', description: 'Producto de 2017', expected: false },
+                ]
+            },
+            '7': {
+                title: ' Postres Complejos (Lista en Diccionario)',
+                intro: "Descubre cómo anidar listas dentro de diccionarios.",
+                consigna: 'Define la función <code>mas_dificil_de_cocinar(p1, p2)</code> que recibe dos diccionarios de postres. Debe **retornar** el diccionario del postre que tenga **más ingredientes**. Usa <code>len()</code> sobre la lista de ingredientes.',
+                ejemplos: `Si el <code>chajá</code> tiene 4 ingredientes y la <code>pastafrola</code> tiene 2, retorna el diccionario <code>chajá</code>.`,
+                didactica: `<h4>🎯 Aprenderás a:</h4>
+                    <ul><li>Usar una lista como valor (<code>"clave": [...]</code>).</li>
+                    <li>Acceder a la lista anidada.</li>
+                    <li>Usar <code>len()</code> en una lista dentro de un diccionario.</li></ul>
+                    <hr>
+                    <p>Una <strong>lista</strong> puede ser el valor de una clave en un diccionario. Esto es clave para agrupar múltiples ítems (ej. ingredientes) bajo una única propiedad, como los ingredientes de un postre uruguayo.</p>
+                    <pre><code>chaja = {
+    "ingredientes": ["merengue", "durazno", "crema", "bizcochuelo"], 
+    "tiempo_preparacion": 40
+}</code></pre>`,
+                code: `# Define la función mas_dificil_de_cocinar(postre1, postre2) aquí:
+
+
+# Diccionarios de prueba (no modificar)
+chaja = { "ingredientes": ["m", "d", "c", "b"], "tiempo_de_coccion": 40 } # 4 ingredientes
+pastafrola = { "ingredientes": ["harina", "membrillo"], "tiempo_de_coccion": 50 }   # 2 ingredientes`,
+                tests: [
+                    // El test espera un diccionario, por lo que la función DEBE retornar p1 o p2.
+                    { query: 'mas_dificil_de_cocinar(chaja, pastafrola)["tiempo_de_coccion"]', description: 'Retorna el postre con más ingredientes (chajá)', expected: 40 },
+                    { query: 'mas_dificil_de_cocinar(pastafrola, chaja)["tiempo_de_coccion"]', description: 'Retorna el chajá (4 > 2)', expected: 40 },
+                ]
+            },
+            '8': {
+                title: 'Listas de Diccionarios',
+                intro: "Observa la estructura de datos más común: una lista de diccionarios, y aprende a recorrerla.",
+                consigna: 'Las listas pueden contener diccionarios. Observa la estructura y el código en el editor que ahora incluye un bucle **`for`** para recorrer la lista de diccionarios y mostrar la información de cada lugar histórico. **No necesitas escribir código, solo presiona Ejecutar** para ver la demostración en la consola.',
+                ejemplos: `<p><strong>postres_favoritos:</strong> Es una lista donde cada elemento es un diccionario de postre.</p><p><strong>Acceso:</strong> Para obtener el nombre del segundo lugar histórico, harías: <code>lugares_historicos[1]["nombre"]</code></p>`,
+                didactica: `<h4>🎯 Aprenderás a:</h4><ul><li>Diferenciar una lista de diccionarios de un diccionario con listas.</li><li>Acceder a un diccionario por índice (<code>lista[0]</code>).</li><li>Acceder a un valor anidado (<code>lista[0]["clave"]</code>).</li><li>Iterar sobre la lista de diccionarios con un bucle <code>for</code>.</li></ul>`,
+                code: `# Lista de diccionarios (postres uruguayos)
+postres_favoritos = [
+    {"nombre": "Chajá", "minutos": 45}, 
+    {"nombre": "Ricardito", "minutos": 5}
+]
+
+# Lista de diccionarios (lugares históricos)
+lugares_historicos = [
+    {"nombre": "Palacio Legislativo", "anio": 1925},
+    {"nombre": "Fortaleza del Cerro", "anio": 1809}
+]
+
+print("--- Acceso directo (Índice y Clave) ---")
+print("Primer postre favorito:", postres_favoritos[0]["nombre"])
+print("Año de construcción del segundo lugar:", lugares_historicos[1]["anio"])
+
+print("--- Recorrido con Bucle FOR ---")
+for lugar in lugares_historicos:
+    nombre = lugar["nombre"]
+    anio = lugar["anio"]
+    print(f"{nombre} fue construido en {anio}")`,
+                tests: [
+                    { query: 'lugares_historicos[0]["anio"]', description: 'Año del primer lugar histórico', expected: 1925 },
+                    { query: 'postres_favoritos[1]["minutos"]', description: 'Minutos del segundo postre', expected: 5 },
+                ]
+            },
+            '9': {
+                title: ' 60 Dulces Minutos',
+                intro: "Filtra diccionarios de una lista basado en una condición.",
+                consigna: 'Define el procedimiento <code>agregar_a_postres_rapidos(lista_rapidos, postre)</code> donde recibe una lista y un diccionario. Agrega el <code>postre</code> a la <code>lista_rapidos</code> **solo si** su <strong>"tiempo_de_coccion"</strong> es **menor o igual a 60 minutos** (1 hora). ',
+                ejemplos: `Usa la estructura <code>if condicion: lista.append(elemento)</code>. 
+                Define la funcion y luego llama la ejecución para pruebas: 
+                <pre>agregar_a_postres_rapidos(postres_rapidos_test, chaja)</pre> <pre> agregar_a_postres_rapidos(postres_rapidos_test, tarta)</pre> `,
+                didactica: `<h4>🎯 Aprenderás a:</h4><ul><li>Usar <code>if</code> para verificar un valor en un diccionario.</li><li>Usar <code>.append()</code> para agregar diccionarios a una lista.</li> 
+                </ul>`,
+                code: `# Lista de prueba (no modificar)
+postres_rapidos_test = []
+
+# Diccionarios de prueba (no modificar)
+chaja = { "nombre": "chajá", "tiempo_de_coccion": 40 } # Rápido
+tarta = { "nombre": "tarta de manzana", "tiempo_de_coccion": 80 } # Lento
+
+#Define la función aquí:
+
+
+# Ejecución para pruebas:
+agregar_a_postres_rapidos(postres_rapidos_test, chaja)
+agregar_a_postres_rapidos(postres_rapidos_test, tarta)`,
+                tests: [
+                    { query: 'len(postres_rapidos_test)', description: 'Solo se debe agregar el postre rápido', expected: 1 },
+                    { query: 'postres_rapidos_test[0].get("nombre")', description: 'El postre agregado debe ser el chajá', expected: 'chajá' },
+                ]
+            },
+            '10': {
+                title: ' Diccionario en Diccionario (¡Azúcar!)',
+                intro: "Domina el anidamiento accediendo a un diccionario dentro de otro.",
+                consigna: 'Define el procedimiento <code>endulzar_menu(menu)</code>, que recibe un diccionario de <code>menu</code> y le agrega el <code>str</code> <strong>"azúcar"</strong> a la lista de <strong>"ingredientes"</strong> de su postre.',
+                ejemplos: `Acceso anidado: <code>menu["postre"]["ingredientes"].append("azúcar")</code>`,
+                didactica: `<h4>🎯 Aprenderás a:</h4>
+                    <ul>
+                        <li>Acceder a un diccionario anidado (<code>dic["clave1"]["clave2"]</code>).</li>
+                        <li>Modificar listas dentro de diccionarios anidados.</li>
+                    </ul>
+                    <hr>
+                    <p>Un diccionario puede contener otro diccionario como valor. Esto nos permite representar objetos más complejos del mundo real dentro del código.</p>
+                    <p>Por ejemplo, un menú con un postre que también tiene ingredientes:</p>
+                    <pre><code>menu = {
+    "entrada": "ensalada",
+    "plato_principal": "pasta con salsa",
+    "postre": {
+        "nombre": "flan",
+        "ingredientes": ["leche", "huevo"]
+    }
+}</code></pre>
+                    <p>Para acceder de forma anidada:</p>
+                    <pre><code>menu["postre"]          # ← Diccionario del postre
+menu["postre"]["ingredientes"]  # ← Lista de ingredientes</code></pre>
+                    <div class="tip-box">
+                        <strong>💡 Consejo:</strong> cuando ves corchetes uno dentro de otro, significa que estás "entrando" a distintos niveles del diccionario.
+                    </div>`,
+                code: `# Diccionario de prueba (no modificar)
+menu_del_dia = {
+    "plato_principal": "milanesas",
+    "postre": { 
+        "ingredientes": ["queso crema", "frambuesas"], 
+        "tiempo_de_coccion": 80 
+    }
+}
+#Define tu procedimiento aqui:
+
+
+# Probando ... (no borrar)
+endulzar_menu(menu_del_dia)
+print(menu_del_dia)`,
+                tests: [
+                    { query: 'len(menu_del_dia["postre"]["ingredientes"])', description: 'El postre debe tener 3 ingredientes', expected: 3 },
+                    { query: '"azúcar" in menu_del_dia["postre"]["ingredientes"]', description: 'El ingrediente "azúcar" debe estar presente', expected: true },
+                    { query: 'menu_del_dia["postre"]["ingredientes"][-1]', description: 'Azúcar debe ser el último ingrediente', expected: 'azúcar' },
+                ]
+            },
+            
+
+        };
+
+        // --- Lógica de Pyodide y la Interfaz ---
+        let globalTests = ALL_EXERCISES[currentExercise].tests;
+
+        // 🌟 FUNCIÓN DE ACORDEÓN CORREGIDA 
+        // Usa max-height: scrollHeight y max-height: null para la transición
+        function toggleAccordion(id) {
+            const acc = document.getElementById(id);
+            acc.classList.toggle('open');
+            const content = acc.querySelector('.accordion-content');
+            if (acc.classList.contains('open')) {
+                // Abre
+                content.style.maxHeight = content.scrollHeight + 'px';
+            } else {
+                // Cierra
+                content.style.maxHeight = null;
+            }
+        }
+
+
+        async function initializePyodide() {
+            pyodide = await loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.0/full/" });
+            document.getElementById('output').innerText = '✅ Pyodide cargado. ¡Listo para codificar!';
+            
+            const runButtonSingle = document.getElementById('run-button-single');
+            if (runButtonSingle) runButtonSingle.disabled = false;
+            
+            generateTimeline();
+            loadExercise('1');
+            
+            // Inicialización de la altura del acordeón
+            const accordion = document.getElementById('accordion-context');
+            const content = accordion.querySelector('.accordion-content');
+            if (accordion.classList.contains('open')) {
+                // Si la clase 'open' está en el HTML al inicio, calcula la altura.
+                content.style.maxHeight = content.scrollHeight + 'px'; 
+            }
+        }
+
+        function generateTimeline() {
+            const timeline = document.getElementById('timeline');
+            timeline.innerHTML = '';
+            // Se actualizan las claves de los ejercicios, la Misión 12 pasa a ser 11
+            const exerciseKeys = Object.keys(ALL_EXERCISES).sort((a, b) => parseInt(a) - parseInt(b));
+
+            exerciseKeys.forEach(key => {
+                const data = ALL_EXERCISES[key];
+                const step = document.createElement('div');
+                step.className = 'mission-step';
+                step.onclick = () => loadExercise(key);
+                step.setAttribute('title', `Misión ${key}: ${data.title}`); // Tooltip
+                
+                const status = exerciseStates[key] || 'pending';
+
+                step.innerHTML = `
+                    <div class="step-circle ${status}" id="step-${key}">${key}</div>
+                    <small>Misión ${key}</small>
+                `;
+                timeline.appendChild(step);
+            });
+            const activeStep = document.getElementById(`step-${currentExercise}`);
+            if (activeStep) activeStep.parentElement.classList.add('active');
+        }
+
+        function toggleDualEditor(isDual) {
+            const singleContainer = document.getElementById('single-editor-container');
+            const dualContainer = document.getElementById('dual-editor-container');
+            
+            if (isDual) {
+                if (singleContainer) singleContainer.style.display = 'none';
+                if (dualContainer) dualContainer.style.display = 'block';
+
+                const titleA = document.getElementById('editor-title-a');
+                const titleB = document.getElementById('editor-title-b');
+                if (titleA) titleA.innerText = 'Parte A: Registro de Pedidos';
+                if (titleB) titleB.innerText = 'Parte B: Resumen de Historial';
+            } else {
+                if (singleContainer) singleContainer.style.display = 'block';
+                if (dualContainer) dualContainer.style.display = 'none';
+            }
+        }
+
+        function loadExercise(exerciseKey) {
+            currentExercise = exerciseKey;
+            const data = ALL_EXERCISES[exerciseKey];
+            attempts = 0;
+            document.getElementById('attempts-counter').innerText = `Intentos Totales: ${attempts}`;
+            document.getElementById('validation-body').innerHTML = "";
+            document.getElementById('output').innerText = "Ejercicio cargado.";
+            
+            // Resetear estados y botones para el editor dual
+            partAisPassed = false;
+            
+            // Todas las misiones restantes usan el editor simple
+            toggleDualEditor(false); 
+            
+            const singleEditor = document.getElementById('code-editor-single');
+            const runButton = document.getElementById('run-button-single');
+            
+            if (singleEditor) { 
+                singleEditor.value = data.code.trim();
+                singleEditor.disabled = false;
+            }
+            if (runButton) runButton.disabled = false;
+            
+            globalTests = data.tests;
+            
+            
+            generateTimeline(); 
+            const activeStep = document.getElementById(`step-${currentExercise}`);
+            if (activeStep) activeStep.parentElement.classList.add('active');
+
+            let contentHTML = `
+                <h2>💡 Misión ${exerciseKey}: ${data.title}</h2>
+                <p><strong>${data.intro}</strong></p>
+                <p><strong>Consigna:</strong> ${data.consigna}</p>
+            `;
+            
+            if (data.didactica) {
+                contentHTML += `<div class="didactica">${data.didactica}</div>`;
+            }
+
+            if (data.ejemplos) {
+                contentHTML += `
+                    <div class="contexto" style="background: #e9f5ff; border-left-color: var(--color-accent);">
+                        <p><b>Ejemplos y Estructuras:</b></p>
+                        ${data.ejemplos}
+                    </div>`;
+            }
+            
+            if (data.ejemplo_salida) {
+                contentHTML += `<div class="ejemplo-salida">${data.ejemplo_salida}</div>`;
+            }
+
+            document.getElementById('exercise-content').innerHTML = contentHTML;
+        }
+
+        async function runCodeSingle() {
+            if (!pyodide) return;
+            const code = document.getElementById('code-editor-single').value;
+            await executeCodeAndTest(code); 
+        }
+
+        async function runPartA() {
+             // Lógica de runPartA (deshabilitada en las misiones actuales)
+        }
+
+        async function runPartB() {
+            // Lógica de runPartB (deshabilitada en las misiones actuales)
+        }
+
+
+        async function executeCodeAndTest(code, part = 'Single') {
+            attempts++;
+            document.getElementById('attempts-counter').innerText = `Intentos Totales: ${attempts}`;
+            const outputElement = document.getElementById('output');
+            const validationBody = document.getElementById('validation-body');
+            validationBody.innerHTML = "";
+            outputElement.innerText = `⏳ Ejecutando Código...`;
+
+            const testSet = globalTests; 
+
+            // Configuración para capturar la salida de print()
+            const setupCode = `
+import io
+import sys
+sys.stdout = io.StringIO()
+sys.stderr = io.StringIO()
+`;
+
+            let passedAll = true;
+            let printOutput = '';
+            let errorOutput = '';
+
+            try {
+                // 1. Ejecutar el código de configuración y el código del usuario
+                pyodide.runPython(setupCode + code);
+                
+                // Capturar outputs después de la ejecución
+                printOutput = pyodide.runPython("sys.stdout.getvalue()");
+                errorOutput = pyodide.runPython("sys.stderr.getvalue()");
+
+                let resultsHTML = "";
+                
+                // 2. Ejecutar las pruebas de validación
+                for (const test of testSet) {
+                    let result;
+                    let passed;
+                    let resultText = '';
+                    
+                    try {
+                        let query = test.query;
+                        
+                        // Si la prueba necesita el output de la consola, inyectamos la variable capturada
+                        if (query.includes('printOutput')) {
+                            const expected = test.expected;
+                            // Preparamos la consulta con el string literal de Python (triple comilla)
+                            const queryWithOutput = query.replace('printOutput', `'''${printOutput}'''`); 
+                            
+                            result = pyodide.runPython(queryWithOutput);
+                            
+                            passed = result === expected;
+                            resultText = String(result);
+                        } else {
+                            result = pyodide.runPython(test.query);
+                            if (result?.toJs) result = result.toJs();
+                            
+                            passed = result === test.expected;
+                            resultText = String(result);
+                        }
+
+                    } catch (e) {
+                        resultText = `ERROR: ${e.message.split(' at ')[0]}`;
+                        passed = false;
+                    }
+
+                    resultsHTML += `
+                        <tr>
+                            <td><code>${test.query}</code></td>
+                            <td>${test.description}</td>
+                            <td>${test.expected}</td>
+                            <td>${resultText}</td>
+                            <td>${passed ? '<span class="status-pass">✅ PASÓ</span>' : '<span class="status-fail">❌ FALLÓ</span>'}</td>
+                        </tr>
+                    `;
+                    if (!passed) passedAll = false;
+                }
+                
+                validationBody.innerHTML = resultsHTML;
+
+            } catch (error) {
+                // Capturar errores de sintaxis o de ejecución fatal
+                errorOutput = pyodide.runPython("sys.stderr.getvalue()") || error.message;
+                validationBody.innerHTML = `<tr><td colspan="5" class="status-fail">❌ ERROR DE SINTAXIS O EJECUCIÓN: Revisa el código.</td></tr>`;
+                passedAll = false;
+            }
+            
+            // 4. Mostrar la salida final
+            let consoleContent = printOutput.trim();
+            if (errorOutput.trim()) {
+                consoleContent += `\n\n--- ERROR DE PYTHON ---\n${errorOutput.trim()}`;
+            }
+
+            outputElement.innerText = (consoleContent ? consoleContent + '\n\n---\n' : '') + 
+                                     (passedAll ? `🎉 ¡Excelente! Todas las pruebas pasaron.` : `⚠️ Revisa los errores y vuelve a intentar.`);
+            
+            // 5. Actualizar el estado y habilitar/deshabilitar botones
+            const runButton = document.getElementById('run-button-single');
+            if (passedAll) {
+                exerciseStates[currentExercise] = 'pass';
+                if (runButton) runButton.disabled = true;
+            } else {
+                exerciseStates[currentExercise] = 'error';
+                if (runButton) runButton.disabled = false;
+            }
+
+            generateTimeline(); 
+        }
+
+
+        // --- Habilitar Tabulación en Editor (Sin cambios) ---
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab' && e.target.classList.contains('code-editor')) {
+                e.preventDefault();
+                const start = e.target.selectionStart;
+                const end = e.target.selectionEnd;
+                const value = e.target.value;
+                
+                // Inserta 4 espacios
+                e.target.value = value.substring(0, start) + "    " + value.substring(end);
+                
+                // Mueve el cursor
+                e.target.selectionStart = e.target.selectionEnd = start + 4;
+            }
+        });
+
+        // Iniciar la carga de Pyodide al cargar la página (Sin cambios)
+        const initialRunButton = document.getElementById('run-button-single');
+        if (initialRunButton) initialRunButton.disabled = true;
+        
+        initializePyodide();
+    </script>
+</body>
+</html>

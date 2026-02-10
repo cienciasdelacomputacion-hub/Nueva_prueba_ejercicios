@@ -1,0 +1,13 @@
+Modelando Medios de Transporte
+
+Vamos a modelar los medios de transporte Auto y Moto, que comparten características.
+Creá una superclase MedioDeTransporte y hacé que Auto y Moto hereden de ella.
+Sabemos que:
+
+Todos los medios de transporte tienen combustible, inicializado al crearlos.
+Pueden cargar_combustible(cantidad), sumando la cantidad indicada.
+Ambos pueden entran_personas(cantidad), devolviendo True si la cantidad es menor o igual a su capacidad.
+Un Auto puede llevar hasta 5 personas y consume 0.5 litros por km.
+Una Moto puede llevar hasta 2 personas y consume 1 litro por km.
+
+Definí las clases con sus métodos correspondientes.

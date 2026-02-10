@@ -1,0 +1,20 @@
+Ejercicio 3: La clave en la sintaxis 🔑
+
+El inspector descubrió un nuevo enigma: ¿cómo saber si una oración es una pregunta? Si el sospechoso dejó preguntas en sus mensajes, ¡es una pista clave!
+
+Definí la siguiente función:
+
+def es_pregunta(oracion):
+    return str.startswith(oracion, "¿") and str.endswith(oracion, "?")
+
+
+Probala en la consola:
+
+Llama a la función y prueba con:
+"¿Dónde estás?" 
+"El culpable se esconde aquí.")
+
+
+Si la función devuelve True, ¡tenemos evidencia de una pregunta sospechosa!
+
+Tu turno 📝: modificá la función para detectar si una oración es una exclamación (empieza con "¡" y termina con "!"). Probala con tus ejemplos.

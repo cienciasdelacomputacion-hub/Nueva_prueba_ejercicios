@@ -1,0 +1,63 @@
+/* --- Estilos generales de la página y alineación --- */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+        
+}
+
+h1 {
+    text-align: center; /* Centra el título */
+    margin-bottom: 20px; /* Espacio debajo del título */
+}
+
+nav {
+    margin-top: 20px;
+    width: fit-content; /* Ajusta el tamaño del navbar a su contenido */
+    margin-left: auto; /* Centra la barra de navegación */
+    margin-right: auto;
+}
+
+/* --- Propiedades para Reset: list-style-type, margin, padding --- */
+ul {
+    list-style-type: none; /* Elimina los marcadores (viñetas, números, etc.) */
+    margin: 0; /* Elimina el margen exterior predeterminado del ul */
+    padding: 0; /* Elimina el relleno interior predeterminado del ul */
+}
+
+
+/* --- Estilos para la barra de navegación --- */
+nav ul {
+    background-color: #e9ecef; /* Añade un fondo claro a la lista para ver su área */
+    border: 1px solid #dee2e6; /* Añade un borde para visualizar los límites */
+    margin-top: 20px; /* Espacio encima del ejemplo */
+    width: fit-content; /* Ajusta el ancho a su contenido para este ejemplo */
+    margin-left: auto; /* Centra la lista en este ejemplo */
+    margin-right: auto;
+}
+
+nav li {
+    border-bottom: 1px solid #ced4da; /* Añade un separador visual entre ítems */
+}
+
+
+/* --- Estilos para los enlaces dentro de la barra de navegación --- */
+nav a {
+    text-decoration: none; /* Elimina el subrayado por defecto de los enlaces */
+    color: #007bff; /* Define un color para los enlaces */
+    padding: 10px 15px; /* Añade relleno dentro de los enlaces */
+    display: block; /* Hace que los enlaces se comporten como bloques para este ejemplo */
+}
+
+/* --- Estilos para el estado hover de los enlaces --- */
+nav li a:hover {
+    background-color: #555; /* Cambia el fondo al pasar el ratón */
+    color: white; /* Cambia el color del texto al pasar el ratón */
+}
+
+/* --- Estilo para el enlace activo (ejemplo de uso de clase) --- */
+.active {
+    background-color: #04AA6D; /* Fondo verde para el enlace activo */
+    color: white; /* Texto blanco para el enlace activo */
+}
+
+

@@ -1,0 +1,11 @@
+Métodos en Común
+
+Observá las clases Tablet y Notebook. ¿Qué métodos son exactamente iguales en ambas? Seleccioná los correctos:
+
+_ init _
+utilizar
+cargar_a_tope
+tiene_bateria_maxima
+tiene_bateria
+
+Para responder correctamente, creá instancias tanto de Tablet como de Notebook y ejecutá los métodos para comparar sus resultados.

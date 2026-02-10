@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Selectores: getElementsByClassName</title>   
+ <style>
+        .destacado {
+            font-weight: bold;
+            border: 1px solid gold;
+        }
+ </style>
+ 
+</head>
+<body>
+    <h1 id="tituloPagina">Mi Página Web</h1>
+    <p id="parrafoPrincipal">Este es el párrafo más importante.</p>
+
+    <script>
+
+    // Seleccionamos el título por su ID
+        let titulo = document.getElementById('tituloPagina');
+        console.log("El elemento con ID 'tituloPagina' es:", titulo);
+        titulo.style.color = "blue"; // ¡Lo cambiamos de color!
+
+
+    // Seleccionamos el párrafo principal
+        let parrafo = document.getElementById('parrafoPrincipal');
+        console.log("El elemento con ID 'parrafoPrincipal' es:", parrafo);
+        parrafo.textContent = "¡Este párrafo ha sido modificado por JavaScript!";
+
+     </script>
+</body>
+
+</html>

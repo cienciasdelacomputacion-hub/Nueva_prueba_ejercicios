@@ -1,0 +1,117 @@
+/* Estilos Generales */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #1a1a2e; /* Fondo oscuro */
+    color: #e0e0e0; /* Texto claro */
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: #16213e; /* Fondo ligeramente más claro para el contenedor principal */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+h1, h2 {
+    color: #e94560; /* Color de acento */
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 15px;
+    color: #b8b8b8; /* Gris suave para párrafos */
+}
+
+code {
+    background-color: #0f3460;
+    padding: 2px 5px;
+    border-radius: 4px;
+    color: #a4a4a4;
+}
+
+/* Estilos para las secciones de demostración */
+.demo-section {
+    background-color: #1b2b45; /* Fondo de sección */
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    border: 1px solid #0f3460;
+}
+
+/* Estilos base para las "cajas" de demostración */
+.display-box {
+    padding: 8px;
+    margin: 5px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px dashed rgba(255, 255, 255, 0.3); */ /* Borde sutil para todas las cajas 
+}
+
+/* --- Estilos específicos por tipo de display --- */
+
+/* Demostración de Block (comportamiento por defecto del selector .block-demo que es un div o p) */
+.block-demo {
+    background-color: #e94560; /* Rojo */
+    color: white;
+    
+    
+    /* display: block; */ /* No se aplica, Ya es block por defecto */
+    /* width: auto; */ /* No se aplica, Ya es auto por defecto (ocupa todo el ancho) */
+}
+
+/* Demostración de Inline (comportamiento por defecto del selector .inline-demo que es un span o a) */
+.inline-demo {
+    background-color: #0f3460; /* Azul oscuro */
+    color: #a4a4a4;
+    
+    
+    /* display: inline; */ /* No se aplica, Ya es inline por defecto */
+    /* width y height son ignorados */
+    /* margin-top/bottom son ignorados */
+}
+
+/* Demostración de Inline-Block */
+.inline-block-demo {
+    display: inline-block; /* <-- Lo crucial */
+    background-color: #d6a400; /* Dorado */
+    color: #333;
+    width: 150px; /* <-- Ahora podemos darle width */
+    height: 80px; /* <-- Y height */
+    margin: 10px; /* <-- Y margin/padding completo */
+}
+
+/* Demostración de cambiar Block a Inline */
+.block-to-inline {
+    display: inline; /* <-- Cambiamos un DIV a inline */
+    background-color: #3e7e00; /* Verde */
+    color: white;
+    /* width/height/margin-top/bottom serán ignorados */
+}
+
+/* Demostración de cambiar Inline a Block */
+.inline-to-block {
+     display: block; /* <-- Cambiamos un SPAN a block */
+     background-color: #8a2be2; /* Azul-violeta */
+     color: white;
+     width: 250px; /* <-- Ahora podemos darle width */
+     height: 60px; /* <-- Y height */
+     margin-bottom: 15px; /* <-- Y margin-top/bottom */
+}
+
+
+.hidden-none-demo {
+    display: none; /* <-- ¡Este elemento no aparecerá y no dejará espacio! */
+    background-color: red; /* No lo verás */
+}
+
+.hidden-visibility-demo {
+    visibility: hidden; /* <-- Este elemento no aparecerá, ¡pero dejará el espacio! */
+    background-color: yellow; /* No lo verás */
+}

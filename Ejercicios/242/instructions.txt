@@ -1,0 +1,3 @@
+Dado un arreglo (lista) de países, usa un bucle for para recorrerlo y mostrar cada país en una nueva línea.
+
+paises = ["México", "Argentina", "España", "Japón", "Canadá"]

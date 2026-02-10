@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAA: Lógica y Representación de Algoritmos</title>
+    <linkcdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e67e22;
+            --success: #27ae60;
+            --error: #c0392b;
+            --bg: #f4f7f6;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding-bottom: 50px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .student-info {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .student-info input {
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            width: 250px;
+        }
+
+        /* Contenedor Principal */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary);
+        }
+
+        h2 { color: var(--primary); border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        h3 { color: var(--secondary); margin-top: 20px; }
+
+        /* Fase 1: Flashcards */
+        .flashcard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .flashcard {
+            background-color: transparent;
+            width: 100%;
+            height: 180px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 10px;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .flashcard-front {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .flashcard-back {
+            background-color: var(--secondary);
+            color: white;
+            transform: rotateY(180deg);
+            font-size: 0.9em;
+        }
+
+        /* Fase 2: Quiz */
+        .quiz-option {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            margin: 5px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover { background: #e9ecef; }
+        
+        .quiz-option.correct { background: #d4edda; border-color: #c3e6cb; color: #155724; }
+        .quiz-option.incorrect { background: #f8d7da; border-color: #f5c6cb; color: #721c24; }
+
+        .feedback-msg {
+            font-size: 0.9em;
+            margin-top: 5px;
+            font-style: italic;
+            display: none;
+        }
+
+        /* Fase 3: Actividad */
+        .activity-box {
+            background-color: #fff8e1;
+            border: 1px solid #ffe0b2;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-check { background-color: var(--accent); color: white; }
+        .btn-check:hover { background-color: #d35400; }
+
+        .btn-pdf { background-color: var(--success); color: white; opacity: 0.5; cursor: not-allowed; }
+        .btn-pdf.active { opacity: 1; cursor: pointer; }
+
+        .validation-msg {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .msg-error { background-color: #fadbd8; color: #7b241c; }
+        .msg-success { background-color: #d5f5e3; color: #196f3d; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fas fa-project-diagram"></i> Unidad: Representación de Algoritmos</h1>
+        <p>Lógica Computacional - Diagramas y Pseudocódigo</p>
+        
+        <div class="student-info">
+            <input type="text" id="studentName" placeholder="Nombre completo del estudiante">
+            <input type="text" id="studentGroup" placeholder="Grupo / Curso (ej: 3º B)">
+        </div>
+    </header>
+
+    <div class="container">
+
+        <section class="section-card">
+            <h2>1. Activación Teórica</h2>
+            <p>Antes de programar, debemos planificar. Para ello usamos dos herramientas fundamentales:</p>
+            <ul>
+                <li><strong>Diagramas de Flujo:</strong> Representación gráfica usando símbolos estandarizados.</li>
+                <li><strong>Pseudocódigo:</strong> Descripción textual paso a paso, en lenguaje humano pero estructurado (similar a PSeInt).</li>
+            </ul>
+            
+            <h3>Conceptos Clave (Haz clic para girar)</h3>
+            <div class="flashcard-grid">
+                <div class="flashcard" onclick="flipCard(this)">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <i class="fas fa-shapes fa-3x"></i>
+                            <h4>Rombo</h4>
+                        </div>
+                        <div class="flashcard-back">
+                            <p>Representa una <strong>DECISIÓN</strong>.</p>
+                            <p>Se usa para preguntas de SI o NO (Condicionales).</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flashcard" onclick="flipCard(this)">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <i class="fas fa-code fa-3x"></i>
+                            <h4>PSeInt</h4>
+                        </div>
+                        <div class="flashcard-back">
+                            <p>Herramienta educativa para escribir y ejecutar <strong>Pseudocódigo</strong> en español.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flashcard" onclick="flipCard(this)">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <i class="fas fa-vector-square fa-3x"></i>
+                            <h4>Paralelogramo</h4>
+                        </div>
+                        <div class="flashcard-back">
+                            <p>Representa <strong>ENTRADA / SALIDA</strong>.</p>
+                            <p>Leer datos del teclado o mostrar mensajes en pantalla.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <h2>2. Verificación Conceptual</h2>
+            <p>Selecciona la respuesta correcta. <span id="quizScoreDisplay" style="float:right; font-weight:bold;">Puntaje: 0/3</span></p>
+
+            <div class="question-block" id="q1">
+                <p><strong>1. ¿Qué estructura representa el símbolo del ROMBO en un diagrama de flujo?</strong></p>
+                <div class="quiz-option" onclick="checkAnswer(1, 'a', this)">A. Un proceso matemático.</div>
+                <div class="quiz-option" onclick="checkAnswer(1, 'b', this)">B. Una decisión lógica (Si/No).</div>
+                <div class="quiz-option" onclick="checkAnswer(1, 'c', this)">C. El inicio del algoritmo.</div>
+                <div class="feedback-msg" id="f1"></div>
+            </div>
+
+            <div class="question-block" id="q2">
+                <p><strong>2. ¿Cuál es el objetivo principal del Pseudocódigo?</strong></p>
+                <div class="quiz-option" onclick="checkAnswer(2, 'a', this)">A. Compilar el programa para que la máquina lo entienda.</div>
+                <div class="quiz-option" onclick="checkAnswer(2, 'b', this)">B. Dibujar formas geométricas.</div>
+                <div class="quiz-option" onclick="checkAnswer(2, 'c', this)">C. Describir la lógica en lenguaje humano estructurado antes de codificar.</div>
+                <div class="feedback-msg" id="f2"></div>
+            </div>
+
+             <div class="question-block" id="q3">
+                <p><strong>3. En un algoritmo, ¿qué significa que sea "finito"?</strong></p>
+                <div class="quiz-option" onclick="checkAnswer(3, 'a', this)">A. Que tiene un Inicio y un Fin determinados.</div>
+                <div class="quiz-option" onclick="checkAnswer(3, 'b', this)">B. Que es muy corto.</div>
+                <div class="quiz-option" onclick="checkAnswer(3, 'c', this)">C. Que ocupa poca memoria.</div>
+                <div class="feedback-msg" id="f3"></div>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <h2>3. Desafío de Lógica (Actividad)</h2>
+            
+            <div class="activity-box">
+                <h4><i class="fas fa-lightbulb"></i> Contexto: El Cajero Automático</h4>
+                <p>Imagina que debes explicarle a una persona (o a un robot) cómo retirar dinero de un cajero automático usando lógica secuencial y condicional.</p>
+                <p><strong>Situación:</strong> El usuario quiere retirar $1000. El cajero debe verificar si el usuario tiene saldo suficiente.</p>
+            </div>
+
+            <label for="responseArea"><strong>Consigna:</strong> Escribe el algoritmo en <em>Pseudocódigo</em> (o lenguaje natural estructurado). Debes incluir los pasos de Inicio, Pedir datos, Verificar el saldo (Decisión) y Finalizar.</label>
+            <br><br>
+            <textarea id="responseArea" rows="10" placeholder="Ejemplo:&#10;Inicio&#10;  Solicitar tarjeta...&#10;  Si saldo > 1000 Entonces...&#10;..."></textarea>
+
+            <div id="validationFeedback" style="display:none;"></div>
+
+            <div class="btn-group">
+                <button class="btn-check" onclick="validateActivity()"><i class="fas fa-check-circle"></i> Verificar Lógica</button>
+                <button id="btnPdf" class="btn-pdf" onclick="generatePDF()" disabled><i class="fas fa-file-pdf"></i> Generar PDF de Evidencia</button>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- 1. LÓGICA DE FLASHCARDS ---
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+        }
+
+        // --- 2. LÓGICA DEL QUIZ ---
+        let score = 0;
+        const answers = {
+            1: 'b', // Rombo = Decisión
+            2: 'c', // Pseudocódigo = Lógica humana
+            3: 'a'  // Finito = Inicio/Fin
+        };
+        const explanations = {
+            1: "Correcto: El rombo divide el flujo en dos caminos (Verdadero/Falso).",
+            2: "Correcto: Es el puente entre el lenguaje humano y el lenguaje de máquina.",
+            3: "Correcto: Todo algoritmo debe terminar en algún momento."
+        };
+
+        function checkAnswer(qNum, selected, element) {
+            // Evitar múltiples respuestas
+            if(element.parentElement.getAttribute('data-answered')) return;
+            element.parentElement.setAttribute('data-answered', 'true');
+
+            const feedbackEl = document.getElementById(`f${qNum}`);
+            feedbackEl.style.display = 'block';
+
+            if(selected === answers[qNum]) {
+                element.classList.add('correct');
+                feedbackEl.innerText = explanations[qNum];
+                feedbackEl.style.color = '#155724';
+                score++;
+            } else {
+                element.classList.add('incorrect');
+                feedbackEl.innerText = "Incorrecto. Revisa las Flashcards de la sección 1.";
+                feedbackEl.style.color = '#721c24';
+            }
+            document.getElementById('quizScoreDisplay').innerText = `Puntaje: ${score}/3`;
+        }
+
+        // --- 3. LÓGICA DE VALIDACIÓN BLANDA ---
+        function validateActivity() {
+            const text = document.getElementById('responseArea').value;
+            const name = document.getElementById('studentName').value;
+            const feedbackBox = document.getElementById('validationFeedback');
+            const btnPdf = document.getElementById('btnPdf');
+
+            feedbackBox.style.display = 'block';
+            feedbackBox.className = 'validation-msg';
+
+            // 1. Validar Identificación
+            if(name.trim().length < 3) {
+                feedbackBox.className += ' msg-error';
+                feedbackBox.innerHTML = "<i class='fas fa-exclamation-triangle'></i> Error: Por favor escribe tu nombre en el encabezado antes de validar.";
+                return;
+            }
+
+            // 2. Validar Longitud
+            if(text.length < 50) {
+                feedbackBox.className += ' msg-error';
+                feedbackBox.innerHTML = "<i class='fas fa-exclamation-triangle'></i> Tu respuesta es muy corta. Intenta detallar paso a paso el proceso.";
+                return;
+            }
+
+            // 3. Detección de Palabras Clave (Análisis Semántico Básico)
+            const keywords = ['inicio', 'fin', 'si', 'entonces', 'saldo', 'dinero', 'tarjeta'];
+            const lowerText = text.toLowerCase();
+            const missingKeywords = keywords.filter(word => !lowerText.includes(word));
+
+            // Umbral: Permitimos que falten algunas, pero no todas
+            if(missingKeywords.length > 3) {
+                feedbackBox.className += ' msg-error';
+                feedbackBox.innerHTML = `<strong>Observación:</strong> Tu algoritmo parece incompleto. Un buen diseño debería incluir términos como: <em>${missingKeywords.join(', ')}</em>. Intenta usar estructuras como "Si... Entonces...".`;
+                btnPdf.disabled = true;
+                btnPdf.classList.remove('active');
+            } else {
+                feedbackBox.className += ' msg-success';
+                feedbackBox.innerHTML = "<i class='fas fa-check'></i> <strong>¡Excelente!</strong> Tu respuesta tiene una estructura lógica adecuada y usa vocabulario técnico. Ya puedes descargar tu evidencia.";
+                btnPdf.disabled = false;
+                btnPdf.classList.add('active');
+            }
+        }
+
+        // --- 4. GENERACIÓN DE PDF ---
+        async function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const name = document.getElementById('studentName').value || "Anónimo";
+            const group = document.getElementById('studentGroup').value || "S/D";
+            const content = document.getElementById('responseArea').value;
+            const date = new Date().toLocaleDateString();
+
+            // Configuración de Estilos PDF
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(18);
+            doc.setTextColor(44, 62, 80);
+            doc.text("Evidencia de Unidad Autónoma", 20, 20);
+
+            doc.setFontSize(12);
+            doc.setTextColor(100);
+            doc.text("Tema: Lógica y Representación de Algoritmos", 20, 28);
+
+            // Línea separadora
+            doc.setDrawColor(52, 152, 219);
+            doc.setLineWidth(1);
+            doc.line(20, 32, 190, 32);
+
+            // Datos del Alumno
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(0);
+            doc.text(`Estudiante: ${name}`, 20, 45);
+            doc.text(`Grupo: ${group}`, 20, 52);
+            doc.text(`Fecha: ${date}`, 140, 45);
+
+            // Resultado Quiz
+            doc.setFillColor(240, 240, 240);
+            doc.rect(20, 60, 170, 15, 'F');
+            doc.setFont("helvetica", "bold");
+            doc.text(`Resultado Verificación Conceptual: ${score}/3 Aciertos`, 25, 70);
+
+            // Actividad
+            doc.setFont("helvetica", "bold");
+            doc.text("Desarrollo del Algoritmo (Cajero Automático):", 20, 90);
+            
+            doc.setFont("courier", "normal"); // Tipografía monoespaciada para código/pseudocódigo
+            doc.setFontSize(11);
+            
+            // Función para ajustar texto largo
+            const splitText = doc.splitTextToSize(content, 170);
+            doc.text(splitText, 20, 100);
+
+            // Footer
+            const pageHeight = doc.internal.pageSize.height;
+            doc.setFont("helvetica", "italic");
+            doc.setFontSize(9);
+            doc.setTextColor(150);
+            doc.text("Generado automáticamente por Unidad de Aprendizaje HTML5", 20, pageHeight - 10);
+
+            doc.save(`Evidencia_Algoritmos_${name.replace(/\s+/g, '_')}.pdf`);
+        }
+    </script>
+</body>
+</html>

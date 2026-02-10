@@ -1,0 +1,134 @@
+:root{
+  --bg:#0d1117;
+  --panel:#121821;
+  --line:#203040;
+  --green:#00ff88;
+  --cyan:#00eaff;
+  --red:#ff4d6d;
+  --muted:#8b949e;
+  --ink:#e6ffed;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:'Roboto Mono',monospace;
+  color:var(--ink);
+  background:var(--bg);
+  overflow:hidden;
+}
+
+/* Fondo canvas */
+#gridbg{
+  position:fixed; inset:0; z-index:0;
+}
+
+/* Pantallas */
+.screen{
+  position:relative; z-index:1;
+  width:100%; height:100%;
+  padding:24px;
+  display:none;
+}
+.screen.active{display:block}
+
+/* Títulos */
+h1,h2,h3{margin:0 0 10px}
+h1.glitch{
+  font-size:40px; letter-spacing:2px; color:var(--cyan);
+  text-align:center; position:relative; text-transform:uppercase;
+}
+h1.glitch::before,h1.glitch::after{
+  content:attr(data-text); position:absolute; left:0; right:0; text-align:center; top:0;
+}
+h1.glitch::before{color:#f0f; transform:translate(2px,0)}
+h1.glitch::after {color:#0ff; transform:translate(-2px,0)}
+h2{color:var(--green); text-align:center; margin-top:6px}
+
+/* Intro */
+.intro{
+  text-align:center; max-width:780px; margin:16px auto 24px; color:var(--ink)
+}
+.btn{
+  border:1px solid var(--cyan); background:#0e1622;
+  color:var(--ink); padding:10px 16px; border-radius:8px;
+  cursor:pointer; transition:.15s; font-weight:700
+}
+.btn:hover{box-shadow:0 0 10px var(--cyan)}
+.btn.primary{background:linear-gradient(90deg, #0e1622 0, #0a2230 100%)}
+.btn.success{border-color:var(--green); color:var(--green)}
+.btn.secondary{opacity:.9}
+
+/* HUD + layout */
+.hud{
+  display:flex; gap:12px; justify-content:space-between; align-items:center;
+  border:1px solid var(--line); background:#0e1520; padding:8px 12px; border-radius:10px;
+  margin-bottom:12px;
+}
+.layout{
+  display:grid; grid-template-columns: 1fr 2fr; gap:12px; height:calc(100% - 80px);
+}
+.panel{
+  border:1px solid var(--line); border-radius:12px; background:#0f1521aa; backdrop-filter: blur(2px);
+  padding:12px; overflow:auto;
+}
+
+/* Mapa / carpetas */
+.folder-list{display:flex; flex-direction:column; gap:8px; margin-top:8px}
+.folder{
+  text-align:left; background:#0e1622; color:var(--ink); border:1px dashed var(--cyan);
+  padding:10px; border-radius:8px; transition:.15s; position:relative;
+}
+.folder[aria-disabled="true"]{opacity:.5; pointer-events:none}
+.folder:not([aria-disabled="true"]):hover{transform:translateX(3px); box-shadow:0 0 8px var(--cyan) inset}
+#btn-terminal{margin-top:12px; width:100%}
+
+/* Briefing & challenge */
+.card{
+  border:1px solid var(--line); border-radius:12px; padding:12px; background:#0f1724;
+  margin-bottom:10px;
+}
+.brief-header{display:flex; gap:12px; align-items:center}
+.avatar{
+  width:56px; height:56px; border-radius:50%; display:grid; place-items:center;
+  background:#07121a; border:1px solid var(--cyan); font-size:24px
+}
+.muted{color:var(--muted)}
+.link{color:var(--cyan); text-decoration:none; border-bottom:1px dashed var(--cyan)}
+.link:hover{opacity:.8}
+.brief-actions{display:flex; gap:10px; align-items:center; margin-top:8px}
+
+.hidden{display:none}
+
+/* Desafío */
+.challenge-ui{display:grid; gap:10px; margin:10px 0}
+.challenge-item{
+  border:1px dashed var(--cyan); border-radius:8px; padding:10px;
+  display:flex; justify-content:space-between; gap:10px; align-items:center; flex-wrap:wrap;
+}
+.choice{
+  padding:6px 10px; border-radius:8px; border:1px solid var(--cyan); background:#0e1622; color:var(--ink);
+  cursor:pointer; transition:.12s;
+}
+.choice:hover{box-shadow:0 0 8px var(--cyan) inset}
+
+.unlock{display:grid; gap:8px; margin-top:6px}
+#challenge-key{
+  padding:10px 12px; border-radius:8px; border:1px solid var(--cyan); background:#0b1220; color:var(--ink)
+}
+
+.feedback{
+  margin-top:8px; padding:10px; border-radius:8px; display:none; font-weight:700
+}
+.feedback.ok{display:block; border:1px solid var(--green); color:var(--green); background:#072215}
+.feedback.err{display:block; border:1px solid var(--red); color:var(--red); background:#250e13}
+
+/* End */
+#screen-end{display:grid; place-items:center; text-align:center}
+
+/* Responsive */
+@media (max-width: 980px){
+  .layout{grid-template-columns:1fr; height:auto}
+  body{overflow:auto}
+}

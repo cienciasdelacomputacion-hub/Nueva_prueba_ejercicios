@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De Boliche en Boliche - Misiones Completas</title>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; background-color: #f5f7fa; color: #333; margin: 0; padding: 30px; }
+    .container { max-width: 1000px; margin: auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    h1, h2 { text-align: center; color: #2b4b80; }
+    pre { background: #f1f5ff; padding: 15px; border-left: 5px solid #3d8bfd; border-radius: 8px; overflow-x: auto; }
+    .accordion { border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden; margin-bottom: 25px; }
+    .accordion-header { background: #005eff; color: white; padding: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .accordion-header:hover { background: #3d8bfd; }
+    .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; background: #fff; padding: 0 20px; }
+    .accordion.open .accordion-content { padding: 20px; }
+    .accordion-icon { transition: transform 0.3s ease; }
+    .accordion.open .accordion-icon { transform: rotate(180deg); }
+    textarea { width: 100%; height: 250px; font-family: Consolas, monospace; font-size: 14px; border-radius: 8px; padding: 10px; border: 1px solid #ccc; background: #f9fbfd; resize: vertical; }
+    button { background-color: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 15px; }
+    button:hover { background-color: #1e7e34; }
+    pre.console { background: #212529; color: #f8f9fa; padding: 15px; border-radius: 8px; min-height: 100px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 De Boliche en Boliche</h1>
+    <h2>Misiones 1 a 11</h2>
+
+    <!-- Misiones previas 1-10 -->
+    <div class="accordion" id="m1"><div class="accordion-header" onclick="toggleAccordion('m1')"><span>🔸 Misión 1 — Elección de boliche</span><span class="accordion-icon">▼</span></div><div class="accordion-content"><pre><code># Lista de boliches
+boliches = ["Sol Nocturno", "La Cueva", "Luna Bar"]
+for i, b in enumerate(boliches):
+    print(i+1, '-', b)
+eleccion = int(input("Elige el número del boliche: "))
+print("Elegiste", boliches[eleccion-1])</code></pre></div></div>
+
+    <div class="accordion" id="m2"><div class="accordion-header" onclick="toggleAccordion('m2')"><span>🔸 Misión 2 — Control de acceso</span><span class="accordion-icon">▼</span></div><div class="accordion-content"><pre><code>edad = int(input("Ingresa tu edad: "))
+if edad >= 18:
+    print("Acceso permitido")
+else:
+    print("Acceso denegado")</code></pre></div></div>
+
+    <div class="accordion" id="m3"><div class="accordion-header" onclick="toggleAccordion('m3')"><span>🔸 Misión 3 — Menú de bebidas</span><span class="accordion-icon">▼</span></div><div class="accordion-content"><pre><code>menu = {"refrescos": 150, "agua": 100, "cerveza": 250}
+for b, p in menu.items():
+    print(b, "-", p, "pesos")
+</code></pre></div></div>
+
+    <div class="accordion" id="m10"><div class="accordion-header" onclick="toggleAccordion('m10')"><span>🔸 Misión 10 — Diccionario en Diccionario (¡Azúcar!)</span><span class="accordion-icon">▼</span></div><div class="accordion-content"><pre><code>def endulzar_menu(menu):
+    postre = menu["postre"]
+    postre["ingredientes"].append("azúcar")
+
+menu_del_dia = {
+  "plato_principal": "milanesas",
+  "postre": { "ingredientes": ["queso crema", "frambuesas"], "tiempo_de_coccion": 80 }
+}
+
+endulzar_menu(menu_del_dia)
+print(menu_del_dia)</code></pre></div></div>
+
+    <!-- Misión 11 completa -->
+    <div class="accordion" id="m11">
+      <div class="accordion-header" onclick="toggleAccordion('m11')">
+        <span>🔸 Misión 11 — Pedidos en el Mercado del Puerto</span>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="accordion-content">
+        <p>En el bullicioso <b>Mercado del Puerto</b>, los clientes hacen pedidos variados. Cada pedido contiene el nombre del cliente y una lista de productos. Se registran hasta que se escriba <code>FIN</code>.</p>
+        <textarea id="editor"># Misión 11: Pedidos en el Mercado del Puerto
+
+pedidos = {}
+
+while True:
+    cliente = input("Ingrese el nombre del cliente (o FIN para terminar): ")
+    if cliente == "FIN":
+        break
+
+    productos = []
+
+    while True:
+        producto = input(f"Agregue un producto para {cliente} (o FIN para pasar al siguiente cliente): ")
+        if producto == "FIN":
+            break
+        productos.append(producto)
+
+    pedidos[cliente] = productos
+
+print("\nPedidos registrados en el Mercado del Puerto:")
+for cliente in pedidos:
+    print(cliente, "→", pedidos[cliente])</textarea>
+        <div style="margin-top:10px;"><button onclick="runPythonCode()">▶ Ejecutar Código</button></div>
+        <pre id="output" class="console">Esperando ejecución...</pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let pyodide;
+    async function main() {
+      pyodide = await loadPyodide();
+      document.getElementById('output').innerText = '✅ Pyodide cargado correctamente. Listo para ejecutar.';
+      pyodide.globals.set('input', (msg) => prompt(msg));
+    }
+    main();
+
+    async function runPythonCode() {
+      const code = document.getElementById('editor').value;
+      document.getElementById('output').innerText = '⏳ Ejecutando código...';
+      try {
+        const result = await pyodide.runPythonAsync(code);
+        const output = pyodide.runPython('sys.stdout.getvalue()') || ''; 
+        document.getElementById('output').innerText = output || '✅ Código ejecutado sin salida.';
+      } catch (err) {
+        document.getElementById('output').innerText = '❌ Error: ' + err;
+      }
+    }
+
+    function toggleAccordion(id) {
+      const acc = document.getElementById(id);
+      acc.classList.toggle('open');
+      const content = acc.querySelector('.accordion-content');
+      if (acc.classList.contains('open')) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+      } else {
+        content.style.maxHeight = null;
+      }
+    }
+  </script>
+</body>
+</html>

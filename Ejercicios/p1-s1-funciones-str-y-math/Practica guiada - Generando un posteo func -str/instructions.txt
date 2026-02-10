@@ -1,0 +1,7 @@
+Práctica: Crear un programa para generar un posteo
+
+En esta actividad vamos a crear un programa en Python que solicita datos al usuario para generar un posteo.
+
+Indicaciones
+
+Sigue cada paso en el orden indicado.

@@ -1,0 +1,39 @@
+🔥⚡ Sitio Pokémon Interactivo ⚡🔥
+
+¡Entrenador/a web! 🧑‍💻🧢
+
+Estás a punto de crear tu propio sitio web sobre Pokémon, usando todo lo que aprendiste sobre HTML, etiquetas semánticas y navegación entre páginas.
+
+Vas a organizar el contenido con etiquetas como <header>, <nav>, <main>, <footer>. También vas a usar imágenes, enlaces y... ¡un formulario! para que otros fans puedan enviarte sus ideas.
+
+🎯 El objetivo es construir una estructura clara, con un menú de navegación funcional que permita moverse entre las diferentes secciones de tu sitio.
+
+📄 Tu sitio debe tener 3 páginas principales:
+
+1. Página de Inicio - index.html
+Encabezado principal con el título: “Bienvenidos al Mundo Pokémon”
+Un breve párrafo introductorio.
+Una imagen del protagonista Ash Ketchum o del logo de Pokémon.
+Un menú de navegación con enlaces a:
+Página de tipos de Pokémon
+Formulario de contacto para fans
+
+2. Página de Tipos de Pokémon - tipos.html
+Dos secciones:
+Pokémon de tipo Eléctrico (⚡)
+Pokémon de tipo Fuego (🔥)
+Cada sección debe contener:
+Un título con <h2>
+Una breve descripción con <p>
+Una imagen del Pokémon representativo (Pikachu, Charmander...)
+Un <iframe> embebido con un tráiler o video relacionado (por ejemplo, de YouTube)
+Cada imagen debe tener su atributo alt
+
+3. Página de Formulario - contacto.html
+Un título: “Contáctanos y comparte tu amor por Pokémon”
+Un párrafo explicando que otros fans pueden enviar sus ideas o preguntas.
+Un formulario que incluya:
+Campo para el nombre
+Campo para el correo electrónico
+Campo textarea para escribir el mensaje
+Botón de enviar

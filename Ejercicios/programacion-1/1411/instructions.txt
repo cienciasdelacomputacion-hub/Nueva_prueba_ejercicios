@@ -1,0 +1,1 @@
+Antes de ejecutar el código, adivina qué harán estos métodos con cada cadena: upper, lower y strip:

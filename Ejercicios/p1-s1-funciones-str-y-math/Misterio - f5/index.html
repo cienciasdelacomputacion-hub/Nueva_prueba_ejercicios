@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>🔎 Misterio de asesinato – Fase Final</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f1e3; padding: 20px; }
+    .caja { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    input, button { padding: 10px; margin-top: 10px; border-radius: 6px; border: 1px solid #ccc; }
+    .correcto { color: green; font-weight: bold; }
+    .incorrecto { color: red; font-weight: bold; }
+    pre { background: #eee; padding: 10px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <div class="caja">
+    <h3>🔎 Misterio de asesinato – Fase Final</h3>
+    <p>El caso ha llegado a su punto crítico. Después de revisar las pistas: 📜 huellas, 🗡️ arma y 👁️ testigo, debes descifrar el mensaje final que revela al culpable.</p>
+    <p>Tu conocimiento en Python te permitirá resolverlo. Calcula el valor de esta expresión:</p>
+    <pre>len("hello") == 5 and "hi" in "hello"</pre>
+
+    <input type="text" id="respuesta">
+    <button onclick="verificar()">Enviar</button>
+    <p id="feedback"></p>
+  </div>
+
+  <script>
+    function verificar() {
+      let r = document.getElementById("respuesta").value.trim();
+      let fb = document.getElementById("feedback");
+
+      // Evaluación lógica de la expresión
+      let expresion = (("hello".length == 5) && ("hi".includes("hello"))); 
+
+      if ((r === "true" && expresion) || (r === "False" && !expresion)) {
+        fb.innerHTML = "✅ Correcto. Has descifrado la pista final. El asesino es <b>Lord Umbra</b> 🕵️‍♂️💀.<b";
+        fb.className = "correcto";
+
+        // Narrativa de cierre
+        fb.innerHTML += "<p>Después de semanas de investigación, las piezas del rompecabezas encajan. Las huellas descartadas, la evidencia de la pistola y la ausencia del testigo finalmente señalan a <b>Lord Umbra</b> como responsable. El juicio está servido y la justicia prevalecerá. 🏛️⚖️</p>";
+      } else {
+        fb.innerHTML = "mmmm.... El Maestro Nebula ¿será? ❌ Incorrecto. Pista: 'len(\"hello\")' devuelve 5 ✅, pero '\"hi\" in \"hello\"' es ❌. Combina correctamente los operadores 'and' para obtener el valor final. Es un tipo de dato lógico o booleano, sintaxis en python";
+        fb.className = "incorrecto";
+      }
+    }
+  </script>
+</body>
+</html>

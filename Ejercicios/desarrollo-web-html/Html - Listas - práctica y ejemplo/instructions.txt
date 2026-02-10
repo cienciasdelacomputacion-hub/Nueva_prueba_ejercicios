@@ -1,0 +1,9 @@
+🧪 ¡Probalo tu mismo!
+
+En este ejercicio vamos a practicar el uso de listas ordenadas y listas desordenadas en HTML.
+
+Instrucciones:
+
+Observá los ejemplos a continuación.
+Agregá al menos dos elementos más a cada lista.
+Guardá y actualizá tu página para ver los cambios.

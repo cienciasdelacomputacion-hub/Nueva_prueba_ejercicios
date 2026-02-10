@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventura Gamificada: Furia del Twister</title>
+    <style>
+        :root {
+            --primary-bg: #1a1a1a;
+            --secondary-bg: #2b2b2b;
+            --text-color: #e0e0e0;
+            --accent-color: #ff9800;
+            --input-bg: #333;
+        }
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .game-container {
+            width: 90%;
+            max-width: 800px;
+            background-color: var(--secondary-bg);
+            border: 2px solid var(--accent-color);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 152, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            text-align: center;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        h1 { margin: 0; font-size: 1.5em; }
+        .game-main {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+        }
+        .game-output {
+            flex-grow: 1;
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid var(--input-bg);
+            padding: 10px;
+            background-color: var(--primary-bg);
+        }
+        .game-output p { margin: 5px 0; }
+        .status-panel {
+            width: 200px;
+            flex-shrink: 0;
+            padding: 10px;
+            border: 1px solid var(--input-bg);
+        }
+        #inventory-list {
+            list-style: none;
+            padding: 0;
+        }
+        #inventory-list li {
+            background-color: var(--input-bg);
+            padding: 5px;
+            margin-bottom: 5px;
+            border-radius: 3px;
+        }
+        .input-area {
+            display: flex;
+            padding: 20px;
+            border-top: 2px solid var(--accent-color);
+        }
+        #userInput {
+            flex-grow: 1;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px;
+            font-family: inherit;
+        }
+        #submitBtn {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-container">
+    <header>
+        <h1>Aventura: Sobreviviendo al Twister</h1>
+    </header>
+    <div class="game-main">
+        <div class="game-output" id="gameOutput"></div>
+        <div class="status-panel">
+            <h3>Inventario</h3>
+            <p>Capacidad: <span id="inventoryCount">0</span>/5</p>
+            <ul id="inventory-list"></ul>
+        </div>
+    </div>
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Escribe tu elección aquí...">
+        <button id="submitBtn">Enviar</button>
+    </div>
+</div>
+
+<script>
+    // --- VARIABLES DEL SISTEMA (Basadas en la consigna) ---
+    const refugios = ["Subterráneo", "en las Montañas", "en el Bosque"];
+    const suministros_clave = ["Manta térmica", "Encendedor", "Comida enlatada", "Botiquín básico", "Kit de primeros auxilios", "Linterna", "Radio", "Filtro de agua", "Cobija", "Herramientas"];
+    let inventario_usuario = [];
+    const furia_del_twister = Math.floor(Math.random() * 10); // Número aleatorio del 0 al 9
+    const suministro_critico = suministros_clave[furia_del_twister];
+
+    let gameState = 'START'; // Controla el estado del juego
+    let refugio_usuario = '';
+
+    // --- ELEMENTOS DEL DOM ---
+    const gameOutput = document.getElementById('gameOutput');
+    const userInput = document.getElementById('userInput');
+    const submitBtn = document.getElementById('submitBtn');
+    const inventoryList = document.getElementById('inventory-list');
+    const inventoryCount = document.getElementById('inventoryCount');
+    
+    // --- FUNCIONES DEL JUEGO ---
+
+    function printToOutput(text, isAction = false) {
+        const p = document.createElement('p');
+        p.textContent = text;
+        if(isAction) {
+            p.style.color = 'var(--accent-color)';
+            p.style.fontWeight = 'bold';
+        }
+        gameOutput.appendChild(p);
+        gameOutput.scrollTop = gameOutput.scrollHeight; // Auto-scroll
+    }
+    
+    function updateInventory() {
+        inventoryList.innerHTML = '';
+        inventario_usuario.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            inventoryList.appendChild(li);
+        });
+        inventoryCount.textContent = inventario_usuario.length;
+    }
+
+    function startGame() {
+        printToOutput("Te enfrentas a un peligroso Twister inminente.");
+        printToOutput("Debes elegir un refugio para sobrevivir. ¡Cada decisión cuenta!");
+        printToOutput("--- PASO 1: SELECCIÓN DE REFUGIO ---", true);
+        printToOutput("Estos son los refugios disponibles:");
+        // BUCLE FOR para mostrar los refugios
+        for (let i = 0; i < refugios.length; i++) {
+            printToOutput(`${i + 1}. Refugio ${refugios[i]}`);
+        }
+        printToOutput("Escribe el número del refugio que eliges (1, 2, o 3).");
+        gameState = 'CHOOSE_SHELTER';
+    }
+    
+    function handleShelterChoice(input) {
+        const choice = parseInt(input) - 1;
+        if (choice >= 0 && choice < refugios.length) {
+            refugio_usuario = refugios[choice];
+            printToOutput(`Has elegido el refugio: ${refugio_usuario}. Buena suerte.`);
+            startSupplyCollection();
+        } else {
+            printToOutput("Opción no válida. Por favor, elige un número del 1 al 3.");
+        }
+    }
+
+    function startSupplyCollection() {
+        gameState = 'COLLECT_SUPPLIES';
+        printToOutput("--- PASO 2: RECOLECTAR SUMINISTROS ---", true);
+        printToOutput("Tu inventario tiene una capacidad máxima de 5 elementos.");
+        printToOutput("Puedes recolectar de la siguiente lista. Escribe el nombre exacto del suministro que quieres o 'salir' para terminar.");
+        printToOutput(`Suministros disponibles: ${suministros_clave.join(', ')}`);
+    }
+    
+    function handleSupplyCollection(input) {
+        // Lógica que simula el BUCLE WHILE
+        if (input.toLowerCase() === 'salir') {
+            printToOutput("Has decidido dejar de recolectar suministros.");
+            fortifyShelter();
+            return;
+        }
+
+        if (suministros_clave.includes(input)) {
+            inventario_usuario.push(input);
+            updateInventory();
+            printToOutput(`Has recolectado: ${input}.`);
+        } else {
+            printToOutput("Ese suministro no está en la lista. Intenta de nuevo.");
+        }
+
+        if (inventario_usuario.length >= 5) {
+            printToOutput("¡Tu inventario está lleno!");
+            fortifyShelter();
+        } else {
+             printToOutput(`Espacio restante: ${5 - inventario_usuario.length}. ¿Qué más quieres recolectar?`);
+        }
+    }
+
+    function fortifyShelter() {
+        gameState = 'FORTIFY';
+        printToOutput("--- PASO 3: FORTALECIENDO EL REFUGIO ---", true);
+        const es_seguro = inventario_usuario.includes(suministro_critico);
+        
+        if (es_seguro) {
+            printToOutput("¡Excelente! Tienes el suministro clave en tu inventario.");
+            printToOutput("Has fortalecido tu refugio.");
+        } else {
+            printToOutput("No tienes el suministro clave necesario para fortalecer tu refugio.");
+            printToOutput("El riesgo de no sobrevivir ha aumentado.");
+        }
+        finalEvaluation(es_seguro);
+    }
+    
+    function finalEvaluation(isSafe) {
+        gameState = 'GAME_OVER';
+        printToOutput("--- EVALUACIÓN FINAL ---", true);
+        printToOutput("El Twister llega... la seguridad de tu refugio será puesta a prueba.");
+
+        if (isSafe) {
+            printToOutput(`¡HAS SOBREVIVIDO AL TWISTER! El refugio resistió. ¡Felicidades, has ganado gracias a que tenías "${suministro_critico}"!`);
+        } else {
+            printToOutput(`El refugio no resistió el Twister... te faltó "${suministro_critico}". Game Over, camarada.`);
+        }
+        printToOutput("Refresca la página para jugar de nuevo.");
+        userInput.disabled = true;
+        submitBtn.disabled = true;
+    }
+
+    function handleInput() {
+        const input = userInput.value.trim();
+        if (input === '') return;
+
+        printToOutput(`> ${input}`); // Muestra la entrada del usuario
+        userInput.value = '';
+
+        switch(gameState) {
+            case 'CHOOSE_SHELTER':
+                handleShelterChoice(input);
+                break;
+            case 'COLLECT_SUPPLIES':
+                handleSupplyCollection(input);
+                break;
+        }
+    }
+    
+    // --- INICIO DEL JUEGO ---
+    submitBtn.addEventListener('click', handleInput);
+    userInput.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+            handleInput();
+        }
+    });
+
+    startGame();
+
+</script>
+</body>
+</html>

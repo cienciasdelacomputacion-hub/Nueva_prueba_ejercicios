@@ -1,0 +1,19 @@
+Ejercicio 2: Una función al rescate 🕵️‍♀️
+
+El inspector está cansado de repetir la misma comparación una y otra vez. ¡Definamos una función para no equivocarnos y hacer el trabajo más rápido!
+
+Copiá y ejecutá esta función en la consola:
+
+def es_mas_largo_que(un_string, otro_string):
+    return len(un_string) > len(otro_string)
+
+
+Ahora probala con distintos mensajes que podrían contener la firma del culpable:
+
+"el culpable" con  "la victima"
+"codigo secreto" con "mensaje"
+
+
+Si funciona, ¡has dado un gran paso en la investigación!
+
+Tu turno 📝: creá una nueva función llamada es_mas_corto_que que devuelva True si el primer string es más corto que el segundo. Probala con tus propios ejemplos.

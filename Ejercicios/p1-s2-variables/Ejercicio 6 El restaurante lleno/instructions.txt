@@ -1,0 +1,18 @@
+🍽️ Ejercicio 6: El restaurante lleno
+
+En muchos programas necesitamos verificar si se supera un límite máximo. Supongamos que en un restaurante sólo caben cierta cantidad de personas.
+
+Vamos a practicar el uso de variables globales y funciones para controlar este caso.
+
+Creá una variable global llamada capacidad_maxima_restaurante y asignale el valor 50.
+Definí una función restaurante_lleno que reciba como parámetro la cantidad de personas que ingresan y diga si se supera la capacidad máxima.
+📥 Segunda parte interactiva
+Pedile al usuario que ingrese la cantidad de personas que desean entrar al restaurante (entrada de datos).
+
+Llamá a la función restaurante_lleno con ese valor.
+Mostrá en pantalla un mensaje que indique si el restaurante todavía tiene lugar o si ya está lleno (salida de datos).
+
+Ejemplo esperado en consola:
+
+¿Cuántas personas ingresan al restaurante? 45
+¿El restaurante está lleno? False

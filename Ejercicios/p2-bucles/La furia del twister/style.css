@@ -1,0 +1,238 @@
+/* Estilos Generales Actualizados */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8f0; /* Un verde muy claro de fondo */
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #1e8449; /* Un tono de verde del logo */
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-container img {
+    max-height: 50px; /* Ajusta el tamaño del logo */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem; /* Reduje un poco el tamaño del título */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.4rem 0.8rem;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+}
+
+nav a:hover, nav a.active {
+    background-color: #27ae60; /* Un verde más claro para el hover */
+}
+
+main {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 2rem auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+section:last-child {
+    border-bottom: none;
+}
+
+h2 {
+    color: #1e8449; /* Verde del logo para los títulos */
+    border-bottom: 2px solid #1e8449;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+h3 {
+    color: #34495e;
+}
+
+.indicadores {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-top: 1.5rem;
+}
+
+.tarjetas-total {
+    background-color: #d4edda; /* Un verde muy claro para el fondo de las tarjetas totales */
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    text-align: center;
+    flex: 1;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+    border: 1px solid #c3e6cb;
+}
+
+.tarjetas-total #totalAmarillas {
+    color: #f39c12; /* Naranja para amarillas */
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.tarjetas-total #totalRojas {
+    color: #e74c3c; /* Rojo para rojas */
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.top-fairplay ul {
+    list-style: decimal;
+    padding-left: 20px;
+}
+
+.top-fairplay li {
+    background-color: #e6ffe6; /* Otro tono de verde claro para el ranking */
+    margin-bottom: 8px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: 1px solid #b3ffb3;
+}
+
+.motivacion {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #ccc;
+}
+
+/* Estilos para la tabla de estudiantes */
+.tabla-estudiantes {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.tabla-estudiantes th, .tabla-estudiantes td {
+    border: 1px solid #ddd;
+    padding: 10px 12px;
+    text-align: left;
+}
+
+.tabla-estudiantes th {
+    background-color: #1e8449;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.tabla-estudiantes tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tabla-estudiantes tbody tr:hover {
+    background-color: #e6f7e6; /* Verde claro al pasar el mouse */
+}
+
+.estado-conducta {
+    font-weight: bold;
+    text-align: center;
+}
+
+.estado-conducta.excelente { color: #27ae60; }
+.estado-conducta.buena { color: #f39c12; }
+.estado-conducta.atencion { color: #e74c3c; }
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #1e8449;
+    color: #fff;
+    font-size: 0.9rem;
+    margin-top: 3rem;
+}
+
+/* Estilos para las tarjetas interactivas */
+.tarjetas-interactivas {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.tarjeta {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    width: 150px;
+}
+
+.tarjeta span {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.tarjeta.amarilla {
+    border-top: 5px solid #f39c12;
+}
+
+.tarjeta.roja {
+    border-top: 5px solid #e74c3c;
+}
+
+.tarjeta .emoji {
+    font-size: 2rem;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.tarjeta:hover .emoji {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}

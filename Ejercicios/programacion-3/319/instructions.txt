@@ -1,0 +1,9 @@
+Comparando objetos
+
+Ejecuta en la consola:
+
+moto_de_ana.necesita_combustible()
+
+moto_de_ana.llenar_tanque()
+
+moto_de_ana.activar_modo_submarino()

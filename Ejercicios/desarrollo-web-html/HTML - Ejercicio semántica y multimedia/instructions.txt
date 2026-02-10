@@ -1,0 +1,14 @@
+Actividad: Maquetado Semántico de una Página de Streaming
+
+En la imagen proporcionada, puedes observar una página de streaming similar a Netflix. Esta página está organizada de la siguiente forma:
+
+Parte Superior: Contiene un logo y menú de navegación con enlaces a las diferentes secciones de la página.
+Cuerpo de la Página:
+Se dividen en categorías que se repiten y tienen un estilo común (por ejemplo, las listas de películas o series).
+Luego, vemos una sección de ranking que es única y resalta dentro del diseño.
+Pie de Página: Al final, encontramos las redes sociales y la información de copyright.
+
+Tarea
+
+Maqueta la página utilizando etiquetas semánticas, siguiendo los principios de estructura lógica y accesibilidad.
+Agrega trailers de películas dentro de cada sección (por ejemplo, una película por sección).

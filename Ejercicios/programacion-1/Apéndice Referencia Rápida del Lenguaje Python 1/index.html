@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apéndice: Referencia Rápida del Lenguaje Python</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            margin: 0;
+            background-color: #2c2c2c;
+            color: #d4d4d4;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+        h1, h2, h3 {
+            color: #569cd6;
+            border-bottom: 2px solid #569cd6;
+            padding-bottom: 5px;
+        }
+        details {
+            background: #252526;
+            border: 1px solid #3e3e3e;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            padding: 15px;
+            transition: background 0.3s;
+        }
+        details:hover {
+            background: #333333;
+        }
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2em;
+            color: #ce9178;
+        }
+        summary h3 {
+            margin: 0;
+            border: none;
+            display: inline;
+        }
+        summary span {
+            font-size: 1.5em;
+            transition: transform 0.3s;
+            color: #ce9178;
+        }
+        details[open] summary span {
+            transform: rotate(45deg);
+        }
+        .content {
+            padding-top: 15px;
+            padding-left: 20px;
+            color: #d4d4d4;
+        }
+        pre {
+            background: #151515;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #3e3e3e;
+        }
+        code {
+            color: #9cdcfe;
+        }
+        ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+        li::before {
+            content: "• ";
+            color: #569cd6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Apéndice: Referencia Rápida del Lenguaje Python</h1>
+    <p>El lenguaje Python es utilizado ampliamente para construir software en todo el mundo, siendo una herramienta muy frecuente para el análisis de datos y la construcción de aplicaciones.</p>
+
+    <details>
+        <summary>
+            <h3>Declaración de Funciones</h3>
+            <span>+</span>
+        </summary>
+        <div class="content">
+            <p>Las funciones en Python se declaran mediante la palabra clave <code>def</code> y:</p>
+            <ul>
+                <li>los parámetros se declaran entre paréntesis y separados por comas;</li>
+                <li>la primera línea (llamada cabecera) se separa del resto (cuerpo) usando un dos puntos (:);</li>
+                <li>el cuerpo se declara aplicando un nivel de tabulación;</li>
+                <li>el cuerpo de la función debe tener al menos un retorno, que se expresa mediante <code>return</code>.</li>
+            </ul>
+            <p>Ejemplo:</p>
+            <pre><code>def nombre_de_la_funcion(parametro1, parametro2, parametro3):
+    return ...</code></pre>
+            <p>Por otro lado, las mismas pueden ser invocadas escribiendo su nombre y, entre paréntesis y separados por comas, pasando sus argumentos.</p>
+            <pre><code>nombre_de_la_funcion(argumento1, argumento2, argumento3)</code></pre>
+            <p>Esta forma de invocación se llama <b>posicional</b> porque el orden de los argumentos se corresponde directamente con el orden de los parámetros. Alternativamente, se pueden pasar los argumentos de forma nombrada (o etiquetada), en la que la correspondencia se especifica explícitamente.</p>
+            <pre><code>nombre_de_la_funcion(parametro1 = argumento1, parametro2 = argumento2, parametro3 = argumento3)</code></pre>
+            <p>...y ya no es necesario respetar el orden de los parámetros.</p>
+            <pre><code>nombre_de_la_funcion(parametro2 = argumento2, parametro3 = argumento3, parametro1 = argumento1)</code></pre>
+        </div>
+    </details>
+
+    <details>
+        <summary>
+            <h3>Declaración de Procedimientos</h3>
+            <span>+</span>
+        </summary>
+        <div class="content">
+            <p>Los procedimientos se declaran de forma similar a las funciones, pero sin colocar un <code>return</code>. Además, el cuerpo del procedimiento debe tener algún tipo de efecto (es decir, modificar algún elemento del programa), como por ejemplo:</p>
+            <ul>
+                <li>modificar una variable global;</li>
+                <li>modificar una estructura de datos tal como listas, diccionarios, etc..</li>
+            </ul>
+            <p>Ejemplo:</p>
+            <pre><code>def nombre_del_procedimiento(parametro1, parametro2, parametro3):
+    # acá hay que producir algún efecto</code></pre>
+            <p>Por otro lado, los procedimientos se invocan de la misma forma que las funciones, pero al no tener un <code>return</code>, no devolverán nada (o lo que es lo mismo, devuelve <code>None</code>, que significa nada en inglés).</p>
+        </div>
+    </details>
+
+    <details>
+        <summary>
+            <h3>Operadores y Comparaciones</h3>
+            <span>+</span>
+        </summary>
+        <div class="content">
+            <h4>Operadores matemáticos</h4>
+            <pre><code>4 + 5
+10 - 5
+8 * 9
+10 / 5</code></pre>
+            <h4>Operadores lógicos</h4>
+            <pre><code>true or false
+true and false
+not false</code></pre>
+            <h4>Comparaciones</h4>
+            <p>Para cualquier tipo de dato:</p>
+            <pre><code>"hola" == "hola"
+"hola" != "chau"</code></pre>
+            <p>Para números:</p>
+            <pre><code>4 >= 5
+4 > 5
+4 <= 5
+4 < 5</code></pre>
+        </div>
+    </details>
+
+    <details>
+        <summary>
+            <h3>Errores Comunes</h3>
+            <span>+</span>
+        </summary>
+        <div class="content">
+            <p>Al programar en Python nos encontraremos con múltiples errores. Es importante no alarmarnos y leerlos detenidamente, dado que suelen contener información útil que nos ayudará a resolverlos.</p>
+            <h4>Errores estáticos</h4>
+            <p>Son aquellos que ocurren antes de que el código de un programa pueda cargarse en su totalidad.</p>
+            <ul>
+                <li><b>SyntaxError:</b> cuando no respetamos la sintaxis del lenguaje, como por ejemplo cuando falta o sobra un paréntesis.</li>
+                <li><b>IndentationError:</b> cuando la tabulación (sangrado) es incorrecta.</li>
+            </ul>
+            <h4>Errores dinámicos</h4>
+            <p>Son aquellos que ocurren luego de que el programa se cargó completamente, típicamente cuando invocamos una función o procedimiento.</p>
+            <ul>
+                <li><b>NameError:</b> cuando invocamos una función que no está definida (ya sea porque no está cargada, porque no existe, o porque está mal escrito su nombre).</li>
+                <li><b>TypeError:</b> cuando se realizan operaciones con tipos incorrectos, como comparación por mayor o menor entre tipos incompatibles, o uso de funciones de strings con números.</li>
+                <li><b>ZeroDivisionError:</b> cuando realizamos una división por cero.</li>
+                <li><b>ValueError:</b> cuando se realizan operaciones con tipos correctos, pero valores incorrectos, como por ejemplo <code>int("hola")</code>.</li>
+            </ul>
+        </div>
+    </details>
+
+    <details>
+        <summary>
+            <h3>Alternativa Condicional</h3>
+            <span>+</span>
+        </summary>
+        <div class="content">
+            <p>Los <code>if</code> en Python llevan su condición delante de un <code>:</code> y su cuerpo tabulado.</p>
+            <pre><code>if hay_personas_en_espera():
+    llamar_siguiente_persona()</code></pre>
+            <p>Además, los <code>if</code> pueden opcionalmente tener un <code>else</code>.</p>
+            <pre><code>if hay_personas_en_espera():
+    llamar_siguiente_persona()
+else:
+    esperar_siguiente_persona()</code></pre>
+            <p>Por último, podemos combinar varios <code>if</code> para tomar decisiones ante múltiples condiciones usando <code>elif</code>.</p>
+            <pre><code>if hay_personas_en_espera():
+    llamar_siguiente_persona()
+elif el_puesto_debe_seguir_abierto():
+    esperar_siguiente_persona()
+else:
+    cerrar_puesto()</code></pre>
+        </div>
+    </details>
+
+    <details>
+        <summary>
+            <h3>Variables</h3>
+            <span>+</span>
+        </summary>
+        <div class="content">
+            <p>Las variables nos permiten recordar valores y les daremos un valor inicial usando <code>=</code>.</p>
+            <pre><code>pesos_en_mi_billetera = 100
+dias_que_faltan_para_el_verano = 10</code></pre>
+            <p>Las mismas se actualizan de la misma forma, también mediante <code>=</code>.</p>
+            <pre><code>pesos_en_mi_billetera = 65
+dias_que_faltan_para_el_verano = 7</code></pre>
+            <p>En ocasiones las asignaremos usando el valor anterior.</p>
+            <pre><code>pesos_en_mi_billetera = pesos_en_mi_billetera * 2
+dias_que_faltan_para_el_verano = dias_que_faltan_para_el_verano - 1</code></pre>
+            <p>La asignación anterior se puede compactar combinando el signo <code>=</code> y la operación.</p>
+            <pre><code>pesos_en_mi_billetera *= 2
+dias_que_faltan_para_el_verano -= 1</code></pre>
+        </div>
+    </details>
+
+</div>
+
+</body>
+</html>

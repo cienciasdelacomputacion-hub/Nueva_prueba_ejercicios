@@ -1,0 +1,6 @@
+Ejercicio 4: El error del impostor ⚠️
+
+El Programador Fantasma dejó un código con errores de sintaxis.
+Tu tarea es corregirlos para que el inspector pueda avanzar.
+
+Tu turno 📝: creá una función triple(un_numero) que devuelva el número multiplicado por 3. Probala con distintos valores.

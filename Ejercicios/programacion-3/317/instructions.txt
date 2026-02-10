@@ -1,0 +1,5 @@
+Métodos inexistentes
+
+¿Qué sucede si intentamos enviarle un mensaje que el objeto no entiende? Prueba lo siguiente:
+
+auto_de_luis.puede_volar()

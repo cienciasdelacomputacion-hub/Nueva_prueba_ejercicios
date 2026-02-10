@@ -1,0 +1,27 @@
+Escribe una función llamada nivel_habilidad que reciba:
+
+Un puntaje numérico.
+Introduce validaciones para asegurar que el puntaje recibido:
+Sea un número (valida que no sea otro tipo de dato).
+No sea negativo (valida que sea mayor o igual a cero).
+Condiciones:
+Si el puntaje es menor a 50, devuelve "Principiante".
+Si está entre 50 y 80, devuelve "Intermedio".
+Si es mayor a 80, devuelve "Avanzado".
+Ejemplo de entrada/salida:
+
+Entrada:
+
+print(nivel_habilidad(30))
+
+print(nivel_habilidad(75))
+
+print(nivel_habilidad(90))
+
+Salida:
+
+Principiante
+
+Intermedio
+
+Avanzado

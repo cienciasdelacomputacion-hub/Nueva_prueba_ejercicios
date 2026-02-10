@@ -1,0 +1,13 @@
+Zombis y SuperZombis
+
+Los SuperZombis son una versión mejorada de los Zombis, pero tienen diferencias:
+
+Ambos tienen un atributo hambre que se inicializa al crearlos.
+Ambos pueden sabe_correr(), siempre devuelve True.
+Un Zombi es peligroso si su hambre es mayor a 50.
+Un SuperZombi siempre es un peligro.
+Un Zombi al recibir recibir_danio(cantidad), reduce su hambre en el doble de la cantidad recibida.
+Un SuperZombi reduce su hambre solo en la cantidad recibida.
+Solo el SuperZombi puede regenerarse(), lo que pone su hambre en 100.
+
+Definí las clases Zombi y SuperZombi, asegurando que SuperZombi herede de Zombi y sobrescriba los métodos necesarios.

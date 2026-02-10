@@ -1,0 +1,6 @@
+Todos Pueden Recuperarse
+
+Ahora agreguemos la rehabilitación a los demás animales:
+
+Un Elefante debe comer 1000 gramos para rehabilitarse.
+Un Mono debe descansar 2 horas para recuperarse (su energía aumenta en 200). Definí las clases Elefante y Mono con los métodos correspondientes.

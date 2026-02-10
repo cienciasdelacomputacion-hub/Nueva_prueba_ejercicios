@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demostración Visual de Propiedad Display</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Entendiendo la Propiedad `display` en CSS</h1>
+        <p>La propiedad <code>display</code> es fundamental para controlar cómo se muestra y se comporta un elemento en el layout de la página. Observa las diferencias entre los tipos principales.</p>
+
+        <div class="demo-section">
+            <h2>Display por Defecto: `block`</h2>
+            <p>Los elementos block siempre inician en una nueva línea y, por defecto, ocupan todo el ancho disponible de su contenedor.</p>
+            <div class="display-box block-demo">Este es un DIV (Block por defecto).</div>
+            <div class="display-box block-demo">Este es otro DIV (Block por defecto).</div>
+             <p class="display-box block-demo">Este es un Párrafo (P, también Block por defecto).</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>Display por Defecto: `inline`</h2>
+            <p>Los elementos inline no inician en una nueva línea y solo ocupan el ancho necesario para su contenido. No respetan <code>width</code> ni <code>height</code> explícitos y el <code>margin</code>/<code>padding</code> vertical puede afectar la línea de texto.</p>
+            <span class="display-box inline-demo">Este es un SPAN (Inline por defecto).</span>
+            <span class="display-box inline-demo">Este es otro SPAN (Inline por defecto).</span>
+            <a href="#" class="display-box inline-demo">Este es un Enlace A (Inline por defecto).</a>
+            Texto que continúa el flujo.
+        </div>
+
+         <div class="demo-section">
+            <h2>Cambiando Display: `inline-block`</h2>
+            <p>Los elementos con <code>display: inline-block;</code> se comportan como elementos inline (no fuerzan nueva línea), pero respetan <code>width</code>, <code>height</code>, y todos los márgenes/rellenos, como si fueran bloques. Ideal para elementos de cuadrícula simples o botones con dimensiones.</p>
+            <div class="display-box inline-block-demo">DIV con display: inline-block;</div>
+            <div class="display-box inline-block-demo">Otro DIV con display: inline-block;</div>
+            <span class="display-box inline-block-demo">SPAN con display: inline-block;</span>
+             <img src="pikachu.jpg" alt="Imagen de ejemplo" class="display-box inline-block-demo">
+        </div>
+
+         <div class="demo-section">
+            <h2>Cambiando Display: `block` a Inline y `inline` a Block</h2>
+             <p>Podemos cambiar el comportamiento por defecto si lo necesitamos.</p>
+             <div class="display-box block-to-inline">Este DIV (normalmente Block) ahora es display: inline;.</div>
+             Texto después del DIV inline.
+             <span class="display-box inline-to-block">Este SPAN (normalmente Inline) ahora es display: block;.</span>
+             Texto después del SPAN block.
+        </div>
+
+         <div class="demo-section">
+            <h2>Ocultando Elementos: `display: none;` vs `visibility: hidden;`</h2>
+            <p>Ambos ocultan elementos, pero de forma diferente.</p>
+             <div class="display-box normal-box">Este es un elemento normal antes de uno oculto.</div>
+            <div class="display-box hidden-none-demo">Este elemento tiene display: none;.</div>
+             <div class="display-box normal-box">Este elemento está después de uno con display: none;. Nota que el espacio del elemento oculto no existe.</div>
+             <br>
+             <div class="display-box normal-box">Este es un elemento normal antes de uno oculto con visibility.</div>
+            <div class="display-box hidden-visibility-demo">Este elemento tiene visibility: hidden;.</div>
+             <div class="display-box normal-box">Este elemento está después de uno con visibility: hidden;. Nota que el espacio del elemento oculto SÍ existe, está vacío.</div>
+        </div>
+
+
+    </div>
+
+</body>
+</html>

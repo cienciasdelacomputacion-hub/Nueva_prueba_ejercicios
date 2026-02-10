@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Selectores: querySelector</title>
+    <style>
+        #cabecera { background-color: lightblue; }
+        .item-lista { font-style: italic; }
+        li.importante { color: red; }
+    </style>
+</head>
+<body>
+    <div id="cabecera">
+        <h2>Mi Encabezado</h2>
+        <p class="introduccion">Bienvenido.</p>
+    </div>
+    <ul>
+        <li class="item-lista">Item 1</li>
+        <li class="item-lista importante">Item 2 (Importante)</li>
+        <li>Item 3</li>
+    </ul>
+
+    <script>
+        // Seleccionar por ID
+        let miCabecera = document.querySelector('#cabecera');
+        console.log("Elemento con ID #cabecera:", miCabecera);
+        miCabecera.style.border = "2px solid blue";
+
+        // Seleccionar el primer párrafo con la clase 'introduccion'
+        let introParrafo = document.querySelector('.introduccion');
+        console.log("Primer párrafo con clase .introduccion:", introParrafo);
+        introParrafo.style.textDecoration = "underline";
+
+        // Seleccionar el primer <li> que también tiene la clase 'importante'
+        let liImportante = document.querySelector('li.importante');
+        console.log("Primer li.importante:", liImportante);
+        liImportante.style.fontSize = "20px";
+    </script>
+</body>
+</html>

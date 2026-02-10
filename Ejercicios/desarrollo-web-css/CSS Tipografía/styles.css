@@ -1,0 +1,18 @@
+.texto-con-fuente {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px; /* Para ver mejor la fuente */
+}
+
+.size-px {
+  font-size: 20px; /* Tamaño fijo de 20 píxeles */
+}
+
+.size-em {
+  /* Si el tamaño base del HTML es 16px, 1.2em será 16 * 1.2 = 19.2px */
+  font-size: 1.2em;
+}
+
+.size-rem {
+  /* Si el tamaño base del HTML es 16px, 1.5rem será 16 * 1.5 = 24px */
+  font-size: 1.5rem;
+}

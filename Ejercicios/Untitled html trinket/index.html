@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad: Compresión de Texto</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --accent: #3498DB;
+            --success: #27AE60;
+            --warning: #F39C12;
+            --bg: #F4F6F7;
+            --card-bg: #FFFFFF;
+            --text: #2C3E50;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        /* Header */
+        header {
+            border-bottom: 2px solid #ECF0F1;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 { color: var(--primary); margin: 0; font-size: 2rem; }
+        h2 { color: var(--accent); font-size: 1.4rem; margin-top: 30px; border-left: 5px solid var(--accent); padding-left: 15px; }
+        .subtitle { color: #7F8C8D; font-size: 1rem; }
+
+        .student-info {
+            background: #E8F4FD;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #BDC3C7;
+            border-radius: 4px;
+            flex: 1;
+            font-size: 1rem;
+        }
+
+        /* Flashcards Section */
+        .flashcard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .flashcard {
+            background-color: transparent;
+            width: 100%;
+            height: 180px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border-radius: 10px;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .flashcard-front {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .flashcard-back {
+            background-color: var(--accent);
+            color: white;
+            transform: rotateY(180deg);
+            font-size: 0.95rem;
+        }
+
+        .icon-large { font-size: 2rem; margin-bottom: 10px; opacity: 0.8; }
+
+        /* Quiz Section */
+        .quiz-container {
+            background: #FCF3CF;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #F9E79F;
+            margin-top: 20px;
+        }
+
+        .question { margin-bottom: 20px; }
+        .question p { font-weight: 500; margin-bottom: 10px; }
+        
+        .options label {
+            display: block;
+            background: rgba(255,255,255,0.6);
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .options label:hover { background: white; }
+        
+        .feedback {
+            font-size: 0.9rem;
+            margin-top: 5px;
+            padding: 8px;
+            border-radius: 4px;
+            display: none;
+        }
+        .feedback.correct { background-color: #D5F5E3; color: #196F3D; display: block; }
+        .feedback.incorrect { background-color: #FADBD8; color: #943126; display: block; }
+
+        /* Activity Section */
+        .activity-board {
+            background: #fff;
+            border: 2px solid #ECF0F1;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .consigna-box {
+            background: #E8F6F3;
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            border: 1px solid #BDC3C7;
+            border-radius: 6px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+
+        .validation-msg {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-verify { background-color: var(--primary); color: white; }
+        .btn-verify:hover { background-color: #1A252F; }
+
+        .btn-pdf { background-color: var(--success); color: white; opacity: 0.5; cursor: not-allowed; }
+        .btn-pdf.active { opacity: 1; cursor: pointer; }
+        .btn-pdf.active:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3); }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #95A5A6;
+            border-top: 1px solid #ECF0F1;
+            padding-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Unidad: Compresión de Texto</h1>
+        <p class="subtitle">Pensamiento Computacional y Datos - Alineado con CSTA y CSP</p>
+        
+        <div class="student-info">
+            <input type="text" id="studentName" placeholder="Tu Nombre Completo" required>
+            <input type="text" id="studentGroup" placeholder="Clase / Grupo" style="max-width: 150px;">
+        </div>
+    </header>
+
+    <section id="theory">
+        <h2>1. Repaso Teórico: Mismos Datos, Menos Bits</h2>
+        <p>
+            El principio básico de la compresión es encontrar una forma de representar la misma información utilizando menos bits.
+            Esto es crucial porque existe un límite físico en la velocidad de transmisión de Internet. 
+            Para lograrlo, buscamos <strong>patrones repetidos</strong> y creamos un <strong>diccionario</strong> de sustituciones.
+        </p>
+        <p><em>Haz clic en las tarjetas para repasar conceptos clave:</em></p>
+
+        <div class="flashcard-grid">
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <i class="fa-solid fa-file-zipper icon-large"></i>
+                        <h3>Compresión Sin Pérdidas</h3>
+                    </div>
+                    <div class="flashcard-back">
+                        <p>Algoritmo que permite reconstruir perfectamente los datos originales. Usado en textos y archivos .zip.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <i class="fa-solid fa-book icon-large"></i>
+                        <h3>Diccionario</h3>
+                    </div>
+                    <div class="flashcard-back">
+                        <p>En compresión, es la "clave" que mapea símbolos cortos a patrones repetidos largos del texto original.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <i class="fa-solid fa-lightbulb icon-large"></i>
+                        <h3>Heurística</h3>
+                    </div>
+                    <div class="flashcard-back">
+                        <p>Un método de resolución de problemas "suficientemente bueno" cuando encontrar la solución perfecta (óptima) es demasiado difícil o lento.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz">
+        <h2>2. Verificación Conceptual</h2>
+        <div class="quiz-container">
+            <div class="question" id="q1">
+                <p>1. ¿Por qué es difícil encontrar la compresión "perfecta" u óptima para un texto largo?</p>
+                <div class="options">
+                    <label onclick="checkAnswer('q1', false, 'Incorrecto. Los ordenadores son muy rápidos, el problema es la cantidad de opciones.')">
+                        <input type="radio" name="q1"> Porque los ordenadores son lentos procesando texto.
+                    </label>
+                    <label onclick="checkAnswer('q1', true, '¡Correcto! Hay tantas combinaciones posibles que probarlas todas (fuerza bruta) llevaría demasiado tiempo.')">
+                        <input type="radio" name="q1"> Porque requeriría probar todas las posibilidades (fuerza bruta), lo cual es imposible en tiempo razonable.
+                    </label>
+                    <label onclick="checkAnswer('q1', false, 'Incorrecto. La compresión sin pérdidas sí permite recuperar el original.')">
+                        <input type="radio" name="q1"> Porque al comprimir siempre se pierde información original.
+                    </label>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question" id="q2">
+                <p>2. Si comprimo un mensaje, ¿qué necesito enviar para que el receptor pueda leerlo?</p>
+                <div class="options">
+                    <label onclick="checkAnswer('q2', false, 'Incorrecto. Sin la clave (diccionario), los símbolos no tienen sentido.')">
+                        <input type="radio" name="q2"> Solo el texto comprimido con símbolos.
+                    </label>
+                    <label onclick="checkAnswer('q2', true, '¡Exacto! El tamaño total es: Texto Comprimido + Diccionario (Clave).')">
+                        <input type="radio" name="q2"> El texto comprimido Y el diccionario (clave).
+                    </label>
+                    <label onclick="checkAnswer('q2', false, 'No es necesario enviar el original, eso anularía el propósito de comprimir.')">
+                        <input type="radio" name="q2"> El texto comprimido y el texto original.
+                    </label>
+                </div>
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question" id="q3">
+                <p>3. ¿Cuál es el objetivo principal de crear una "Heurística" en esta actividad?</p>
+                <div class="options">
+                    <label onclick="checkAnswer('q3', true, '¡Correcto! Buscamos reglas generales (ej: buscar primero palabras largas) que suelen funcionar bien.')">
+                        <input type="radio" name="q3"> Establecer un conjunto de reglas generales para encontrar buenos patrones de compresión.
+                    </label>
+                    <label onclick="checkAnswer('q3', false, 'Incorrecto. Una heurística es una estrategia humana, no un software.')">
+                        <input type="radio" name="q3"> Crear un programa informático que borre vocales.
+                    </label>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="activity">
+        <h2>3. Desafío de Análisis</h2>
+        <div class="activity-board">
+            <div class="consigna-box">
+                <h4>📝 Consigna: Desarrollo de Estrategia</h4>
+                <p>
+                    Imagina que debes explicarle a un compañero que nunca ha hecho esto cómo comprimir eficientemente el siguiente verso:
+                    <br><br>
+                    <em>"Pitter_patter_pitter_patter_listen_to_the_rain_pitter_patter"</em>
+                    <br><br>
+                    Describe tu <strong>estrategia (heurística)</strong>. ¿Qué buscas primero? ¿Cuándo decides agregar algo al diccionario y cuándo no?
+                    Asegúrate de usar términos técnicos como <strong>patrón</strong>, <strong>repetición</strong> y <strong>diccionario</strong>.
+                </p>
+            </div>
+
+            <label for="responseArea">Tu Análisis:</label>
+            <textarea id="responseArea" placeholder="Escribe tu estrategia aquí. Por ejemplo: Primero busco las frases más largas que se repiten..."></textarea>
+            
+            <div id="validationMsg" class="validation-msg"></div>
+
+            <div class="btn-group">
+                <button class="btn-verify" onclick="validateActivity()">
+                    <i class="fa-solid fa-check-circle"></i> Verificar Contenido
+                </button>
+                <button class="btn-pdf" id="btnPdf" onclick="generatePDF()" disabled>
+                    <i class="fa-solid fa-file-pdf"></i> Descargar Evidencia PDF
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Actividad generada con asistencia de Inteligencia Artificial por el equipo de Ciencias de la Computación – CEIBAL.</p>
+        <p>Esta unidad no requiere ejecución de código. Se evalúa la comprensión conceptual.</p>
+    </footer>
+</div>
+
+<script>
+    // Variables de Estado
+    let quizScore = 0;
+    const totalQuestions = 3;
+    let activityValidated = false;
+
+    // Lógica del Quiz
+    function checkAnswer(questionId, isCorrect, feedbackText) {
+        const qContainer = document.getElementById(questionId);
+        const feedbackDiv = qContainer.querySelector('.feedback');
+        
+        // Deshabilitar inputs
+        const inputs = qContainer.querySelectorAll('input');
+        inputs.forEach(input => input.disabled = true);
+
+        // Mostrar Feedback
+        feedbackDiv.innerText = feedbackText;
+        if (isCorrect) {
+            feedbackDiv.className = 'feedback correct';
+            quizScore++;
+        } else {
+            feedbackDiv.className = 'feedback incorrect';
+        }
+    }
+
+    // Validación Blanda (Análisis de Texto)
+    function validateActivity() {
+        const studentName = document.getElementById('studentName').value.trim();
+        const text = document.getElementById('responseArea').value.trim();
+        const msgDiv = document.getElementById('validationMsg');
+        const btnPdf = document.getElementById('btnPdf');
+
+        // 1. Validar Nombre
+        if (!studentName) {
+            msgDiv.innerText = "⚠️ Por favor, ingresa tu nombre al inicio de la página antes de continuar.";
+            msgDiv.style.background = "#FADBD8";
+            msgDiv.style.color = "#943126";
+            msgDiv.style.display = "block";
+            window.scrollTo(0, 0);
+            return;
+        }
+
+        // 2. Validar Longitud
+        if (text.length < 50) {
+            msgDiv.innerText = "⚠️ Tu respuesta es muy breve. Por favor, desarrolla un poco más tu explicación (mínimo 50 caracteres).";
+            msgDiv.style.background = "#FADBD8";
+            msgDiv.style.color = "#943126";
+            msgDiv.style.display = "block";
+            return;
+        }
+
+        // 3. Validar Palabras Clave (Keywords)
+        const keywords = ['patron', 'patrón', 'diccionario', 'repeti', 'símbolo', 'clave'];
+        const lowerText = text.toLowerCase();
+        const foundKeyword = keywords.some(word => lowerText.includes(word));
+
+        if (!foundKeyword) {
+            msgDiv.innerText = "💡 Consejo: Tu explicación parece correcta, pero intenta utilizar vocabulario técnico como 'patrón', 'diccionario' o 'repetición' para mejorarla.";
+            msgDiv.style.background = "#FCF3CF"; // Amarillo advertencia suave
+            msgDiv.style.color = "#7D6608";
+            msgDiv.style.display = "block";
+            // Aún así permitimos pasar si es suficientemente largo, pero sugerimos mejora
+        } else {
+            msgDiv.innerText = "✅ ¡Excelente análisis! Has utilizado los conceptos clave correctamente.";
+            msgDiv.style.background = "#D5F5E3";
+            msgDiv.style.color = "#196F3D";
+            msgDiv.style.display = "block";
+        }
+
+        // Éxito
+        activityValidated = true;
+        btnPdf.classList.add('active');
+        btnPdf.disabled = false;
+    }
+
+    // Generación de PDF
+    function generatePDF() {
+        if (!activityValidated) return;
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        const name = document.getElementById('studentName').value || "Estudiante";
+        const group = document.getElementById('studentGroup').value || "Sin Grupo";
+        const responseText = document.getElementById('responseArea').value;
+        const date = new Date().toLocaleDateString();
+
+        // Estilos PDF
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(18);
+        doc.setTextColor(44, 62, 80);
+        doc.text("Evidencia de Aprendizaje: Compresión de Texto", 15, 20);
+
+        // Datos Alumno
+        doc.setFontSize(12);
+        doc.setFont("helvetica", "normal");
+        doc.setTextColor(100);
+        doc.text(`Estudiante: ${name}`, 15, 30);
+        doc.text(`Grupo: ${group}`, 15, 36);
+        doc.text(`Fecha: ${date}`, 150, 30);
+
+        doc.setLineWidth(0.5);
+        doc.line(15, 42, 195, 42);
+
+        // Resultados Quiz
+        doc.setFontSize(14);
+        doc.setTextColor(0);
+        doc.text("1. Verificación Conceptual", 15, 55);
+        
+        doc.setFontSize(11);
+        doc.setTextColor(100);
+        doc.text(`Puntaje obtenido en Quiz: ${quizScore} / ${totalQuestions}`, 20, 63);
+
+        // Respuesta Actividad
+        doc.setFontSize(14);
+        doc.setTextColor(0);
+        doc.text("2. Estrategia Heurística (Análisis)", 15, 80);
+
+        doc.setFontSize(10);
+        doc.setFont("courier"); // Fuente monoespaciada para simular código/texto técnico
+        doc.setTextColor(50);
+        
+        // Manejo de texto largo
+        const splitText = doc.splitTextToSize(responseText, 180);
+        doc.text(splitText, 15, 90);
+
+        // Footer
+        const pageHeight = doc.internal.pageSize.height;
+        doc.setFont("helvetica", "italic");
+        doc.setFontSize(8);
+        doc.setTextColor(150);
+        doc.text("Generado automáticamente - Ciencias de la Computación CEIBAL", 15, pageHeight - 10);
+
+        doc.save(`Evidencia_Compresion_${name.replace(/\s/g, '_')}.pdf`);
+    }
+</script>
+
+</body>
+</html>

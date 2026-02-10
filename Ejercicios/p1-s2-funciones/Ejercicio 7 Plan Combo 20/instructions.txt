@@ -1,0 +1,9 @@
+Ejercicio 7: Plan Combo 2.0 🔢
+
+Podemos combinar funciones dentro de otras definiciones. Por ejemplo:
+
+Tu turno: definí estas funciones:
+
+anterior: toma un número y devuelve ese número menos uno.
+triple: devuelve el triple de un número.
+anterior_del_triple: combina las dos anteriores (multiplica a un número por 3 y le resta 1).

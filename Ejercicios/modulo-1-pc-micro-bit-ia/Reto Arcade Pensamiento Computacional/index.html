@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>🎮 Reto Arcade: Pensamiento Computacional</title>
+  <style>
+    /* Fuente estilo pixel 8 bits */
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+      margin: 0;
+      background-color: #1b1b1b;
+      color: #f5f5f5;
+      font-family: 'Press Start 2P', cursive;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(90deg, #ff0057, #ff7b00);
+      text-align: center;
+      padding: 20px;
+      color: #fff;
+      border-bottom: 4px solid #000;
+      text-shadow: 2px 2px #000;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background-color: #2d2d2d;
+      border: 3px solid #ff7b00;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 6px 6px 0px #000;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-size: 16px;
+      color: #ffdf00;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px #000;
+    }
+
+    p, li {
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      margin-left: 20px;
+    }
+
+    iframe {
+      display: block;
+      margin: 0 auto;
+      border: 4px solid #ff0057;
+      border-radius: 8px;
+      box-shadow: 8px 8px 0px #000;
+    }
+
+    .cta {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .cta a {
+      background-color: #ff0057;
+      padding: 12px 20px;
+      border: 3px solid #000;
+      border-radius: 8px;
+      color: #fff;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 4px 4px 0px #000;
+      transition: transform 0.1s ease;
+    }
+
+    .cta a:hover {
+      transform: scale(1.05);
+      background-color: #ff7b00;
+    }
+    
+    
+    
+         /* Media queries para adaptar el diseño a pantallas más pequeñas */
+        @media (max-width: 850px) {
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.2em;
+            }
+            iframe {
+                width: 95%;
+                height: 450px;
+            }
+  
+        }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎮 Reto Arcade: Pensamiento Computacional</h1>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>👾 Bienvenido al reto</h2>
+      <p>
+        En este videojuego de <strong>MakeCode Arcade</strong>, cada fase representa una habilidad 
+        clave del <strong>Pensamiento Computacional</strong>. 
+        Tu misión es superar cada nivel entendiendo y aplicando la habilidad que se trabaja.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>🕹️ Juega aquí</h2>
+      <p>
+        Usa las flechas para moverte y descubre cómo se aplican las habilidades del pensamiento 
+        computacional en la práctica.
+      </p>
+      <iframe src="https://arcade.makecode.com/S58722-20708-49203-74279" width="800" height="600" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
+    </div>
+
+    <div class="card">
+      <h2>💡 Crea tu propio nivel</h2>
+      <p>
+        El verdadero desafío es que <strong>tú mismo diseñes un nivel</strong> que ponga a prueba una de las habilidades del pensamiento computacional:
+      </p>
+      <ul>
+        <li>📌 Descomposición</li>
+        <li>🔁 Reconocimiento de patrones</li>
+        <li>📊 Abstracción</li>
+        <li>⚙️ Algoritmos</li>
+      </ul>
+      <div class="cta">
+        <a href="https://arcade.makecode.com/" target="_blank">🚀 Diseña tu nivel</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📝 Misión grupal: Diseñemos un videojuego</h2>
+      <p>
+        Ahora es momento de trabajar en equipo. Su tarea será <strong>crear el diseño de un nivel propio</strong>, siguiendo estos pasos:
+      </p>
+      <ol>
+        <li>📄 <strong>Documento compartido:</strong> Toda la clase acuerda quién será el personaje principal, su historia breve y qué debe conseguir.</li>
+        <li>🎨 <strong>Diseño de nivel por grupo:</strong> Cada sala describe un nivel distinto que desarrolle alguna habilidad del pensamiento computacional.</li>
+        <li>🎮 <strong>Dinámica de juego:</strong> Explicar cómo se juega el nivel (controles, acciones principales).</li>
+        <li>🚧 <strong>Obstáculos:</strong> Detallar qué dificultades se presentan (enemigos, trampas, puzzles).</li>
+        <li>⭐ <strong>Recompensas y puntos:</strong> Describir qué gana el jugador (puntos, objetos, vidas extra).</li>
+        <li>🏆 <strong>Meta final:</strong> Explicar cómo superar el nivel (ejemplo: recolectar elementos, resolver un puzzle, derrotar un jefe).</li>
+      </ol>
+      <p>
+        💡 El proximo nivel¡Podrás llevarlo a cabo en Scratch o Makecode arcade tu idea!
+      </p>
+    </div>
+  </div>
+</body>
+</html>

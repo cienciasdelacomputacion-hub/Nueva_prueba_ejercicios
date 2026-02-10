@@ -1,0 +1,3 @@
+Dada la lista nombres = ["Ana", "Luis", "Carlos", "María"]
+
+¿Cómo accederías al segundo nombre?

@@ -1,0 +1,4 @@
+.imagen-redondeada {
+  border: 2px solid #333; /* Un borde para que se vea mejor el redondeo */
+  border-radius: 15px; /* Redondea las 4 esquinas con un radio de 15px */
+}

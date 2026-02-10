@@ -1,0 +1,22 @@
+Yo soy parte — usando in con strings
+
+Cuando trabajamos con strings, podemos verificar si uno contiene a otro usando el operador in. Esto devuelve True si la cadena está dentro de otra, y False si no.
+
+Probá los siguientes ejemplos en la consola, uno por uno, y observá los resultados:
+
+
+print("amor" in "celos")          # False, "amor" no está en "celos"
+print("placer" in "dolor")        # False, "placer" no está en "dolor"
+print("historia" in "prehistoria") # True, "historia" está dentro de "prehistoria"
+
+
+Resumen:
+
+No hay "amor" en "celos" ni "placer" en "dolor".
+Sí hay "historia" en "prehistoria".
+
+Fuera del juego de palabras, in se puede usar con textos más largos para buscar fragmentos específicos. Por ejemplo:
+
+
+print("protección de las leyes" in "El trabajo en sus diversas formas gozará de la protección de las leyes, las que asegurarán...") 
+# True, la frase "protección de las leyes" aparece dentro del texto más largo

@@ -1,0 +1,8 @@
+Control de Inventario
+
+Crea un diccionario que represente un inventario de una tienda, donde las claves sean los nombres de los productos y los valores sean las cantidades disponibles. Agrega una función que permita consultar la cantidad de un producto.
+Inventario de ejemplo:
+inventario:
+manzanas: 10
+naranjas: 5
+peras: 7

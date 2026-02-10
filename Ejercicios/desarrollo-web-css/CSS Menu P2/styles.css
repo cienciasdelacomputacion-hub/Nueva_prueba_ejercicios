@@ -1,0 +1,32 @@
+
+        /* Estilos básicos para visualizar el efecto del reset */
+        body {
+            font-family: Arial, sans-serif; /* Define una fuente base */
+            margin: 0; /* Elimina margen del body para control total */
+        }
+        
+        ul {
+          list-style-type: none; /* Elimina los marcadores (viñetas, números, etc.) */
+          margin: 0; /* Elimina el margen exterior predeterminado del ul */
+          padding: 0; /* Elimina el relleno interior predeterminado del ul */
+        }
+
+        nav ul {
+             background-color: #e9ecef; /* Añade un fondo claro a la lista para ver su área */
+             border: 1px solid #dee2e6; /* Añade un borde para visualizar los límites */
+             margin-top: 20px; /* Espacio encima del ejemplo */
+             width: 30%; 
+             margin-left: auto; /* Centra la lista en este ejemplo */
+             margin-right: auto;
+        }
+
+        nav li {
+             border-bottom: 1px solid #ced4da; /* Añade un separador visual entre ítems */
+        }
+         
+        nav a {
+             text-decoration: none; /* Elimina el subrayado por defecto de los <a> */
+             color: #007bff; /* Define un color para los enlaces */
+             padding: 10px 15px; /* Añade relleno dentro de los enlaces */
+             display: block; /* Hace que los <a> se comporten como bloques para este ejemplo */
+        }

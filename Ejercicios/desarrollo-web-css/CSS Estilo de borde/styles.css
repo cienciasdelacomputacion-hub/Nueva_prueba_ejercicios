@@ -1,0 +1,59 @@
+/* Estilos comunes para todos los ejemplos,tiene propiedades que no trabajamos pero necesarias para separar las cajas */
+.border-example {
+    width: 200px;
+    height: 100px;
+    margin: 10px 0;
+    text-align: center;
+    line-height: 100px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Definir los diferentes tipos de borde */
+
+.solid {
+    border: 5px solid #333;
+    background-color: #3498db;
+}
+
+.dotted {
+    border: 5px dotted #333;
+    background-color: #e74c3c;
+}
+
+.dashed {
+    border: 5px dashed #333;
+    background-color: #f39c12;
+}
+
+.double {
+    border: 5px double #333;
+    background-color: #2ecc71;
+}
+
+.groove {
+    border: 5px groove #333;
+    background-color: #9b59b6;
+}
+
+.ridge {
+    border: 5px ridge #333;
+    background-color: #1abc9c;
+}
+
+.inset {
+    border: 5px inset #333;
+    background-color: #34495e;
+}
+
+.outset {
+    border: 5px outset #333;
+    background-color: #e67e22;
+}
+
+.caja-estilos-borde {
+  border-width: 3px; /* Le damos un ancho para que se vea bien */
+  border-color: navy; /* Un color base */
+  border-style: dotted solid dashed double; /* Top, Right, Bottom, Left */
+  padding: 20px;
+}

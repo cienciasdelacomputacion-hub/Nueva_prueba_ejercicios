@@ -1,0 +1,9 @@
+Dada una lista de palabras, filtra las palabras que tienen 4 letras o menos.
+
+Escribe un programa que:
+
+Tenga una lista de palabras, como ["sol", "luz", "mar", "montaña", "cielo"].
+
+Use filter() para seleccionar palabras con longitud menor o igual a 4.
+
+Muestra la lista resultante.

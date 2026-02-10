@@ -1,0 +1,5 @@
+Cálculo del Área de un Rectángulo
+
+Crea una clase Rectangulo con un método area que calcule su área.
+Añadí validaciones para asegurarte de que los valores de entrada (ancho y alto) sean solo números positivos.
+Manejá posibles errores con mensajes adecuados si los valores ingresados no son números o son negativos.

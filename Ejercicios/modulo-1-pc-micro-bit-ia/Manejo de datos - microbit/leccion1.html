@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misión 1: ¿Qué son los Datos? | Micro:bit DATA-QUEST</title>
+<link rel="stylesheet" href="styles.css">
+
+<style>
+    /* El estilo .resaltado es reemplazado por clases semánticas que usarán el CSS gamer ya definido (como .resaltado-texto, que será NEÓN) */
+
+    .carroll-tabla {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0; /* Más espacio */
+        color: #e4f2f9; /* Texto claro */
+    }
+    .carroll-tabla th, .carroll-tabla td {
+        border: 2px solid #663399; /* Borde púrpura suave */
+        padding: 12px; /* Más padding */
+        text-align: center;
+    }
+    .carroll-tabla th {
+        background-color: #3e3868; /* Fondo de encabezado púrpura */
+        font-weight: bold;
+        color: #ff9900; /* Texto naranja brillante */
+    }
+    .carroll-titulo {
+        text-align: center;
+        margin: 15px 0;
+        font-weight: 700;
+        color: #64ffda; /* Neón */
+    }
+    
+    /* Estilos para el Ejercicio Interactivo */
+    .pregunta button {
+        background-color: #16213e;
+        color: #ff66b2;
+        border: 1px solid #4a4270;
+        padding: 10px 15px;
+        margin: 5px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-weight: 600;
+    }
+    .pregunta button:hover {
+        border-color: #ff66b2;
+        box-shadow: 0 0 5px #ff66b2;
+    }
+    .resultado {
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 8px;
+        font-weight: 800;
+        background-color: #2c2a4a;
+    }
+
+    /* Estilo para los inputs de tabla y ejercicio */
+    .carroll-tabla input, .carroll-tabla textarea, #ejercicio2 input {
+        background-color: #1a1a2e;
+        color: #e4f2f9;
+        border: 1px solid #663399;
+        border-radius: 4px;
+        padding: 5px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+</style>
+
+<script>
+function generarPDF() {
+    alert("⚠️ Atención: Para entregar en CREA, selecciona 'Guardar como PDF' en la opción de destino.");
+    window.print();
+}
+
+function respuesta(boton, correcto) {
+    const resultado = document.getElementById('resultado1');
+    const botonesPregunta = boton.parentNode.querySelectorAll('button');
+    
+    // Resetear colores de todos los botones de la pregunta
+    botonesPregunta.forEach(btn => btn.style.backgroundColor = '#16213e');
+
+    if (correcto) {
+        boton.style.backgroundColor = '#64ffda'; // Cyan para Correcto
+        boton.style.color = '#1a1a2e'; // Texto oscuro para contraste
+        resultado.textContent = "✅ ¡Correcto! Entendés muy bien cómo clasificar los datos.";
+        resultado.style.border = '2px solid #64ffda';
+        resultado.style.color = '#64ffda';
+    } else {
+        boton.style.backgroundColor = '#ff66b2'; // Rosa para Incorrecto
+        boton.style.color = '#1a1a2e';
+        resultado.textContent = "❌ Revisá el diagrama de Carroll e intentá nuevamente.";
+        resultado.style.border = '2px solid #ff66b2';
+        resultado.style.color = '#ff66b2';
+    }
+}
+</script>
+</head>
+
+<body>
+<div class="container">
+<header>
+    <h1>DATA-QUEST: Procesamiento de Datos con Micro:bit</h1>
+</header>
+
+<nav>
+    <a href="leccion1.html">Misión 1 (Datos)</a>
+    <a href="leccion2.html">Misión 2</a>
+    <a href="leccion3.html">Misión 3</a>
+    <a href="leccion4.html">Misión 4</a>
+    <a href="leccion5.html">Misión Final</a>
+</nav>
+
+<section>
+<h2>🎯 Misión 1: ¡Conoce tus Datos!</h2>
+<p>Duración total estimada: 60 minutos</p>
+
+<div class="concepto">
+    <h3>Consola de Conceptos Clave</h3>
+    
+    <div class="concepto-caja">
+        <h4>Definición y estructura del Dato</h4>
+        <p>Un <span class="resaltado-texto">dato</span> es la unidad más pequeña de información que se puede capturar o guardar.
+        Por sí solo puede ser poco claro (por ejemplo, “rojo”), pero al darle contexto (“Color favorito: rojo”) se transforma en
+        <span class="resaltado-texto">información</span> útil.</p>
+
+        <p>En Micro:bit, cada dato tiene dos partes importantes:</p>
+        <ul>
+            <li><span class="resaltado-texto">Nombre del dato</span> o variable: indica qué tipo de información se guarda (ejemplo: *temperatura*).</li>
+            <li><span class="resaltado-texto">Valor del dato</span>: es el contenido o número real que tiene (ejemplo: *22*).</li>
+        </ul>
+    </div>
+
+    <div class="concepto-caja">
+        <h4>Clasificación de los Datos: El Diagrama de Carroll</h4>
+        <p>El <span class="resaltado-texto">Diagrama de Carroll</span> sirve para clasificar la información según dos preguntas principales, lo cual es vital para programar:</p>
+
+        <p><strong>1. ¿Cómo se expresa el valor? (Eje horizontal)</strong></p>
+        <ul>
+            <li><span class="resaltado-texto">Cualitativo:</span> se representa con palabras, describe una cualidad (ejemplo: nombre, color de ojos).</li>
+            <li><span class="resaltado-texto">Cuantitativo:</span> se representa con números, muestra una cantidad que puede medirse (ejemplo: edad, temperatura).</li>
+        </ul>
+
+        <p><strong>2. ¿El valor cambia con el tiempo? (Eje vertical)</strong></p>
+        <ul>
+            <li><span class="resaltado-texto">Permanente:</span> no cambia con el tiempo (ejemplo: lugar de nacimiento).</li>
+            <li><span class="resaltado-texto">Cambiante:</span> puede modificarse. Los sensores de Micro:bit generan principalmente datos cambiantes (ejemplo: edad, temperatura ambiente).</li>
+        </ul>
+
+        <div class="carroll-titulo">Ejemplo del Diagrama de Carroll</div>
+        <table class="carroll-tabla">
+            <tr>
+                <th></th>
+                <th>Permanente</th>
+                <th>Cambiante</th>
+            </tr>
+            <tr>
+                <th>Cualitativo<br>(Palabras)</th>
+                <td>Lugar de nacimiento<br>Nacionalidad</td>
+                <td>Color favorito<br>Última película vista</td>
+            </tr>
+            <tr>
+                <th>Cuantitativo<br>(Números)</th>
+                <td>Fecha de nacimiento<br>Altura final</td>
+                <td>Temperatura ambiente<br>Contador de pasos</td>
+            </tr>
+        </table>
+    </div>
+     <div class="concepto-caja">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/qcFKbfYVhR8?si=tFl--a2Tb0L4eoF2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+
+    <h3>Objetivos de Aprendizaje</h3>
+    <ul>
+        <li><span class="resaltado-texto">Comprender</span> qué es un dato y sus partes (nombre y valor).</li>
+        <li><span class="resaltado-texto">Clasificar</span> datos según su tipo y permanencia.</li>
+        <li><span class="resaltado-texto">Reflexionar</span> sobre cómo se recolectan los datos y los riesgos de su mal uso.</li>
+    </ul>
+</div>
+
+<div class="identificacion">
+    <h3>Información de la Entrega</h3>
+    <label for="nombres">Nombre(s) del(os) integrante(s):</label>
+    <input type="text" id="nombres" name="nombres" placeholder="Ej: Juan Pérez y María García" required>
+
+    <label for="grupo">Grupo / Clase:</label>
+    <input type="text" id="grupo" name="grupo" placeholder="Ej: 3°A o Grupo 5" required>
+</div>
+
+<button class="btn-pdf" onclick="generarPDF()">Descargar PDF de Respuestas para CREA</button>
+
+<section id="ejercicio1" class="ejercicio-interactivo">
+    <h3>🎮 Clasificación Rápida</h3>
+    <p>Clasifica cada dato según las categorías del Diagrama de Carroll. Haz clic en la opción correcta.</p>
+
+    <div class="pregunta">
+        
+        <p>1. Temperatura del día:</p>
+        <button onclick="respuesta(this, false)">Cuantitativo - Permanente</button>
+        <button onclick="respuesta(this, true)">Cuantitativo - Cambiante</button>
+        <button onclick="respuesta(this, false)">Cualitativo - Permanente</button>
+    </div>
+
+    <div class="pregunta">
+        <p>2. Lugar de nacimiento:</p>
+        <button onclick="respuesta(this, true)">Cualitativo - Permanente</button>
+        <button onclick="respuesta(this, false)">Cuantitativo - Cambiante</button>
+         <button onclick="respuesta(this, false)">Cualitativo - Cambiante</button>
+    </div>
+
+    <div class="pregunta">
+        <p>3. Color favorito:</p>
+       
+        <button onclick="respuesta(this, false)">Cuantitativo - Permanente</button>
+         <button onclick="respuesta(this, false)">Cualitativo - Permanente</button>
+          <button onclick="respuesta(this, true)">Cualitativo - Cambiante</button>
+    </div>
+
+    <div id="resultado1" class="resultado"></div>
+</section>
+
+<hr>
+
+<section>
+    <h3>🔎 Actividad 1: Perfil de Datos (10 min)</h3>
+    <div class="actividad">
+        <p>Meta: Investigar y registrar información (datos) sobre una persona conocida para introducir el concepto.</p>
+        <ol>
+            <li>Investigación Personal (En duplas): Selecciona una persona famosa o conocida. Investiga en la web y registra datos clave sobre ella. No te olvides de citar la fuente</li>
+            <li>Análisis de Datos: Al finalizar, reflexiona sobre la información que pudiste encontrar. ¿Qué datos son fáciles de obtener y cuáles son privados?</li>
+        </ol>
+
+        <div class="area-respuesta">
+            <label for="resp-act1">Tus Notas y Datos Recopilados:</label>
+            <textarea id="resp-act1" name="resp-act1" placeholder="Escribe aquí los datos que encontraste sobre la persona famosa y tus reflexiones sobre su privacidad."></textarea>
+        </div>
+    </div>
+</section>
+
+<hr>
+
+<section id="ejercicio2">
+    <h3>🧠 Ejercicio 2: ¿Qué pasa si un dato cambia?</h3>
+    <p>Observá las siguientes situaciones y escribí el tipo de dato y la permanencia. (Por ejemplo: Cuantitativo - Cambiante).</p>
+
+    <div class="actividad">
+        <ol>
+            <li>
+                <p>Edad de una persona:</p>
+                <input type="text" placeholder="Tipo - Permanencia">
+            </li>
+            <li>
+                <p>Color de pelo natural:</p>
+                <input type="text" placeholder="Tipo - Permanencia">
+            </li>
+            <li>
+                <p>Último mensaje de texto recibido:</p>
+                <input type="text" placeholder="Tipo - Permanencia">
+            </li>
+        </ol>
+    </div>
+</section>
+
+<hr>
+
+<section id="ejercicio3">
+    <h3>📊 Ejercicio 3: Datos personales y su clasificación</h3>
+    <p>Completá la siguiente tabla con información tuya o inventada. Clasificá cada dato en las dos dimensiones del Diagrama de Carroll.</p>
+
+    <table class="carroll-tabla">
+        <tr>
+            <th>Dato</th>
+            <th>Valor</th>
+            <th>Tipo</th>
+            <th>Permanencia</th>
+        </tr>
+        <tr>
+            <td>Nombre</td>
+            <td><input type="text"></td>
+            <td><input type="text" placeholder="Cualitativo / Cuantitativo"></td>
+            <td><input type="text" placeholder="Permanente / Cambiante"></td>
+        </tr>
+        <tr>
+            <td>Edad</td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>Color favorito</td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>Altura</td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+        </tr>
+    </table>
+</section>
+
+<hr>
+
+<section id="ejercicio4">
+    <h3>💬 Ejercicio 4: Reflexión sobre los datos</h3>
+    <p>Respondé brevemente las siguientes preguntas:</p>
+    <div class="actividad">
+        <ol>
+            <li>
+                <p>¿Por qué es importante entender la diferencia entre un dato y una información?</p>
+                <textarea rows="3" placeholder="Escribí tu respuesta aquí..."></textarea>
+            </li>
+
+            <li>
+                <p>¿Qué riesgos pueden aparecer si compartimos datos personales sin cuidado?</p>
+                <textarea rows="3" placeholder="Escribí tu respuesta aquí..."></textarea>
+            </li>
+
+            <li>
+                <p>¿Qué tipo de datos creés que puede recoger la Micro:bit y para qué se podrían usar?</p>
+                <textarea rows="3" placeholder="Escribí tu respuesta aquí..."></textarea>
+            </li>
+        </ol>
+    </div>
+</section>
+
+<hr>
+
+<section id="evaluacion">
+    <h3>🎯 Autoevaluación rápida</h3>
+    <p>Marcá con una ✅ lo que sentís que ya dominás:</p>
+    <div class="actividad">
+        <ul>
+            <li><input type="checkbox"> Comprendí qué es un dato y en qué se diferencia de la información.</li>
+            <li><input type="checkbox"> Puedo clasificar datos cualitativos y cuantitativos.</li>
+            <li><input type="checkbox"> Distingo entre datos permanentes y cambiantes.</li>
+            <li><input type="checkbox"> Puedo dar ejemplos reales de cada tipo de dato.</li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    <p>🧩 Misión 1 completada. <span class="resaltado-texto">Procesamiento de Datos con Micro:bit</span>.</p>
+</footer>
+
+</div>
+</body>
+</html>

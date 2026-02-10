@@ -1,0 +1,211 @@
+/*
+  Archivo: styles.css
+
+  Guía de Estilo para MiniFlix
+
+  Objetivo: Crear un diseño similar a una plataforma de streaming moderna con tema oscuro,
+            utilizando las propiedades CSS que hemos trabajado.
+*/
+
+/* Estilos generales para el cuerpo de la página */
+body {
+    /* Aplicar color de fondo oscuro */
+    /* Definir color de texto base (claro para contrastar) */
+    /* Establecer una fuente de texto legible y moderna (sans-serif) */
+    /* Eliminar márgenes por defecto */
+    /* Ajustar el espacio entre líneas (line-height) para mejor lectura */
+    /*Opcional Ajustar margen superior para dejar espacio al encabezado fijo */
+}
+
+/* Estilos para el Encabezado del Sitio */
+#encabezado { /* Selector por ID */
+    /* Opcional: Posicionar el encabezado de forma fija en la parte superior de la ventana */
+    /* Asegurar que ocupe todo el ancho disponible */
+    /* Controlar su orden de apilamiento (z-index) para que esté siempre visible */
+    /* Aplicar color de fondo (oscuro) */
+    /* Aplicar color de texto */
+    /* Añadir espacio interno (padding) */
+    /* Centrar el contenido horizontalmente (logo y menú) */
+    /* Opcional: Añadir una sombra sutil o borde inferior */
+}
+
+.logo { /* Selector por Clase */
+    /* Definir el color del texto del logo (color de marca, por ejemplo, un rojo vibrante) */
+    /* Ajustar el tamaño de la fuente del logo */
+    /* Eliminar márgenes por defecto del h1 */
+    /* Asegurar que se muestre correctamente junto al menú */
+}
+
+.menu { /* Selector por Clase (el <nav>) */
+    /* Ajustar el margen o posición para separarlo visualmente del logo */
+    /* Asegurar que sus hijos (los enlaces) se alineen correctamente */
+}
+
+.menu a { /* Selector por Etiqueta + Clase (enlaces dentro del menú) */
+    /* Asegurar que cada enlace se comporte como un bloque en línea para poder aplicar padding y margin */
+    /* Eliminar el subrayado por defecto */
+    /* Aplicar color de texto (claro) */
+    /* Añadir espacio interno (padding) para hacer el área clickeable más grande */
+    /* Añadir margen horizontal para separar los enlaces entre sí */
+    /* Opcional: Transición suave para efectos hover */
+}
+
+.menu a:hover { /* Pseudo-clase :hover: Estilo al pasar el ratón por los enlaces */
+    /* Cambiar el color de fondo */
+    /* Cambiar el color del texto */
+
+}
+
+/* Estilos para el Contenido Principal */
+main { /* Selector por Etiqueta */
+    /* Limitar el ancho máximo del contenido para mejor legibilidad en pantallas grandes */
+    /* Centrar el bloque de contenido principal horizontalmente */
+    /* Añadir espacio a los lados para evitar que el contenido toque los bordes en pantallas pequeñas */
+    /* Añadir margen superior e inferior si es necesario (aunque body margin-top ya ayuda con el encabezado) */
+}
+
+/* Estilos para las Secciones de Contenido */
+section { /* Selector por Etiqueta */
+    /* Añadir espacio debajo de cada sección para separarlas visualmente */
+    /* Opcional: Aplicar un color de fondo o padding interno si se desean secciones con fondo distinto al body */
+    /* Opcional: Bordes redondeados para las secciones */
+}
+
+section h2 { /* Selector por Etiqueta (títulos de sección) */
+    /* Definir color del texto de los títulos de sección (puede ser el color de marca o blanco) */
+    /* Ajustar el tamaño de la fuente */
+    /* Eliminar margen superior por defecto y ajustar margen inferior */
+    /* Opcional: Añadir una línea separadora (border-bottom) */
+}
+
+section p { /* Selector por Etiqueta (párrafos de sección) */
+    /* Definir color del texto de los párrafos (generalmente un gris más suave que el texto principal) */
+    /* Ajustar el tamaño de la fuente si es necesario */
+    /* Ajustar margen inferior */
+}
+
+/* Estilos para el Contenedor de Películas (las tarjetas) */
+.peliculas { /* Selector por Clase */
+    /* Limpiar los floats para asegurar que el contenedor padre envuelva a las tarjetas flotantes */
+    /* Añadir espacio debajo de este contenedor */
+    /* Opcional: Centrar este bloque si no ocupa todo el ancho de main */
+}
+
+/* Estilos para cada Tarjeta de Película Individual */
+.pelicula { /* Selector por Clase */
+    /* Establecer un ancho fijo para cada tarjeta */
+    /* Hacer que las tarjetas floten a la izquierda para alinearse horizontalmente */
+    /* Añadir margen a la derecha y abajo para separar las tarjetas entre sí */
+    /* Aplicar color de fondo (ligeramente más claro que el fondo del body) */
+    /* Añadir espacio interno (padding) */
+    /* Aplicar bordes redondeados */
+    /* Opcional: Borde sutil o sombra */
+}
+
+.pelicula:hover { /* Pseudo-clase :hover: Estilo al pasar el ratón sobre la tarjeta */
+    /* Cambiar el color del borde o añadir una sombra más pronunciada */
+    /* Opcional: Un ligero efecto de escalado o elevación (transform) */
+}
+
+
+.pelicula img { /* Selector por Clase + Etiqueta (imagen de la tarjeta) */
+    /* Asegurar que la imagen ocupe todo el ancho de su tarjeta contenedora */
+    /* Mantener la relación de aspecto de la imagen */
+    /* Asegurar que se muestre correctamente (display: block) */
+    /* Aplicar bordes redondeados en la parte superior (si la tarjeta tiene bordes redondeados) */
+    /* Añadir margen debajo de la imagen para separarla del texto */
+}
+
+.titulo-pelicula { /* Selector por Clase (título dentro de la tarjeta) */
+    /* Ajustar tamaño de fuente (relativo al padre .pelicula) */
+    /* Ajustar márgenes superior e inferior */
+    /* Aplicar color de texto (puede ser blanco o un color de acento) */
+}
+
+.sinopsis { /* Selector por Clase (sinopsis dentro de la tarjeta) */
+    /* Ajustar tamaño de fuente (generalmente más pequeño que el título) */
+    /* Ajustar margen inferior */
+    /* Aplicar color de texto (generalmente un gris más suave) */
+}
+
+
+/* Estilos para la lista de Beneficios */
+.beneficios { /* Selector por Clase */
+    /* Eliminar los marcadores de lista (viñetas) */
+    /* Eliminar padding y margin por defecto */
+}
+
+
+/* Estilos para el Video */
+section video { /* Selector por Etiqueta */
+    /* Asegurar que el video se muestre como un bloque para poder centrarlo */
+    /* Centrar el video horizontalmente */
+    /* Asegurar que no desborde en pantallas pequeñas (max-width) */
+    /* Mantener la relación de aspecto (height: auto) */
+    /* Opcional: Aplicar bordes redondeados */
+    /* Ajustar márgenes superior e inferior */
+}
+
+/* Estilos para el Formulario */
+#formulario { /* Selector por ID */
+     /* Ajustar márgenes si es necesario (ya hereda de section) */
+     /* Opcional: Fondo o borde para la sección del formulario */
+}
+
+#formulario h2 {
+     /* Estilo del título del formulario (color, tamaño) */
+}
+
+#formulario form { /* Selector por ID + Etiqueta */
+    /* Limitar el ancho del formulario para pantallas grandes */
+    /* Centrar el bloque del formulario */
+    /* Aplicar padding interno */
+    /* Aplicar color de fondo (ligeramente más claro que el fondo de la sección o body) */
+    /* Aplicar bordes redondeados */
+    /* Opcional: Borde sutil */
+
+}
+
+#formulario label { /* Selector por ID + Etiqueta */
+    /* Asegurar que la etiqueta esté en su propia línea (display: block) */
+    /* Ajustar margen inferior para separarla del input */
+    /* Aplicar color de texto */
+    /* Opcional: Hacer el texto en negrita */
+}
+
+#formulario input[type="text"], /* Selectores por Etiqueta con Atributo */
+#formulario input[type="email"] {
+    /* Asegurar que el input ocupe el ancho deseado (usar box-sizing: border-box puede ayudar con padding/border) */
+    /* Aplicar padding interno */
+    /* Ajustar margen inferior para separarlo del siguiente elemento */
+    /* Aplicar borde y bordes redondeados */
+    /* Aplicar color de fondo (ligeramente diferente al fondo del formulario) */
+    /* Aplicar color de texto */
+
+}
+
+#formulario button[type="submit"] { /* Selector por Etiqueta con Atributo */
+    /* Aplicar color de fondo (color de marca, rojo) */
+    /* Aplicar color de texto (claro) */
+    /* Aplicar padding interno */
+    /* Eliminar borde por defecto */
+    /* Aplicar bordes redondeados */
+    /* Cambiar el cursor al pasar el ratón */
+    /* Ajustar tamaño de fuente */
+
+}
+
+#formulario button[type="submit"]:hover { /* Pseudo-clase :hover: Estilo del botón al pasar el ratón */
+    /* Cambiar el color de fondo (un tono más oscuro del color de marca) */
+}
+
+
+/* Estilos para el Pie de Página */
+footer { /* Selector por Etiqueta */
+    /* Aplicar color de fondo (puede ser igual al encabezado o body) */
+    /* Aplicar color de texto (gris suave) */
+    /* Centrar el texto */
+    /* Añadir padding interno arriba y abajo */
+    /* Añadir margen superior para separarlo del contenido principal */
+    /* Ajustar tamaño de fuente */
+}

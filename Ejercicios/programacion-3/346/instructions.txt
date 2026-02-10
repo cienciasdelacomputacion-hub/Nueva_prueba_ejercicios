@@ -1,0 +1,7 @@
+Agregando Métodos Comunes
+
+Todos los dispositivos electrónicos pueden responder al mensaje sin_carga(), que indica si la batería está en 0.
+📌 Tarea:
+Modificá la clase Dispositivo para agregar el método sin_carga(), que devuelva True si la batería está en 0 y False en caso contrario.
+
+Recuerda que la bateria no puede ser menor a 0.

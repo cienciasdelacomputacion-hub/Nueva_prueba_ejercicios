@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Misterio Fase 2</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f1e3; padding: 20px; }
+    .caja { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    input, button { padding: 10px; margin-top: 10px; border-radius: 6px; border: 1px solid #ccc; }
+    .correcto { color: green; font-weight: bold; }
+    .incorrecto { color: red; font-weight: bold; }
+    pre { background: #eee; padding: 10px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <div class="caja">
+    <h3>🔎 Misterio de asesinato – Fase 2</h3>
+    <p>Encuentras la siguiente variable llamada <em>mensaje</em>que podría contener una pista:</p>
+    <p>Tu tarea: calcula cuántos caracteres tiene la cadena que contiene <em>mensaje</em> muestra en consola con un print() e ingresa el número total y envia la respuesta.</p>
+    <iframe src="https://trinket.io/embed/python3/8a6dc6f2861c" width="100%" height="200" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+    <input type="text" id="respuesta">
+    <button onclick="verificar()">Enviar</button>
+    <p id="feedback"></p>
+  </div>
+
+  <script>
+    function verificar() {
+      let r = document.getElementById("respuesta").value.trim();
+      let fb = document.getElementById("feedback");
+      // Respuesta correcta: len("El asesino dejó huellas en el vestíbulo") = 38
+      if (r === "42") {
+        fb.innerHTML = "✅ Correcto. Código secreto: <b>K4L7Q</b><br>Distractores: P3R9W, J2M8D, H5S1N";
+        fb.className = "correcto";
+      } else {
+        fb.innerHTML = "❌ Incorrecto. Pista: cuenta también los espacios y acentos con len()";
+        fb.className = "incorrecto";
+      }
+    }
+  </script>
+</body>
+</html>
+

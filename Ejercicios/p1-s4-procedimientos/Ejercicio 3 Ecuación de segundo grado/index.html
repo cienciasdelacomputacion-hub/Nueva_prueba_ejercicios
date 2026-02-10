@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 3 - Resolver ecuación cuadrática</title>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f4f4f9; color: #333; }
+    h1 { color: #444; }
+    textarea { width: 100%; height: 200px; font-family: monospace; padding: 10px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    th { background: #eee; }
+    .success { color: green; font-weight: bold; }
+    .error { color: red; font-weight: bold; }
+    .keyword { font-size: 18px; color: darkblue; margin-top: 15px; }
+    button { margin-top: 10px; padding: 10px 15px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #45a049; }
+  </style>
+</head>
+<body>
+  <h1>Ejercicio 3: Ecuación de segundo grado 🧮</h1>
+
+  <p>
+    En este ejercicio trabajarás un <b>procedimiento</b> que analiza una ecuación cuadrática de la forma:
+  </p>
+  <code>ax² + bx + c = 0</code>
+
+  <h3>Instrucciones</h3>
+  <ul>
+    <li>Debes definir un procedimiento <code>resolver_cuadratica(a, b, c)</code>.</li>
+    <li>Usa variables globales:
+      <ul>
+        <li><code>determinante</code> → almacena el valor de <code>b² - 4ac</code>.</li>
+        <li><code>solucion_texto</code> → describe cuántas soluciones reales tiene la ecuación.</li>
+      </ul>
+    </li>
+    <li>Reglas:
+      <ul>
+        <li>Si <code>determinante &gt; 0</code> → <code>"Dos soluciones reales"</code>.</li>
+        <li>Si <code>determinante == 0</code> → <code>"Una solución real"</code>.</li>
+        <li>Si <code>determinante &lt; 0</code> → <code>"No hay soluciones reales"</code>.</li>
+      </ul>
+    </li>
+    <li>No retornes nada, solo modifica las variables globales.</li>
+  </ul>
+
+  <h3>⚠️ Nota importante</h3>
+  <p>
+    Al guardar el resultado en la variable <code>solucion_texto</code>, debes escribir el texto
+    <strong>exactamente</strong> como se indica, respetando las <b>mayúsculas y minúsculas</b>.  
+    Si escribes, por ejemplo, <code>"dos soluciones reales"</code> en lugar de 
+    <code>"Dos soluciones reales"</code>, tu programa no pasará la validación.
+  </p>
+  <p>Las formas correctas son:</p>
+  <ul>
+    <li><code>"Dos soluciones reales"</code></li>
+    <li><code>"Una solución real"</code></li>
+    <li><code>"No hay soluciones reales"</code></li>
+  </ul>
+
+  <h3>Escribe tu código aquí:</h3>
+  <textarea id="studentCode"></textarea>
+  <br>
+  <button onclick="runCode()">Ejecutar y Validar</button>
+
+  <h3>Resultados:</h3>
+  <div id="results"></div>
+  <div id="keyword"></div>
+
+  <script>
+    let pyodideReady = loadPyodide();
+
+    async function runCode() {
+      let pyodide = await pyodideReady;
+      const studentCode = document.getElementById("studentCode").value;
+
+      const testCode = `
+import math
+
+determinante = 0
+solucion_texto = ""
+
+${studentCode}
+
+tests = [
+    {"desc": "a=1, b=-3, c=2 (dos soluciones reales)", "input": (1,-3,2), "expected": "Dos soluciones reales"},
+    {"desc": "a=1, b=2, c=1 (una solución real)", "input": (1,2,1), "expected": "Una solución real"},
+    {"desc": "a=1, b=0, c=1 (no hay soluciones reales)", "input": (1,0,1), "expected": "No hay soluciones reales"}
+]
+
+results = []
+passed = 0
+
+for t in tests:
+    a,b,c = t["input"]
+    determinante = 0
+    solucion_texto = ""
+    resolver_cuadratica(a,b,c)
+    if solucion_texto == t["expected"]:
+        results.append((t["desc"], t["expected"], solucion_texto, "✔"))
+        passed += 1
+    else:
+        results.append((t["desc"], t["expected"], solucion_texto, "✘"))
+
+html = "<table><tr><th>Descripción</th><th>Esperado</th><th>Obtenido</th><th>Resultado</th></tr>"
+for r in results:
+    html += f"<tr><td>{r[0]}</td><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>"
+html += "</table>"
+html += f"<p>Pruebas superadas: {passed} / {len(tests)}</p>"
+
+if passed == len(tests):
+    html += "<p class='keyword'>✅ PALABRA CLAVE: CUADRATICAOK</p>"
+
+html
+      `;
+
+      try {
+        let output = await pyodide.runPythonAsync(testCode);
+        document.getElementById("results").innerHTML = output;
+      } catch (err) {
+        document.getElementById("results").innerHTML = "<p class='error'>Error: " + err + "</p>";
+      }
+    }
+  </script>
+</body>
+</html>

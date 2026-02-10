@@ -1,0 +1,9 @@
+Contar cuántas veces aparece un número específico en una lista
+
+Descripción:
+
+Vamos a crear una función que reciba una lista de números y un número específico.
+La función debe contar cuántas veces aparece ese número en la lista.
+
+Para esto, debés utilizar un bucle for, una variable de conteo y una variable de iteración con un nombre adecuado.
+Podés usar cualquier nombre válido, lo importante es que se entienda que vas a comparar ese valor dentro del bucle. Recordá que el guion bajo _ se suele usar solo cuando no necesitamos el valor que estamos recorriendo, pero en este caso sí lo vamos a usar para comparar.

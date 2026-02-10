@@ -1,0 +1,4 @@
+Prueba tú mismo:
+Cambia el valor de background-color usando un nombre de color (ej: lightgray) o un valor RGB (ej: rgb(255, 240, 245)). ¿Cómo cambia la apariencia?
+Añade otro div debajo del primero y dale un color de fondo diferente. Observa cómo cada elemento tiene su propio fondo.
+Elimina el padding del .caja-con-fondo. ¿Qué le ocurre al texto en relación con el borde y el fondo?

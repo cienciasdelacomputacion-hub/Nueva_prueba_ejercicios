@@ -1,0 +1,701 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unidad: Procesamiento en Computación (Si/Entonces, Comparar, Coincidencia, Contar)</title>
+
+  <!-- FontAwesome (CDN) -->
+  https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css
+
+  <!-- jsPDF (UMD) -->
+  https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js</script>
+
+  <style>
+    :root{
+      --bg:#f5f6f8; --panel:#fff; --ink:#111; --muted:#6b7280;
+      --accent:#2155CD; --accent2:#0A1931; --ok:#16a34a; --warn:#ef4444; --info:#0ea5e9;
+      --card:#eef2ff;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0; background:var(--bg); color:var(--ink); font-family: system-ui,-apple-system,"Segoe UI",Roboto,Arial,"Noto Sans",sans-serif;}
+    header{background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; padding:24px 16px; border-bottom:4px solid #1e3a8a;}
+    header h1{margin:0 0 6px; font-weight:800;}
+    .header-grid{display:grid; gap:12px; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); margin-top:12px;}
+    label{font-weight:600; margin-bottom:6px; display:block;}
+    input[type="text"]{width:100%; padding:10px 12px; border-radius:10px; border:none; outline:none;}
+    main{max-width:1200px; margin:16px auto 48px; padding:0 16px;}
+    .section{background:var(--panel); border-radius:12px; padding:18px; margin:16px 0; box-shadow:0 10px 24px rgba(0,0,0,.06);}
+    .section h2{margin:0 0 8px; color:var(--accent2); display:flex; align-items:center; gap:8px;}
+    .muted{color:var(--muted)}
+    .cards{display:grid; gap:12px; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); margin-top:12px;}
+    .card{perspective:1000px;}
+    .card-inner{position:relative; transform-style:preserve-3d; transition:transform .6s; min-height:160px; border-radius:12px; cursor:pointer;}
+    .card-front,.card-back{position:absolute; inset:0; padding:14px; border-radius:12px; backface-visibility:hidden; border:1px solid #d9e2f3;}
+    .card-front{background:var(--card)}
+    .card-back{background:#fff; transform:rotateY(180deg)}
+    .card.flipped .card-inner{transform:rotateY(180deg)}
+    .badge{display:inline-flex; align-items:center; gap:6px; background:#eef2ff; color:#1e40af; padding:6px 10px; border-radius:12px; font-size:.85rem; margin-bottom:8px;}
+    .quiz-q{border:1px solid #e5e7eb; border-radius:10px; padding:12px; margin-bottom:12px; background:#fafafa;}
+    .quiz-actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+    .btn{border:none; border-radius:10px; padding:10px 14px; cursor:pointer; font-weight:700; color:#fff; background:var(--accent);}
+    .btn.secondary{background:var(--info)}
+    .btn.success{background:var(--ok)}
+    .btn.warning{background:#f59e0b; color:#111}
+    .btn:disabled{opacity:.55; cursor:not-allowed}
+    .result{padding:8px 10px; border-radius:10px; background:#eef2ff; color:#1e40af; font-weight:700;}
+    .feedback-line{font-size:.92rem; margin-top:6px;}
+    .ok{color:var(--ok); font-weight:700}
+    .bad{color:var(--warn); font-weight:700}
+    .guideline{background:#f9fafb; border:1px dashed #cbd5e1; border-radius:12px; padding:12px; margin-bottom:12px;}
+    textarea{width:100%; padding:10px; border-radius:10px; border:1px solid #d1d5db; min-height:110px; resize:vertical; background:#fff;}
+    .lab-grid{display:grid; gap:16px; grid-template-columns: repeat(auto-fit,minmax(280px,1fr));}
+    .lab-app{border:1px solid #e5e7eb; border-radius:12px; padding:12px; background:#fcfcfd}
+    .app-ui{background:#f3f4f6; border-radius:10px; padding:10px; margin-bottom:10px; border:1px solid #e5e7eb;}
+    .small{font-size:.9rem; color:#4b5563}
+    .status{margin-top:10px; padding:10px 12px; border-radius:10px; display:none}
+    .status.warn{background:#fff7ed; color:#9a3412}
+    .status.ok{background:#ecfdf5; color:#064e3b}
+    footer{text-align:center; color:#6b7280; padding:6px}
+    .inline{display:inline-block; margin-right:6px}
+    .kpi{display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:10px; background:#eef2ff; color:#1e40af; font-weight:700}
+    .pill{display:inline-flex; align-items:center; gap:6px; background:#e2e8f0; color:#334155; padding:4px 8px; border-radius:999px; font-size:.8rem; margin:2px}
+    .row{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+  </style>
+</head>
+<body>
+
+<header>
+  <h1><i class="fa-solid fa-microchip"></i> Procesamiento: convertir entradas en salidas</h1>
+  <p class="muted">Tiempo sugerido: 45 minutos • CSTA K‑12 — Algoritmos &amp; Programming / Computing Systems</p>
+  <div class="header-grid">
+    <div>
+      <label for="studentName"><i class="fa-solid fa-user"></i> Nombre del estudiante</label>
+      <input id="studentName" type="text" placeholder="Nombre y Apellido"/>
+    </div>
+    <div>
+      <label for="studentGroup"><i class="fa-solid fa-people-group"></i> Curso / Grupo</label>
+      <input id="studentGroup" type="text" placeholder="Ej.: 2ºB Informática"/>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- FASE A.1: Activación Teórica -->
+  <section class="section" id="teoria">
+    <h2><i class="fa-solid fa-lightbulb"></i> Micro‑Concepto: ¿Qué es el procesamiento?</h2>
+    <p class="muted">
+      <strong>Procesamiento</strong> es el trabajo que (posiblemente) hace una computadora para convertir <em>entradas</em> en <em>salidas</em>. 
+      Hoy exploraremos cuatro formas comunes de procesamiento a través de ejemplos de aplicaciones: 
+      <span class="pill">Si/Entonces (condicionales)</span> 
+      <span class="pill">Comparar</span> 
+      <span class="pill">Encontrar coincidencias</span> 
+      <span class="pill">Contar</span>.
+    </p>
+
+    <div class="row">
+      <span class="kpi"><i class="fa-regular fa-circle-question"></i> Pregunta del día: ¿De qué distintas formas puede procesar la información una computadora?</span>
+    </div>
+
+    <!-- Flashcards -->
+    <div class="cards">
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <span class="badge">Frente</span>
+            <h3>Procesamiento</h3>
+            <p>Definición simple</p>
+          </div>
+          <div class="card-back">
+            <span class="badge">Dorso</span>
+            <p>Trabajo para convertir entradas en salidas (reglas, comparaciones, conteos, búsquedas, etc.).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <span class="badge">Frente</span>
+            <h3>Si/Entonces</h3>
+            <p>Decisiones</p>
+          </div>
+          <div class="card-back">
+            <span class="badge">Dorso</span>
+            <p>Si se cumple una condición, entonces se ejecuta una acción (mostrar, sumar, cambiar color...).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <span class="badge">Frente</span>
+            <h3>Comparar</h3>
+            <p>Igual / mayor / menor</p>
+          </div>
+          <div class="card-back">
+            <span class="badge">Dorso</span>
+            <p>Contrastar datos: ¿son iguales?, ¿cuál es mayor?, ¿cuál ocurre antes?</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <span class="badge">Frente</span>
+            <h3>Coincidencias</h3>
+            <p>Buscar en una lista</p>
+          </div>
+          <div class="card-back">
+            <span class="badge">Dorso</span>
+            <p>Localizar elementos que cumplan un criterio (mes/día, palabra clave, preferencia).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <span class="badge">Frente</span>
+            <h3>Contar</h3>
+            <p>Acumular</p>
+          </div>
+          <div class="card-back">
+            <span class="badge">Dorso</span>
+            <p>Llevar un registro de cantidades (intentos, elementos seleccionados, pulsaciones).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FASE A.2: Verificación Conceptual -->
+  <section class="section" id="quiz">
+    <h2><i class="fa-solid fa-list-check"></i> Verificación Conceptual (3 preguntas)</h2>
+
+    <div class="quiz-q">
+      <h3>1) ¿Qué tipo de procesamiento describe “Si se cumple condición, entonces realizar acción”?</h3>
+      <label><input type="radio" name="q1" value="comparar"> Comparar</label><br/>
+      <label><input type="radio" name="q1" value="si"> Si/Entonces (condicional)</label><br/>
+      <label><input type="radio" name="q1" value="contar"> Contar</label>
+      <div class="feedback-line" id="fb1"></div>
+    </div>
+
+    <div class="quiz-q">
+      <h3>2) Marcar elementos en un listado que cumplen un criterio corresponde a...</h3>
+      <label><input type="radio" name="q2" value="comparar"> Comparar</label><br/>
+      <label><input type="radio" name="q2" value="coincidencia"> Encontrar coincidencias</label><br/>
+      <label><input type="radio" name="q2" value="si"> Si/Entonces</label>
+      <div class="feedback-line" id="fb2"></div>
+    </div>
+
+    <div class="quiz-q">
+      <h3>3) Llevar la cuenta de intentos restantes o pulsaciones es...</h3>
+      <label><input type="radio" name="q3" value="contar"> Contar</label><br/>
+      <label><input type="radio" name="q3" value="si"> Si/Entonces</label><br/>
+      <label><input type="radio" name="q3" value="comparar"> Comparar</label>
+      <div class="feedback-line" id="fb3"></div>
+    </div>
+
+    <div class="quiz-actions">
+      <button class="btn secondary" id="btnQuiz"><i class="fa-solid fa-check-to-slot"></i> Calificar Quiz</button>
+      <span class="result" id="quizResult">Puntaje: 0/3</span>
+    </div>
+  </section>
+
+  <!-- FASE A.3: Actividad de Producción: Laboratorio de Apps en la página -->
+  <section class="section" id="laboratorio">
+    <h2><i class="fa-solid fa-flask"></i> El Laboratorio de Apps (Prueba y Analiza)</h2>
+    <div class="guideline">
+      <p><strong>Consigna general:</strong> Para cada mini‑aplicación, <em>prueba</em> la UI y luego completa el análisis:</p>
+      <ul>
+        <li><strong>Entrada:</strong> ¿Qué información proporciona el usuario o el sistema?</li>
+        <li><strong>Salida:</strong> ¿Qué muestra o devuelve la app?</li>
+        <li><strong>Tipo(s) de procesamiento:</strong> elige entre <em>si/entonces</em>, <em>comparar</em>, <em>coincidencia</em>, <em>contar</em>.</li>
+        <li><strong>Explicación:</strong> en tus palabras, ¿cómo convierte la entrada en salida?</li>
+      </ul>
+      <p class="small">Sugerencia de vocabulario clave: <em>procesamiento</em>, <em>si/entonces</em>, <em>comparar</em>, <em>coincidencia</em>, <em>contar</em>, <em>entrada</em>, <em>salida</em>.</p>
+    </div>
+
+    <div class="lab-grid">
+      <!-- App 1: ¿Es tu cumpleaños? -->
+      <div class="lab-app" id="app1">
+        <h3><i class="fa-regular fa-calendar-check"></i> 1) ¿Es tu cumpleaños?</h3>
+        <div class="app-ui">
+          <label for="bday">Tu fecha de nacimiento:</label>
+          <input type="date" id="bday"/>
+          <button class="btn inline" onclick="checkBirthday()"><i class="fa-solid fa-play"></i> Probar</button>
+          <div id="bdayOut" class="small"></div>
+        </div>
+        <label>Análisis — Entrada</label><textarea id="a1_in" placeholder="Describe la/s entrada/s... (≥ 60 caracteres)"></textarea>
+        <label>Salida</label><textarea id="a1_out" placeholder="Describe la/s salida/s... (≥ 60 caracteres)"></textarea>
+        <label>Tipo(s) de procesamiento</label><input type="text" id="a1_type" placeholder="Ej.: comparar; si/entonces"/>
+        <label>Explicación</label><textarea id="a1_exp" placeholder="Explica cómo compara la fecha y decide el mensaje... (≥ 80 caracteres)"></textarea>
+      </div>
+
+      <!-- App 2: Parques Nacionales (quiz simple) -->
+      <div class="lab-app" id="app2">
+        <h3><i class="fa-solid fa-tree"></i> 2) Parques Nacionales</h3>
+        <div class="app-ui">
+          <p class="small">¿En qué país está Yellowstone?</p>
+          <label><input type="radio" name="npq" value="mx"> México</label>
+          <label><input type="radio" name="npq" value="us"> Estados Unidos</label>
+          <label><input type="radio" name="npq" value="ca"> Canadá</label>
+          <button class="btn inline" onclick="gradeNPQ()"><i class="fa-solid fa-check"></i> Responder</button>
+          <div id="npqOut" class="small"></div>
+        </div>
+        <label>Análisis — Entrada</label><textarea id="a2_in" placeholder="Describe la/s entrada/s... (≥ 60 caracteres)"></textarea>
+        <label>Salida</label><textarea id="a2_out" placeholder="Describe la/s salida/s... (≥ 60 caracteres)"></textarea>
+        <label>Tipo(s) de procesamiento</label><input type="text" id="a2_type" placeholder="Ej.: si/entonces; comparar"/>
+        <label>Explicación</label><textarea id="a2_exp" placeholder="Explica cómo compara tu respuesta con la correcta y decide el mensaje... (≥ 80 caracteres)"></textarea>
+      </div>
+
+      <!-- App 3: ¿Cuántos países? (contar) -->
+      <div class="lab-app" id="app3">
+        <h3><i class="fa-solid fa-globe"></i> 3) ¿Cuántos países?</h3>
+        <div class="app-ui">
+          <p class="small">Selecciona países que hablan español:</p>
+          <label><input type="checkbox" class="country" value="ES"> España</label>
+          <label><input type="checkbox" class="country" value="BR"> Brasil</label>
+          <label><input type="checkbox" class="country" value="MX"> México</label>
+          <label><input type="checkbox" class="country" value="CA"> Canadá</label>
+          <label><input type="checkbox" class="country" value="AR"> Argentina</label>
+          <button class="btn inline" onclick="countCountries()"><i class="fa-solid fa-calculator"></i> Contar</button>
+          <div id="ctyOut" class="small"></div>
+        </div>
+        <label>Análisis — Entrada</label><textarea id="a3_in" placeholder="Describe la/s entrada/s... (≥ 60 caracteres)"></textarea>
+        <label>Salida</label><textarea id="a3_out" placeholder="Describe la/s salida/s... (≥ 60 caracteres)"></textarea>
+        <label>Tipo(s) de procesamiento</label><input type="text" id="a3_type" placeholder="Ej.: contar; coincidencia"/>
+        <label>Explicación</label><textarea id="a3_exp" placeholder="Explica cómo cuenta los seleccionados que cumplen el criterio... (≥ 80 caracteres)"></textarea>
+      </div>
+
+      <!-- App 4: Adivina el número (comparar + si/entonces) -->
+      <div class="lab-app" id="app4">
+        <h3><i class="fa-solid fa-shuffle"></i> 4) Adivina el número</h3>
+        <div class="app-ui">
+          <p class="small">Piensa en un número entre 1 y 100.</p>
+          <input type="number" id="guess" min="1" max="100" placeholder="Tu intento"/>
+          <button class="btn inline" onclick="tryGuess()"><i class="fa-solid fa-bullseye"></i> Probar</button>
+          <div id="guessOut" class="small"></div>
+        </div>
+        <label>Análisis — Entrada</label><textarea id="a4_in" placeholder="Describe la/s entrada/s... (≥ 60 caracteres)"></textarea>
+        <label>Salida</label><textarea id="a4_out" placeholder="Describe la/s salida/s... (≥ 60 caracteres)"></textarea>
+        <label>Tipo(s) de procesamiento</label><input type="text" id="a4_type" placeholder="Ej.: comparar; si/entonces; contar (intentos)"/>
+        <label>Explicación</label><textarea id="a4_exp" placeholder="Explica cómo compara con el número secreto y decide 'alto/bajo/correcto'... (≥ 80 caracteres)"></textarea>
+      </div>
+
+      <!-- App 5: El dedo más rápido (contar + comparar) -->
+      <div class="lab-app" id="app5">
+        <h3><i class="fa-solid fa-keyboard"></i> 5) El dedo más rápido (S vs K)</h3>
+        <div class="app-ui">
+          <p class="small">Pulsa <strong>S</strong> o <strong>K</strong> durante 5 segundos. Luego compara.</p>
+          <button class="btn inline" onclick="startSpeedTest()"><i class="fa-solid fa-stopwatch"></i> Iniciar</button>
+          <div id="speedOut" class="small"></div>
+        </div>
+        <label>Análisis — Entrada</label><textarea id="a5_in" placeholder="Describe la/s entrada/s... (≥ 60 caracteres)"></textarea>
+        <label>Salida</label><textarea id="a5_out" placeholder="Describe la/s salida/s... (≥ 60 caracteres)"></textarea>
+        <label>Tipo(s) de procesamiento</label><input type="text" id="a5_type" placeholder="Ej.: contar; comparar"/>
+        <label>Explicación</label><textarea id="a5_exp" placeholder="Explica cómo cuenta pulsaciones por tecla y compara cuál es mayor... (≥ 80 caracteres)"></textarea>
+      </div>
+
+      <!-- App 6: ¿Dónde debería vivir? (coincidencias + contar + comparar) -->
+      <div class="lab-app" id="app6">
+        <h3><i class="fa-solid fa-location-dot"></i> 6) ¿Dónde debería vivir?</h3>
+        <div class="app-ui">
+          <p class="small">Marca tus preferencias:</p>
+          <label><input type="checkbox" class="pref" value="playa"> Playa</label>
+          <label><input type="checkbox" class="pref" value="montana"> Montaña</label>
+          <label><input type="checkbox" class="pref" value="ciudad"> Ciudad</label>
+          <label><input type="checkbox" class="pref" value="frio"> Clima frío</label>
+          <label><input type="checkbox" class="pref" value="calor"> Clima cálido</label>
+          <button class="btn inline" onclick="matchPlaces()"><i class="fa-solid fa-magnifying-glass"></i> Recomendar</button>
+          <div id="placeOut" class="small"></div>
+        </div>
+        <label>Análisis — Entrada</label><textarea id="a6_in" placeholder="Describe la/s entrada/s... (≥ 60 caracteres)"></textarea>
+        <label>Salida</label><textarea id="a6_out" placeholder="Describe la/s salida/s... (≥ 60 caracteres)"></textarea>
+        <label>Tipo(s) de procesamiento</label><input type="text" id="a6_type" placeholder="Ej.: coincidencia; contar; comparar"/>
+        <label>Explicación</label><textarea id="a6_exp" placeholder="Explica cómo busca coincidencias con lugares, cuenta matches y compara para elegir el mejor... (≥ 80 caracteres)"></textarea>
+      </div>
+    </div>
+
+    <!-- Tu aplicación -->
+    <div class="section" id="tuApp" style="margin-top:16px;">
+      <h2><i class="fa-solid fa-rocket"></i> Tu aplicación: idea y análisis</h2>
+      <div class="guideline">
+        <p><strong>Consigna:</strong> Diseña una idea de aplicación propia. Indica sus entradas, salidas y qué tipos de procesamiento usaría. Luego explica cómo convierte la entrada en salida.</p>
+      </div>
+      <label>Idea de aplicación</label><input type="text" id="myapp_idea" placeholder="Ej.: Recomendador de hobbies para estudiantes"/>
+      <div class="lab-grid" style="grid-template-columns: 1fr 1fr;">
+        <div>
+          <label>Entradas</label><textarea id="myapp_in" placeholder="¿Qué datos pedirías? (≥ 80 caracteres)"></textarea>
+          <label>Salidas</label><textarea id="myapp_out" placeholder="¿Qué resultados mostrarías? (≥ 80 caracteres)"></textarea>
+        </div>
+        <div>
+          <label>Tipo(s) de procesamiento</label><input type="text" id="myapp_type" placeholder="Ej.: coincidencia; contar; si/entonces; comparar"/>
+          <label>Explicación del procesamiento</label><textarea id="myapp_exp" placeholder="Explica paso a paso cómo la app transforma entrada en salida (≥ 120 caracteres)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-actions" style="margin-top:12px;">
+      <button class="btn warning" id="btnValidate"><i class="fa-solid fa-clipboard-check"></i> Verificar y Guardar</button>
+      <button class="btn success" id="btnPDF" disabled><i class="fa-solid fa-file-pdf"></i> Generar PDF</button>
+    </div>
+    <div class="status" id="statusBox"></div>
+  </section>
+</main>
+
+<footer>
+  <small>Al finalizar, obtendrás un PDF con tus datos, puntaje del quiz y el análisis de cada app. <i class="fa-regular fa-handshake"></i></small>
+</footer>
+
+<script>
+  // ---------------------------
+  // jsPDF UMD (verificación)
+  // ---------------------------
+  var jsPDF = window.jspdf && window.jspdf.jsPDF ? window.jspdf.jsPDF : null;
+
+  // ---------------------------
+  // Flashcards: flip al click
+  // ---------------------------
+  var cards = document.querySelectorAll('.card');
+  for (var i=0; i<cards.length; i++){
+    (function(card){
+      card.addEventListener('click', function(){ card.classList.toggle('flipped'); });
+    })(cards[i]);
+  }
+
+  // ---------------------------
+  // Quiz
+  // ---------------------------
+  var quizScore = 0;
+  var quizFeedback = { q1:'', q2:'', q3:'' };
+
+  document.getElementById('btnQuiz').addEventListener('click', function(){
+    var q1El = document.querySelector('input[name="q1"]:checked');
+    var q2El = document.querySelector('input[name="q2"]:checked');
+    var q3El = document.querySelector('input[name="q3"]:checked');
+
+    var q1 = q1El ? q1El.value : null;
+    var q2 = q2El ? q2El.value : null;
+    var q3 = q3El ? q3El.value : null;
+
+    quizScore = 0;
+
+    if (q1 === 'si'){ quizScore++; quizFeedback.q1 = '✔ Si/Entonces: decisiones según la condición.'; setFb('fb1', quizFeedback.q1, true); }
+    else { quizFeedback.q1 = '✖ Recuerda: “Si se cumple condición → acción” es Si/Entonces.'; setFb('fb1', quizFeedback.q1, false); }
+
+    if (q2 === 'coincidencia'){ quizScore++; quizFeedback.q2 = '✔ Coincidencias: buscar en una lista lo que cumple un criterio.'; setFb('fb2', quizFeedback.q2, true); }
+    else { quizFeedback.q2 = '✖ Señalar elementos que cumplen un criterio es “Encontrar coincidencias”.'; setFb('fb2', quizFeedback.q2, false); }
+
+    if (q3 === 'contar'){ quizScore++; quizFeedback.q3 = '✔ Contar: llevar el registro de cantidades.'; setFb('fb3', quizFeedback.q3, true); }
+    else { quizFeedback.q3 = '✖ “Intentos” o “pulsaciones” implican el tipo Contar.'; setFb('fb3', quizFeedback.q3, false); }
+
+    document.getElementById('quizResult').textContent = 'Puntaje: ' + quizScore + '/3';
+  });
+
+  function setFb(id, text, ok){
+    var el = document.getElementById(id);
+    el.textContent = text;
+    el.className = 'feedback-line ' + (ok ? 'ok' : 'bad');
+  }
+
+  // ---------------------------
+  // Mini‑Apps (Laboratorio)
+  // ---------------------------
+
+  // App 1: ¿Es tu cumpleaños?
+  function checkBirthday(){
+    var inp = document.getElementById('bday').value;
+    var out = document.getElementById('bdayOut');
+    if(!inp){ out.textContent = 'Ingresa tu fecha de nacimiento.'; return; }
+    var today = new Date();
+    var b = new Date(inp);
+    if (b.getMonth() === today.getMonth() && b.getDate() === today.getDate()){
+      out.textContent = '🎉 ¡Feliz cumpleaños! (comparar + si/entonces)';
+    } else {
+      out.textContent = 'No es tu cumpleaños hoy. (comparar + si/entonces)';
+    }
+  }
+
+  // App 2: Parques Nacionales
+  function gradeNPQ(){
+    var choice = document.querySelector('input[name="npq"]:checked');
+    var out = document.getElementById('npqOut');
+    if(!choice){ out.textContent = 'Selecciona una opción.'; return; }
+    if (choice.value === 'us'){ out.textContent = '✔ Correcto: Yellowstone está en Estados Unidos.'; }
+    else { out.textContent = '✖ Incorrecto: la respuesta correcta es Estados Unidos.'; }
+  }
+
+  // App 3: ¿Cuántos países? (contar + coincidencia)
+  function countCountries(){
+    var boxes = document.querySelectorAll('#app3 .country');
+    var selected = 0, matches = 0;
+    var spanish = {ES:true, MX:true, AR:true}; // criterio
+    for (var i=0; i<boxes.length; i++){
+      if(boxes[i].checked){
+        selected++;
+        var code = boxes[i].value;
+        if (spanish[code]) matches++;
+      }
+    }
+    var out = document.getElementById('ctyOut');
+    out.textContent = 'Seleccionados: ' + selected + ' • Hablan español (coincidencias): ' + matches + ' (contar + coincidencia).';
+  }
+
+  // App 4: Adivina el número
+  var secret = Math.floor(Math.random()*100)+1;
+  var triesLeft = 7;
+  function tryGuess(){
+    var g = parseInt(document.getElementById('guess').value, 10);
+    var out = document.getElementById('guessOut');
+    if(isNaN(g)){ out.textContent = 'Ingresa un número entre 1 y 100.'; return; }
+    if (triesLeft <= 0){ out.textContent = 'Sin intentos. Reiniciando número secreto...'; secret = Math.floor(Math.random()*100)+1; triesLeft = 7; return; }
+    triesLeft--;
+    if (g === secret){ out.textContent = '✔ Correcto. ¡Lo adivinaste! Intentos restantes: ' + triesLeft + ' (comparar + si/entonces + contar).'; }
+    else if (g < secret){ out.textContent = 'Demasiado bajo. Intentos restantes: ' + triesLeft; }
+    else { out.textContent = 'Demasiado alto. Intentos restantes: ' + triesLeft; }
+  }
+
+  // App 5: El dedo más rápido (S vs K)
+  var testOn = false, sCount = 0, kCount = 0, timerRef = null;
+  function startSpeedTest(){
+    sCount = 0; kCount = 0; testOn = true;
+    var out = document.getElementById('speedOut');
+    out.textContent = 'Pulsa S o K... (5s)';
+    if (timerRef){ clearTimeout(timerRef); }
+    timerRef = setTimeout(function(){
+      testOn = false;
+      var msg = 'S: ' + sCount + ' • K: ' + kCount + ' → ';
+      if (sCount > kCount) msg += 'Más rápido: S';
+      else if (kCount > sCount) msg += 'Más rápido: K';
+      else msg += 'Empate';
+      out.textContent = msg + ' (contar + comparar).';
+    }, 5000);
+  }
+  document.addEventListener('keydown', function(ev){
+    if (!testOn) return;
+    var key = ev.key || ev.keyCode;
+    if (key === 's' || key === 'S' || key === 83){ sCount++; }
+    if (key === 'k' || key === 'K' || key === 75){ kCount++; }
+  });
+
+  // App 6: ¿Dónde debería vivir?
+  function matchPlaces(){
+    var prefsEls = document.querySelectorAll('#app6 .pref');
+    var prefs = {};
+    for (var i=0;i<prefsEls.length;i++){ if(prefsEls[i].checked){ prefs[prefsEls[i].value] = true; } }
+    var places = [
+      {nombre:'Barcelona', tags:['playa','ciudad','calor']},
+      {nombre:'Reykjavík', tags:['ciudad','frio','montana']},
+      {nombre:'Mendoza', tags:['montana','ciudad','calor']},
+      {nombre:'Punta del Este', tags:['playa','calor']}
+    ];
+    var best = null, bestScore = -1, detail = [];
+    for (var j=0;j<places.length;j++){
+      var p = places[j], score = 0;
+      for (var k=0;k<p.tags.length;k++){ if(prefs[p.tags[k]]) score++; }
+      detail.push(p.nombre + ': ' + score + ' coincidencia(s)');
+      if (score > bestScore){ bestScore = score; best = p.nombre; }
+    }
+    var out = document.getElementById('placeOut');
+    out.textContent = 'Resultados → ' + detail.join(' • ') + ' | Recomendación: ' + (best || 'sin coincidencias') + ' (coincidencia + contar + comparar).';
+  }
+
+  // ---------------------------
+  // Validación blanda + Guardar
+  // ---------------------------
+  var evidenciaData = null;
+  var keywords = ['procesamiento','si/entonces','comparar','coincidencia','contar','entrada','salida','aplicación'];
+
+  document.getElementById('btnValidate').addEventListener('click', function(){
+    var name = (document.getElementById('studentName').value || '').trim();
+    var group = (document.getElementById('studentGroup').value || '').trim();
+
+    // Recolectar análisis de apps
+    var fields = [
+      'a1_in','a1_out','a1_type','a1_exp',
+      'a2_in','a2_out','a2_type','a2_exp',
+      'a3_in','a3_out','a3_type','a3_exp',
+      'a4_in','a4_out','a4_type','a4_exp',
+      'a5_in','a5_out','a5_type','a5_exp',
+      'a6_in','a6_out','a6_type','a6_exp',
+      'myapp_idea','myapp_in','myapp_out','myapp_type','myapp_exp'
+    ];
+    var data = {};
+    for (var i=0;i<fields.length;i++){
+      var id = fields[i];
+      var el = document.getElementById(id);
+      data[id] = (el && el.value ? el.value.trim() : '');
+    }
+
+    var statusBox = document.getElementById('statusBox');
+    statusBox.style.display = 'block';
+
+    // Longitudes mínimas (control de calidad)
+    var tooShort = [];
+    function requireLen(id, min, label){
+      if (!data[id] || data[id].length < min){ tooShort.push(label + ' (≥ ' + min + ' caracteres)'); }
+    }
+    // Apps: entradas/salidas ≥60, explicación ≥80
+    requireLen('a1_in',60,'App1 Entrada'); requireLen('a1_out',60,'App1 Salida'); requireLen('a1_exp',80,'App1 Explicación');
+    requireLen('a2_in',60,'App2 Entrada'); requireLen('a2_out',60,'App2 Salida'); requireLen('a2_exp',80,'App2 Explicación');
+    requireLen('a3_in',60,'App3 Entrada'); requireLen('a3_out',60,'App3 Salida'); requireLen('a3_exp',80,'App3 Explicación');
+    requireLen('a4_in',60,'App4 Entrada'); requireLen('a4_out',60,'App4 Salida'); requireLen('a4_exp',80,'App4 Explicación');
+    requireLen('a5_in',60,'App5 Entrada'); requireLen('a5_out',60,'App5 Salida'); requireLen('a5_exp',80,'App5 Explicación');
+    requireLen('a6_in',60,'App6 Entrada'); requireLen('a6_out',60,'App6 Salida'); requireLen('a6_exp',80,'App6 Explicación');
+    // Tu aplicación
+    requireLen('myapp_idea',20,'Idea de aplicación');
+    requireLen('myapp_in',80,'Entradas (tu app)');
+    requireLen('myapp_out',80,'Salidas (tu app)');
+    requireLen('myapp_exp',120,'Explicación (tu app)');
+
+    if(!name) tooShort.push('Nombre del estudiante');
+    if(!group) tooShort.push('Curso/Grupo');
+
+    if(tooShort.length > 0){
+      statusBox.className = 'status warn';
+      statusBox.innerHTML = '<strong>Revisión:</strong> Aún faltan aspectos por completar:<ul>' + tooShort.map(function(s){return '<li>'+s+'</li>';}).join('') + '</ul>';
+      document.getElementById('btnPDF').disabled = true;
+      return;
+    }
+
+    // Palabras clave presentes
+    var allText = '';
+    for (var k in data){ if(data.hasOwnProperty(k)){ allText += ' ' + data[k].toLowerCase(); } }
+    var used = [], missing = [];
+    for (var m=0;m<keywords.length;m++){
+      var kw = keywords[m];
+      if (allText.indexOf(kw) !== -1) used.push(kw); else missing.push(kw);
+    }
+    if (used.length < 5){
+      statusBox.className = 'status warn';
+      var sampleMissing = missing.slice(0,5).map(function(s){ return '<span class="badge">'+s+'</span>'; }).join(' ');
+      statusBox.innerHTML = '<strong>Atención:</strong> Parece que olvidaste mencionar conceptos clave como: ' + sampleMissing + '. Intenta integrarlos.';
+      document.getElementById('btnPDF').disabled = true;
+      return;
+    }
+
+    // Guardar evidencia
+    evidenciaData = {
+      name:name, group:group,
+      quizScore:quizScore, quizFeedback:quizFeedback,
+      apps:[
+        {titulo:'¿Es tu cumpleaños?', entrada:data.a1_in, salida:data.a1_out, tipos:data.a1_type, explicacion:data.a1_exp},
+        {titulo:'Parques Nacionales', entrada:data.a2_in, salida:data.a2_out, tipos:data.a2_type, explicacion:data.a2_exp},
+        {titulo:'¿Cuántos países?', entrada:data.a3_in, salida:data.a3_out, tipos:data.a3_type, explicacion:data.a3_exp},
+        {titulo:'Adivina el número', entrada:data.a4_in, salida:data.a4_out, tipos:data.a4_type, explicacion:data.a4_exp},
+        {titulo:'El dedo más rápido', entrada:data.a5_in, salida:data.a5_out, tipos:data.a5_type, explicacion:data.a5_exp},
+        {titulo:'¿Dónde debería vivir?', entrada:data.a6_in, salida:data.a6_out, tipos:data.a6_type, explicacion:data.a6_exp}
+      ],
+      myapp:{ idea:data.myapp_idea, entrada:data.myapp_in, salida:data.myapp_out, tipos:data.myapp_type, explicacion:data.myapp_exp },
+      timestamp: new Date(), keywordsUsed: used
+    };
+
+    statusBox.className = 'status ok';
+    statusBox.innerHTML = '<strong>¡Excelente!</strong> Tu evidencia está lista. Palabras clave usadas: <em>' + used.join(', ') + '</em>. Ya puedes generar el PDF.';
+    document.getElementById('btnPDF').disabled = false;
+  });
+
+  // ---------------------------
+  // Generación de PDF
+  // ---------------------------
+  document.getElementById('btnPDF').addEventListener('click', function(){
+    if(!jsPDF){ alert('No se pudo cargar jsPDF desde el CDN. Revisa tu conexión.'); return; }
+    if(!evidenciaData){ alert('Primero Verifica y Guarda la actividad.'); return; }
+
+    // Si no se calificó el quiz, lo calificamos para registrar el puntaje
+    var fb1 = document.getElementById('fb1').textContent;
+    if (quizScore === 0 && !fb1){ document.getElementById('btnQuiz').click(); }
+
+    var doc = new jsPDF({ unit:'pt', format:'a4' });
+    var margin = 44;
+    var pageW = doc.internal.pageSize.getWidth();
+    var pageH = doc.internal.pageSize.getHeight();
+    var y = margin;
+
+    doc.setFont('helvetica','bold'); doc.setFontSize(16);
+    doc.text('Evidencia de Aprendizaje — Procesamiento', margin, y); y += 22;
+
+    doc.setFont('helvetica','normal'); doc.setFontSize(11);
+    doc.text('Estudiante: ' + evidenciaData.name, margin, y); y += 14;
+    doc.text('Curso/Grupo: ' + evidenciaData.group, margin, y); y += 14;
+    doc.text('Fecha: ' + formatDate(evidenciaData.timestamp), margin, y); y += 18;
+
+    doc.setFont('helvetica','bold'); doc.setFontSize(13);
+    doc.text('Resultado del Quiz', margin, y); y += 16;
+    doc.setFont('helvetica','normal'); doc.setFontSize(11);
+    doc.text('Puntaje: ' + evidenciaData.quizScore + ' / 3', margin, y); y += 14;
+
+    var fbLines = [
+      '1) ' + (evidenciaData.quizFeedback.q1 || 'Sin feedback'),
+      '2) ' + (evidenciaData.quizFeedback.q2 || 'Sin feedback'),
+      '3) ' + (evidenciaData.quizFeedback.q3 || 'Sin feedback')
+    ].join('\n');
+    y = addWrapped(doc, fbLines, margin, y, pageW - margin*2, pageH, margin);
+
+    // Análisis de Apps
+    y += 10;
+    doc.setFont('helvetica','bold'); doc.setFontSize(13);
+    y = addWrapped(doc, 'Laboratorio de Apps — Análisis', margin, y, pageW - margin*2, pageH, margin);
+    doc.setFont('helvetica','normal'); doc.setFontSize(11);
+
+    for (var i=0;i<evidenciaData.apps.length;i++){
+      var ap = evidenciaData.apps[i];
+      y += 6; doc.setFont('helvetica','bold'); doc.setFontSize(12);
+      y = addWrapped(doc, (i+1)+') '+ap.titulo, margin, y, pageW - margin*2, pageH, margin);
+      doc.setFont('helvetica','normal'); doc.setFontSize(11);
+      y = addWrapped(doc, 'Entradas: ' + ap.entrada, margin, y, pageW - margin*2, pageH, margin);
+      y = addWrapped(doc, 'Salidas: ' + ap.salida, margin, y, pageW - margin*2, pageH, margin);
+      y = addWrapped(doc, 'Tipo(s) de procesamiento: ' + ap.tipos, margin, y, pageW - margin*2, pageH, margin);
+      y = addWrapped(doc, 'Explicación: ' + ap.explicacion, margin, y, pageW - margin*2, pageH, margin);
+    }
+
+    // Tu aplicación
+    y += 10;
+    doc.setFont('helvetica','bold'); doc.setFontSize(13);
+    y = addWrapped(doc, 'Tu aplicación', margin, y, pageW - margin*2, pageH, margin);
+    doc.setFont('helvetica','normal'); doc.setFontSize(11);
+    y = addWrapped(doc, 'Idea: ' + evidenciaData.myapp.idea, margin, y, pageW - margin*2, pageH, margin);
+    y = addWrapped(doc, 'Entradas: ' + evidenciaData.myapp.entrada, margin, y, pageW - margin*2, pageH, margin);
+    y = addWrapped(doc, 'Salidas: ' + evidenciaData.myapp.salida, margin, y, pageW - margin*2, pageH, margin);
+    y = addWrapped(doc, 'Tipo(s) de procesamiento: ' + evidenciaData.myapp.tipos, margin, y, pageW - margin*2, pageH, margin);
+    y = addWrapped(doc, 'Explicación: ' + evidenciaData.myapp.explicacion, margin, y, pageW - margin*2, pageH, margin);
+
+    y += 18;
+    doc.setFont('helvetica','bold'); doc.setFontSize(12);
+    y = addWrapped(doc, 'Actividad Completada ✔', margin, y, pageW - margin*2, pageH, margin);
+
+    var fileName = 'Evidencia_Procesamiento_' + slug(evidenciaData.name) + '.pdf';
+    doc.save(fileName);
+  });
+
+  // ---------------------------
+  // Helpers PDF
+  // ---------------------------
+  function addWrapped(doc, text, x, y, maxWidth, pageH, margin){
+    var lines = doc.splitTextToSize(text, maxWidth);
+    for (var i=0; i<lines.length; i++){
+      if (y > pageH - margin){ doc.addPage(); y = margin; }
+      doc.text(lines[i], x, y); y += 14;
+    }
+    return y;
+  }
+  function slug(s){ return (s||'').toLowerCase().replace(/[^\w]+/g,'_').replace(/_+/g,'_').replace(/^_|_$/g,''); }
+  function formatDate(d){
+    try{
+      var dt = new Date(d);
+      var dd = String(dt.getDate()).padStart(2,'0');
+      var mm = String(dt.getMonth()+1).padStart(2,'0');
+      var yy = dt.getFullYear();
+      var hh = String(dt.getHours()).padStart(2,'0');
+      var mi = String(dt.getMinutes()).padStart(2,'0');
+      return dd + '/' + mm + '/' + yy + ' ' + hh + ':' + mi;
+    } catch(e){ return new Date().toLocaleString(); }
+  }
+</script>
+</body>
+</html>

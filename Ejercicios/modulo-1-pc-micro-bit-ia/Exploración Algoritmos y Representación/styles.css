@@ -1,0 +1,83 @@
+body {
+  font-family: "Courier New", monospace;
+  background: #222;
+  color: #eee;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  color: #00ff88;
+  text-align: center;
+}
+
+.card {
+  background: #333;
+  border: 2px solid #00ff88;
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 1200px;
+  padding: 24px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #00ff88;
+}
+
+textarea#eps {
+  width: 600px;
+}
+
+textarea, input {
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-family: "Courier New", monospace;
+}
+
+button {
+  background: #00ff88;
+  color: #222;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #00cc66;
+}
+
+#preview {
+  margin-top: 15px;
+  text-align: center;
+}
+
+#preview img {
+  max-width: 300px;
+  border: 2px solid #00ff88;
+  border-radius: 8px;
+}
+
+.wrap {
+  max-width: 1500px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+.test-frame {
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  height: 420px;
+}

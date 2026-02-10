@@ -1,0 +1,7 @@
+No todo es un número
+
+Los operadores no solo nos sirven para obtener números a partir de otros, ¡también podemos compararlos! En Python, estas comparaciones devuelven True o False (verdadero o falso), que es un tipo de dato llamado booleano.
+
+Probá lo siguiente en la consola y observá los resultados:
+
+Estos operadores no devuelven números, sino valores booleanos True o False. Ahora ya conocés otro tipo de dato en Python.

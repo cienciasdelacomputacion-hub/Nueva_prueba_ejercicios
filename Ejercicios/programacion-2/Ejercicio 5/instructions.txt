@@ -1,0 +1,7 @@
+Dada una lista de nombres de ciudades, realiza lo siguiente:
+
+Busca la ciudad "Maldonado" en la lista utilizando .index().
+
+Muestra su posición en la lista si está presente.
+
+Si la ciudad no está en la lista, el código lanzará un error

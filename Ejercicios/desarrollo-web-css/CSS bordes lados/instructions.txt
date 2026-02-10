@@ -1,0 +1,7 @@
+Prueba tú mismo:
+
+Aplica un border-top diferente al mismo párrafo (ej: 2px solid blue;). Observa cómo se combinan los bordes.
+
+Crea un div y aplícale border-left y border-right con distintos estilos y colores.
+
+Intenta usar solo el ancho y el color sin el estilo (ej: border-bottom: 5px red;). ¿Es visible el borde y por qué?

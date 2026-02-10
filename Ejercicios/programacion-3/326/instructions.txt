@@ -1,0 +1,7 @@
+Agregando Comportamiento
+
+Modificá la clase Celular para que tenga estos métodos:
+
+cargar_a_tope(): carga la batería al 100%.
+
+necesita_saldo(): devuelve True si el saldo es 0.

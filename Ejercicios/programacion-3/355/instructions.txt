@@ -1,0 +1,7 @@
+Conversión de Temperaturas
+
+Crea una función celsius_a_fahrenheit que convierta una temperatura en grados Celsius a Fahrenheit.
+
+Pista
+La fórmula de conversión es:
+°F=(°C×1,8)+32°F

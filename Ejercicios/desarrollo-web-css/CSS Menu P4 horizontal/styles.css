@@ -1,0 +1,83 @@
+/* --- Estilos generales de la página y alineación --- */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+        
+}
+
+h1 {
+    text-align: center; /* Centra el título */
+    margin-bottom: 20px; /* Espacio debajo del título */
+}
+
+nav {
+    margin-top: 20px;
+    width: fit-content; /* Ajusta el tamaño del navbar a su contenido */
+    margin-left: auto; /* Centra la barra de navegación */
+    margin-right: auto;
+}
+
+/* --- Propiedades para Reset: list-style-type, margin, padding --- */
+ul {
+    list-style-type: none; /* Elimina los marcadores (viñetas, números, etc.) */
+    margin: 0; /* Elimina el margen exterior predeterminado del ul */
+    padding: 0; /* Elimina el relleno interior predeterminado del ul */
+    background-color: #333; /* Fondo oscuro para la barra horizontal */
+
+}
+
+
+/* --- Estilos para la barra de navegación --- */
+
+li {
+  /* --- Propiedad: float --- */
+  float: left; /* Hace que los ítems de lista se alineen horizontalmente */
+  
+  
+ /* --- Propiedad: border-right --- */
+  border-right: 1px solid #bbb; /* Añade un borde a la derecha como separador */
+}
+
+
+li a {
+    /* --- Propiedad: display --- */
+    display: block; /* Permite controlar padding/margin y hace el área cliqueable */
+    
+    /* --- Propiedad: color --- */
+    color: white; /* Color del texto */
+          /* --- Propiedad: text-align --- */
+    text-align: center; /* Centra el texto dentro del área del enlace */
+          /* --- Propiedad: padding --- */
+    padding: 14px 16px; /* Espacio interno del "botón" */
+          /* --- Propiedad: text-decoration --- */
+    text-decoration: none; /* Elimina el subrayado */
+        }
+
+/* --- Pseudo-clase: :hover --- */
+li a:hover {
+
+     /* --- Propiedad: background-color --- */
+     background-color: #111; /* Fondo oscuro al pasar el ratón */
+     
+          /* --- Propiedad: color --- */
+    color: white; /* Mantiene el color del texto */
+        }
+
+/* Estilo para el enlace activo (ejemplo de uso de clase) */
+.active {
+    /* --- Propiedad: background-color --- */
+    background-color: #04AA6D; /* Fondo verde para activo */
+    /* --- Propiedad: color --- */
+    color: white; /* Texto blanco para activo */
+    }
+
+/* Estilo para limpiar el float después de la lista (opcional pero recomendado) */
+.clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+
+
+

@@ -1,0 +1,13 @@
+Ejercicio 1: Comparaciones sospechosas 🔍
+
+El inspector encontró dos mensajes escritos en un papel. Necesitamos saber cuál es más largo para descubrir si fue el Programador Fantasma quien los dejó.
+
+Usá la función len y los operadores de comparación para resolverlo.
+
+¿Es "mensaje oculto" más largo que "secreto"?
+
+¿Es "clave maestra" más largo que "contraseña"?
+
+¿Es "fantasma" más largo que "detective"?
+
+Pista: el operador > será tu mejor aliado.

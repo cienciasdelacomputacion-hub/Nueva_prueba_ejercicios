@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Aventura: Sobreviviendo al Twister 🌪️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&family=Fira+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos Apocalípticos/Catastróficos */
+        :root{
+            --apocalipsis-rojo:#ff4d4d;
+            --apocalipsis-naranja:#ff9900;
+            --apocalipsis-bg:#0f0f0f;
+            --apocalipsis-card:#1c1c1c;
+            --apocalipsis-texto:#e0e0e0;
+            --apocalipsis-muted:#808080;
+            --glow: rgba(255, 77, 77, 0.4);
+            --logo: rgba(59, 22, 80, 0.4);
+        }
+        *{box-sizing:border-box}
+        body{
+            margin:0; 
+            font-family:'Fira Sans', sans-serif; 
+            background-color: var(--apocalipsis-bg);
+            color:var(--apocalipsis-texto); 
+            -webkit-font-smoothing:antialiased; 
+            -moz-osx-font-smoothing:grayscale;
+            background-image: radial-gradient(at 50% 10%, rgba(255, 77, 77, 0.1), transparent 70%);
+            font-size: 18px;
+        }
+        header{
+            padding:40px 18px; 
+            text-align:center;
+            border-bottom:1px solid rgba(255,255,255,0.05);
+            background: rgba(15, 15, 15, 0.8);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        h1{
+            font-family:'Orbitron',sans-serif; 
+            font-size:2.8rem; 
+            margin:0; 
+            color:var(--apocalipsis-rojo); 
+            text-shadow:0 0 20px var(--glow);
+            letter-spacing: 2px;
+        }
+        h2{
+            font-family:'Orbitron',sans-serif; 
+            font-size:1.2rem; 
+            margin:10px 0 0; 
+            color:var(--apocalipsis-naranja); 
+            opacity:0.9;
+        }
+        .container{
+            max-width:1100px;
+            margin:30px auto;
+            padding:30px;
+            border-radius:15px;
+            background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.2));
+            border:2px solid var(--apocalipsis-rojo);
+            box-shadow: 0 0 30px rgba(255, 77, 77, 0.1);
+        }
+        .mission-row {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            border-radius: 15px;
+            background: var(--apocalipsis-card);
+            border: 1px solid rgba(255,77,77,0.3);
+            padding: 2rem;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+        }
+        .mission-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .mission-header img {
+            width: 160px;
+            height: auto;
+            border-radius: 15px;
+            border: 3px solid var(--apocalipsis-rojo);
+            box-shadow: 0 0 25px var(--glow);
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 5px var(--apocalipsis-rojo));
+        }
+        .mission-title-container h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--apocalipsis-rojo);
+            margin: 0 0 0.7rem 0;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px var(--glow);
+        }
+        .mission-title-container p {
+            margin: 0;
+            color: var(--apocalipsis-texto);
+            font-size: 1rem;
+        }
+        .mission-context {
+            background: #281515;
+            border-left: 5px solid var(--apocalipsis-rojo);
+            padding: 15px;
+            margin-top: 1rem;
+            font-style: italic;
+            color: #ffcccc;
+            font-size: 1.1rem;
+        }
+        .syntax, .hint { 
+            font-size: 0.9rem; 
+            font-family:'Roboto Mono',monospace;
+            background:#0c0d00;
+            border:1px solid rgba(255,77,77,0.1);
+            padding:12px;
+            border-radius:8px;
+            color:#ffb366;
+        }
+        .hint {
+            color: var(--apocalipsis-muted);
+            margin-top: 10px;
+            font-family: 'Fira Sans', sans-serif;
+        }
+        textarea{
+            width:100%;
+            min-height:150px;
+            padding:16px;
+            border-radius:10px;
+            background:#080808;
+            border:1px solid rgba(255,77,77,0.5);
+            color:var(--apocalipsis-texto); 
+            resize:vertical; 
+            font-family:'Roboto Mono',monospace;
+            font-size:16px; 
+            box-shadow: inset 0 0 10px rgba(255,77,77,0.15);
+        }
+        textarea:disabled{
+            background:#050505;
+            color:var(--apocalipsis-muted);
+            border:1px solid rgba(255,77,77,0.1);
+            cursor:not-allowed;
+        }
+        textarea:focus{
+            outline:none;
+            border-color:var(--apocalipsis-rojo);
+            box-shadow:0 0 20px var(--glow), inset 0 0 10px var(--glow);
+        }
+        button{
+            /* CAMBIO A COLOR SÓLIDO */
+            background-color: var(--apocalipsis-rojo); 
+            border:none;
+            color:white;
+            padding:12px 20px;
+            border-radius:10px;
+            cursor:pointer;
+            font-family:'Orbitron',sans-serif;
+            font-weight:700;
+            letter-spacing:1px;
+            text-transform: uppercase;
+            font-size: 1rem;
+        }
+        button:hover{
+            transform:translateY(-2px);
+            box-shadow:0 10px 30px rgba(255, 77, 77, 0.25);
+        }
+        button:disabled{
+            background: #555555;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        .console{
+            background:#050505;
+            border-radius:10px;
+            padding:15px;
+            text-align:left;
+            min-height:60px;
+            border:2px dashed var(--apocalipsis-naranja);
+            color:#f0f0f0;
+            font-family:'Roboto Mono',monospace;
+            white-space:pre-wrap;
+            font-size: 1rem;
+        }
+        .status-pass{color:#4CAF50;} 
+        .status-fail{color:var(--apocalipsis-rojo);}
+        .progress-fill{background:linear-gradient(90deg,var(--apocalipsis-rojo),var(--apocalipsis-naranja));}
+        kbd{background:#282828;color:var(--apocalipsis-naranja);padding:8px 10px;border-radius:6px;border:1px solid rgba(255,77,77,0.1);}
+        .mission-flashcards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+        .flashcard {
+            width: 320px;
+            height: 300px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+        .flashcard:hover {
+            transform: rotateY(180deg);
+        }
+        .flashcard-inner {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            padding: 0.8rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--apocalipsis-naranja);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #282828;
+            overflow: hidden; 
+        }
+        .flashcard-front {
+            z-index: 2;
+        }
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background: #101010;
+        }
+        .flashcard h4 {
+            margin: 0;
+            color: var(--apocalipsis-rojo);
+            font-size: 1.2em;
+            text-shadow: 0 0 5px var(--glow);
+            font-family: 'Orbitron', sans-serif;
+        }
+        .flashcard p {
+            font-size: 0.8em;
+            margin: 0.5rem 0 0;
+            color: #c0c0c0;
+            font-family: 'Roboto Mono', monospace;
+            word-wrap: break-word; 
+            white-space: normal;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ALERTA CATACLÍSMICA: TWISTER Nivel 5 🌪️</h1>
+        <h2>Tu única misión es la supervivencia. Cada línea de código importa para superar la furia del twister.</h2>
+        <div class="progress-wrap" style="max-width:1000px;margin:18px auto 0">
+            <div class="progress"><div id="progressFill" class="progress-fill"></div><div id="progressText" class="progress-text">0 / 4 Misiones Completadas</div></div>
+        </div>
+    </header>
+    <div class="container">
+        <p style="color:var(--apocalipsis-naranja);">El cielo ha ennegrecido. El rugido del Twister se acerca. Tienes poco tiempo para asegurar tu destino. Deberás aplicar tu conocimiento en **Python** para tomar decisiones críticas y automáticas. ¡Que la lógica te acompañe en este infierno! Usa <kbd>print()</kbd> y <kbd>input()</kbd> para interactuar.</p>
+        
+        <div class="mission-row" id="mission1">
+            <div class="mission-header">
+                <img src="Gemini_Generated_Image_lfm0yqlfm0yqlfm0.png" alt="Icono de Tornado">
+                <div class="mission-title-container">
+                    <h3>🔸 Misión 1 — Búsqueda de Refugio</h3>
+                    <p>El **Twister Nivel 5** ruge a lo lejos. La ventana de supervivencia se cierra. Debes elegir un refugio de la lista <code>refugios</code>.</p>
+                </div>
+            </div>
+            
+            <div class="mission-context">
+                🚨Un silbido ensordecedor anuncia la llegada del Twister. Tienes 30 segundos. Hay tres refugios disponibles: **Subterráneo**, **en las Montañas**, o **en el Bosque**. Tu código debe mostrar las opciones y luego capturar tu elección fina.
+            </div>
+            
+            <div class="mission-flashcards">
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front"><h4>Bucle FOR</h4><p>Concepto: Iteración</p></div>
+                    <div class="flashcard-inner flashcard-back"><p>Se utiliza para recorrer elementos en una secuencia (lista) y acceder a cada elemento individual.</p><p><strong>Sintaxis:</strong> 
+                    <pre>for elemento in lista:</pre>
+                         <pre>print(elemento)</pre>
+                    
+                    </p>
+                    
+                    </div>
+                </div>
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front"><h4>Indexación</h4><p>Concepto: Posición</p></div>
+                    <div class="flashcard-inner flashcard-back"><p>Accede a un elemento de la lista por su posición numérica, que empieza en 0.</p><p><strong>Sintaxis:</strong> <code>lista[indice]</code></p></div>
+                </div>
+            </div>
+            
+            <div class="hint">
+                <p><strong>Paso 1 (FOR):</strong></p>
+                <p>Crea la lista refugios que contenga los refugios dispobibles. </p>
+                <p>Usa **`for`** y **`print()`** para mostrar las 3 opciones numeradas.</p>
+                <p>Ejemplo: </p>
+                <p>1- Subterráneo </p>
+                <p>2- en las Montañas </p>
+                <p>3- en el Bosque </p>
+            </div>
+
+            <h4 style="color:var(--apocalipsis-naranja); margin-top:1rem;">1. Muestra la Lista (Bucle FOR y PRINT)</h4>
+            <textarea id="code1_step1" spellcheck="false"># CÓDIGO PASO 1: 
+            
+            </textarea>
+            <div style="display:flex;gap:10px;align-items:center;margin:10px">
+                <button onclick="runMissionStep1('1')">Ejecutar Paso 1</button>
+                <div id="status1_step1" class="status-message"></div>
+            </div>
+            <div class="console" id="out1_step1">Salida de la Lista...</div>
+
+            <hr style="border-top: 1px dashed var(--apocalipsis-naranja); margin: 2rem 0;">
+            
+            <div class="hint">
+                <p><strong>Paso 2 (INPUT):</strong> Usa **`input()`** para obtener la elección del usuario y guárdala en **`refugio_usuario`** el refugio correspondiente usando la indexación (recuerda que el usuario elige 1, 2 o 3, pero la lista usa 0, 1, 2).</p>
+            </div>
+            
+            <h4 style="color:var(--apocalipsis-naranja); margin-top:1rem;">2. Ingresa la Elección (INPUT y INDEXACIÓN)</h4>
+            <textarea id="code1_step2" spellcheck="false" disabled>#Tu CÓDIGO PASO 2:
+            </textarea>
+            <div style="display:flex;gap:10px;align-items:center;margin:10px">
+                <button id="btn1_step2" onclick="runMissionStep2('1')" disabled>Ejecutar Paso 2</button>
+                <div id="status1_step2" class="status-message"></div>
+            </div>
+            <div class="console" id="out1_step2">Resultado de la Elección...</div>
+        </div>
+
+ <div class="mission-row" id="mission2">
+            <div class="mission-header">
+                <img src="Gemini_Generated_Image_3xsxkn3xsxkn3xsx.png" alt="Icono de Botiquín">
+                <div class="mission-title-container">
+                    <h3>🔸 Misión 2 — Recolección Frenética</h3>
+                    <p>¡Debes llenar tu maleta (`inventario_usuario`) con un máximo de **5** elementos!</p>
+                </div>
+            </div>
+            <div class="mission-context">
+                **⛺** Estás en el refugio que elegiste, pero la seguridad es temporal. Hay 9 suministros en la zona de peligro y oscura. Tu maleta solo admite **5** artículos. **DEBES** ser estratégico en tu selección si quieres garantizar la supervivencia, ya que es el suministro clave requerido para el escenario actual.
+            </div>
+            <div class="mission-flashcards">
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front"><h4>Bucle WHILE</h4><p>Concepto: Repetición Condicional</p></div>
+                    <div class="flashcard-inner flashcard-back"><p>Ejecuta un bloque de código mientras una condición sea verdadera.</p><p><strong>Sintaxis:</strong> </p>
+                    <pre><code>while condicion_verdadera:</code></pre>
+                    <pre><code>  #Lo que quiero repetir</code></pre>
+                    <pre><code>  #Actualizar la variable</code></pre>
+                    <pre><code>  #de la condición lógica</code></pre>
+                    
+                    </div>
+                </div>
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front"><h4>.append()</h4><p>Concepto: Añadir a Lista</p></div>
+                    <div class="flashcard-inner flashcard-back"><p>Método que agrega un elemento al final de una lista.</p><p><strong>Sintaxis:</strong> <code>lista.append(elemento)</code></p></div>
+                </div>
+            </div>
+            <div class="hint">
+                <p><strong>Paso 1 (FOR):</strong> Crea la lista `suministros_clave` con los elementos: "manta", "fuego", "comida", "botiquin", "kit furioso", "linterna", "radio", "filtro", "cobija" </p>
+                <p>Muéstrala usando **`for`** y **`print()`**.</p>
+            </div>
+            
+            <h4 style="color:var(--apocalipsis-naranja); margin-top:1rem;">1. Muestra la Lista de Suministros (Bucle FOR y PRINT)</h4>
+            <textarea id="code2_step1" spellcheck="false"># CÓDIGO PASO 1: Creación y Visualización de suministros
+            </textarea>
+            <div style="display:flex;gap:10px;align-items:center;margin:10px">
+                <button onclick="runMissionStep1('2')">Ejecutar Paso 1</button>
+                <div id="status2_step1" class="status-message"></div>
+            </div>
+            <div class="console" id="out2_step1">Salida de la Lista...</div>
+
+            <hr style="border-top: 1px dashed var(--apocalipsis-naranja); margin: 2rem 0;">
+            <div class="hint">
+                <p><strong>Paso 2 (WHILE):</strong> Crea la lista vacia inventario_usuario`. Usa un **`while`** para solicitar suministros con **`input()`** y agrega los elementos en la lista inventario_usuario`. </p>
+                <p>El bucle debe detenerse cuando `inventario_usuario` llegue a 5 o el usuario escriba 'salir'.</p>
+            </div>
+            <h4 style="color:var(--apocalipsis-naranja); margin-top:1rem;">2. Llenado de Valija (WHILE y INPUT)</h4>
+            <textarea id="code2_step2" spellcheck="false" disabled># CÓDIGO PASO 2: Leer elección y guardar
+            </textarea>
+            <div style="display:flex;gap:10px;align-items:center;margin:10px">
+                <button id="btn2_step2" onclick="runMissionStep2('2')" disabled>Ejecutar Paso 2</button>
+                <div id="status2_step2" class="status-message"></div>
+            </div>
+            <div class="console" id="out2_step2">Resultado de Input (WHILE)...</div>
+        </div>
+        
+        <div class="mission-row" id="mission3">
+            <div class="mission-header">
+                <img src="esperando_twister.png" alt="Icono de Fortificación">
+                <div class="mission-title-container">
+                    <h3>🔸 Misión 3 — Fortificación Crítica</h3>
+                    <p>Una falla estructural crítica requiere un **suministro clave** específico. ¿Lo tienes?</p>
+                </div>
+            </div>
+            <div class="mission-context">
+                **ALARMA ROJA:** El refugio que elegiste está a punto de colapsar. La **`furia_del_twister`** se acerca, la suerte esta echada.
+            </div>
+            <div class="mission-flashcards">
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front"><h4>random.randint()</h4><p>Concepto: Número Aleatorio</p></div>
+                    <div class="flashcard-inner flashcard-back"><p>Función del módulo `random` que devuelve un entero aleatorio en el rango inclusivo [a, b], donde **'a'** es el límite inferior y **'b'** es el límite superior.</p><p><strong>Sintaxis:</strong> <code>random.randint(a, b)</code></p></div>
+                </div>
+                 <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front"><h4>random.choice()</h4><p>Concepto: Elección Aleatoria de un elemento de una lista</p></div>
+                    <div class="flashcard-inner flashcard-back"><p>Función que selecciona un elemento al azar de una secuencia no vacía (lista).</p><p><strong>Sintaxis:</strong> <code>random.choice(lista)</code></p></div>
+                </div>
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front"><h4>IN Keyword</h4><p>Concepto: Pertenencia</p></div>
+                    <div class="flashcard-inner flashcard-back"><p>Operador lógico que verifica si un valor está presente en una secuencia (lista).</p><p><strong>Sintaxis:</strong> <code>valor in lista</code></p></div>
+                </div>
+            </div>
+            <div class="hint">
+                <p><strong>Qué hacer:</strong> </p>
+                <p>1- Crea una variable **`suministro_requerido`** que debe almacenar un sumistros aleatorio de los 9 que estan en la lista suministros_clave. Ese suministro será el necesario para que el refugio sea considerado seguro y sobreviva a la Furia del twister.</p>
+                <p>2- Crea una variable booleana **`es_seguro`** que almacene True, si `inventario_usuario` contiene el `suministro_requerido` o False en el caso que no.</p>
+                <p>3- Muestra un mensaje en consola indicando si el refugio ha sido fortalecido o no.</p>
+            </div>
+            <textarea id="code3" spellcheck="false"># Tu código aquí:
+            </textarea>
+            <div style="display:flex;gap:10px;align-items:center;margin:10px">
+                <button onclick="runMission('3')">Ejecutar Misión 3</button>
+                <div id="status3" class="status-message"></div>
+            </div>
+            <div class="console" id="out3">Salida...</div>
+        </div>
+
+        <div class="mission-row" id="mission4">
+            <div class="mission-header">
+                <img src="finalGano.png" alt="Icono de Supervivencia">
+                <div class="mission-title-container">
+                    <h3>🔸 Misión 4 — Momento de la Verdad</h3>
+                    <p>Evalúa el resultado final: si el refugio resiste o no.</p>
+                </div>
+            </div>
+            <div class="mission-context">
+                **EL IMPACTO:** El Twister golpea con toda su fuerza. El código ya calculó el valor de la variable booleana **`es_seguro`**. ¡Este es el momento de la verdad! Usa tu lógica `if/else` para imprimir el resultado final de la aventura.
+               
+            </div>
+            <div class="mission-flashcards">
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front"><h4>IF/ELSE</h4><p>Concepto: Decisión Lógica</p></div>
+                    <div class="flashcard-inner flashcard-back"><p>Ejecuta diferentes bloques de código según si una condición es verdadera o falsa.</p>
+                    <p><strong>Sintaxis:</strong></p>
+                     <pre> <code>if condicion_lógica:</code></pre>
+                     <pre> <code>  # Acción verdadera</code></pre>
+                     <pre> <code>else:</code></pre>
+                     <pre> <code>  # Acción falsa</code></pre>
+                     
+                    </div>
+                </div>
+            </div>
+            <div class="hint">
+                <p><strong>Qué hacer:</strong> Usa un **`if`** para verificar si **`es_seguro`** es `True`. Usa **f-strings** para **ARMAR** los mensajes de victoria/derrota que mencionen el **`suministro_requerido`**.</p>
+                <p>Mensajes esperados:</p>
+                <p>🏆Victoria: ¡Has sobrevivido al Twister! El refugio resistió. ¡Felicidades, has ganado con el {suministro_requerido}!"</p>
+                <p>💀Derrota:"El refugio no resistió el Twister. Te faltó el {suministro_requerido}. Game Over, camarada." </p>
+                <p style="color:var(--apocalipsis-rojo);">⚠️ **NOTA IMPORTANTE:** Para ganar la **AVENTURA COMPLETA**, tu código debe resultar en el mensaje de victoria.</p>
+            </div>
+            <textarea id="code4" spellcheck="false">
+</textarea>
+            <div style="display:flex;gap:10px;align-items:center;margin:10px">
+                <button onclick="runMission('4')">Ejecutar Misión 4</button>
+                <div id="status4" class="status-message"></div>
+            </div>
+            <div class="console" id="out4">Salida...</div>
+        </div>
+
+        <div style="margin-top:2rem" class="mission-row">
+            <h3>🔹 Integrador — Revisa tu supervivencia</h3>
+            <p>Si completaste y aprobaste todas las misiones, obtendrás la palabra clave final. **Recuerda:** Tu código debe resultar en `es_seguro = True`.</p>
+            <div style="display:flex;gap:10px;align-items:center">
+                <button onclick="checkAll()">Comprobar estado final</button>
+                <div id="finalStatus" class="status-message"></div>
+            </div>
+            <table class="table" id="finalTable" style="margin-top:12px">
+                <thead><tr><th>Misión</th><th>Estado</th></tr></thead>
+                <tbody>
+                    <tr><td>Misión 1: Refugio</td><td id="t1">—</td></tr>
+                    <tr><td>Misión 2: Inventario</td><td id="t2">—</td></tr>
+                    <tr><td>Misión 3: Fortalecer</td><td id="t3">—</td></tr>
+                    <tr><td>Misión 4: Evaluación</td><td id="t4">—</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<footer class="bg-black border-t border-red-700/50 mt-10 py-8 px-4 text-center">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <div class="flex items-center gap-4">
+                <div class="w-16 h-16 rounded-full bg-red-700/20 border-2 border-red-500 flex items-center justify-center shadow-lg shadow-red-500/30">
+                    <span class="text-3xl text-red-400 font-bold font-['Orbitron']"> <img src="logoCC.png" alt="Logo CC"></span>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-400 font-['Roboto Mono']">Un proyecto diseñado por</p>
+                    <a href="https://ceibal.edu.uy/plataformas-y-programas/ciencias-de-la-computacion/docentes/" target="_blank" class="text-lg font-bold hover:text-red-300 transition-colors tracking-wide">
+                        CEIBAL - Ciencias de la Computación - Curso Docentes
+                    </a>
+                </div>
+            </div>
+
+            <div class="text-right text-gray-500 text-xs md:text-sm">
+                <p>&copy; 2025 Aventura: La furia del twister.</p>
+                <p>Desarrollo asistido por IA.</p>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+    <script>
+        // --- Pyodide & State Management ---
+        const pyodideReadyPromise = loadPyodide();
+        const totalMissions = 4;
+        let pyodideGlobal; 
+
+        // Suministros actualizados a una sola palabra y sin tildes (9 items, index 0-8)
+        let state = {
+            refugio_usuario: null,
+            inventario_usuario: [],
+            furia_del_twister: null,
+            suministro_requerido: null,
+            es_seguro: null,
+            refugios: ["Subterráneo", "en las Montañas", "en el Bosque"],
+            // LISTA ACTUALIZADA EN MINÚSCULAS Y SIMPLIFICADA
+            suministros_clave: ["manta", "fuego", "comida", "botiquin", "kit furioso", "linterna", "radio", "filtro", "cobija"] 
+        };
+
+        // Keys para localStorage (Aventura completa y Pasos intermedios)
+        function missionKey(id){ return `twister_mission_${id}_done`; }
+        function stepKey(id, step){ return `twister_mission_${id}_step${step}_done`; }
+        function setMissionDone(id){ localStorage.setItem(missionKey(id),'true'); }
+        function unsetMissionDone(id){ localStorage.removeItem(missionKey(id)); }
+        function isMissionDone(id){ return localStorage.getItem(missionKey(id)) === 'true'; }
+        function setStepDone(id, step){ localStorage.setItem(stepKey(id, step),'true'); }
+        function unsetStepDone(id, step){ localStorage.removeItem(stepKey(id, step)); }
+        function isStepDone(id, step){ return localStorage.getItem(stepKey(id, step)) === 'true'; }
+
+        // Actualización de la interfaz
+        function updateProgressUI(){
+            const completed = [...Array(totalMissions)].map((_,i)=>isMissionDone(i+1)).filter(x=>x).length;
+            const pct = Math.round((completed/totalMissions)*100);
+            document.getElementById('progressFill').style.width = pct + '%';
+            document.getElementById('progressText').innerText = `${completed} / ${totalMissions} Misiones Completadas`;
+            for(let i=1;i<=4;i++){
+                document.getElementById('t'+i).innerText = isMissionDone(i) ? '✅ Completada' : (isStepDone(i, 1) ? '🟡 En Progreso' : '❌ Pendiente');
+            }
+            
+            // LÓGICA DE HABILITACIÓN/DESHABILITACIÓN POR DEPENDENCIA
+            
+            // === Misión 1: Habilitar Paso 2 si Paso 1 está OK ===
+            const m1_s1_done = isStepDone('1', 1);
+            document.getElementById('code1_step2').disabled = !m1_s1_done;
+            document.getElementById('btn1_step2').disabled = !m1_s1_done;
+            
+            // === Misión 2: Habilitar Paso 2 si Paso 1 está OK ===
+            const m2_s1_done = isStepDone('2', 1);
+            document.getElementById('code2_step2').disabled = !m2_s1_done;
+            document.getElementById('btn2_step2').disabled = !m2_s1_done;
+        }
+
+        function overrideInput(pyodide){
+            pyodide.globals.set("js_prompt", (msg="") => {
+                try{
+                    const v = prompt(msg || "Ingresa un valor:");
+                    return v === null ? "" : v;
+                }catch(e){
+                    return "";
+                }
+            });
+            pyodide.runPython(`
+import builtins
+try:
+    builtins.input = js_prompt
+except Exception:
+    pass
+`);
+        }
+
+        // Inyecta el estado de JS al entorno de Python
+        function injectState(pyodide){
+            pyodide.globals.set("refugios", pyodide.toPy(state.refugios));
+            // Usar la lista actualizada
+            pyodide.globals.set("suministros_clave", pyodide.toPy(state.suministros_clave)); 
+            if(state.refugio_usuario !== null) pyodide.globals.set("refugio_usuario", state.refugio_usuario);
+            if(state.inventario_usuario.length > 0) pyodide.globals.set("inventario_usuario", pyodide.toPy(state.inventario_usuario));
+            else pyodide.globals.set("inventario_usuario", pyodide.toPy([])); 
+            if(state.furia_del_twister !== null) pyodide.globals.set("furia_del_twister", state.furia_del_twister);
+            if(state.suministro_requerido !== null) pyodide.globals.set("suministro_requerido", state.suministro_requerido);
+            if(state.es_seguro !== null) pyodide.globals.set("es_seguro", state.es_seguro);
+        }
+
+        // Extrae el estado del entorno de Python a JS
+        function extractState(pyodide){
+            try { state.refugio_usuario = pyodide.globals.get("refugio_usuario") || state.refugio_usuario; } catch {}
+            try { 
+                const py_inv = pyodide.globals.get("inventario_usuario");
+                if (py_inv && py_inv.toJs) state.inventario_usuario = Array.from(py_inv.toJs());
+            } catch {}
+            try { state.es_seguro = pyodide.globals.get("es_seguro") === true ? true : (pyodide.globals.get("es_seguro") === false ? false : state.es_seguro); } catch {}
+            try { state.suministro_requerido = pyodide.globals.get("suministro_requerido") || state.suministro_requerido; } catch {}
+        }
+
+
+        // Ejecuta el código de usuario
+        async function execUserCode(pyodide, code){
+            overrideInput(pyodide);
+            injectState(pyodide); // Inyectar estado ANTES de cada ejecución
+
+            const wrapped = `
+import io, sys, random
+# Se deja el seed en la Misión 3 para que el alumno pueda depurar con el mismo item. 
+# Si el alumno quiere aleatoriedad, debe quitar el random.seed(42) de su código de M3.
+# Se quita el seed global para la Misión 3. 
+
+sys_stdout = sys.stdout
+sys.stdout = io.StringIO()
+try:
+${code.split('\n').map(l => '    '+l).join('\n')}
+    _out = sys.stdout.getvalue()
+finally:
+    sys.stdout = sys_stdout
+_out
+`;
+            const result = await pyodide.runPythonAsync(wrapped);
+            extractState(pyodide); // Extraer estado DESPUÉS de cada ejecución
+
+            return result;
+        }
+
+        // --- Lógica de Ejecución por Pasos (M1 y M2) ---
+
+        async function runMissionStep1(id){
+            const pyodide = pyodideGlobal; 
+            const textarea = document.getElementById('code'+id+'_step1');
+            const out = document.getElementById('out'+id+'_step1');
+            const status = document.getElementById('status'+id+'_step1');
+
+            const code = textarea.value || '';
+            out.innerText = '⏳ Ejecutando Lista...';
+            status.className = 'status-message';
+            status.innerText = '';
+
+            try{
+                const stdout_py = await execUserCode(pyodide, code);
+                const stdout = (stdout_py && stdout_py.toString) ? stdout_py.toString() : String(stdout_py || '');
+                out.innerText = stdout.trim().length ? stdout : '⚠️ No hubo salida visible. Revisa tu FOR/print().';
+
+                let passed = false;
+                
+                // Validación estricta para el Paso 1 (M1)
+                if (id === '1') {
+                    const expected_refuges = state.refugios; // ["Subterráneo", "en las Montañas", "en el Bosque"]
+                    
+                    // 1. Limpia y normaliza el output: elimina separadores, números y puntuación.
+                    const normalized_output = stdout.trim()
+                        // Elimina las líneas de separadores (--- o ===)
+                        .replace(/[-=]{3,}.*?[-=]{3,}/gs, '')
+                        // Elimina la numeración y puntuación (e.g., "1. ", " 2 . ", "3. ")
+                        .replace(/\d+\s*[\.\,\-]\s*/g, '')
+                        // Divide por nueva línea, elimina espacios extra y filtra líneas vacías
+                        .split('\n')
+                        .map(line => line.trim())
+                        .filter(line => line.length > 0)
+                        .join('|'); // Une con un separador claro
+
+                    // Esperado limpio: "Subterráneo|en las Montañas|en el Bosque"
+                    const expected_clean = expected_refuges.join('|');
+
+                    // 2. Comprobación estricta de que la salida limpia sea exactamente la lista esperada
+                    if (normalized_output === expected_clean) {
+                        passed = true;
+                    }
+
+                } else if (id === '2') {
+                    // **[VALIDACIÓN M2 - PASO 1]**
+                    const required_supplies = state.suministros_clave; 
+                    const output_lower = stdout.toLowerCase();
+                    
+                    // Verifica que la salida (stdout) contenga TODOS los 9 suministros.
+                    let all_items_present = required_supplies.every(item => output_lower.includes(item));
+
+                    if (all_items_present) {
+                        passed = true;
+                    }
+                }
+
+                if(passed){
+                    status.className = 'status-message status-pass';
+                    status.innerText = '¡Paso 1 completado! ✅ Continúa con el Paso 2.';
+                    setStepDone(id, 1); 
+                } else {
+                    status.className = 'status-message status-fail';
+                    // Mensaje de error ajustado para reflejar la estricta validación de contenido
+                    status.innerText = 'Fallido. La salida no es la esperada. Revisa tu código. ❌';
+                    unsetStepDone(id, 1);
+                    unsetMissionDone(id);
+                }
+            }catch(err){
+                out.innerText = '❌ Error de ejecución:\n' + (err && err.toString ? err.toString() : String(err));
+                status.className = 'status-message status-fail';
+                status.innerText = 'Hubo un error en tu código. Revisa la sintaxis. ❌';
+                unsetStepDone(id, 1);
+                unsetMissionDone(id);
+            }
+            updateProgressUI(); // Se llama siempre para asegurar la actualización de la interfaz
+        }
+
+        async function runMissionStep2(id){
+            if (!isStepDone(id, 1)) {
+                alert("Debes completar y validar el Paso 1 antes de ejecutar el Paso 2.");
+                return;
+            }
+            const pyodide = pyodideGlobal; 
+            const textarea = document.getElementById('code'+id+'_step2');
+            const out = document.getElementById('out'+id+'_step2');
+            const status = document.getElementById('status'+id+'_step2');
+
+            const code = textarea.value || '';
+            out.innerText = '⏳ Ejecutando Interacción (se abrirá un prompt)...';
+            status.className = 'status-message';
+            status.innerText = '';
+
+            try{
+                const stdout_py = await execUserCode(pyodide, code);
+                const stdout = (stdout_py && stdout_py.toString) ? stdout_py.toString() : String(stdout_py || '');
+                
+                // **[M2 - PASO 2: Advertencia WHILE]**
+                let console_output = stdout.trim().length ? stdout : '⚠️ No hubo salida visible. Asegurate de usar print() final.';
+                
+                // Advertencia condicional: Si es Misión 2 y el código contiene 'while'
+                if(id === '2' && code.toLowerCase().includes("while")){
+                    // Precede la salida normal con el mensaje de advertencia
+                    console_output = "🚨 ¡ADVERTENCIA! Has utilizado correctamente el bucle WHILE para la recolección. El sistema simulará la interacción. 🚨\n\n" + console_output;
+                }
+                
+                out.innerText = console_output;
+
+                let passed = false;
+
+                // Validación de Paso 2
+                if(id === '1'){
+                    // M1: Chequear que se haya elegido un refugio válido.
+                    if(state.refugio_usuario && state.refugios.includes(state.refugio_usuario)){
+                        passed = true;
+                    }
+                } else if(id === '2'){
+                    // M2: [VALIDACIÓN CORREGIDA] Permite de 0 a 5 elementos para validar la funcionalidad del WHILE y el BREAK.
+                    if(Array.isArray(state.inventario_usuario) && state.inventario_usuario.length >= 0 && state.inventario_usuario.length <= 5){
+                        passed = true;
+                    }
+                }
+
+                if(passed){
+                    status.className = 'status-message status-pass';
+                    status.innerText = '¡Misión completada! ✅ ¡Datos Guardados!';
+                    setMissionDone(id); // Marca la misión completa
+                } else {
+                    status.className = 'status-message status-fail';
+                    status.innerText = 'Paso 2 Fallido. Revisa tu lógica. ❌';
+                    unsetMissionDone(id);
+                }
+            }catch(err){
+                out.innerText = '❌ Error de ejecución:\n' + (err && err.toString ? err.toString() : String(err));
+                status.className = 'status-message status-fail';
+                status.innerText = 'Hubo un error en tu código. Revisa la sintaxis. ❌';
+                unsetMissionDone(id);
+            }
+            updateProgressUI();
+        }
+
+        // --- Lógica de Ejecución Unificada (M3 y M4) ---
+
+        async function runMission(id){
+            if (id === '3' && !isMissionDone('2')) {
+                alert("Debes completar la Misión 2 antes de ejecutar la Misión 3.");
+                return;
+            }
+             if (id === '4' && !isMissionDone('3')) {
+                alert("Debes completar la Misión 3 antes de ejecutar la Misión 4.");
+                return;
+            }
+
+            const pyodide = pyodideGlobal; 
+            const textarea = document.getElementById('code'+id);
+            const out = document.getElementById('out'+id);
+            const status = document.getElementById('status'+id);
+
+            const code = textarea.value || '';
+            out.innerText = '⏳ Ejecutando...';
+            status.className = 'status-message';
+            status.innerText = '';
+
+            try{
+                const stdout_py = await execUserCode(pyodide, code);
+                const stdout = (stdout_py && stdout_py.toString) ? stdout_py.toString() : String(stdout_py || '');
+                out.innerText = stdout.trim().length ? stdout : '⚠️ No hubo salida visible. Asegurate de usar print() con contenido.';
+
+                let passed = false;
+                
+                // Validación de Misiones 3 y 4
+                if(id === '3'){
+                    // M3: Validar que se haya ejecutado y se haya establecido el booleano y el suministro requerido.
+                    // Nota: Aquí se asume que el alumno en su código de M3 generará un item aleatorio
+                    // y establecerá es_seguro = item in inventario_usuario
+                    if(typeof state.es_seguro === 'boolean' && state.suministro_requerido !== null && state.suministro_requerido !== undefined){
+                        passed = true;
+                    }
+                } else if(id === '4'){
+                    // M4 pasa si el mensaje de salida es LÓGICAMENTE CONSISTENTE con el valor booleano final.
+                    const final_message = out.innerText.toLowerCase();
+                    if(typeof state.es_seguro === 'boolean'){
+                        if(state.es_seguro === true){
+                            passed = final_message.includes("sobrevivido") && final_message.includes(state.suministro_requerido.toLowerCase());
+                        } else if(state.es_seguro === false){
+                            passed = final_message.includes("no resistió") && final_message.includes(state.suministro_requerido.toLowerCase());
+                        }
+                    }
+                }
+
+                if(passed){
+                    status.className = 'status-message status-pass';
+                    status.innerText = '¡Misión completada! ✅ ¡Datos Guardados!';
+                    setMissionDone(id);
+                } else {
+                    status.className = 'status-message status-fail';
+                    status.innerText = `Misión Fallida. Revisa tu código. ❌`;
+                    unsetMissionDone(id);
+                }
+            }catch(err){
+                out.innerText = '❌ Error de ejecución:\n' + (err && err.toString ? err.toString() : String(err));
+                status.className = 'status-message status-fail';
+                status.innerText = 'Hubo un error en tu código. Revisa la sintaxis. ❌';
+                unsetMissionDone(id);
+            }
+            updateProgressUI();
+        }
+
+        // Valida si todas las misiones están completadas
+        function checkAll(){
+            const finalStatus = document.getElementById('finalStatus');
+            const completed = [...Array(totalMissions)].map((_,i)=>isMissionDone(i+1)).filter(x=>x).length;
+            
+            const finalVerdict = state.es_seguro === true;
+
+            if(completed === totalMisiones && finalVerdict){
+                finalStatus.className = 'status-message status-pass';
+                finalStatus.innerText = '¡Felicitaciones! Has pasado las pruebas Y has sobrevivido al Twister. La palabra clave es: "SOBREVIVIENTE"';
+            }else if (completed === totalMisiones && !finalVerdict){
+                finalStatus.className = 'status-message status-fail';
+                finalStatus.innerText = 'Has pasado todas las pruebas de código, ¡pero no sobreviviste al Twister! Te faltó el suministro clave. Intenta la Misión 2 nuevamente.';
+            } else {
+                finalStatus.className = 'status-message status-fail';
+                finalStatus.innerText = `Aún te faltan ${totalMisiones - completed} misiones por completar.`;
+            }
+        }
+        
+        // --- Función para Habilitar Tabulación (Tabulación = 4 espacios) ---
+        function enableTabInTextarea(el) {
+            el.onkeydown = function(e) {
+                if (e.key === 'Tab' && !e.shiftKey) {
+                    e.preventDefault();
+                    const start = this.selectionStart;
+                    const end = this.selectionEnd;
+
+                    // Inserta 4 espacios para la indentación de Python
+                    const tab = "    "; 
+                    this.value = this.value.substring(0, start) + tab + this.value.substring(end);
+
+                    // Coloca el cursor al final de los espacios insertados
+                    this.selectionStart = this.selectionEnd = start + tab.length;
+                }
+            };
+        }
+        // ------------------------------------------------
+
+        window.runMissionStep1 = runMissionStep1;
+        window.runMissionStep2 = runMissionStep2;
+        window.runMission = runMission; // Para M3 y M4
+        window.checkAll = checkAll;
+
+        // Init function
+        (async () => {
+            const py = await pyodideReadyPromise;
+            pyodideGlobal = py; 
+            overrideInput(py);
+            injectState(py);
+            
+            // CORRECCIÓN: Se elimina el random.seed(42) para que el suministro inicial sea verdaderamente aleatorio.
+            py.runPython('import random; furia_del_twister = random.randint(0, 8)');
+            state.furia_del_twister = py.globals.get("furia_del_twister");
+            state.suministro_requerido = state.suministros_clave[state.furia_del_twister]; 
+
+            // Habilitar la tabulación en todos los textareas de código
+            document.querySelectorAll('textarea').forEach(enableTabInTextarea);
+
+            updateProgressUI();
+        })();
+    </script>
+    
+    <footer class="bg-black border-t border-red-700/50 mt-10 py-8 px-4 text-center">
+        </footer>
+
+    
+</body>
+</html>

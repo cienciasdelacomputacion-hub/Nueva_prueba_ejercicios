@@ -1,0 +1,17 @@
+Crea una función llamada tienda_abierta que reciba:
+
+El día de la semana ("lunes", "sábado", etc.).
+Una hora (en formato 24h, por ejemplo, 15 para las 3 PM).
+Condiciones:
+Usa el método .lower() para asegurar que el día ingresado siempre esté en minúsculas y así evitar errores.
+De lunes a viernes, la tienda está abierta de 9:00 a 20:00 (inclusive).
+Los sábados, de 10:00 a 15:00 (inclusive).
+Los domingos está cerrada.
+
+La función debe devolver True si la tienda está abierta en el día y la hora indicados, y False en caso contrario.
+
+Ejemplo de entrada/salida:
+
+Entrada: Día: "lunes", Hora: 10
+
+Salida: True

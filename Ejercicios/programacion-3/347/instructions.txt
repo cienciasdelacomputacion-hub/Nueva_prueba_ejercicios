@@ -1,0 +1,9 @@
+Probando la Herencia
+
+Ejecutá los siguientes comandos en la consola y observá el resultado:
+una_tablet = Tablet(50)
+una_tablet.tiene_bateria() una_tablet.utilizar(180) una_tablet.tiene_bateria()
+
+una_notebook = Notebook(80) una_notebook.utilizar(100) una_notebook.cargar_a_tope() una_notebook.tiene_bateria()
+
+¿Qué salida esperás obtener?

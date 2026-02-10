@@ -1,0 +1,8 @@
+Herencia Total en los Zombis
+
+Ahora que sabemos qué métodos pertenecen a cada clase, implementemos SuperZombi correctamente.
+📌 Objetivos:
+
+Hacé que SuperZombi herede de Zombi.
+Definí en SuperZombi únicamente los métodos que tienen un comportamiento distinto.
+SuperZombi NO debe redefinir métodos que sean idénticos a los de Zombi.

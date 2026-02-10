@@ -1,0 +1,27 @@
+🤝 Ejercicio 6 ¡Hola! Mi nombre es Xor
+
+En este ejercicio vamos a trabajar con un nuevo operador lógico: la disyunción exclusiva, también conocida como xor. Su particularidad es que sólo devuelve verdadero cuando exactamente una de las dos proposiciones es verdadera.
+
+Podemos representarlo con la siguiente tabla de verdad:
+
+A	B	A ⊻ B
+Verdadero	Verdadero	Falso
+Verdadero	Falso	Verdadero
+Falso	Verdadero	Verdadero
+Falso	Falso	Falso
+
+Definí la función xor que tome dos valores booleanos y retorne el resultado correspondiente.
+
+Creá la función xor utilizando and, or y not.
+Llama la función con diferentes combinaciones de valores y mostrá en pantalla el resultado de aplicar la función xor a esos valores.
+
+Pero… en realidad Python ya trae incorporado el operador ^, que funciona como xor. Mirá estos ejemplos:
+
+
+print(True ^ False)   # True
+print(True ^ True)    # False
+print(False ^ False)  # False
+print(False ^ True)   # True
+
+
+Probá y compará los resultados con tu función xor. ¿Son iguales?

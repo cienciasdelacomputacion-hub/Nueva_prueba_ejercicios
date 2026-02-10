@@ -1,0 +1,44 @@
+Palabras, solo palabras
+
+Ya conocimos los números y los booleanos, ¡pero Python también trabaja con strings o cadenas de caracteres! Los strings son textos encerrados en comillas simples (' ') o dobles (" "), y pueden contener letras, números, símbolos o espacios.
+
+Ejemplos de strings:
+
+
+"En 15 minutos estoy"
+'Nooo, la polizziaaa'
+"¡Hola Miguel!"
+
+
+Podemos comparar strings:
+
+
+print("hola" == "Hola")            # False, mayúscula y minúscula son diferentes
+print("todo el mundo" == "todo el mundo")  # True, son iguales
+
+
+Y también podemos concatenarlos para unir varios strings:
+
+
+print("guarda" + "polvos")         # 'guardapolvos'
+print("Hola, " + "¿cómo estás?")   # 'Hola, ¿cómo estás?'
+print("Dame " + str(5))            # 'Dame 5', usamos str() para convertir número a string
+print('Mari' + 'posa')             # 'Mariposa'
+
+
+¡Muy bien! Si te preguntás qué es str(), es la manera de convertir un número en string. Si intentás concatenar un string con un número directamente, como:
+
+
+"Dame " + 5
+
+
+Python dará un error: can only concatenate str (not "int") to str, porque solo se pueden concatenar strings con strings.
+
+Resumen
+
+Booleanos: True o False al comparar valores.
+Strings: textos encerrados en comillas simples o dobles.
+Concatenación: usar + para unir strings.
+Conversión: usar str() para convertir números a strings antes de concatenar.
+
+Probá por tu cuenta: # Comparaciones con texto # Concatenaciones y conversiones

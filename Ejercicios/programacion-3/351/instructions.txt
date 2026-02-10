@@ -1,0 +1,3 @@
+Lista de Tareas
+
+Crea una clase ListaDeTareas que permita agregar tareas y listar todas las tareas pendientes. Debe comenzar con una lista vacía.

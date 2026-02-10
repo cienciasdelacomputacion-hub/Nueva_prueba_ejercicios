@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balanza de Autoservicio - Práctica Java Modular</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  /* Paleta de colores: Verde (éxito, frescura) y tonos neutros */
+  :root {
+    --color-primary: #4CAF50; /* Verde principal */
+    --color-secondary: #FF9800; /* Naranja para énfasis */
+    --color-bg: #f5f8f8; /* Fondo suave */
+    --color-text: #333;
+    --color-card-bg: #fff;
+    --color-border: #E0E0E0;
+    --color-context-bg: #E8F5E9; /* Verde claro */
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    padding: 30px;
+    max-width: 960px;
+    margin: auto;
+  }
+  h1 {
+    text-align: center;
+    color: var(--color-primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--color-primary);
+  }
+  h2 {
+    color: #2E7D32;
+    padding-bottom: 8px;
+    margin-top: 40px;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+  h3 {
+    color: #388E3C;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .contexto {
+    background: var(--color-context-bg);
+    border-left: 8px solid var(--color-primary);
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  }
+  .contexto strong {
+    color: #1B5E20;
+  }
+  
+  .ejercicio {
+    background: var(--color-card-bg);
+    border-radius: 12px;
+    margin: 25px 0;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border: 1px solid var(--color-border);
+    transition: transform 0.2s;
+  }
+  .ejercicio:hover {
+    border-color: var(--color-primary);
+  }
+
+  .ejercicio-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+  }
+
+  .detail-item {
+      padding: 5px 12px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      font-weight: 600;
+  }
+
+  .param-style {
+      background-color: #E3F2FD; /* Azul claro */
+      color: #1565C0;
+  }
+
+  .return-style {
+      background-color: #FFF3E0; /* Naranja claro */
+      color: #EF6C00;
+  }
+
+  .description-style {
+      background-color: #F1F8E9; /* Verde muy claro */
+      color: #333;
+      padding: 10px 15px;
+      border-radius: 8px;
+      border-left: 4px solid #66BB6A; /* Verde intermedio */
+      margin-top: 10px;
+      font-weight: 400;
+  }
+
+  textarea {
+    width: 100%;
+    height: 180px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+    resize: vertical;
+    background-color: #fcfcfc;
+  }
+  
+  .form-group {
+      margin-bottom: 15px;
+  }
+  
+  label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #555;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 1rem;
+  }
+
+  button {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
+  }
+  button:hover {
+    background: #388E3C;
+    transform: translateY(-2px);
+  }
+
+  #verdulero {
+    display: none;
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    background: #E0F2F1;
+    border-radius: 15px;
+    border: 2px dashed #009688;
+  }
+  #verdulero img {
+    width: 150px;
+    margin-bottom: 15px;
+  }
+  #verdulero p {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #00796B;
+  }
+</style>
+</head>
+<body>
+
+<h1>⚖️ Balanza Inteligente de Autoservicio - Práctica Java</h1>
+
+<div class="contexto">
+  <p> Estás construyendo un sistema de **gestión de inventario** para una balanza de autoservicio. Deberás usar **arreglos** en Java para simular el almacenamiento de datos (nombre, peso, precio y disponibilidad) de las verduras.</p>
+</div>
+
+<h2>📚 Práctica 1: Inicialización de Arreglos y Carga de Datos</h2>
+
+<div class="ejercicio">
+  <h3>1.1 - Definición de Datos Fijos y Variables</h3>
+  <div class="description-style" style="border-left-color: #FFB300;">
+    <p>Para inicializar el sistema, debes crear cuatro arreglos paralelos para cinco productos. Los datos de los productos son:</p>
+    <ul>
+      <li>**Verduras (String):** Tomate, Papa, Zanahoria, Lechuga, Cebolla.</li>
+      <li>**Disponibilidad (Boolean):** Los cajones disponibles son **Tomate**, **Zanahoria** y **Lechuga**. Los demás no están disponibles.</li>
+    </ul>
+    <p><strong>Tarea:</strong> Declara un arreglo `String[]` y un `boolean[]` con estos valores iniciales. Luego, declara dos arreglos de `double[]` para el peso y el precio por kilo, listos para ser llenados.</p>
+  </div>
+
+  <h3>1.2 - Carga de Datos</h3>
+  <div class="description-style" style="border-left-color: #FFB300;">
+    <p><strong>Tarea:</strong> Implementa la lógica necesaria para que tu programa principal solicite al usuario:el **peso** y el **precio por kilo** de cada una de las cinco verduras y almacene estos valores en los arreglos `double[]` correspondientes.</p>
+  </div>
+</div>
+
+<h2>💻 Práctica 2: Desarrollo de Funcionalidades (Métodos)</h2>
+
+<p>A partir de aquí, deberás crear los métodos que implementan la lógica de la balanza, utilizando los cuatro arreglos creados en la Práctica 1.</p>
+
+<div class="ejercicio">
+  <h3>🟢 Método A – Mostrar Detalle de Valor de CADA Cajón</h3>
+  <div class="ejercicio-details">
+    <div class="detail-item param-style">Parámetros: <strong>verduras</strong>, <strong>peso</strong>, <strong>precioKilo</strong></div>
+    <div class="detail-item return-style">Retorno: <strong>void</strong> (No devuelve valor)</div>
+  </div>
+  <div class="description-style">
+    <p><strong>Propósito:</strong> Simular la impresión en pantalla de todos los productos.</p>
+    <p><strong>Lógica:</strong> Debes recorrer los arreglos de principio a fin, calcular el **Valor Total** (Peso $\times$ Kilo) e imprimir el resultado de cada producto en un formato legible. <br>
+    **Ejemplo de Salida:** <code>Tomate - $1800 (10 kg a $180 por kilo)</code></p>
+  </div>
+  <textarea id="ej1" placeholder="//mostrarValorCajones(String[] verduras, double[] peso, double[] precioKilo) {
+    // recorrer los arreglos con un bucle for
+    // Dentro del bucle: Calcular peso × precioKilo para cada verdura y mostrar el detalle
+// }"></textarea>
+</div>
+
+<div class="ejercicio">
+  <h3>🔵 Método B – Mostrar SOLO Verduras Disponibles</h3>
+  <div class="ejercicio-details">
+    <div class="detail-item param-style">Parámetros: <strong>verduras</strong>, <strong>peso</strong>, <strong>precioKilo</strong>, <strong>disponible</strong></div>
+    <div class="detail-item return-style">Retorno: <strong>void</strong> (No devuelve valor)</div>
+  </div>
+  <div class="description-style">
+    <p><strong>Propósito:</strong> Filtrar la lista de productos y mostrar únicamente aquellos que están en stock para la venta.</p>
+    <p><strong>Lógica:</strong> Recorre todos los arreglos. Utiliza el arreglo booleano **disponible** para aplicar una **condición** que solo permita mostrar los detalles (cálculo de valor total e impresión) de los productos cuya disponibilidad es `true`.</p>
+  </div>
+  <textarea id="ej2" placeholder="//mostrarDisponibles(String[] verduras, double[] peso, double[] precioKilo, boolean[] disponible) {
+    // Recorrer los arreglos
+    // Aplicar una estructura condicional (if) para verificar 'disponible == true'
+    // Dentro del if: Calcular valor total y mostrar el detalle
+// }"></textarea>
+</div>
+
+<div class="ejercicio">
+  <h3>🟠 Método C – Calcular el Valor Total del Stock Disponible</h3>
+  <div class="ejercicio-details">
+    <div class="detail-item param-style">Parámetros: <strong>peso</strong>, <strong>precioKilo</strong>, <strong>disponible</strong></div>
+    <div class="detail-item return-style">Retorno: <strong>double</strong> (El monto total)</div>
+  </div>
+  <div class="description-style">
+    <p><strong>Propósito:</strong> Obtener el valor monetario total de todo el inventario que actualmente está listo para la venta.</p>
+    <p><strong>Lógica:</strong> Inicializa un **acumulador**. Recorre los arreglos, verifica si el producto está **disponible** y, si lo está, calcula su valor total y lo **suma** al acumulador. El método debe **retornar** la suma acumulada.</p>
+  </div>
+  <textarea id="ej3" placeholder="//calcularTotalDisponible(double[] peso, double[] precioKilo, boolean[] disponible) {
+    // double total = 0;
+    // Recorrer los arreglos
+    // Sumar (peso × precioKilo) a 'total' solo si disponible es true
+    // return total;
+// }"></textarea>
+</div>
+
+<div class="ejercicio">
+  <h3>🔴 Método D – Determinar la Verdura Más Valiosa</h3>
+  <div class="ejercicio-details">
+    <div class="detail-item param-style">Parámetros: <strong>verduras</strong>, <strong>peso</strong>, <strong>precioKilo</strong></div>
+    <div class="detail-item return-style">Retorno: <strong>String</strong> (El nombre de la verdura)</div>
+  </div>
+  <div class="description-style">
+    <p><strong>Propósito:</strong> Identificar qué cajón, por su valor total (Peso $\times$ Kilo), representa la mayor parte del inventario.</p>
+    <p><strong>Lógica:</strong> Implementa la lógica de **búsqueda del máximo**. Necesitas variables para guardar el **valor total máximo** encontrado y la **posición (índice)** donde se encuentra. Recorre los arreglos, actualizando el máximo y su índice cada vez que encuentres un valor total superior. Finalmente, **retorna** el nombre de la verdura usando el índice guardado.</p>
+  </div>
+  <textarea id="ej4" placeholder="//obtenerVerduraMasValiosa(String[] verduras, double[] peso, double[] precioKilo) {
+    // Declarar variables para 'valorMaximo' y 'indiceMaximo'
+    // Recorrer los arreglos y actualizar el máximo
+    // Retornar el nombre de la verdura en el 'indiceMaximo'
+// }"></textarea>
+</div>
+
+<div class="ejercicio">
+  <h3>💬 Método E – Reporte de Stock Agotado (Opcional)</h3>
+  <div class="ejercicio-details">
+    <div class="detail-item param-style">Parámetros: <strong>disponible</strong></div>
+    <div class="detail-item return-style">Retorno: <strong>void</strong> (No devuelve valor)</div>
+  </div>
+  <div class="description-style">
+    <p><strong>Propósito:</strong> Generar un simple resumen para la gestión de inventario.</p>
+    <p><strong>Lógica:</strong> Recorre el arreglo **disponible** y cuenta cuántos cajones tienen el valor `false` (stock agotado). Luego, calcula el **porcentaje** de productos agotados y muestra el resultado por consola.</p>
+  </div>
+  <textarea id="ej5" placeholder="//mostrarResumenStock(boolean[] disponible) {
+    // Implementa el conteo de no disponibles (disponible == false)
+    // Calcula el porcentaje (CajonesAgotados / TotalCajones) * 100
+// }"></textarea>
+</div>
+
+
+<hr>
+<h2>🧾 Generar Comprobante de Práctica</h2>
+<p>Completa tus datos para generar un PDF con el código de tus métodos.</p>
+<div class="form-group">
+    <label for="nombre">Nombre y Apellido:</label>
+    <input type="text" id="nombre" placeholder="Ej: Shana Feijoo">
+</div>
+<div class="form-group">
+    <label for="grupo">Grupo o Clase:</label>
+    <input type="text" id="grupo" placeholder="Ej: BT - Informática">
+</div>
+
+<button onclick="generarPDF()">📄 Generar PDF con mi práctica</button>
+
+<div id="verdulero">
+  <img src="certificado.png" alt="Verdulero feliz">
+  <p id="mensajeGracias"></p>
+</div>
+
+<script>
+async function generarPDF() {
+  const nombre = document.getElementById("nombre").value.trim();
+  const grupo = document.getElementById("grupo").value.trim();
+
+  if (!nombre || !grupo) {
+    alert("Por favor, completa tu nombre y grupo antes de generar el PDF.");
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: "pt", format: "a4" });
+
+  let y = 40;
+  doc.setFont("Helvetica", "bold");
+  doc.setFontSize(18);
+  doc.setTextColor(76, 175, 80); /* Verde principal */
+  doc.text("Comprobante de Práctica - Balanza de Autoservicio", 40, y);
+  y += 30;
+
+  doc.setFontSize(12);
+  doc.setTextColor(51, 51, 51);
+  doc.setFont("Helvetica", "normal");
+  doc.text(`Estudiante: ${nombre}`, 40, y);
+  y += 15;
+  doc.text(`Grupo: ${grupo}`, 40, y);
+  y += 25;
+
+  const ejercicios = [
+    { titulo: "🟢 Método A – mostrarValorCajones()", texto: document.getElementById("ej1").value },
+    { titulo: "🔵 Método B – mostrarDisponibles()", texto: document.getElementById("ej2").value },
+    { titulo: "🟠 Método C – calcularTotalDisponible()", texto: document.getElementById("ej3").value },
+    { titulo: "🔴 Método D – obtenerVerduraMasValiosa()", texto: document.getElementById("ej4").value },
+    { titulo: "💬 Método E – mostrarResumenStock() (Opcional)", texto: document.getElementById("ej5").value }
+  ];
+
+  ejercicios.forEach(ej => {
+    doc.setFont("Helvetica", "bold");
+    doc.setFontSize(14);
+    doc.setTextColor(34, 34, 34);
+    doc.text(ej.titulo, 40, y);
+    y += 15;
+    
+    doc.setFontSize(10);
+    doc.setFont("Courier", "normal"); /* Usar Courier para el código (compatible PDF) */
+    
+    const codeText = ej.texto || "// (sin completar)";
+    // SplitTextToSize ayuda a manejar saltos de línea largos
+    const lines = doc.splitTextToSize(codeText, 520);
+    const codeHeight = lines.length * 12 + 10;
+    
+    // Dibujar un rectángulo simulando un bloque de código
+    doc.setFillColor(245, 245, 245);
+    doc.rect(35, y, 530, codeHeight, 'F'); 
+    
+    doc.text(lines, 40, y + 10);
+    y += codeHeight + 20;
+
+    if (y > 750) {
+      doc.addPage();
+      y = 40;
+    }
+  });
+
+  doc.save(`Practica_BalanzaAutoservicio_${nombre}.pdf`);
+
+  // Mostrar mensaje de agradecimiento
+  const verdulero = document.getElementById("verdulero");
+  const mensaje = document.getElementById("mensajeGracias");
+  mensaje.textContent = `¡Excelente! Gracias por tu práctica, ${nombre}. 🥕🥦👏`;
+  verdulero.style.display = "block";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+Ejercicio 10: Un string no es parámetro ✍️
+
+Los parámetros de una función no llevan comillas. Por ejemplo, esto está mal:
+
+def es_biblioteca("lugar"):
+    return "biblioteca" in "lugar"
+
+
+
+¡Bien! Los parámetros son simplemente identificadores, que se escriben sin comillas y pueden servirnos para recibir argumentos de cualquier tipo. Por lo tanto, la forma de escribir esta función es la siguiente:
+
+def es_biblioteca(lugar):
+    return "biblioteca" in lugar
+
+
+Te toca a ti: Nombres completos 👤
+
+Definí una función longitud_nombre_completo que tome un nombre y un apellido, y devuelva su longitud total contando el espacio entre ambos.
+
+longitud_nombre_completo("Cosme", "Fulanito")
+# 14
+
+
+Recordá que podés usar len y concatenación de strings.

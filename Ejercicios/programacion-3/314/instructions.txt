@@ -1,0 +1,7 @@
+Enviar un mensaje
+
+Los objetos pueden responder a mensajes.
+
+Envía el mensaje necesita_combustible() al auto_de_luis en la consola:
+
+auto_de_luis.necesita_combustible()

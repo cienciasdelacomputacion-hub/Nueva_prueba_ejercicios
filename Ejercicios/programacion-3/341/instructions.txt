@@ -1,0 +1,12 @@
+Dispositivos Electrónicos en Acción
+
+Vamos a modelar una Tablet, que tiene las siguientes características:
+
+Tiene un atributo bateria que se indica al crearla.
+Puede recibir el mensaje tiene_bateria(), que devuelve True si su batería es mayor a 20.
+Puede utilizar(minutos), lo que reduce su batería en la mitad de los minutos usados.
+Puede cargar_a_tope(), que deja la batería en 100.
+Puede recibir el mensaje tiene_bateria_maxima(), que devuelve True si la batería está en 100.
+Tener en cuenta que la batería nunca puede ser menor a 0.
+
+Definí la clase Tablet con su constructor y los métodos mencionados.

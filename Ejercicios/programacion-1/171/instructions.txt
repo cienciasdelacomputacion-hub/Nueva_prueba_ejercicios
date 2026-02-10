@@ -1,0 +1,39 @@
+🌍 Ejercicio 2: Peripatéticas
+
+El operador lógico and (conjunción) devuelve True solamente cuando todas las condiciones evaluadas son verdaderas. Si alguna resulta falsa, toda la expresión será falsa.
+
+Queremos definir una función es_peripatetica que determine si una persona es peripatética. Para que lo sea, deben cumplirse simultáneamente estas condiciones:
+
+Su área de trabajo es filosofía.
+Su país de origen es Grecia.
+Camina más de 2 kilómetros por día.
+def es_peripatetica(area, pais, km):
+    return area == "filosofía" and pais == "Grecia" and km > 2
+
+
+Actividad interactiva:
+
+Pedile al usuario que ingrese el área en que se desempeña.
+Pedile que ingrese su país de origen.
+Pedile que ingrese la cantidad de kilómetros que camina por día.
+Convertí el valor de kilómetros a número entero con int().
+Llamá a la función es_peripatetica con esos datos.
+Mostrá en pantalla si la persona es peripatética o no.
+🧩 Ejercicio 3: La verdad detrás de la conjunción
+
+La conjunción lógica puede representarse mediante una tabla de verdad. Sólo es verdadera cuando ambas proposiciones lo son:
+
+A	B	A and B
+Verdadero	Verdadero	Verdadero
+Verdadero	Falso	Falso
+Falso	Verdadero	Falso
+Falso	Falso	Falso
+
+Para comprobarlo, probá en la consola tu función es_peripatetica con distintos valores y verificá si el resultado coincide con la tabla:
+
+es_peripatetica("atletismo", "Argentina", 10)
+es_peripatetica("filosofía", "Argentina", 3)
+es_peripatetica("ingeniería", "Canadá", 1)
+es_peripatetica("filosofía", "Grecia", 5)
+
+Sólo el último caso devuelve True, porque todas las condiciones se cumplen al mismo tiempo.

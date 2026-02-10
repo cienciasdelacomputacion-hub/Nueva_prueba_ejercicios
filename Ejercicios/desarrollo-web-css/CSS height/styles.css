@@ -1,0 +1,18 @@
+.caja-altura-fija {
+  background-color: lightblue;
+  height: 150px; /* La altura del área de contenido es 150px */
+  padding: 20px; /* 20px de padding arriba y abajo, la altura total será 150 + 20 + 20 = 190px */
+  border: 5px solid blue; /* 5px de borde arriba y abajo, la altura total será 190 + 5 + 5 = 200px */
+  border-radius:15px;
+}
+
+.contenedor-imagen {
+  height: 300px; /* La imagen relativa necesita un contenedor con altura definida */
+  border: 5px dashed gray;
+}
+
+.imagen-altura-relativa {
+  height: 50%; /* La altura de la imagen será el 50% de la altura de su contenedor */
+  width: auto; /* Mantenemos la relación de aspecto */
+}
+

@@ -1,0 +1,9 @@
+Prueba tú mismo:
+
+Cambia la lista de fuentes. Prueba a poner Times New Roman, Georgia, serif;. Observa el cambio en el estilo del texto.
+
+Intenta poner una fuente que sabes que no está en tu sistema (ej: font-family: "Una Fuente Inventada", Verdana, sans-serif;). ¿Qué fuente se usa?
+
+Busca información sobre Google Fonts y cómo incluirlas en tu proyecto para usar fuentes web que no dependen de las fuentes instaladas en el usuario.
+
+Descomenta la regla html { font-size: 10px; } en el CSS. Observa cómo cambian los tamaños de los párrafos con em y rem (ahora 1.2em serían 12px y 1.5rem serían 15px), mientras que el párrafo con px permanece igual.

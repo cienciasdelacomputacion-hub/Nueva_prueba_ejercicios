@@ -1,0 +1,12 @@
+Ejercicio 1: No tan distintos 🧩
+
+En Python existen dos tipos de datos muy parecidos: los strings y las listas. Ambos son secuencias, lo que significa que sus elementos están ordenados y podemos recorrerlos, medirlos y combinarlos.
+
+Para comprobarlo, vas a practicar con las funciones len() y el operador in, que funcionan con ambos tipos de datos.
+
+Tus misiones:
+Define una cadena llamada frase con el texto "Del árbol una hoja se cayó".
+Define una lista llamada numeros con los valores [1, 4, 9, 16, 25].
+Usa len() para imprimir cuántos caracteres tiene frase.
+Usa in para comprobar si la palabra "hoja" está en la frase.
+Usa in para verificar si el número 16 está en la lista numeros.

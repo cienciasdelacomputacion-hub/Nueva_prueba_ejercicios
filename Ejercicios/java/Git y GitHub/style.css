@@ -1,0 +1,245 @@
+/* style.css */
+
+/* --- Estilos Generales y Tipografía --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #eef1f5;
+    color: #333;
+}
+
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    border-bottom: 5px solid #E44D26; /* Naranja/Rojo de Git */
+}
+
+header h1 {
+    margin-top: 0;
+    font-size: 2.8em;
+    letter-spacing: 1px;
+}
+
+main {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+h2 {
+    color: #2c3e50;
+    font-size: 1.6em;
+    margin: 0;
+}
+
+h3 {
+    color: #3498db; /* Azul de GitHub */
+    margin-top: 20px;
+}
+
+/* --- Estilos del Acordeón --- */
+.accordion-item {
+    background: white;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.accordion-header {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 15px 20px;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.accordion-header:hover {
+    background-color: #f4f4f4;
+}
+
+.accordion-header.active {
+    background-color: #ecf0f1;
+    border-bottom: 1px solid #ddd;
+}
+
+.icon {
+    font-size: 1.5em;
+    font-weight: bold;
+    transition: transform 0.3s;
+    color: #3498db;
+}
+
+.accordion-header.active .icon {
+    transform: rotate(45deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    padding: 0 20px;
+}
+
+.accordion-content.show {
+    padding: 20px;
+    padding-top: 0;
+}
+
+.accordion-content section {
+    padding: 0;
+}
+
+/* --- Comandos y Listas --- */
+code, pre {
+    background-color: #f6f8fa;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #a31515;
+}
+
+pre {
+    padding: 15px;
+    border: 1px solid #dee2e6;
+    margin-top: 10px;
+    color: #333;
+}
+
+strong {
+    color: #e74c3c;
+}
+
+/* --- Referencias de Color de NetBeans --- */
+.color-references {
+    list-style: none;
+    padding: 0;
+}
+
+.color-references li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.color-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    margin-right: 15px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.new {
+    background-color: #2ecc71; /* Verde */
+}
+
+.modified {
+    background-color: #3498db; /* Azul */
+}
+
+.conflict {
+    background-color: #e74c3c; /* Rojo */
+}
+
+.unversioned {
+    background-color: #bdc3c7; /* Gris */
+}
+
+.unchanged {
+    background-color: #f9f9f9; /* Blanco/Sin color */
+}
+
+/* --- Generador de Comandos --- */
+#command-generator-section {
+    padding: 30px 0;
+}
+
+.command-generator {
+    background-color: #f9f9f9;
+    padding: 25px;
+    border-radius: 8px;
+    border: 2px dashed #3498db;
+    margin-top: 20px;
+}
+
+.command-generator label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.command-generator input[type="text"] {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.command-generator button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    flex-grow: 1;
+}
+
+#generateClone {
+    background-color: #2ecc71;
+    color: white;
+}
+
+#generateClone:hover {
+    background-color: #27ae60;
+}
+
+#generatePush {
+    background-color: #f1c40f;
+    color: #2c3e50;
+}
+
+#generatePush:hover {
+    background-color: #f39c12;
+}
+
+#commandOutput {
+    background-color: #2c3e50;
+    color: #00ffaa;
+    padding: 15px;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    overflow-x: auto;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #2c3e50;
+    color: #aaa;
+    margin-top: 40px;
+}

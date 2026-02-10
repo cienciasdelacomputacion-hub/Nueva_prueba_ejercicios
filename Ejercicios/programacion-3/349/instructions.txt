@@ -1,0 +1,8 @@
+Modelando un Colectivo
+
+Ahora vamos a modelar un Colectivo, que hereda de la clase MedioDeTransporte. Un Colectivo tiene las siguientes características:
+
+Puede llevar hasta 20 personas.
+Consume 2 litros por kilómetro recorrido (el doble que una Moto).
+
+✅ Definí la clase Colectivo, haciendo uso de herencia, e inicializá sus atributos correspondientes.

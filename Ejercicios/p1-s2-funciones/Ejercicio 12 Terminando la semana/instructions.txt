@@ -1,0 +1,9 @@
+Ejercicio 12: Terminando la semana 🎉
+
+Definí la función es_fin_de_semana que tome un string que represente un día de la semana y nos diga si es "sábado" o "domingo".
+
+es_fin_de_semana("sábado")   # True
+es_fin_de_semana("martes")   # False
+
+
+Pista: usá or y str.lower para no preocuparte por las mayúsculas.

@@ -1,0 +1,11 @@
+Instrucciones
+
+Ejecuta el código y prueba los siguientes cálculos básicos usando la consola de Python y verifica los resultados en la terminal:
+
+Desafío extra
+
+Ahora escribe una sola línea que use los cuatro operadores en una misma expresión y dé como resultado el número 10.
+
+Ejemplo (no es la solución, solo una idea):
+
+20 - 5 + 6 / 3 * 2

@@ -1,0 +1,15 @@
+Ejercicio 8: Libros de la buena memoria 📚
+
+Dani ama el primer día de cada mes. Definió esta función:
+
+def es_dia_favorito(dia_del_mes):
+    return dia_del_mes == 1
+
+
+Ahora te toca a vos. Dani también dice que alguien le_gusta_leer cuando la cantidad de libros que recuerda haber leído es mayor a 20. Por ejemplo:
+
+le_gusta_leer(15)   # False
+le_gusta_leer(45)   # True
+
+
+Definí la función le_gusta_leer.

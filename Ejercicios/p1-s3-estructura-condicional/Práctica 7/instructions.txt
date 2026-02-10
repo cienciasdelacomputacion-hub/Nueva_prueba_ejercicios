@@ -1,0 +1,31 @@
+🎛️ Ejercicio 15: Menú de opciones
+
+Queremos crear un pequeño menú para que el usuario elija una opción y nuestro programa responda según lo que seleccionó.
+Aquí es donde match-case resulta útil: permite comparar un valor con varios casos posibles de manera clara y ordenada.
+
+Por ejemplo, supongamos que tenemos las siguientes opciones:
+
+1 → Saludar
+2 → Despedirse
+3 → Preguntar cómo está
+
+Podemos usar match-case para ejecutar la acción correspondiente según la opción elegida.
+
+opcion = 2
+
+match opcion:
+    case 1:
+        print("¡Hola!")
+    case 2:
+        print("¡Adiós!")
+    case 3:
+        print("¿Cómo estás?")
+    case _:
+        print("Opción no válida")
+
+
+El carácter _ funciona como un else: si ninguna opción coincide, se ejecuta esa rama.
+
+Supongamos que tenemos el mismo menú. Define las tres funciones, cada una ejecutando la acción correspondiente:
+
+📝 Práctica interactiva: probando el menú

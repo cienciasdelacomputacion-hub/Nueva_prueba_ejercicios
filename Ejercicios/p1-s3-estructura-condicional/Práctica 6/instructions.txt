@@ -1,0 +1,51 @@
+🃏 Ejercicio 12: ¡Envido!
+
+Queremos calcular el valor de una carta para el envido en el juego de Truco.
+Las reglas son:
+
+Cartas del 1 al 7 valen su numeración.
+Cartas del 10 al 12 valen 0.
+No se juega con 8 ni 9 (no necesitamos manejar estos valores).
+valor_envido(12)  # 0
+valor_envido(3)   # 3
+
+
+Solución:
+
+def valor_envido(c):
+    if c > 9 and c <= 12:
+        return 0
+    else:
+        return c
+
+
+🎯 Ejercicio 13: ¡Quiero retruco!
+
+Ahora queremos sumar los puntos de envido de un jugador considerando dos cartas.
+Las reglas son:
+
+Si ambas cartas son del mismo palo, el envido total es la suma de sus valores de envido más 20.
+Si son de distinto palo, el envido total es el mayor valor de envido de las dos cartas.
+
+Invocando la función valor_envido del ejercicio anterior, definí la función puntos_de_envido_totales.
+
+puntos_de_envido_totales(1, "espadas", 4, "espadas")  # 25
+puntos_de_envido_totales(2, "copas", 3, "bastos")     # 3
+
+
+💥 Ejercicio 14: ¡Quiero vale cuatro!
+
+En el Truco, los jugadores pueden subir la apuesta. Los puntos que se juegan son:
+
+"truco": 2 puntos
+"retruco": 3 puntos
+"vale cuatro": 4 puntos
+
+Definí la función valor_canto_truco que reciba un canto y devuelva cuántos puntos vale.
+
+valor_canto_truco("retruco")  # 3
+
+
+📝 Práctica interactiva
+
+Probá las funciones pidiendo datos al usuario:

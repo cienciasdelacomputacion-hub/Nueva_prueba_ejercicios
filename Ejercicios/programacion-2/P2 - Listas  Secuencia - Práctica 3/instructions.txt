@@ -1,0 +1,19 @@
+Ejercicio 3: Al derecho y al revés 🔁
+
+Los índices negativos nos permiten recorrer las secuencias desde el final hacia el principio. Por ejemplo, mi_lista[-1] da el último elemento, y mi_lista[-2] el anteúltimo.
+
+📊 Ejemplo de índices negativos en listas y strings
+Expresión	Resultado	Descripción
+palabra = "hola mundo"	—	Cadena base
+palabra[-1]	"o"	Último carácter
+palabra[-2]	"d"	Anteúltimo carácter
+palabra[:-1]	"hola mund"	Todos los caracteres menos el último
+palabra[-5:]	"mundo"	Los últimos cinco caracteres
+palabra[::-1]	"odnum aloh"	Invierte todo el texto (lectura de atrás hacia adelante)
+
+🧠 Consejo: Los índices negativos cuentan desde el final hacia el principio. El último elemento siempre está en -1.
+
+Tus misiones:
+Define una función sin_extremos(lista) que devuelva una nueva lista sin el primer y último elemento.
+Define otra función extremos(lista) que devuelva una lista solo con el primer y último elemento.
+Prueba ambas funciones con [4, 5, 10, 2, 3].

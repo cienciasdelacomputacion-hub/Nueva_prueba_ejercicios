@@ -1,0 +1,65 @@
+Procedimientos: Encendiendo y apagando luces 💡
+
+En programación, los procedimientos permiten realizar acciones que cambian el estado de una variable sin necesidad de devolver un valor. Vamos a trabajar con una lámpara representada por una variable booleana llamada luz_encendida.
+
+Código inicial
+
+Contamos con una variable global y un procedimiento para apagar la luz:
+
+luz_encendida = True
+
+def apagar_luz():
+    global luz_encendida
+    luz_encendida = False
+
+Tarea 1
+
+Modifica el procedimiento apagar_luz() de manera que verifique si la luz está encendida antes de apagarla. Si la luz ya está apagada, no debe hacer nada.
+
+Tarea 2
+
+Crea un procedimiento encender_luz() que realice la acción contraria, encendiendo la lámpara únicamente si estaba apagada. Debes utilizar el operador lógico not para comprobar el estado.
+
+Requisitos
+
+Ambos procedimientos deben modificar la variable global luz_encendida.
+En apagar_luz(), la variable debe cambiar a False solo si estaba en True.
+En encender_luz(), la variable debe cambiar a True solo si estaba en False.
+En la solución de encender_luz() debe usarse el operador not.
+
+Ejemplo esperado
+
+# Estado inicial
+luz_encendida = True
+
+apagar_luz()
+print(luz_encendida)  # Resultado: False
+
+encender_luz()
+print(luz_encendida)  # Resultado: True
+
+
+
+
+Aunque no retornan nada, estas funciones cambian el estado de nuestra variable global luz_encendida. Estos son los procedimientos.
+
+Ejercicio 1: Activar alarma 🚨
+
+Definí un procedimiento activar_alarma() que cambie el valor de la variable global alarma_activada a True. No inicialices la variable, ya lo hicimos por vos.
+
+Ejercicio 2: Sumar puntos de experiencia 🏆
+
+Definí un procedimiento sumar_experiencia(puntos) que reciba un parámetro puntos y sume ese valor a la variable global experiencia_total. Esto simula que tu personaje obtiene experiencia en un juego.
+
+👉🏽 Actualizaciones como duplicar, triplicar, incrementar en uno o en una cierta cantidad son tan comunes que Python presenta algunos atajos:
+
+x += y  # equivalente a x = x + y
+x = y  # equivalente a x = x  y
+x -= y  # equivalente a x = x - y
+
+
+Ejercicio 3: Entrada y salida de datos 👋
+
+Ahora vamos a practicar un procedimiento que interactúe con el usuario. Definí un procedimiento saludar_usuario() que le pida al usuario su nombre con input() y luego imprima Hola, <nombre>! usando print().
+
+💡 Si deseas validar tus procedimientos, ve al final del documento y descomenta la sección de validación correspondiente.

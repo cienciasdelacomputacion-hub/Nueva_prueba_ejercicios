@@ -1,0 +1,84 @@
+ /* Estilos generales con temática espacial */
+        body {
+            background-color: #0d1117; /* Fondo oscuro, casi negro */
+            color: #c9d1d9; /* Texto gris claro */
+            font-family: 'Orbitron', sans-serif; /* Fuente futurista */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        /* Contenedor principal del panel */
+        .panel-container {
+            background-color: #161b22; /* Un gris un poco más claro */
+            border: 2px solid #30363d;
+            border-radius: 15px;
+            padding: 2em 3em;
+            box-shadow: 0 0 20px rgba(0, 183, 255, 0.3); /* Sombra brillante azul */
+        }
+
+        h1 {
+            color: #58a6ff; /* Azul brillante */
+            text-shadow: 0 0 10px #58a6ff; /* Efecto de brillo */
+            letter-spacing: 2px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin: 1.5em 0;
+        }
+
+        /* Estilos para los spans de información */
+        .info-motor, .info-combustible {
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #30363d;
+        }
+
+        #imagenCohete {
+            border: 4px solid #30363d;
+            border-radius: 50%; /* Hacemos la imagen circular como un visor */
+            margin-bottom: 2em;
+            width: 200px;
+            height: 200px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Contenedor para los botones */
+        .controles {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        button {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1em;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            transform: translateY(-3px); /* Efecto de levantar el botón */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Colores específicos para cada botón de control */
+        #botonEncender { background-color: #238636; } /* Verde */
+        #botonApagar { background-color: #da3633; } /* Rojo */
+        #botonCarga { background-color: #1f6feb; } /* Azul */
+        
+        /* Clase dinámica para cuando el motor está activo */
+        .motor-activo span {
+            color: #56d364; /* Verde brillante */
+            text-shadow: 0 0 8px #56d364; /* Efecto de brillo verde */
+            background-color: #2ea04333; /* Fondo verde translúcido */
+        }

@@ -1,0 +1,315 @@
+/* Estilos Generales para el cuerpo de la página */
+body {
+    /* Propiedad background-color: Fondo oscuro, similar a Netflix */
+    background-color: #141414;
+    /* Propiedad color: Color de texto principal, blanco o gris claro */
+    color: #e5e5e5;
+    /* Propiedad font-family: Una fuente sans-serif limpia */
+    font-family: 'Arial', sans-serif;
+    /* Propiedad margin: Eliminar el margen por defecto del body */
+    margin: 0;
+    /* Mejora la legibilidad del texto del párrafo */
+    line-height: 1.6;
+    /* Ajuste crucial: Añadir margen superior para dejar espacio para la barra fija */
+    /* El valor debe ser al menos la altura de la barra de encabezado */
+    margin-top: 65px; /* Ajustar según la altura final del encabezado */
+}
+
+/* Estilos para el Encabezado del Sitio (Fijo) */
+#encabezado { /* Selector por ID */
+    /* --- Posicionamiento Fijo (como la barra del ejemplo anterior) --- */
+    position: fixed; /* Propiedad position: fixed: Mantiene el encabezado visible al hacer scroll */
+    top: 0; /* Propiedad top: Lo fija a 0px del borde superior de la ventana */
+    width: 100%; /* Propiedad width: Asegura que ocupe todo el ancho de la ventana */
+    z-index: 1000; /* Propiedad z-index: Asegura que esté por encima de otros contenidos */
+
+    /* --- Estilos Visuales --- */
+    background-color: #141414; /* Mismo fondo que el body */
+    color: #e5e5e5; /* Color del texto */
+    padding: 10px 0; /* Propiedad padding: Espacio interno arriba y abajo */
+    text-align: center; /* Propiedad text-align: Centra el contenido (logo y nav) */
+     /* Opcional: Borde inferior para separar visualmente */
+     border-bottom: 1px solid #303030;
+}
+
+.logo { /* Selector por Clase */
+    /* Propiedad color: Color del logo (rojo Netflix) */
+    color: #e50914;
+    /* Propiedad font-size: Tamaño del logo */
+    font-size: 2em; /* Ajustamos un poco el tamaño */
+    /* Propiedad margin: Eliminar margen por defecto */
+    margin: 0;
+
+}
+
+
+
+.menu a { /* Selector por Etiqueta + Clase (enlaces dentro del menú) */
+    /* --- Estilos de los enlaces (como en el ejemplo de la barra fija) --- */
+    display: inline-block;
+    /* Propiedad color: Color de los enlaces del menú */
+    color: #e5e5e5;
+    /* Propiedad text-decoration: Eliminar el subrayado por defecto */
+    text-decoration: none;
+    /* Propiedad padding: Espacio interno alrededor del texto del enlace (define el "botón" del menú) */
+    padding: 10px 15px; /* Ajustamos padding para el área clickeable */
+    /* Propiedad margin: Espacio entre los enlaces */
+    margin: 0 5px;
+    /* Propiedad font-size: Tamaño de fuente de los enlaces */
+    font-size: 1em; /* Usamos em relativo al padre (nav) */
+    /* Propiedad text-align: Centra el texto dentro del padding (aunque con inline-block y padding simétrico no es tan visible) */
+    text-align: center
+}
+
+.menu a:hover {
+    background-color: #e50914; /* Fondo rojo al pasar el ratón */
+    /* Propiedad color: Color del texto al pasar el ratón */
+    color: white; /* Texto blanco */
+}
+
+/* Estilos para el Contenido Principal */
+main { /* Selector por Etiqueta */
+    /* Propiedad max-width: Limitar el ancho del contenido principal */
+    max-width: 1200px;
+    /* Propiedad margin: Centrar el contenido principal y añadir margen vertical */
+    margin: 20px auto;
+    /* Propiedad padding: Espacio a los lados */
+    padding: 0 20px;
+}
+
+/* Estilos para las Secciones de Contenido */
+section { /* Selector por Etiqueta */
+    /* Propiedad margin-bottom: Espacio entre secciones */
+    margin-bottom: 40px;
+    /* Fondo y padding opcionales para secciones si queremos delimitarlas visualmente */
+    background-color: #1f1f1f;
+    padding: 20px;
+    border-radius: 8px; 
+}
+
+section h2 { /* Selector por Etiqueta (títulos de sección) */
+    /* Propiedad color: Color de los títulos de sección */
+    color: #e5e5e5;
+    /* Propiedad font-size: Tamaño de los títulos */
+    font-size: 1.8em; /* Ajustamos un poco */
+    /* Propiedad margin: Espacio */
+    margin-top: 5%;
+    margin-bottom: 15px;
+
+}
+
+section p { /* Selector por Etiqueta (párrafos de sección) */
+    /* Propiedad color: Color de los párrafos */
+    color: #a5a5a5;
+    /* Propiedad margin-bottom: Espacio */
+    margin-bottom: 20px;
+}
+
+
+#destacadas p, #destacadas h2 { /* Se especifica #destacadas h2 para mayor claridad */
+    color: #a5a5a5; /* Color aplicado a p y h2 dentro de #destacadas */
+}
+
+
+/* Estilos para el Contenedor de Películas (las tarjetas) */
+.peliculas { /* Selector por Clase */
+    /* --- Limpieza de floats (como en el contenedor de la galería) --- */
+    overflow: hidden; /* Propiedad overflow: hidden: Limpia los floats internos */
+
+    /* Propiedad margin-bottom: Espacio después del contenedor */
+    margin-bottom: 30px;
+    /* Opcional: Centrar el contenedor de películas si no ocupa todo el ancho de main */
+    max-width: 900px; 
+    margin-left: auto; 
+    margin-right: auto;
+    
+}
+
+/* Estilos para cada Tarjeta de Película Individual (como en la galería) */
+.pelicula { /* Selector por Clase */
+    /* --- Propiedades de Layout y Box Model (como en la caja de galería) --- */
+    width: 200px; /* Propiedad width: Ancho fijo para cada tarjeta (ajustar si es necesario) */
+    float: left; /* Propiedad float: left: Hace que las tarjetas floten para alinearse horizontalmente */
+    /* Propiedad margin: Espacio a la derecha y abajo de cada tarjeta (ajustar si es necesario) */
+    margin-right: 20px;
+    margin-bottom: 20px;
+
+    /* --- Estilos Visuales de la Tarjeta --- */
+    background-color: #1f1f1f; /* Propiedad background-color: Fondo gris oscuro para la tarjeta */
+    padding: 10px; /* Propiedad padding: Espacio interno */
+    border-radius: 5px; /* Propiedad border-radius: Esquinas redondeadas */
+    /* Propiedad border: Añadir un borde sutil (como en la galería) */
+    border: 1px solid #303030; /* Borde gris oscuro */
+    text-align: left; /* Alineación del texto dentro de la tarjeta */
+}
+
+/* Efecto al pasar el ratón sobre la tarjeta (Pseudo-clase :hover, como en la galería) */
+.pelicula:hover { /* Pseudo-clase :hover en acción */
+    /* Propiedad border: Cambiar el color del borde al pasar el ratón */
+    border-color: #e50914; /* Borde rojo al pasar el ratón */
+   
+}
+
+.pelicula img { /* Selector por Clase + Etiqueta (imagen de la tarjeta) */
+    /* --- Propiedades de Dimensiones (como en la imagen de la galería) --- */
+    width: 100%; /* Propiedad width: La imagen ocupa todo el ancho de la tarjeta */
+    height: auto; /* Propiedad height: auto: Mantiene la relación de aspecto */
+    /* Propiedad display: block: Controla el espacio debajo */
+    display: block;
+    /* Propiedad border-radius: Esquinas redondeadas */
+    border-radius: 3px;
+    /* Propiedad margin-bottom: Espacio debajo de la imagen */
+    margin-bottom: 10px;
+}
+
+.titulo-pelicula { /* Selector por Clase (título dentro de la tarjeta) */
+    /* Propiedad font-size: Tamaño */
+    font-size: 1em; /* Relativo al padre (.pelicula) */
+    /* Propiedad margin: Espacio */
+    margin-top: 0;
+    margin-bottom: 5px;
+    /* Propiedad color: Color */
+    color: #e5e5e5;
+}
+
+.sinopsis { /* Selector por Clase (sinopsis dentro de la tarjeta) */
+    /* Propiedad font-size: Tamaño */
+    font-size: 0.8em; /* Más pequeño que el título */
+    /* Propiedad color: Color */
+    color: #a5a5a5;
+    /* Propiedad margin-bottom: Espacio */
+    margin-bottom: 0;
+}
+
+.titulos{
+    text-align:center;
+}
+/* Estilos para la lista de Beneficios */
+.beneficios { /* Selector por Clase */
+    /* Propiedad list-style-type: Eliminar marcadores */
+    list-style-type: none;
+    /* Propiedad padding: Eliminar padding */
+    padding: 0;
+    /* Propiedad margin: Eliminar margen */
+    margin: 0;
+}
+
+.beneficios li { /* Selector por Clase + Etiqueta */
+    /* Propiedad margin-bottom: Espacio entre ítems */
+    margin-bottom: 8px;
+    /* Propiedad color: Color */
+    color: #a5a5a5;
+    /* Opcional: Simular marcador con padding y background-image o pseudo-elemento */
+    padding-left: 15px; /* Espacio para el pseudo-elemento */
+    text-align:center; 
+}
+
+/* Estilos para el Video */
+section video { /* Selector por Etiqueta */
+    /* Propiedad display: block: Para que el video ocupe su propia línea */
+    display: block;
+    /* Propiedad margin: auto: Centrar el video */
+    margin: 20px auto;
+    /* Propiedad max-width: Asegurar que el video no desborde */
+    max-width: 100%;
+    /* Propiedad height: auto: Mantiene la proporción */
+    height: auto;
+    /* Propiedad border-radius: Esquinas redondeadas */
+    border-radius: 8px;
+}
+
+/* Estilos para el Formulario */
+
+
+#formulario h2 {
+     color: #e5e5e5;
+     text-align:center;
+}
+
+#formulario form { /* Selector por ID + Etiqueta */
+    /* Propiedad max-width: Limitar el ancho */
+    max-width: 500px;
+    /* Propiedad margin: auto: Centrar */
+    margin: 0 auto;
+    /* Propiedad padding: Espacio interno */
+    padding: 20px;
+    /* Propiedad background-color: Fondo */
+    background-color: #1f1f1f;
+    /* Propiedad border: Borde */
+    border: 1px solid #303030;
+    /* Propiedad border-radius: Esquinas redondeadas */
+    border-radius: 8px;
+}
+
+#formulario label { /* Selector por ID + Etiqueta */
+    /* Propiedad display: block: Etiqueta en su propia línea */
+    display: block;
+    /* Propiedad margin-bottom: Espacio debajo */
+    margin-bottom: 5px;
+    /* Propiedad color: Color */
+    color: #a5a5a5;
+    font-weight: bold;
+}
+
+#formulario input[type="text"], /* Selectores con Atributo */
+#formulario input[type="email"],
+#formulario textarea { /* Se añade textarea para aplicar los mismos estilos */
+    /* Propiedad width: Ancho */
+    
+    width: 100%; /* Ahora 100% incluye padding y border */
+    /* Propiedad padding: Espacio interno */
+    padding: 10px;
+    /* Propiedad margin-bottom: Espacio debajo */
+    margin-bottom: 15px;
+    /* Propiedad border: Borde */
+    border: 1px solid #303030;
+    /* Propiedad border-radius: Esquinas redondeadas */
+    border-radius: 4px;
+    /* Propiedad background-color: Fondo */
+    background-color: #333;
+    /* Propiedad color: Color del texto */
+    color: #e5e5e5;
+    /* font-size: 1em; */
+    font-family: 'Arial', sans-serif; /* Asegura la fuente */
+}
+
+
+#formulario button[type="submit"] { /* Selector con Atributo */
+    /* Propiedad background-color: Color */
+    background-color: #e50914;
+    /* Propiedad color: Color del texto */
+    color: white;
+    /* Propiedad padding: Espacio interno */
+    padding: 12px 20px;
+    /* Propiedad border: Eliminar */
+    border: none;
+    /* Propiedad border-radius: Esquinas redondeadas */
+    border-radius: 4px;
+   
+    /* Propiedad font-size: Tamaño */
+    font-size: 1.1em; /* Ajustamos tamaño para que sea un poco más grande */
+     display: block; /* Hace que el botón ocupe toda la línea */
+     width: 100%; /* Hace que el botón ocupe todo el ancho del formulario */
+}
+
+#formulario button[type="submit"]:hover { /* Pseudo-clase :hover */
+    background-color: #f40612; /* Tono más oscuro al pasar el ratón */
+}
+
+
+/* Estilos para el Pie de Página */
+footer { /* Selector por Etiqueta */
+    /* Propiedad background-color: Fondo oscuro */
+    background-color: #141414;
+    /* Propiedad color: Color del texto */
+    color: #a5a5a5;
+    /* Propiedad text-align: Centrar */
+    text-align: center;
+    /* Propiedad padding: Espacio interno */
+    padding: 20px 0;
+    /* Propiedad margin-top: Espacio encima */
+    margin-top: 40px;
+    /* Propiedad font-size: Tamaño */
+    font-size: 0.9em;
+}
+

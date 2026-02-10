@@ -1,0 +1,3 @@
+Uso de Sets
+
+Dado un conjunto de números, elimina los repetidos y muestra el resultado.

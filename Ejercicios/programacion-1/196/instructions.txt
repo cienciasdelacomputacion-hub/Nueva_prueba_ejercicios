@@ -1,0 +1,28 @@
+Crea una función llamada premio_por_puesto que reciba:
+
+El lugar en el que quedó un competidor.
+Un booleano indicando si es una competencia internacional.
+Condiciones:
+Si es internacional:
+Primer lugar: "Trofeo y medalla".
+Segundo lugar: "Medalla de plata".
+Tercer lugar: "Medalla de bronce".
+Otros: "Certificado de participación".
+Si no es internacional:
+Primer lugar: "Medalla de oro local".
+Segundo lugar: "Medalla de plata local".
+Tercer lugar: "Medalla de bronce local".
+Otros: "Nada".
+Ejemplo:
+
+Entrada:
+
+print(premio_por_puesto(1, True))
+
+print(premio_por_puesto(4, False))
+
+Salida:
+
+Trofeo y medalla
+
+Nada

@@ -1,0 +1,16 @@
+¡Que el último apague la luz! 💡
+
+Ahora que entendimos los procedimientos, podemos modelar situaciones donde algo cambia de estado cada vez que lo usamos. Esto se llama alternancia. Un ejemplo clásico es prender y apagar una luz:
+
+luz_prendida = False
+
+def apretar_interruptor():
+    global luz_prendida
+    luz_prendida = not luz_prendida
+
+
+Cada vez que invocamos apretar_interruptor(), la luz cambia de estado. Si estaba apagada, se prende; si estaba prendida, se apaga.
+
+Ejercicio 1: Mochila
+
+Definí un procedimiento usar_cierre() que permita abrir y cerrar una mochila. Cada vez que se invoque, debe cambiar el estado de la variable global mochila_abierta usando not.

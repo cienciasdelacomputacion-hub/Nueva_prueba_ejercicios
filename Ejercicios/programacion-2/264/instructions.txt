@@ -1,0 +1,9 @@
+Crea un programa que gestione una lista de estudiantes donde cada estudiante esté representado por un diccionario. El programa debe recorrer la lista para:
+
+Mostrar el nombre de todos los estudiantes.
+
+Calcular el promedio de sus edades.
+
+Contar cuántos estudiantes tienen una calificación mayor a 70.
+
+Copia el código en tu IDE y analizalo.

@@ -1,0 +1,22 @@
+Ejercicio 2: Una rebanada, por favor 🍰
+
+Las secuencias en Python, como listas y strings, permiten tomar partes o segmentos usando slices. Es una forma elegante de obtener “rebanadas” sin tener que acceder a cada elemento por separado.
+
+Recordá: los índices comienzan en 0 y el límite superior no se incluye.
+
+📊 Ejemplo de rebanadas (slices) en Python
+Expresión	Resultado	Descripción
+numeros = [10, 20, 30, 40, 50]	—	Lista base
+numeros[0:2]	[10, 20]	Del índice 0 al 1 (los dos primeros elementos)
+numeros[2:4]	[30, 40]	Del índice 2 al 3 (el 3° y 4° elemento)
+numeros[0:4]	[10, 20, 30, 40]	Desde el primero hasta antes del 5°
+numeros[:4]	[10, 20, 30, 40]	Desde el inicio hasta el índice 3 (omitimos el inicio)
+numeros[3:]	[40, 50]	Desde el índice 3 hasta el final (omitimos el límite superior)
+
+⚠️ Recordá que los índices comienzan en 0, y que el límite superior nunca se incluye en el resultado.
+
+Tus misiones:
+Crea una lista llamada numeros con los valores [10, 20, 30, 40, 50].
+Imprime los dos primeros elementos usando numeros[0:2].
+Imprime los tres últimos elementos usando numeros[2:].
+Ahora define un string texto = "Aquí me pongo a cantar" y muestra sus primeros 10 caracteres.

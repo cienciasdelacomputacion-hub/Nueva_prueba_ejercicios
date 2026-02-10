@@ -1,0 +1,3 @@
+Filtrado de Números Pares
+
+Dada una lista de números, crea una nueva lista que contenga solo los números pares. Realizá el ejercicio usando tanto un bucle como una lista por comprensión para que puedas comparar ambos métodos. También podés modificar la lista original para verificar distintos resultados.

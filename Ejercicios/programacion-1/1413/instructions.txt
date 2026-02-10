@@ -1,0 +1,21 @@
+Operaciones y tipos de datos
+
+En Python existen operaciones que sirven para distintos tipos de datos. Por ejemplo:
+
+==: nos dice si dos cosas son iguales.
+!=: nos dice si dos cosas son diferentes.
+
+Es importante usar las operaciones correctas con los tipos de datos correctos. Por ejemplo, no tiene sentido sumar dos booleanos o realizar operaciones booleanas con números. Si usas operaciones que no corresponden, pueden pasar cosas raras o inesperadas.
+
+Prueba en la consola
+
+Antes de ejecutar cada línea, intenta predecir el resultado:
+
+Reflexión
+
+Hablemos de las dos últimas consultas:
+
+¿Por qué querríamos dividir booleanos? Generalmente no tiene sentido práctico.
+¿Por qué usar or con strings? Sirve para elegir un valor u otro, pero no es una operación matemática.
+
+Aunque estas líneas no arrojaron errores, no siempre tienen sentido. Por eso es importante usar las operaciones correctas con cada tipo de dato.

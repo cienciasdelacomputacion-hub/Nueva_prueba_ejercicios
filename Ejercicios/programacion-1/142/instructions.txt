@@ -1,0 +1,7 @@
+Prueba el siguiente ejemplo y verifica los resultados en la terminal:
+
+Instrucciones para ACTIVIDAD 2
+
+Miguel de Cervantes escribió muchas obras, pero aquí trabajaremos con El Quijote como ejemplo de frase célebre. Te dejamos una frase famosa, aunque no aparece exactamente así en el libro. Tu tarea será reconstruirla utilizando los fragmentos que te damos .
+
+Comenta los print() que no aportan a la frase.

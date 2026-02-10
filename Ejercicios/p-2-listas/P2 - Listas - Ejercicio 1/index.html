@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 1 - Series favoritas (Listas en Python)</title>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f7f9fc;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background: #4a90e2;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 1.5rem;
+    }
+    h2 {
+      margin-top: 1.5rem;
+      color: #4a90e2;
+    }
+    textarea {
+      width: 100%;
+      height: 220px;
+      font-family: monospace;
+      font-size: 15px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: vertical;
+      white-space: pre;
+      overflow-wrap: normal;
+      overflow-x: scroll;
+    }
+    textarea:focus {
+      outline: 2px solid #4a90e2;
+    }
+    button {
+      background: #4a90e2;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    button:hover {
+      background: #357abf;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.5rem;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background: #f0f4fa;
+    }
+    td.result-pass {
+      background: #d4edda;
+      color: #155724;
+      font-weight: bold;
+    }
+    td.result-fail {
+      background: #f8d7da;
+      color: #721c24;
+      font-weight: bold;
+    }
+    #output {
+      background: #1e1e1e;
+      color: #dcdcdc;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+    .counter {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #4a90e2;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ejercicio 1: Series favoritas</h1>
+  </header>
+  <main>
+    <p>
+      En este ejercicio vamos a trabajar con <strong>listas en Python</strong>.  
+      Queremos representar nuestras <em>series favoritas</em> como un conjunto de strings dentro de corchetes <code>[]</code>, separados por comas.  
+    </p>
+
+    <h2>Consigna</h2>
+    <p>
+      Escribí en el editor el código en Python que defina las siguientes listas:
+    </p>
+    <ul>
+      <li><code>series_favoritas_de_ana</code>: debe contener <em>tres strings</em> con nombres de series.</li>
+      <li><code>series_favoritas_de_hector</code>: debe contener <em>cuatro strings</em> con nombres de series.</li>
+      <li>Probá también listas más pequeñas: <code>["hola","mundo!"]</code> y <code>["hola","hola"]</code>.</li>
+    </ul>
+
+    <h2>Editor de código</h2>
+    <textarea id="code"># Definí tus listas aquí</textarea>
+    <br>
+    <button onclick="runCode()">Ejecutar código</button>
+
+    <div class="counter">Intentos: <span id="counter">0</span></div>
+
+    <h2>Pruebas automáticas</h2>
+    <table id="resultsTable">
+      <thead>
+        <tr>
+          <th>Consulta</th>
+          <th>Descripción</th>
+          <th>Esperado</th>
+          <th>Resultado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>series_favoritas_de_ana</code></td>
+          <td>Lista con tres series favoritas de Ana</td>
+          <td>3 elementos</td>
+          <td id="testAna"></td>
+        </tr>
+        <tr>
+          <td><code>series_favoritas_de_hector</code></td>
+          <td>Lista con cuatro series favoritas de Héctor</td>
+          <td>4 elementos</td>
+          <td id="testHector"></td>
+        </tr>
+       
+      </tbody>
+    </table>
+
+    <h2>Consola</h2>
+    <div id="output"></div>
+  </main>
+
+  <script>
+    let pyodideReady = loadPyodide();
+    let counter = 0;
+
+    async function runCode() {
+      counter++;
+      document.getElementById("counter").innerText = counter;
+
+      let pyodide = await pyodideReady;
+      let code = document.getElementById("code").value;
+
+      let wrapper = `
+import sys, io
+_sys_stdout = sys.stdout
+sys.stdout = io.StringIO()
+try:
+${code.split("\n").map(l => "    "+l).join("\n")}
+    _output = sys.stdout.getvalue()
+finally:
+    sys.stdout = _sys_stdout
+`;
+
+      try {
+        await pyodide.runPythonAsync(wrapper);
+        let output = pyodide.globals.get("_output");
+        document.getElementById("output").innerText = output;
+
+        // reset table cells
+        function setResult(id, pass){
+          let cell = document.getElementById(id);
+          if(pass){
+            cell.innerText = "✅ Correcto";
+            cell.className = "result-pass";
+          }else{
+            cell.innerText = "❌ Incorrecto";
+            cell.className = "result-fail";
+          }
+        }
+
+        // pruebas
+        let ana = pyodide.globals.get("series_favoritas_de_ana");
+        setResult("testAna", ana && ana.length === 3);
+
+        let hector = pyodide.globals.get("series_favoritas_de_hector");
+        setResult("testHector", hector && hector.length === 4);
+
+        // pruebas rápidas de listas literales
+        try{
+          let holaMundo = pyodide.runPython(`len(["hola","mundo!"])`);
+          setResult("testHolaMundo", holaMundo === 2);
+        }catch{ setResult("testHolaMundo", false); }
+
+        try{
+          let holaHola = pyodide.runPython(`len(["hola","hola"])`);
+          setResult("testHolaHola", holaHola === 2);
+        }catch{ setResult("testHolaHola", false); }
+
+        // palabra clave secreta
+        if (ana && ana.length === 3 && hector && hector.length === 4){
+          document.getElementById("output").innerText += "\n\n✅ ¡Todo bien! Palabra clave: ZEPHIR123";
+        }
+
+      } catch (err) {
+        document.getElementById("output").innerText = "Error:\n" + err;
+      }
+    }
+
+    // habilitar tabulación en textarea
+    document.getElementById("code").addEventListener("keydown", function(e) {
+      if (e.key === "Tab") {
+        e.preventDefault();
+        let start = this.selectionStart;
+        let end = this.selectionEnd;
+        this.value = this.value.substring(0, start) + "\t" + this.value.substring(end);
+        this.selectionStart = this.selectionEnd = start + 1;
+      }
+    });
+  </script>
+</body>
+</html>

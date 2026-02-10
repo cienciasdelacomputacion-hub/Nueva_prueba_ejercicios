@@ -1,0 +1,13 @@
+.caja-con-fondo {
+  background-color: #e0f7fa; /* Un azul verdoso claro */
+ 
+}
+
+p {
+  color: #004d40; /* Color de texto oscuro para buen contraste */
+}
+
+.caja-con-fondoEx {
+  background-color: lightgray; /* Un azul verdoso claro */
+  
+}

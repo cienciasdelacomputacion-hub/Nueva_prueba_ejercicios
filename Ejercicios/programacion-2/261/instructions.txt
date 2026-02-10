@@ -1,0 +1,10 @@
+Escribe un programa que almacene al menos 5 ciudades de Uruguay en una lista. Cada ciudad debe representarse mediante un diccionario que contenga:
+
+"nombre": el nombre de la ciudad.
+"departamento": el departamento al que pertenece.
+
+Una vez creada la lista: Mostrá todas las ciudades con su respectivo departamento.
+
+Permití al usuario ingresar un departamento, y mostrale solo las ciudades que pertenecen a él.
+
+💡 Sugerencia: usá un bucle for para recorrer la lista, y condicionales para filtrar.

@@ -1,0 +1,12 @@
+Juguetes y Precios
+
+Crea una clase Juguete con los siguientes atributos:
+
+Nombre
+Precio
+Partes (almacenadas en un set)
+
+Debe incluir los métodos:
+
+es_costoso: retorna True si el precio es mayor a 1000.
+es_electronico: retorna True si el set de partes contiene "batería".

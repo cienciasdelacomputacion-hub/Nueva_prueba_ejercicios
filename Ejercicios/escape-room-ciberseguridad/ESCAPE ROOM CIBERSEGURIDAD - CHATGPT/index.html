@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Operación Firewall: Amenaza Interna</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <canvas id="gridbg" aria-hidden="true"></canvas>
+
+    <section id="screen-start" class="screen active">
+        <h1 class="glitch" data-text="INSTITUTO ATLAS">INSTITUTO ATLAS</h1>
+        <h2>Operación Firewall: Amenaza Interna</h2>
+        <p class="intro">
+            Has sido citado por el **Centro de Respuesta Cibernética** del Instituto Atlas. En las últimas 12 horas, se detectaron
+            patrones anómalos que podrían culminar en un ataque coordinado. Tu rol: actuar como **agente de enlace** entre
+            las oficinas críticas (Dirección, Reclutamiento, Identidad Digital, Seguridad Interna e Innovación IoT),
+            **recuperar 5 claves de restauración** y decidir, con criterio, quién podría estar detrás de la amenaza.<br/><br/>
+            Cada oficina te presentará el **concepto clave** (con un breve video o guía) y luego un **desafío** para confirmar
+            que lo entendiste. Elegí sabiamente: **los errores restan puntos** y podrían sesgar tu sospecha.
+        </p>
+        <button class="btn primary" id="btn-start">Iniciar misión</button>
+    </section>
+
+    <section id="screen-game" class="screen">
+        <header class="hud">
+            <div>⚡ Puntos: <span id="hud-score">0</span></div>
+            <div>🔐 Firewalls: <span id="hud-keys">0/5</span></div>
+            <div>🕵️ Sospechoso: <span id="current-suspect-display">PENDIENTE</span></div>
+            <!-- Botón para cambiar sospechoso se inserta dinámicamente tras completar Reclutamiento -->
+        </header>
+
+        <div class="layout">
+            <aside id="panel-map" class="panel">
+                <h3>Mapa de Red [ATLAS]</h3>
+                <p id="map-hint">Abrí la carpeta de Dirección para recibir el primer briefing.</p>
+
+                <div class="folder-list">
+                    <button class="folder" id="room-1" data-mission="intro" aria-disabled="true">
+                        📁 Dirección — Principio C.I.D.
+                    </button>
+                    <button class="folder" id="room-2" data-mission="hackers" aria-disabled="true">
+                        📁 Reclutamiento — Código Fantasma
+                    </button>
+                    <button class="folder" id="room-3" data-mission="credenciales" aria-disabled="true">
+                        📁 Identidad Digital — Gestión de Credenciales
+                    </button>
+                    <button class="folder" id="room-4" data-mission="ing_social" aria-disabled="true">
+                        📁 Seguridad Interna — Ing. Social
+                    </button>
+                    <button class="folder" id="room-5" data-mission="iot" aria-disabled="true">
+                        📁 Innovación — Vulnerabilidad IoT
+                    </button>
+                </div>
+
+                <button id="btn-terminal" class="btn success" disabled>Terminal Central (🔒)</button>
+            </aside>
+
+            <main id="panel-mission" class="panel">
+                <div id="briefing" class="card">
+                    <div class="brief-header">
+                        <div class="avatar" id="brief-avatar"></div>
+                        <div>
+                            <h3 id="brief-title">Seleccioná una carpeta para ver el briefing</h3>
+                            <p id="brief-role" class="muted">Sistema de Respuesta Cibernética</p>
+                        </div>
+                    </div>
+
+                    <div id="brief-grid" class="brief-grid">
+                      <div class="brief-card video-card">
+                        <iframe
+                          id="brief-video-iframe"
+                          class="video-player"
+                          src=""
+                          frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen
+                          style="display:none;">
+                        </iframe>
+                      </div>
+
+                      <div class="brief-card text-card">
+                        <p id="brief-text">
+                          La misión iniciará al acceder a la primera carpeta del mapa.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="brief-actions">
+                        <a id="brief-video" href="#" target="_blank" rel="noopener" class="link" style="display:none;">▶ Ver video/explicación</a>
+                        <button id="btn-begin" class="btn primary" disabled>Comenzar simulación</button>
+                    </div>
+                </div>
+
+                <div id="challenge" class="card hidden">
+                    <h3 id="challenge-title">Simulación Operativa</h3>
+                    <p id="challenge-desc" class="muted"></p>
+
+                    <div id="challenge-ui" class="challenge-ui"></div>
+                    
+                    <!-- Contenedor Genially (se muestra en Identidad Digital y Seguridad Interna) -->
+                    <div class="container-wrapper-genially" id="genially-container-wrapper" style="position: relative; min-height: 400px; max-width: 100%; display:none;">
+                        <video class="loader-genially" autoplay="autoplay" loop="loop" playsinline="playsInline" muted="muted" style="position: absolute;top: 45%;left: 50%;transform: translate(-50%, -50%);width: 80px;height: 80px;margin-bottom: 10%">
+                            <source src="https://static.genially.com/resources/loader-default-rebranding.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="genially-embed" style="margin: 0px auto; position: relative; height: auto; width: 100%;"></div>
+                    </div>
+
+                    <div id="suspect-ui-container"></div> 
+
+                    <div class="unlock">
+                        <label for="challenge-key">Ingresar clave de restauración (MFA/CÓDIGO):</label>
+                        <input id="challenge-key" type="text" placeholder="Clave (Ej: CONFIDENCIALIDAD, 4321, NODE)" />
+                        <button id="btn-submit" class="btn success">Desbloquear Firewall</button>
+                    </div>
+
+                    <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+                    <div class="footer-actions">
+                        <button id="btn-backmap" class="btn secondary">Volver al mapa</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <section id="screen-end" class="screen">
+        <h2>✅ Protocolo Completado. HYDRA Neutralizado.</h2>
+        <p class="intro">¡Misión cumplida! El análisis final revela la verdad sobre el Código Fantasma. </p>
+        <p class="intro">Puntuación final: <b id="final-score">0</b></p>
+        <button class="btn primary" id="btn-replay">Reiniciar Sistema</button>
+    </section>
+
+    <audio id="sfx-ok" preload="auto">
+        <source src="sfx/ok.mp3" type="audio/mp3" />
+    </audio>
+    <audio id="sfx-error" preload="auto">
+        <source src="sfx/error.mp3" type="audio/mp3" />
+    </audio>
+    <audio id="sfx-open" preload="auto">
+        <source src="sfx/open.mp3" type="audio/mp3" />
+    </audio>
+    <audio id="sfx-typing" preload="auto" loop>
+        <source src="sfx/typing.mp3" type="audio/mp3" />
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

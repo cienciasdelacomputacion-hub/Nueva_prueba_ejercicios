@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Estudiantes - Registro de Conducta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+       <div class="logo-container">
+    <img src="logo_alicia_29.png" alt="Logo Liceo Alicia Goyena">
+    <h1> Conducta y Fair Play</h1>
+</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Resumen General</a></li>
+                <li><a href="estudiantes.html" class="active">Lista de Estudiantes</a></li>
+                <li><a href="fairplay.html">Ranking Fair Play</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="lista-estudiantes-seccion">
+            <h2>Registro por Estudiante</h2>
+            <p>Aquí puedes ver el historial de tarjetas de cada alumno. Recuerda que es un registro para fomentar la mejora de la conducta.</p>
+
+            <table class="tabla-estudiantes">
+                <thead>
+                    <tr>
+                        <th>Estudiante</th>
+                        <th>Tarjetas Amarillas</th>
+                        <th>Tarjetas Rojas</th>
+                        <th>Estado de Conducta</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaEstudiantesBody">
+                    <tr><td colspan="4">Cargando datos de estudiantes...</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Registro de Conducta. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

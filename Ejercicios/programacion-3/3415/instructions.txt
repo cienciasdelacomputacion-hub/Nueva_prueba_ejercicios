@@ -1,0 +1,19 @@
+La Última Prueba - Aplicando la Herencia
+
+Ejecutá los siguientes comandos y analizá qué valores devuelve cada uno:
+z1 = Zombi(60)
+z2 = Zombi(40)
+sz1 = SuperZombi(80)
+
+print(z1.es_un_peligro())
+print(z2.es_un_peligro())
+print(sz1.es_un_peligro())
+
+z1.recibir_danio(10)
+sz1.recibir_danio(10)
+
+print(z1.hambre)
+print(sz1.hambre)
+
+sz1.regenerarse()
+print(sz1.hambre)

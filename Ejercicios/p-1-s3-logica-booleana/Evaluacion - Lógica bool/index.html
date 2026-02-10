@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Práctica de Lógica Booleana - Ejercicios Adicionales</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+textarea {
+    width: 100%;
+    height: 140px;
+    font-family: monospace;
+    font-size: 14px;
+}
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+}
+#resultado {
+    margin-top: 15px;
+    font-weight: bold;
+}
+.advertencia {
+    color: #a94442;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+.seccion-clave {
+    display: none;
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+}
+.seccion-clave h4 {
+    margin-top: 0;
+}
+</style>
+</head>
+<body>
+
+<h2>Práctica de Lógica Booleana</h2>
+
+<div class="card">
+    <h3>Ejercicio 1: ¿Vamos a la cafetería? ☕</h3>
+    <p>Escribe una función llamada <strong><code>vamos(libre, dinero, amigo)</code></strong> que devuelva <code>True</code> si se cumple esta condición: estás **libre** O tienes **dinero**, Y un **amigo** te invita.</p>
+    <div class="advertencia">
+        ⚠️ **Advertencia:** Para que la solución sea validada correctamente, debes respetar los nombres de la función y las variables tal como se indican.
+    </div>
+    <p>Ingresá tu código en el área de texto:</p>
+    <textarea id="codigo1"></textarea>
+    <button id="verificar1">Verificar función</button>
+    <div id="resultado1"></div>
+    <div id="solucionFinal1" class="seccion-clave">
+        <p>✅ ¡Excelente! Tu solución es correcta.</p>
+        <h4>Clave de validación</h4>
+        <p>La clave para este ejercicio es: **OR-Y**</p>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Ejercicio 2: Entrada al Cine 🎟️</h3>
+    <p>Escribe una función <strong><code>puede_entrar(online, fisica, suspendida)</code></strong>. Puedes entrar a la sala si **compraste entrada online** O si tienes **entrada física**, pero **no si está suspendida**.</p>
+    <div class="advertencia">
+        ⚠️ **Advertencia:** Respeta los nombres de la función y las variables.
+    </div>
+    <p>Ingresá tu código en el área de texto:</p>
+    <textarea id="codigo2"></textarea>
+    <button id="verificar2">Verificar función</button>
+    <div id="resultado2"></div>
+    <div id="solucionFinal2" class="seccion-clave">
+        <p>✅ ¡Excelente! Tu solución es correcta.</p>
+        <h4>Clave de validación</h4>
+        <p>La clave para este ejercicio es: **Ticket-OK**</p>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Ejercicio 3: Subida al Juego 🎢</h3>
+    <p>Escribe una función <strong><code>puede_subir(medida, acompanado)</code></strong>. Un niño puede subir al juego si **mide más de 1.3m y está acompañado por un adulto**, O si **mide más de 1.5m**.</p>
+    <div class="advertencia">
+        ⚠️ **Advertencia:** Respeta los nombres de la función y las variables. La medida se pasa como un número, no como un booleano.
+    </div>
+    <p>Ingresá tu código en el área de texto:</p>
+    <textarea id="codigo3"></textarea>
+    <button id="verificar3">Verificar función</button>
+    <div id="resultado3"></div>
+    <div id="solucionFinal3" class="seccion-clave">
+        <p>✅ ¡Excelente! Tu solución es correcta.</p>
+        <h4>Clave de validación</h4>
+        <p>La clave para este ejercicio es: **Altura-Adulta**</p>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Ejercicio 4: Conexión a Internet 🌐</h3>
+    <p>Escribe una función <strong><code>conectar(en_red, clave_correcta, acceso_especial)</code></strong>. El dispositivo puede conectarse si **está dentro de la red y tiene clave correcta**, O si **tiene acceso especial**.</p>
+    <div class="advertencia">
+        ⚠️ **Advertencia:** Respeta los nombres de la función y las variables.
+    </div>
+    <p>Ingresá tu código en el área de texto:</p>
+    <textarea id="codigo4"></textarea>
+    <button id="verificar4">Verificar función</button>
+    <div id="resultado4"></div>
+    <div id="solucionFinal4" class="seccion-clave">
+        <p>✅ ¡Excelente! Tu solución es correcta.</p>
+        <h4>Clave de validación</h4>
+        <p>La clave para este ejercicio es: **Wifi-OK**</p>
+    </div>
+</div>
+
+<script>
+// Objeto para almacenar las soluciones correctas y las claves
+const ejercicios = {
+    1: {
+        soluciones: [
+            'defvamos(libre,dinero,amigo):return(libreordinero)andamigo',
+            'defvamos(libre,dinero,amigo):returnamigoand(libreordinero)'
+        ],
+        patronSintaxis: /^def\s+vamos\s*\(\s*libre\s*,\s*dinero\s*,\s*amigo\s*\)\s*:/,
+    },
+    2: {
+        soluciones: [
+            'defpuede_entrar(online,fisica,suspendida):return(onlineorfisica)andnotsuspendida',
+            'defpuede_entrar(online,fisica,suspendida):returnnotsuspendidaand(onlineorfisica)'
+        ],
+        patronSintaxis: /^def\s+puede_entrar\s*\(\s*online\s*,\s*fisica\s*,\s*suspendida\s*\)\s*:/,
+    },
+    3: {
+        soluciones: [
+            'defpuede_subir(medida,acompanado):return(medida>1.3andacompanado)ormedida>1.5',
+            'defpuede_subir(medida,acompanado):returnmedida>1.5or(medida>1.3andacompanado)',
+            'defpuede_subir(medida,acompanado):returnmedida>1.5ormedida>1.3andacompanado',
+            'defpuede_subir(medida,acompanado):returnmedida>1.3andacompanadoormedida>1.5'
+        ],
+        patronSintaxis: /^def\s+puede_subir\s*\(\s*medida\s*,\s*acompanado\s*\)\s*:/,
+    },
+    4: {
+        soluciones: [
+            'defconectar(en_red,clave_correcta,acceso_especial):return(en_redandclave_correcta)oracceso_especial',
+            'defconectar(en_red,clave_correcta,acceso_especial):returnacceso_especialor(en_redandclave_correcta)',
+            'defconectar(en_red,clave_correcta,acceso_especial):returnacceso_especialoren_redandclave_correcta'
+        ],
+        patronSintaxis: /^def\s+conectar\s*\(\s*en_red\s*,\s*clave_correcta\s*,\s*acceso_especial\s*\)\s*:/,
+    }
+};
+
+// Función de validación genérica para todos los ejercicios
+function verificar(ejercicioNumero) {
+    const codigoUsuario = document.getElementById(`codigo${ejercicioNumero}`).value;
+    const resultadoDiv = document.getElementById(`resultado${ejercicioNumero}`);
+    const solucionFinalDiv = document.getElementById(`solucionFinal${ejercicioNumero}`);
+    
+    // Ocultar la sección de solución y clave por defecto
+    solucionFinalDiv.style.display = 'none';
+
+    // Normalizar el código del usuario para la comparación
+    const codigoNormalizado = codigoUsuario.replace(/\s/g, '').trim();
+
+    // Validar sintaxis de la primera línea
+    const lineasUsuario = codigoUsuario.split('\n');
+    const patronSintaxis = ejercicios[ejercicioNumero].patronSintaxis;
+    if (!patronSintaxis.test(lineasUsuario[0])) {
+        resultadoDiv.textContent = "❌ Error de sintaxis. Revisa la definición de la función y los nombres de las variables.";
+        resultadoDiv.style.color = "red";
+        return;
+    }
+
+    // Validar indentación de la segunda línea
+    if (lineasUsuario.length > 1 && !lineasUsuario[1].startsWith("    ")) {
+        resultadoDiv.textContent = "❌ Error de indentación. La línea del 'return' debe tener una indentación de 4 espacios.";
+        resultadoDiv.style.color = "red";
+        return;
+    }
+    
+    // Validar la lógica
+    const solucionesNormalizadas = ejercicios[ejercicioNumero].soluciones;
+    if (solucionesNormalizadas.includes(codigoNormalizado)) {
+        resultadoDiv.textContent = "✅ ¡Excelente! Tu solución es correcta.";
+        resultadoDiv.style.color = "green";
+        solucionFinalDiv.style.display = 'block';
+    } else {
+        resultadoDiv.textContent = "❌ Error de lógica. Revisa tu fórmula y el uso de paréntesis para agrupar las condiciones.";
+        resultadoDiv.style.color = "red";
+    }
+}
+
+// Asociar cada botón a su función de verificación correspondiente
+document.getElementById("verificar1").addEventListener("click", () => verificar(1));
+document.getElementById("verificar2").addEventListener("click", () => verificar(2));
+document.getElementById("verificar3").addEventListener("click", () => verificar(3));
+document.getElementById("verificar4").addEventListener("click", () => verificar(4));
+
+// Manejar la tecla Tab para indentar en todos los textareas
+document.querySelectorAll('textarea').forEach(textarea => {
+    textarea.addEventListener('keydown', function(e) {
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+            const tab = "    "; // 4 espacios por convención de Python
+            this.value = this.value.substring(0, start) + tab + this.value.substring(end);
+            this.selectionStart = this.selectionEnd = start + tab.length;
+        }
+    });
+});
+</script>
+
+</body>
+</html>

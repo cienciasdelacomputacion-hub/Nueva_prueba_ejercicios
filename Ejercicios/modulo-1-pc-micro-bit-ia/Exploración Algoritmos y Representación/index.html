@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Exploración de Algoritmos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Exploración: Algoritmos y Diagramas</h1>
+    <p>Primero prueba la aplicación de ejemplo. Luego completa la exploración, adjunta tu diagrama y descarga un PDF con tus respuestas.</p>
+  </header>
+
+  <main class="wrap">
+    <!-- CARD 1 -->
+    <section class="card">
+      <h2>1️⃣ App de prueba: Login y verificación</h2>
+      <div class="test-frame">
+        <iframe src="app.html" style="width:100%; height:100%; border:0;"></iframe>
+      </div>
+    </section>
+
+    <!-- CARD 2 -->
+    <section class="card">
+      <h2>Actividad</h2>
+      <p>1️⃣ Explora la página de prueba y determina las <b>entradas, proceso y salida</b>.</p>
+      <p>2️⃣ Diseña el <b>diagrama de flujo</b>.</p>
+      <p>3️⃣ Llévalo a <b>pseudocódigo</b> en lenguaje natural o en PSeInt.</p>
+      <p>4️⃣ Reflexiona sobre lo aprendido.</p>
+    </section>
+
+    <!-- CARD 3 -->
+    <section class="card">
+      <h2>Registro de Respuestas</h2>
+      <label for="eps">📥 Entradas, Proceso y Salidas:</label>
+      <textarea id="eps" rows="4"></textarea>
+
+      <label for="pseudocodigo">💻 Pseudocódigo:</label>
+      <textarea id="pseudocodigo" rows="6"></textarea>
+
+      <label for="reflexion">💡 Reflexiones:</label>
+      <textarea id="reflexion" rows="4"></textarea>
+
+      <label for="diagrama">🖼️ Adjuntar Diagrama de Flujo:</label>
+      <input type="file" id="diagrama" accept=".jpg,.jpeg,.png,.pdf">
+      <div id="preview"></div>
+
+      <button onclick="descargarPDF()">📄 Descargar PDF</button>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

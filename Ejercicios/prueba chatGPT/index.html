@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Unidad Autónoma - Representación de Algoritmos</title>
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+      color: #222;
+    }
+    header {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    h1, h2, h3 {
+      color: #1f3c88;
+    }
+    section {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+    textarea {
+      min-height: 140px;
+    }
+    .flashcards {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .card {
+      width: 220px;
+      height: 140px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .card:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      text-align: center;
+    }
+    .front {
+      background: #e8ecf4;
+      font-weight: bold;
+    }
+    .back {
+      background: #ffffff;
+      transform: rotateY(180deg);
+      font-size: 14px;
+    }
+    .quiz-question {
+      margin-bottom: 15px;
+    }
+    .feedback {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    .activity-box {
+      background: #eef2f7;
+      padding: 15px;
+      border-left: 5px solid #1f3c88;
+      margin-bottom: 15px;
+    }
+    button {
+      padding: 10px 15px;
+      margin-right: 10px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .success {
+      color: green;
+      font-weight: bold;
+    }
+    .warning {
+      color: darkred;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Unidad de Aprendizaje Autónoma</h1>
+  <h2>Representación de Algoritmos</h2>
+  <label>Nombre del Estudiante</label>
+  <input id="studentName" type="text">
+  <label>Curso / Grupo</label>
+  <input id="studentGroup" type="text">
+</header>
+
+<section>
+  <h2>1. Activación Teórica</h2>
+  <h3>Micro-Concepto</h3>
+  <p>
+    Un algoritmo es una secuencia ordenada de pasos que permite resolver un problema.
+    Para poder analizarlo, comunicarlo y corregirlo, existen distintas formas de representación.
+    Las más utilizadas en informática educativa son el <strong>diagrama de flujo</strong>,
+    el <strong>pseudocódigo</strong> y herramientas como <strong>PSeInt</strong>.
+  </p>
+
+  <h3>Flashcards</h3>
+  <div class="flashcards">
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-face front">Algoritmo</div>
+        <div class="card-face back">Conjunto finito de pasos ordenados para resolver un problema.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-face front">Diagrama de Flujo</div>
+        <div class="card-face back">Representación gráfica de un algoritmo mediante símbolos y flechas.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-face front">Pseudocódigo</div>
+        <div class="card-face back">Descripción textual estructurada de un algoritmo, sin sintaxis estricta.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-face front">PSeInt</div>
+        <div class="card-face back">Herramienta educativa para escribir y simular pseudocódigo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2. Verificación Conceptual</h2>
+
+  <div class="quiz-question">
+    <p>1. ¿Para qué se utiliza un diagrama de flujo?</p>
+    <input type="radio" name="q1" value="a"> Ejecutar programas<br>
+    <input type="radio" name="q1" value="b"> Representar gráficamente un algoritmo<br>
+    <input type="radio" name="q1" value="c"> Escribir código en un lenguaje real<br>
+    <div id="f1" class="feedback"></div>
+  </div>
+
+  <div class="quiz-question">
+    <p>2. ¿Qué ventaja tiene el pseudocódigo?</p>
+    <input type="radio" name="q2" value="a"> Obliga a usar sintaxis estricta<br>
+    <input type="radio" name="q2" value="b"> Permite expresar ideas sin depender de un lenguaje<br>
+    <input type="radio" name="q2" value="c"> Solo funciona en computadoras<br>
+    <div id="f2" class="feedback"></div>
+  </div>
+
+  <div class="quiz-question">
+    <p>3. ¿Qué es PSeInt?</p>
+    <input type="radio" name="q3" value="a"> Un lenguaje de programación profesional<br>
+    <input type="radio" name="q3" value="b"> Un editor de diagramas<br>
+    <input type="radio" name="q3" value="c"> Una herramienta educativa para pseudocódigo<br>
+    <div id="f3" class="feedback"></div>
+  </div>
+
+  <button onclick="checkQuiz()">Verificar Quiz</button>
+  <p id="quizResult"></p>
+</section>
+
+<section>
+  <h2>3. Actividad de Producción</h2>
+
+  <div class="activity-box">
+    <strong>Contexto:</strong>  
+    Estás ayudando a un compañero que no entiende por qué existen distintas formas de representar algoritmos.
+  </div>
+
+  <p><strong>Consigna:</strong>  
+    Explica con tus propias palabras:
+  </p>
+  <ul>
+    <li>Qué es un diagrama de flujo</li>
+    <li>Qué es el pseudocódigo</li>
+    <li>Por qué PSeInt es útil para aprender</li>
+  </ul>
+
+  <label>Respuesta del estudiante</label>
+  <textarea id="studentText"></textarea>
+
+  <button onclick="validateText()">Verificar y Guardar</button>
+  <button id="pdfBtn" onclick="generatePDF()" disabled>Generar PDF</button>
+
+  <p id="textFeedback"></p>
+</section>
+
+<script>
+let quizScore = 0;
+
+function checkQuiz() {
+  quizScore = 0;
+
+  if (document.querySelector('input[name="q1"]:checked')?.value === "b") {
+    quizScore++;
+    f1.innerHTML = "Correcto: los diagramas representan visualmente un algoritmo.";
+  } else {
+    f1.innerHTML = "Incorrecto: no se usan para ejecutar código.";
+  }
+
+  if (document.querySelector('input[name="q2"]:checked')?.value === "b") {
+    quizScore++;
+    f2.innerHTML = "Correcto: el pseudocódigo no depende de un lenguaje específico.";
+  } else {
+    f2.innerHTML = "Incorrecto: su ventaja es la flexibilidad.";
+  }
+
+  if (document.querySelector('input[name="q3"]:checked')?.value === "c") {
+    quizScore++;
+    f3.innerHTML = "Correcto: PSeInt es una herramienta educativa.";
+  } else {
+    f3.innerHTML = "Incorrecto: no es un lenguaje profesional.";
+  }
+
+  quizResult.innerHTML = `Puntaje obtenido: ${quizScore} / 3`;
+}
+
+function validateText() {
+  const text = studentText.value.toLowerCase();
+  const keywords = ["diagrama", "pseudocódigo", "pseint"];
+
+  if (text.length < 50) {
+    textFeedback.innerHTML = "La respuesta es muy corta. Desarrolla un poco más.";
+    textFeedback.className = "warning";
+    return;
+  }
+
+  const missing = keywords.filter(k => !text.includes(k));
+
+  if (missing.length > 0) {
+    textFeedback.innerHTML = "Faltan conceptos clave: " + missing.join(", ");
+    textFeedback.className = "warning";
+    return;
+  }
+
+  textFeedback.innerHTML = "Respuesta válida. Puedes generar el PDF.";
+  textFeedback.className = "success";
+  pdfBtn.disabled = false;
+}
+
+function generatePDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.text("Unidad: Representación de Algoritmos", 10, 10);
+  doc.text(`Estudiante: ${studentName.value}`, 10, 20);
+  doc.text(`Curso: ${studentGroup.value}`, 10, 30);
+  doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 10, 40);
+  doc.text(`Resultado Quiz: ${quizScore} / 3`, 10, 50);
+
+  doc.text("Producción del estudiante:", 10, 65);
+  doc.text(studentText.value, 10, 75, { maxWidth: 180 });
+
+  doc.save("evidencia_algoritmos.pdf");
+}
+</script>
+
+</body>
+</html>

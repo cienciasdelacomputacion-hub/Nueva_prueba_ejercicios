@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Actividad Jedi: Introducción a las Listas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root{
+            --jedi:#00bfff; --sith:#ff4d4d; --bg:#111827; --card:#1f2937; --muted:#9ca3af;
+            --glow: rgba(0,191,255,0.25);
+        }
+        *{box-sizing:border-box}
+        body{
+            margin:0; font-family:'Roboto Mono', monospace; background-color: var(--bg);
+            color:#e6f7ff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+            background-image: radial-gradient(at 50% 10%, rgba(0,191,255,0.07), transparent 70%);
+        }
+        header{
+            padding:36px 18px; text-align:center;
+            border-bottom:1px solid rgba(255,255,255,0.03);
+        }
+        h1{font-family:'Orbitron',sans-serif; font-size:2.4rem; margin:0; color:var(--jedi); text-shadow:0 0 18px var(--glow)}
+        h2{font-family:'Orbitron',sans-serif; font-size:1.05rem; margin:6px 0 0; color:#cfeeff; opacity:0.9}
+        .container{max-width:1000px;margin:22px auto;padding:22px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02)}
+        .mission-row {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+            border: 1px solid rgba(255,255,255,0.02);
+            padding: 1.5rem;
+        }
+        .mission-row:last-of-type {
+            margin-bottom: 0;
+        }
+        .mission-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .mission-header img {
+            width: 240px;
+            height: auto;
+            border-radius: 12px;
+            border: 2px solid var(--jedi);
+            box-shadow: 0 0 20px var(--glow);
+            flex-shrink: 0;
+        }
+        .mission-title-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .mission-title-container h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--jedi);
+            margin: 0 0 0.5rem 0;
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px var(--glow);
+        }
+        .mission-title-container p {
+            margin: 0;
+            color: var(--muted);
+        }
+        .mission-flashcards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+        .syntax{background:#0c0d0e;border:1px solid rgba(255,255,255,0.02);padding:10px;border-radius:8px;margin:10px 0;font-family:'Roboto Mono',monospace;color:#bfefff}
+        textarea{width:100%;min-height:160px;padding:14px;border-radius:8px;background:#0b0c0d;border:1px solid rgba(255,255,255,0.03);color:#dff6ff; resize:vertical; font-family:'Roboto Mono',monospace;font-size:14px; box-shadow: inset 0 0 18px rgba(0,0,0,0.6)}
+        textarea:focus{outline:none;border-color:var(--jedi);box-shadow:0 0 18px var(--glow)}
+        button{background:linear-gradient(90deg,var(--jedi),#0288d1);border:none;color:#00101a;padding:10px 16px;border-radius:10px;cursor:pointer;font-family:'Orbitron',sans-serif;font-weight:700;letter-spacing:0.6px}
+        button:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,191,255,0.12)}
+        .console{background:#050506;border-radius:8px;padding:12px;text-align:left;min-height:90px;border:1px solid rgba(255,255,255,0.02);color:#dff6ff;font-family:'Roboto Mono',monospace;white-space:pre-wrap}
+        .status-message{margin-top:8px;font-family:'Orbitron',sans-serif}
+        .status-pass{color:var(--jedi)} .status-fail{color:var(--sith)}
+        .progress-wrap{width:100%;margin:18px 0}
+        .progress{height:28px;background:#081018;border-radius:10px;border:1px solid rgba(255,255,255,0.03);overflow:hidden;position:relative}
+        .progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--jedi),#00a6ff);transition:width .5s}
+        .progress-text{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'Orbitron',sans-serif;color:#00101a;font-weight:700}
+        .table{width:100%;margin-top:16px;border-collapse:collapse}
+        .table th,.table td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.02);text-align:left;font-family:'Roboto Mono',monospace}
+        .hint{font-size:13px;color:var(--muted);margin-top:8px}
+        kbd{background:#081018;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.02)}
+        /* Estilos para Flashcards */
+        .flashcard {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+        .flashcard:hover {
+            transform: rotateY(180deg);
+        }
+        .flashcard-inner {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: var(--card);
+        }
+        .flashcard-front {
+            z-index: 2;
+        }
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+        .flashcard h4 {
+            margin: 0;
+            color: var(--jedi);
+            font-size: 1.2em;
+            text-shadow: 0 0 5px var(--glow);
+        }
+        .flashcard p {
+            font-size: 0.9em;
+            margin: 0.5rem 0 0;
+            color: #c0c0c0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Actividad Jedi: Introducción a las Listas 🌌</h1>
+        <h2>Tu viaje a través de la galaxia de Python ha comenzado</h2>
+        <div class="progress-wrap" style="max-width:920px;margin:14px auto 0">
+            <div class="progress"><div id="progressFill" class="progress-fill"></div><div id="progressText" class="progress-text">0 / 6 Misiones Completadas</div></div>
+        </div>
+    </header>
+    <div class="container">
+        <p style="color:#cfeeff">Eres un joven Jedi que se adentra en la galaxia en busca de sabiduría y aventuras. Durante tu viaje encontrarás varios desafíos que deberás resolver utilizando tus conocimientos de programación en Python. Usa <kbd>print()</kbd> para mostrar resultados en consola.</p>
+        
+        <div class="mission-row" id="mission1">
+            <div class="mission-header">
+                <img src="Copilot_20250924_112806.png" alt="Imagen de la Misión 1">
+                <div class="mission-title-container">
+                    <h3>🔹 Misión 1 — Recolección de artefactos</h3>
+                    <p>La Flota de la República te asigna tu primera tarea: crear un inventario de artefactos encontrados en un planeta remoto. Usa una lista para almacenar estos objetos. Tu misión es añadir un nuevo artefacto a tu colección para registrarlo.</p>
+                </div>
+            </div>
+            <div class="mission-flashcards">
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front">
+                        <h4><code>.append()</code></h4>
+                        <p>¿Qué hace esta función?</p>
+                    </div>
+                    <div class="flashcard-inner flashcard-back">
+                        <p>Agrega un elemento al final de una lista.</p>
+                        <p><strong>Sintaxis:</strong> <code>mi_lista.append(elemento)</code></p>
+                    </div>
+                </div>
+            </div>
+            <div class="syntax">Ejemplo: <br><code>objetos = ["Sable de luz","Holocrón","Mapa estelar"]</code></div>
+            <textarea id="code1" spellcheck="false"># Misión 1</textarea>
+            <div style="display:flex;gap:10px;align-items:center;margin:10px">
+                <button onclick="runMission('1')">Ejecutar Misión 1</button>
+                <div id="status1" class="status-message"></div>
+            </div>
+            <div class="console" id="out1">Salida...</div>
+            <div class="hint">Consejo: si el prompt no aparece, revisá que no tengas bloqueadores que impidan ventanas emergentes.</div>
+        </div>
+
+        <div class="mission-row" id="mission2">
+            <div class="mission-header">
+                <img src="Copilot_20250924_112913.png" alt="Imagen de la Misión 2">
+                <div class="mission-title-container">
+                    <h3>🔹 Misión 2 — Reconocimiento de inventario</h3>
+                    <p>Para un Jedi, conocer la ubicación de cada objeto es vital. Tu siguiente desafío es acceder a elementos específicos de tu inventario. Debes localizar el primer, el último y el penúltimo artefacto para confirmar que están seguros.</p>
+                </div>
+            </div>
+            <div class="mission-flashcards">
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front">
+                        <h4>Índices</h4>
+                        <p>¿Cómo accedes a elementos?</p>
+                    </div>
+                    <div class="flashcard-inner flashcard-back">
+                        <p>Desde el inicio (0, 1, 2...) o desde el final (-1, -2...).</p>
+                        <p><strong>Sintaxis:</strong> <code>mi_lista[indice]</code></p>
+                    </div>
+                </div>
+            </div>
+            <div class="syntax">Ejemplo:<br> <code>objetos = ["Sable", "Mapa", "Holocrón"]</code></div>
+            <textarea id="code2" spellcheck="false"># Misión 2</textarea>
+            <div style="display:flex;gap:10px;align-items:center;margin:10px">
+                <button onclick="runMission('2')">Ejecutar Misión 2</button>
+                <div id="status2" class="status-message"></div>
+            </div>
+            <div class="console" id="out2">Salida...</div>
+        </div>
+
+        <div class="mission-row" id="mission3">
+            <div class="mission-header">
+                <img src="Copilot_20250924_113023.png" alt="Imagen de la Misión 3">
+                <div class="mission-title-container">
+                    <h3>🔹 Misión 3 — Gestión del censo Jedi</h3>
+                    <p>El Templo Jedi te solicita actualizar la lista de padawans y maestros. Debes añadir a un nuevo aliado en una posición específica, retirar a otro que ha caído en el Lado Oscuro, y registrar quién ha sido eliminado de la lista para su seguimiento. Usa los métodos de listas para lograrlo.</p>
+                </div>
+            </div>
+            <div class="mission-flashcards">
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front">
+                        <h4><code>.insert()</code></h4>
+                        <p>¿Qué hace esta función?</p>
+                    </div>
+                    <div class="flashcard-inner flashcard-back">
+                        <p>Agrega un elemento en una posición específica.</p>
+                        <p><strong>Sintaxis:</strong> <code>mi_lista.insert(indice, elemento)</code></p>
+                    </div>
+                </div>
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front">
+                        <h4><code>.remove()</code></h4>
+                        <p>¿Qué hace esta función?</p>
+                    </div>
+                    <div class="flashcard-inner flashcard-back">
+                        <p>Elimina el primer elemento que coincide con un valor.</p>
+                        <p><strong>Sintaxis:</strong> <code>mi_lista.remove(valor)</code></p>
+                    </div>
+                </div>
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front">
+                        <h4><code>.pop()</code></h4>
+                        <p>¿Qué hace esta función?</p>
+                    </div>
+                    <div class="flashcard-inner flashcard-back">
+                        <p>Elimina y retorna un elemento (por defecto, el último).</p>
+                        <p><strong>Sintaxis:</strong> <code>mi_lista.pop(indice)</code></p>
+                    </div>
+                </div>
+            </div>
+            <div class="syntax">Ejemplo: <br><code>aliados = ["Luke","Leia","Han"]<br></code></div>
+            <textarea id="code3" spellcheck="false"># Misión 3</textarea>
+            <div style="display:flex;gap:10px;align-items:center;margin:10px">
+                <button onclick="runMission('3')">Ejecutar Misión 3</button>
+                <div id="status3" class="status-message"></div>
+            </div>
+            <div class="console" id="out3">Salida...</div>
+        </div>
+        
+        <div class="mission-row" id="mission4">
+            <div class="mission-header">
+                <img src="Copilot_20250924_115616.png" alt="Imagen de la Misión 4">
+                <div class="mission-title-container">
+                    <h3>🔹 Misión 4 — Unir la Resistencia</h3>
+                    <p>Las fuerzas de la Resistencia están dispersas por la galaxia. <br>Tu tarea es unir a tus aliados Jedi con otras facciones para formar una fuerza unificada. Debes crear una nueva lista llamada  <strong >fuerzas_unidas</strong>
+                    <br>Muestra la longitud de la lista usando <code>len().</code> Luego, verifica si un miembro específico de la Oscuridad, "Darth Vader", se ha infiltrado en tus lista. Usa el operador <code>+</code> para concatenar listas y la palabra clave <code>in</code> para la búsqueda.</p>
+                </div>
+            </div>
+            <div class="mission-flashcards">
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front">
+                        <h4><code>len()</code></h4>
+                        <p>¿Qué hace esta función?</p>
+                    </div>
+                    <div class="flashcard-inner flashcard-back">
+                        <p>Retorna la cantidad de elementos en una lista.</p>
+                        <p><strong>Sintaxis:</strong> <code>len(mi_lista)</code></p>
+                    </div>
+                </div>
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front">
+                        <h4><code>in</code></h4>
+                        <p>¿Qué hace esta palabra clave?</p>
+                    </div>
+                    <div class="flashcard-inner flashcard-back">
+                        <p>Verifica si un elemento está presente en una lista.</p>
+                        <p><strong>Sintaxis:</strong> <code>elemento in mi_lista</code></p>
+                    </div>
+                </div>
+            </div>
+            <div class="syntax">Ejemplo: <br><code>jedis=["Luke","Yoda","Obi-Wan Kenobi"]<br>siths=["Darth Vader","Darth Sidious", "Palpatine", "Dooku"]</code></div>
+            <textarea id="code4" spellcheck="false"># Misión 4</textarea>
+            <div style="display:flex;gap:10px;align-items:center;margin:10px">
+                <button onclick="runMission('4')">Ejecutar Misión 4</button>
+                <div id="status4" class="status-message"></div>
+            </div>
+            <div class="console" id="out4">Salida...</div>
+        </div>
+
+        <div class="mission-row" id="mission5">
+            <div class="mission-header">
+                <img src="Copilot_20250924_113124.png" alt="Imagen de la Misión 5">
+                <div class="mission-title-container">
+                    <h3>🔹 Misión 5 — Decodificar mensajes Sith</h3>
+                    <p>
+                        Los Sith han escondido un mensaje entre muchas palabras falsas y nombres de agentes oscuros:
+                        <code>mensaje = ["_La","stormtrooper", "  Fuerza","stormtrooper", "   te", "_Que", "   acompañe"]</code>
+                    </p>
+                    <p>Tu tarea como Jedi:</p>
+                    <ul>
+                        <li>Ordenar alfabéticamente la lista.</li>
+                        <li>Invertirla para alterar el patrón Sith.</li>
+                        <li>Contar cuántas veces aparece <code>"stormtrooper"</code>. Esa cantidad indica el rango del mensaje que debes revelar.</li>
+                        <li>Mostrar desde el índice igual a esa cantidad hasta el final de la lista.</li>
+                    </ul>
+                    <p>Descubrirás el mensaje oculto.</p>
+                </div>
+            </div>
+            <div class="mission-flashcards">
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front">
+                        <h4><code>.sort()</code></h4>
+                        <p>¿Qué hace esta función?</p>
+                    </div>
+                    <div class="flashcard-inner flashcard-back">
+                        <p>Ordena los elementos de una lista de forma alfabética o numérica.</p>
+                        <p><strong>Sintaxis:</strong> <code>mi_lista.sort()</code></p>
+                    </div>
+                </div>
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front">
+                        <h4><code>.reverse()</code></h4>
+                        <p>¿Qué hace esta función?</p>
+                    </div>
+                    <div class="flashcard-inner flashcard-back">
+                        <p>Invierte el orden de los elementos en una lista.</p>
+                        <p><strong>Sintaxis:</strong> <code>mi_lista.reverse()</code></p>
+                    </div>
+                </div>
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front">
+                        <h4><code>.count()</code></h4>
+                        <p>¿Qué hace esta función?</p>
+                    </div>
+                    <div class="flashcard-inner flashcard-back">
+                        <p>Cuenta el número de veces que un elemento aparece en una lista.</p>
+                        <p><strong>Sintaxis:</strong> <code>mi_lista.count(valor)</code></p>
+                    </div>
+                </div>
+            </div>
+            <div class="syntax">
+                Ejemplo:<br> <code>mensaje = ["_La","stormtrooper", "  Fuerza","stormtrooper", "   te", "_Que", "   acompañe"]</code>
+            </div>
+            <textarea id="code5" spellcheck="false"># Misión 5</textarea>
+            <div style="display:flex;gap:10px;align-items:center;margin:10px">
+                <button onclick="runMission('5')">Ejecutar Misión 5</button>
+                <div id="status5" class="status-message"></div>
+            </div>
+            <div class="console" id="out5">Salida...</div>
+        </div>
+
+        <div class="mission-row" id="mission6">
+            <div class="mission-header">
+                <img src="Copilot_20250924_121022.png" alt="Imagen de la Misión 6">
+                <div class="mission-title-container">
+                    <h3>🔹 Misión 6 — Analizar el poder de la Fuerza</h3>
+                    <p>Para medir la fuerza de tus compañeros Jedi, has recolectado datos numéricos de su habilidad. <br>Tu última misión es analizar esta información. Debes encontrar el valor de poder más alto, el más bajo, calcular el poder total y determinar cuántos Jedi están en tu equipo. ¡Que la Fuerza te acompañe en este análisis!</p>
+                </div>
+            </div>
+            <div class="mission-flashcards">
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front">
+                        <h4><code>max()</code></h4>
+                        <p>¿Qué hace esta función?</p>
+                    </div>
+                    <div class="flashcard-inner flashcard-back">
+                        <p>Retorna el valor más grande en una lista de números.</p>
+                        <p><strong>Sintaxis:</strong> <code>max(mi_lista)</code></p>
+                    </div>
+                </div>
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front">
+                        <h4><code>min()</code></h4>
+                        <p>¿Qué hace esta función?</p>
+                    </div>
+                    <div class="flashcard-inner flashcard-back">
+                        <p>Retorna el valor más pequeño en una lista de números.</p>
+                        <p><strong>Sintaxis:</strong> <code>min(mi_lista)</code></p>
+                    </div>
+                </div>
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front">
+                        <h4><code>sum()</code></h4>
+                        <p>¿Qué hace esta función?</p>
+                    </div>
+                    <div class="flashcard-inner flashcard-back">
+                        <p>Suma todos los elementos de una lista de números.</p>
+                        <p><strong>Sintaxis:</strong> <code>sum(mi_lista)</code></p>
+                    </div>
+                </div>
+                <div class="flashcard">
+                    <div class="flashcard-inner flashcard-front">
+                        <h4><code>len()</code></h4>
+                        <p>¿Qué hace esta función?</p>
+                    </div>
+                    <div class="flashcard-inner flashcard-back">
+                        <p>Retorna la cantidad de elementos en una lista.</p>
+                        <p><strong>Sintaxis:</strong> <code>len(mi_lista)</code></p>
+                    </div>
+                </div>
+            </div>
+            <div class="syntax">Ejemplo: <br><code>poderes=[50,70,90,60,85] </code></div>
+            <textarea id="code6" spellcheck="false"># Misión 6</textarea>
+            <div style="display:flex;gap:10px;align-items:center;margin:10px">
+                <button onclick="runMission('6')">Ejecutar Misión 6</button>
+                <div id="status6" class="status-message"></div>
+            </div>
+            <div class="console" id="out6">Salida...</div>
+        </div>
+
+        <div style="margin-top:2rem" class="mission-row">
+           
+            <div style="display:flex;gap:10px;align-items:center">
+                <button onclick="checkAll()">Comprobar estado final</button>
+                <div id="finalStatus" class="status-message"></div>
+            </div>
+            <table class="table" id="finalTable" style="margin-top:12px">
+                <thead><tr><th>Misión</th><th>Estado</th></tr></thead>
+                <tbody>
+                    <tr><td>Misión 1</td><td id="t1">—</td></tr>
+                    <tr><td>Misión 2</td><td id="t2">—</td></tr>
+                    <tr><td>Misión 3</td><td id="t3">—</td></tr>
+                    <tr><td>Misión 4</td><td id="t4">—</td></tr>
+                    <tr><td>Misión 5</td><td id="t5">—</td></tr>
+                    <tr><td>Misión 6</td><td id="t6">—</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+    <script>
+        // Cargar Pyodide
+        const pyodideReadyPromise = loadPyodide();
+        const totalMissions = 6;
+
+        // Obtener progreso desde localStorage
+        function missionKey(id){ return `mission_${id}`; }
+        function setMissionDone(id){
+            localStorage.setItem(missionKey(id),'true');
+        }
+        function unsetMissionDone(id){
+            localStorage.removeItem(missionKey(id));
+        }
+        function isMissionDone(id){ return localStorage.getItem(missionKey(id)) === 'true'; }
+
+        function updateProgressUI(){
+            const completed = [...Array(totalMissions)].map((_,i)=>isMissionDone(i+1)).filter(x=>x).length;
+            const pct = Math.round((completed/totalMissions)*100);
+            document.getElementById('progressFill').style.width = pct + '%';
+            document.getElementById('progressText').innerText = `${completed} / ${totalMissions} Misiones Completadas`;
+            for(let i=1;i<=6;i++){
+                document.getElementById('t'+i).innerText = isMissionDone(i) ? '✅ Completada' : '❌ Pendiente';
+            }
+        }
+
+        // Reemplazo seguro de input() en Pyodide por prompt JS
+        function overrideInput(pyodide){
+            pyodide.globals.set("js_prompt", (msg="") => {
+                try{
+                    const v = prompt(msg || "Ingresa un valor:");
+                    return v === null ? "" : v;
+                }catch(e){
+                    return "";
+                }
+            });
+            pyodide.runPython(`
+import builtins
+try:
+    builtins.input = js_prompt
+except Exception:
+    pass
+`);
+        }
+
+        // Detecta print() vacío en el texto del usuario
+        function hasEmptyPrint(code){
+            return /\bprint\s*\(\s*\)/.test(code);
+        }
+
+        // Ejecuta código y devuelve stdout como string; reenvía excepción si falla
+        async function execUserCode(pyodide, code){
+            overrideInput(pyodide);
+            const wrapped = `
+import io, sys
+sys_stdout = sys.stdout
+sys.stdout = io.StringIO()
+try:
+${code.split('\n').map(l => '    '+l).join('\n')}
+    _out = sys.stdout.getvalue()
+finally:
+    sys.stdout = sys_stdout
+_out
+`;
+            return pyodide.runPythonAsync(wrapped);
+        }
+
+        // Función general para ejecutar y validar por misión
+       async function runMission(id){
+    const pyodide = await pyodideReadyPromise;
+    const textarea = document.getElementById('code'+id);
+    const out = document.getElementById('out'+id);
+    const status = document.getElementById('status'+id);
+
+    const code = textarea.value || '';
+    out.innerText = '⏳ Ejecutando...';
+    status.className = 'status-message';
+    status.innerText = '';
+
+    if(hasEmptyPrint(code)){
+        out.innerText = 'Se encontró print() vacío, agrega lo que quieres mostrar adentro de los parentesis.';
+        status.className = 'status-message status-fail';
+        status.innerText = 'Misión Fallida';
+        unsetMissionDone(id);
+        updateProgressUI();
+        return;
+    }
+
+    try{
+        const result = await execUserCode(pyodide, code);
+        const stdout = (result && result.toString) ? result.toString() : String(result || '');
+        out.innerText = stdout.trim().length ? stdout : '⚠️ No hubo salida visible. Asegurate de usar print() con contenido.';
+
+        let passed = false;
+
+        if(id === '1'){
+            try{
+                const obj = pyodide.runPython('objetos');
+                const arr = obj.toJs ? obj.toJs() : obj;
+                passed = Array.isArray(arr) && arr.length >= 3 && stdout.trim().length>0;
+            }catch(e){ passed = false; }
+        } else if(id === '2'){
+            try{
+                const obj = pyodide.runPython('objetos');
+                const arr = obj.toJs ? obj.toJs() : obj;
+                passed = Array.isArray(arr) && arr.length >= 3;
+                passed = passed && stdout.trim().length>0;
+            }catch(e){ passed = false; }
+        } else if(id === '3'){
+            try{
+                const ali = pyodide.runPython('aliados');
+                const arr = ali.toJs ? ali.toJs() : ali;
+                passed = Array.isArray(arr) && arr.length >= 1 && stdout.toString().trim().length>0;
+            }catch(e){ passed = false; }
+        } else if(id === '4'){
+            try{
+                const jedis = pyodide.runPython('jedis').toJs();
+                const siths = pyodide.runPython('siths').toJs();
+                const fuerzas = pyodide.runPython('fuerzas_unidas').toJs();
+                passed = Array.isArray(jedis) && Array.isArray(siths) && Array.isArray(fuerzas) && (fuerzas.length === (jedis.length + siths.length)) && stdout.trim().length>0;
+            }catch(e){ passed = false; }
+        } else if(id === '5'){
+            try {
+                // Validación mejorada para la Misión 5
+                const expectedWords = ['acompañe', 'Fuerza', 'te'];
+                const normalizedOutput = stdout.toLowerCase().replace(/[^a-zñáéíóúü\s]/g, '');
+                
+                passed = expectedWords.every(word => normalizedOutput.includes(word.toLowerCase()));
+
+            } catch(e) { passed = false; }
+        } else if(id === '6'){
+            try{
+                const poderes = pyodide.runPython('poderes').toJs();
+                const isList = Array.isArray(poderes);
+                const allNumbers = isList && poderes.every(x => typeof x === 'number');
+                passed = isList && allNumbers && poderes.length >= 5 && stdout.trim().length>0;
+            }catch(e){ passed = false; }
+        }
+
+        if(passed){
+            status.className = 'status-message status-pass';
+            status.innerText = '¡Misión completada! ✅';
+            setMissionDone(id);
+        } else {
+            status.className = 'status-message status-fail';
+            status.innerText = 'Misión Fallida. Revisa tu código y el resultado. ❌';
+            unsetMissionDone(id);
+        }
+    }catch(err){
+        out.innerText = '❌ Error de ejecución:\n' + (err && err.toString ? err.toString() : String(err));
+        status.className = 'status-message status-fail';
+        status.innerText = 'Hubo un error en tu código. Revisa la sintaxis. ❌';
+        unsetMissionDone(id);
+    }
+    updateProgressUI();
+}
+
+        // Valida si todas las misiones están completadas
+        function checkAll(){
+            const finalStatus = document.getElementById('finalStatus');
+            const completed = [...Array(totalMissions)].map((_,i)=>isMissionDone(i+1)).filter(x=>x).length;
+            if(completed === totalMissions){
+                finalStatus.className = 'status-message status-pass';
+                finalStatus.innerText = '¡Felicitaciones, Jedi! La palabra clave es: "LAFUERZACONTIGO"';
+            }else{
+                finalStatus.className = 'status-message status-fail';
+                finalStatus.innerText = `Aún te faltan ${totalMissions - completed} misiones por completar.`;
+            }
+        }
+        
+        window.runMission = runMission;
+        window.checkAll = checkAll;
+
+        // Inicia la UI
+        (async () => {
+            const py = await pyodideReadyPromise;
+            overrideInput(py);
+            updateProgressUI();
+        })();
+    </script>
+</body>
+</html>

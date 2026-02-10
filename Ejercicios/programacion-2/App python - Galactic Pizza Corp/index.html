@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galactic Pizza Corp.</title>
+    <style>
+        body {
+            background-color: #0d0d21;
+            color: #40e0d0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            padding: 0;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .terminal-container {
+            width: 90%;
+            max-width: 800px;
+            margin-top: 5vh;
+            border: 2px solid #40e0d0;
+            box-shadow: 0 0 20px rgba(64, 224, 208, 0.6);
+            background-color: #04041a;
+            display: flex;
+            flex-direction: column;
+            height: 85vh;
+            padding: 10px;
+        }
+        h1 {
+            color: #ff9900;
+            font-size: 1.8em;
+            text-align: center;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #40e0d0;
+            padding-bottom: 5px;
+        }
+        #console-output {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            border-bottom: 1px dashed #40e0d0;
+            margin-bottom: 10px;
+            height: 70%;
+            white-space: pre-wrap;
+        }
+        .input-area {
+            display: flex;
+            align-items: center;
+        }
+        .prompt-label {
+            color: #ff3333;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        #user-input {
+            flex-grow: 1;
+            background-color: transparent;
+            border: none;
+            color: #40e0d0;
+            font-family: inherit;
+            font-size: 1em;
+            outline: none;
+            caret-color: #ff3333;
+            padding: 5px;
+        }
+        .error { color: #ff3333; font-weight: bold; }
+        .success { color: #00ff88; }
+        .info { color: #40e0d0; }
+        .warning { color: #ffcc00; }
+        .welcome-msg { color: #ff9900; font-weight: bold; }
+        #start-button {
+            margin-top: 15px;
+            background-color: #ff9900;
+            color: #0d0d21;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 153, 0, 0.8);
+            transition: background-color 0.3s;
+        }
+        #start-button:hover {
+            background-color: #ff5500;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="start-button" onclick="iniciarDemo()">▶️ INICIAR DEMO TERMINAL</button>
+
+    <div class="terminal-container">
+        <h1>[Galactic Pizza Corp.] - Delivery Galáctico</h1>
+        <div id="console-output" class="console-output">
+            <div class="info">Sistema operativo listo. Presione INICIAR.</div>
+        </div>
+        <div class="input-area">
+            <span id="prompt-label" class="prompt-label" style="display: none;">[USUARIO] >></span>
+            <input type="text" id="user-input" disabled onkeydown="handleInput(event)">
+        </div>
+    </div>
+
+    <script>
+        // --- ESTRUCTURAS DE DATOS FIJAS ---
+        const planetas_disponibles = ["Mercurio", "Venus", "Marte", "Júpiter", "Saturno"];
+        const menu_pizzas = {
+            "Margherita": ["Albahaca", "Queso"],
+            "Pepperoni": ["Pepperoni", "Queso"],
+            "Hawaiana": ["Jamón", "Piña"],
+            "Vegetariana": ["Pimiento", "Cebolla"]
+        };
+        
+        let pedidos = [];
+        const outputDiv = document.getElementById('console-output');
+        const inputField = document.getElementById('user-input');
+        const promptLabel = document.getElementById('prompt-label');
+        
+        let appState = 'INACTIVE'; 
+        let currentPedido = {};
+
+        const STATE_MESSAGES = {
+            'WAITING_CLIENT_NAME': "\n➡️ INGRESE su nombre de cliente:",
+            'WAITING_PLANET_DELIVERY': "\n📡 Ingrese el **Planeta de entrega**:",
+            'WAITING_PIZZA_SABOR': "\n🍕 Ingrese el **sabor** de pizza para agregar:",
+            'WAITING_CONTINUE': "🛰️ ¿Deseas agregar otra pizza? (s/n):",
+            'WAITING_ROLE': "\n➡️ INGRESE OPCIÓN (1 o 2):"
+        };
+        
+        function print(mensaje, clase = 'info') {
+            const lines = mensaje.split('\n');
+            lines.forEach(line => {
+                const p = document.createElement('div');
+                p.textContent = line;
+                p.className = clase;
+                outputDiv.appendChild(p);
+            });
+            outputDiv.scrollTop = outputDiv.scrollHeight; 
+        }
+
+        function setState(state, message = null) {
+            appState = state;
+            const displayMessage = message || STATE_MESSAGES[state]; 
+            if (displayMessage) print(displayMessage);
+            inputField.disabled = false;
+            inputField.focus();
+            promptLabel.style.display = 'inline';
+        }
+
+        function buscar_planeta(lista_planetas, planeta_buscado) {
+            const planetaLower = planeta_buscado.toLowerCase();
+            return lista_planetas.map(p => p.toLowerCase()).includes(planetaLower);
+        }
+        
+        function mostrar_menu_y_rutas() {
+            let info = "\n--- MENÚ Y RUTAS DISPONIBLES ---\n";
+            info += "PLANETAS: " + planetas_disponibles.join(', ') + "\n";
+            info += "PIZZAS: " + Object.keys(menu_pizzas).join(', ') + "\n";
+            info += "--------------------------------------\n";
+            print(info);
+        }
+        
+        // --- FLUJO CLIENTE: HACER PEDIDO ---
+        function tomarPedidoGalacticoStart() {
+            print("\n" + "=".repeat(50));
+            print("🚀 MODO CLIENTE: INICIO DE PEDIDO", 'welcome-msg');
+            print("=".repeat(50));
+            mostrar_menu_y_rutas();
+            setState('WAITING_CLIENT_NAME');
+        }
+
+        function emitirTicket(pedido) {
+            let ticket = "\n######################################\n";
+            ticket += "# 📜 TICKET DE PEDIDO GALÁCTICO DE GPC #\n";
+            ticket += "######################################\n";
+            ticket += `Cliente: ${pedido["Nombre del cliente"]}\n`;
+            ticket += `Planeta de Entrega: ${pedido["Planeta de entrega"]}\n`;
+            ticket += "--- PIZZAS SOLICITADAS ---\n";
+            pedido["Pizzas solicitadas"].forEach(pizza => {
+                ticket += `  - 🍕 ${pizza}\n`;
+            });
+            ticket += "--------------------------------------\n";
+            ticket += "✅ ¡Entrega estimada en las próximas horas!\n";
+            print(ticket, 'success');
+        }
+        
+        function verHistorialPedidos() {
+            print("\n" + "=".repeat(50));
+            print("📊 MODO LOCAL: REGISTRO DE HISTORIAL DE PEDIDOS ", 'welcome-msg');
+            print("=".repeat(50));
+            
+            if (pedidos.length === 0) {
+                print("El Historial de Pedidos está vacío.", 'warning');
+            } else {
+                pedidos.forEach((p, idx) => {
+                    print("-".repeat(30));
+                    print(`[PEDIDO #${idx + 1}] Cliente: ${p["Nombre del cliente"]} | Planeta: ${p["Planeta de entrega"]}`);
+                    print(`  Pizzas: ${p["Pizzas solicitadas"].join(', ')}`);
+                });
+            }
+            finalizarFlujo(false); 
+            iniciarSeleccionRol();
+        }
+
+        // --- MANEJO CENTRAL DE ESTADOS ---
+        function handleInput(event) {
+            if (event.key === 'Enter') {
+                const userInput = inputField.value.trim();
+                inputField.value = ''; 
+                print(`[USUARIO] >> ${userInput}`, 'warning'); 
+
+                if (!userInput && appState !== 'WAITING_CONTINUE') {
+                    print("⚠️ Entrada vacía. Intente de nuevo.", 'warning');
+                    setState(appState); 
+                    return;
+                }
+                processState(userInput);
+            }
+        }
+        
+        function processState(input) {
+            switch (appState) {
+                case 'WAITING_ROLE':
+                    const rolInput = input.toLowerCase();
+                    if (rolInput === '1' || rolInput.includes('cliente')) {
+                        tomarPedidoGalacticoStart();
+                    } else if (rolInput === '2' || rolInput.includes('local')) {
+                        verHistorialPedidos();
+                    } else {
+                        print("❌ Opción no válida. Ingrese '1' o '2'.", 'error');
+                        iniciarSeleccionRol();
+                    }
+                    break;
+                
+                case 'WAITING_CLIENT_NAME':
+                    currentPedido["Nombre del cliente"] = input.trim();
+                    setState('WAITING_PLANET_DELIVERY', `\n📡 OK, ${currentPedido["Nombre del cliente"]}. Ingrese el **Planeta de entrega**:`);
+                    break;
+
+                case 'WAITING_PLANET_DELIVERY':
+                    const planetaInput = input.trim().capitalize();
+                    if (buscar_planeta(planetas_disponibles, planetaInput)) {
+                        currentPedido["Planeta de entrega"] = planetaInput;
+                        currentPedido["Pizzas solicitadas"] = [];
+                        print(`\n✅ Planeta ${planetaInput} verificado. ¡A elegir pizzas!`, 'success');
+                        setState('WAITING_PIZZA_SABOR');
+                    } else {
+                        print(`\n❌ Error: El planeta '${planetaInput}' no está disponible en nuestro servicio.`, 'error');
+                        finalizarFlujo(true); 
+                        iniciarSeleccionRol();
+                    }
+                    break;
+                
+                case 'WAITING_PIZZA_SABOR':
+                    const saborElegido = input.trim().capitalize(); 
+                    if (saborElegido in menu_pizzas) {
+                        currentPedido["Pizzas solicitadas"].push(saborElegido);
+                        print(`\n✅ '${saborElegido}' agregada al pedido.`, 'success');
+                        setState('WAITING_CONTINUE');
+                    } else {
+                        print(`\n⚠️ Sabor no encontrado. Intente de nuevo.`, 'error');
+                        setState('WAITING_PIZZA_SABOR'); 
+                    }
+                    break;
+
+                case 'WAITING_CONTINUE':
+                    const respuesta = input.toLowerCase();
+                    if (respuesta === 'n' || respuesta === 'no') {
+                        if (currentPedido["Pizzas solicitadas"].length > 0) {
+                             pedidos.push(currentPedido);
+                             print("\n✅ Pedido registrado correctamente. Generando ticket...", 'success');
+                             emitirTicket(currentPedido);
+                        } else {
+                             print("\n🚫 Pedido cancelado: No se seleccionó ninguna pizza.", 'error');
+                        }
+                        finalizarFlujo(true);
+                        iniciarSeleccionRol();
+                    } else if (respuesta === 's' || respuesta === 'si') {
+                        setState('WAITING_PIZZA_SABOR');
+                    } else {
+                        print("⚠️ Respuesta no válida. Ingrese 's' o 'n'.", 'warning');
+                        setState('WAITING_CONTINUE');
+                    }
+                    break;
+            }
+        }
+        
+        // --- NAVEGACIÓN Y SETUP ---
+        function finalizarFlujo(limpiar) {
+            inputField.disabled = true;
+            promptLabel.style.display = 'none';
+            appState = 'INACTIVE';
+            if (limpiar) currentPedido = {};
+        }
+
+        function iniciarSeleccionRol() {
+            print("\n" + "=".repeat(50));
+            print("👤 SELECCIÓN DE ROL", 'welcome-msg');
+            print("=".repeat(50));
+            print("1. Soy Cliente (Hacer Pedido)");
+            print("2. Soy Personal del Local (Ver Historial)");
+            print("--------------------------------------------------------");
+            setState('WAITING_ROLE');
+        }
+
+        function iniciarDemo() {
+            String.prototype.capitalize = function() {
+                if (this.length === 0) return this;
+                return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
+            };
+            finalizarFlujo(true);
+            outputDiv.innerHTML = ''; 
+            print("\n" + "=".repeat(56));
+            print("#  BIENVENIDO AL SISTEMA Galactic Pizza Corp.#", 'welcome-msg');
+            print("=".repeat(56));
+            iniciarSeleccionRol();
+        }
+    </script>
+</body>
+</html>

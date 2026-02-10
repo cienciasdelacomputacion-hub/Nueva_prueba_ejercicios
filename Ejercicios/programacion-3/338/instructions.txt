@@ -1,0 +1,10 @@
+Identificando Animales Felices
+
+Los asistentes de zoológico deben asegurarse de que los animales están listos para recibir el alta médica después de su rehabilitación.
+Sabemos que:
+
+Un León está feliz si su energía es mayor a 3000.
+Un Elefante está feliz si ha comido más de 2000 gramos en total.
+Un Mono está feliz si ha descansado al menos 5 horas en total.
+
+Definí el método esta_feliz() en cada clase para que retorne True si el animal cumple su condición de felicidad y False en caso contrario.

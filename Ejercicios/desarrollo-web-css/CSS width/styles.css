@@ -1,0 +1,16 @@
+.caja-ancho-fijo {
+  background-color: #c8e6c9;
+  width: 300px; /* El ancho del área de contenido es 300px */
+  padding: 10px; /* 10px de padding izquierda y derecha, el ancho total será 300 + 10 + 10 = 320px */
+  border: 3px solid green; /* 3px de borde izquierda y derecha, el ancho total será 320 + 3 + 3 = 326px */
+}
+
+.contenedor-imagen-ancho {
+  width: 50%; /* Este contenedor ocupa la mitad del ancho de su padre */
+  border: 3px dashed gray;
+}
+
+.imagen-ancho-relativo {
+  width: 100%; /* La imagen ocupa el 100% del ancho de su contenedor */
+  height: auto; /* Mantenemos la relación de aspecto */
+}

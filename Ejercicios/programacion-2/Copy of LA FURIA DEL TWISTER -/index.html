@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>La Furia del Twister — Demo Interactiva</title>
+
+<style>
+:root {
+  --bg: #090d11;
+  --card: #1c1b18;
+  --accent: #ff9900;
+  --text: #e6f1ff;
+  --danger: #ff4d6d;
+  --warn: #ffb703;
+  --console-green: #54d0b4;
+  --border: #3d3429;
+  --console-bg: #040608;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Courier New", monospace;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  background: #111;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--accent);
+}
+
+button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+button:hover { background: #ffb84d; }
+
+/* 📦 LAYOUT PRINCIPAL */
+.main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 20px;
+  padding: 20px;
+}
+@media (max-width: 900px) {
+  .main { grid-template-columns: 1fr; }
+}
+
+/* 🎮 PANEL IZQUIERDO: IMAGEN Y BARRAS */
+#leftPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+#gameImage {
+  width: 100%;
+  height: 400px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 20px rgba(255,153,0,0.3);
+}
+
+.meter {
+  height: 10px;
+  background: #222;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 6px 0;
+  width: 90%;
+}
+.meter span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg,var(--accent),#ffc166);
+}
+
+/* 💬 PANEL DERECHO: CONSOLA */
+#rightPanel {
+  display: flex;
+  flex-direction: column;
+}
+
+#console {
+  background: var(--console-bg);
+  border: 2px solid var(--accent);
+  border-radius: 10px;
+  padding: 10px;
+  height: 460px;
+  overflow-y: auto;
+  box-shadow: 0 0 10px rgba(255,153,0,0.3);
+}
+
+.console-input {
+  width: 100%;
+  background: #000;
+  color: var(--console-green);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 8px;
+  margin-top: 10px;
+  font-family: "Courier New", monospace;
+}
+
+/* 🌄 IMÁGENES REFERENCIA */
+.map-initial { background-image: url('Gemini_Generated_Image_lfm0yqlfm0yqlfm0.png'); }
+.image-mountain { background-image: url('Gemini_Generated_Image_lfm0yqlfm0yqlfm0 (1).png'); }
+.image-forest { background-image: url('Gemini_Generated_Image_lfm0yqlfm0yqlfm0 (2).png'); }
+.image-bunker { background-image: url('Gemini_Generated_Image_lfm0yqlfm0yqlfm0 (3).png'); }
+.image-twister { background-image: url('Gemini_Generated_Image_lfm0yqlfm0yqlfm0 (7).png'); }
+.image-defeat { background-image: url('Gemini_Generated_Image_lfm0yqlfm0yqlfm0 (1).png'); }
+</style>
+</head>
+
+<body>
+<header>
+  <h2>🌪️ LA FURIA DEL TWISTER</h2>
+  <div>
+    <button onclick="resetDemo()">Reiniciar</button>
+    <button onclick="startDemo()">Iniciar Simulación</button>
+  </div>
+</header>
+
+<main class="main">
+  <!-- 🖼️ PANEL IZQUIERDO -->
+  <section id="leftPanel">
+    <div id="gameImage" class="map-initial"></div>
+    <div class="meter"><span id="barEnergy" style="width:100%"></span></div>
+    <div class="meter"><span id="barHealth" style="width:100%"></span></div>
+  </section>
+
+  <!-- 💬 PANEL DERECHO -->
+  <section id="rightPanel">
+    <div id="console">$ SISTEMA LISTO. Pulsa "Iniciar Simulación".</div>
+    <input type="text" id="consoleInput" class="console-input" placeholder="> Esperando orden..." disabled onkeydown="handleInput(event)"/>
+  </section>
+</main>
+
+<script>
+/* --- LÓGICA PRINCIPAL (versión final mejorada) --- */
+const state={started:false,refuge:null,energy:100,health:100,rounds:0,currentPhase:'START',bag:[],puzzleSecret:Math.ceil(Math.random()*5)};
+const allSupplies=[{id:'agua',label:'💧 Agua'},{id:'comida',label:'🍖 Comida'},{id:'hierba',label:'🌿 Hierba'},{id:'municion',label:'🔫 Munición'},{id:'munición',label:'🔫 Munición'},{id:'botiquin',label:'🩹 Botiquín'},{id:'fosforos',label:'🔥 Fósforos'},{id:'linterna',label:'🔦 Linterna'},{id:'bengala',label:'🎆 Bengala'}];
+const enemyData={'montaña':{name:'Yeti Pillo',keyId:'bengala',desc:'Teme la luz brillante.'},'bosque':{name:'Niebla Silbadora',keyId:'fosforos',desc:'Teme el calor y el fuego.'},'bunker':{name:'Saboteador Glitch',keyId:'linterna',desc:'Teme la luz intensa.'}};
+
+const logEl=document.getElementById('console');
+const inputEl=document.getElementById('consoleInput');
+const imgEl=document.getElementById('gameImage');
+function log(t){logEl.innerHTML+=t+"<br>";logEl.scrollTop=logEl.scrollHeight;}
+function updateMeters(){document.getElementById('barEnergy').style.width=state.energy+'%';document.getElementById('barHealth').style.width=state.health+'%';}
+function updateImage(c){imgEl.className=c;}
+function resetDemo(){Object.assign(state,{started:false,refuge:null,energy:100,health:100,rounds:0,bag:[],currentPhase:'START'});updateImage('map-initial');updateMeters();inputEl.disabled=true;inputEl.placeholder="Pulsa 'Iniciar Simulación'";logEl.innerHTML="$ SISTEMA LISTO. Pulsa 'Iniciar Simulación'.<br>";}
+function startDemo(){resetDemo();state.started=true;state.currentPhase='REFUGE';log("> CAMARADA, la tormenta se aproxima. Elige refugio: Montaña, Bosque o Búnker.");inputEl.disabled=false;inputEl.focus();}
+
+function chooseRefuge(n){n=n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");if(!['montana','bosque','bunker'].includes(n)){log("! Refugio inválido.");return;}
+state.refuge=n==='montana'?'montaña':n;updateImage('image-'+(n==='montana'?'mountain':n));state.energy-=Math.floor(Math.random()*10+10);
+state.currentPhase='ATTACKS';log(`✔ Refugio elegido: ${state.refuge.toUpperCase()}.`);log("Prepárate, Camarada. Tres rondas de ataque se aproximan.");log("👉 Escribe ATACAR, DEFENDER o USAR [suministro].");}
+
+function attackRound(a,s=null){if(state.currentPhase!=='ATTACKS'){log("! No es momento de atacar.");return;}if(state.rounds>=3){log("> Ya completaste las rondas. Escribe ADIVINAR [1-5] para el puzzle.");state.currentPhase='PUZZLE';return;}
+state.rounds++;const e=enemyData[state.refuge];log(`<br>⚔️ ATAQUE ${state.rounds}/3 — ${e.name}`);log(`💡 PISTA: ${e.desc}`);
+let d=15+Math.floor(Math.random()*10),c=5,mit=false;
+if(a==='atacar'){c+=10;if(state.bag.includes('municion')||state.bag.includes('munición')){state.bag=state.bag.filter(x=>x!=='municion'&&x!=='munición');d=0;mit=true;log(`✔ CAMARADA dispara con Munición y neutraliza al enemigo.`);}else log(`❌ Sin Munición. ${e.name} contraataca.`);}
+else if(a==='defender'){c+=5;if(state.bag.includes(e.keyId)){state.bag.splice(state.bag.indexOf(e.keyId),1);d=0;mit=true;log(`🛡️ Usaste ${e.keyId.toUpperCase()} y el enemigo retrocede.`);}else log(`❌ No tenías ${e.keyId}. ${e.name} te hiere.`);}
+else if(a==='usar'&&s){const id=s.toLowerCase();if(['agua','comida','botiquin'].includes(id)){if(id==='agua')state.energy=Math.min(100,state.energy+10);if(id==='comida')state.health=Math.min(100,state.health+10);if(id==='botiquin')state.health=Math.min(100,state.health+20);log(`💊 Usaste ${s}. Te recuperas un poco.`);return;}else log(`❌ ${s} no tiene efecto en combate.`);}
+state.energy=Math.max(0,state.energy-c);state.health=Math.max(0,state.health-d);updateMeters();log(`💥 Daño: -${d} Salud | Coste Energía: -${c}`);
+if(state.rounds===3){log("<br>🎯 Fin de Ataques. FASE 4: PUZZLE. Escribe ADIVINAR [1-5].");state.currentPhase='PUZZLE';}}
+
+function handlePuzzle(num){if(state.currentPhase!=='PUZZLE'){log("! Aún no llegaste al puzzle.");return;}
+const v=Number(num);if(!v||v<1||v>5){log("! Número inválido.");return;}
+if(v===state.puzzleSecret){log("🧩 ¡Acertaste! Obtienes un Botiquín extra.");state.bag.push('botiquin');}else log(`❌ Fallaste, Camarada. El número era ${state.puzzleSecret}.`);
+state.currentPhase='FINAL';log("🌪️ El Twister se acerca. Escribe FINALIZAR para enfrentar el destino.");}
+
+function finalBattle(){if(state.currentPhase!=='FINAL'){log("! No es el momento final.");return;}
+updateImage('image-twister');log("<br>🌪️ TWISTER FINAL: LA FURIA TE ALCANZA...");log("💨 Todo tiembla, Camarada. ¡Sujétate!");
+const ref=state.refuge.toLowerCase();const map={montaña:'bengala',montana:'bengala',bosque:'fosforos',bunker:'linterna',búnker:'linterna'};
+const keyID=map[ref]||'desconocido';const keyLabel=allSupplies.find(s=>s.id===keyID)?.label||"suministro desconocido";
+let eD=40+Math.floor(Math.random()*10),hD=20+Math.floor(Math.random()*10),mit=false;
+if(state.bag.includes(keyID)){mit=true;state.bag.splice(state.bag.indexOf(keyID),1);eD=Math.floor(eD/2);hD=Math.floor(hD/2);log(`✅ CAMARADA usa ${keyLabel}. El refugio resiste parte del impacto.`);}
+else log(`❌ No tenías el suministro clave (${keyLabel}). El refugio recibe el impacto completo.`);
+state.energy=Math.max(0,state.energy-eD);state.health=Math.max(0,state.health-hD);updateMeters();log(`💥 Daño — Energía: -${eD} | Salud: -${hD}`);
+const alive=state.energy>0&&state.health>0;
+if(alive){log("<br>🏆 VICTORIA: Sobreviviste, Camarada.");if(mit)log(`💪 Gracias a tu ${keyLabel}, el ${state.refuge.toUpperCase()} se mantuvo firme.`);else log(`⚠️ Sin ${keyLabel}, resististe con pura determinación.`);log(`💚 Estado final — Salud: ${state.health}% | Energía: ${state.energy}%`);log("🌤️ La tormenta cede, Camarada. Has vencido a La Furia del Twister.");}
+else{updateImage('image-defeat');log("<br>💀 DERROTA: No sobreviviste al impacto, Camarada.");log(`💨 El ${state.refuge.toUpperCase()} colapsa. Sin ${keyLabel}, el daño fue letal.`);log(`💔 Estado final — Salud: ${state.health}% | Energía: ${state.energy}%`);log("🕯️ Fin del juego.");}
+inputEl.disabled=true;}
+
+function handleInput(e){if(e.key!=='Enter')return;const v=inputEl.value.trim().toLowerCase();inputEl.value="";log(`> ${v}`);if(!state.started)return;
+const [cmd,arg]=v.split(" ");if(state.currentPhase==='REFUGE')chooseRefuge(v);
+else if(state.currentPhase==='ATTACKS'){if(cmd==='atacar')attackRound('atacar');else if(cmd==='defender')attackRound('defender');else if(cmd==='usar')attackRound('usar',arg);}
+else if(state.currentPhase==='PUZZLE'&&cmd==='adivinar')handlePuzzle(arg);
+else if(state.currentPhase==='FINAL'&&cmd==='finalizar')finalBattle();}
+resetDemo();
+</script>
+</body>
+</html>

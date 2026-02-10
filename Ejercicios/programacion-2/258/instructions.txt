@@ -1,0 +1,9 @@
+Crea un diccionario que almacene datos de un producto:
+
+Nombre.
+
+Precio.
+
+Stock disponible.
+
+Modifica el precio del producto.

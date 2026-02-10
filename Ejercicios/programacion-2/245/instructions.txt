@@ -1,0 +1,5 @@
+Sumatoria de una lista de números
+
+Queremos crear una función que calcule la sumatoria de los elementos de una lista de números.
+
+Utilizá un bucle for y una variable acumuladora para ir sumando los elementos de la lista.

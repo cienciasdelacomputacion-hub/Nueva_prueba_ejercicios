@@ -1,0 +1,39 @@
+Tomate un mate 🧉
+
+Vamos a modelar la preparación de mates usando procedimientos en Python. Recordemos que un procedimiento puede cambiar variables globales y no necesita return.
+
+Ejercicio 1: Cebar mate 🧉
+
+Inicializá la variable global agua_del_termo con 1000 ml.
+Definí el procedimiento cebar_mate() que disminuya 30 ml de agua_del_termo.
+No retorna nada, solo cambia el estado de la variable global.
+
+Ejercicio 2: Se enfrió el agua ❄️
+
+Cuando trabajamos con mates, a veces el agua del termo se enfría o simplemente queremos vaciarlo o llenarlo de nuevo. Para modelar estas acciones en Python con procedimientos, haremos lo siguiente:
+
+vaciar_termo()
+Vacía todo el termo.
+Pone la variable global agua_del_termo en 0.
+No retorna nada, solo cambia el estado de la variable.
+llenar_termo()
+Llenar nuevamente el termo hasta su capacidad máxima.
+Pone la variable global agua_del_termo en 1000 ml.
+No retorna nada, solo modifica la variable global.
+
+Ejercicio 3: Cargar agua extra 💧
+
+Definí el procedimiento cargar_termo(c) que reciba una cantidad c y la sume a agua_del_termo.
+No retorna nada, solo modifica la variable global.
+
+Ejercicio 4: Hechizo del mate 🪄
+
+Inicializá la variable global agua_del_mate en 0.
+Modificá el procedimiento cebar_mate() para que además de disminuir agua_del_termo, aumente 30 ml en agua_del_mate.
+Definí tomar_mate() que deje en 0 el agua_del_mate.
+No retornan nada, solo cambian el estado de las variables globales.
+
+Ejercicio 5: ¡Gracias! 🙏
+
+Definí un procedimiento pasar() que no haga nada usando pass.
+Esto simula que ya no queremos más mate y mantiene el código válido en Python.

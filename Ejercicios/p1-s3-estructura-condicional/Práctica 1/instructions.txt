@@ -1,0 +1,64 @@
+🌅 Ejercicio 1: Empezando el día
+
+Acaba de empezar el día y queremos crear nuestra primera función.
+Definí la función saludar_a que reciba un nombre y devuelva un saludo clásico de buenos días.
+
+Solución:
+
+def saludar_a(nombre):
+    return "Buenos días " + nombre
+
+
+Prueba en consola
+
+⏰ Ejercicio 2: Hora de tomar una decisión
+
+No siempre saludamos con buenos días: pasadas ciertas horas decimos buenas noches.
+Modifiquemos saludar_a para que reciba un parámetro adicional horario y devuelva un saludo distinto según la hora.
+
+Ejemplos:
+
+saludar_a("Dani", 10)   # "Buenos días Dani"
+saludar_a("Feli", 22)   # "Buenas noches Feli"
+
+
+Para lograr esto utilizamos la estructura condicional if-else:
+
+def saludar_a(quien, horario):
+    if horario < 19:
+        return "Buenos días " + quien
+    else:
+        return "Buenas noches " + quien
+
+
+Probalo en la consola con distintos valores:
+
+El if permite controlar el flujo del programa:
+Si la condición es verdadera (horario menor a 19), se ejecuta la rama del if; si es falsa, se ejecuta la rama del else.
+
+💪 Ejercicio 3: Esto es lo máximo
+
+Veamos otro ejemplo práctico usando if-else, esta vez para calcular el valor absoluto:
+
+def valor_absoluto(numero):
+    if numero >= 0:
+        return numero
+    else:
+        return -numero
+
+
+Cada parte de la alternativa condicional tiene un nombre:
+
+Condición: decide qué acción se ejecuta (True o False).
+Rama if: se ejecuta si la condición es verdadera.
+Rama else: se ejecuta si la condición es falsa.
+
+Ahora escribamos nuestra primera función maximo que devuelva el mayor de dos números (sin usar max()):
+
+maximo(4, 5)    # 5
+maximo(10, 4)   # 10
+
+📝 Práctica interactiva
+
+Para consolidar lo aprendido, escribí un programa que pida al usuario su nombre y la hora actual, y luego lo salude correctamente.
+Después pedí dos números y mostrá cuál es el mayor utilizando la función maximo.

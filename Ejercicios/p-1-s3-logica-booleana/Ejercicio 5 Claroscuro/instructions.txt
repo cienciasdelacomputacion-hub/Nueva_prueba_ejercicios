@@ -1,0 +1,26 @@
+🎨 Ejercicio 5: Claroscuro
+
+Oli está trabajando en el diseño de una página web y quiere asegurarse de que haya suficiente contraste entre el texto y el fondo. Para ello necesitamos definir la función tiene_contraste, que recibe como parámetros el color de la letra y el color del fondo, y retorna si hay contraste.
+
+Ya contamos con la función es_tono_claro, que indica si un color es claro:
+
+La lógica de tiene_contraste es la siguiente:
+
+Si la letra es clara y el fondo no lo es, entonces hay contraste.
+Si la letra no es clara y el fondo sí lo es, entonces también hay contraste.
+
+Actividad interactiva:
+
+Define la función tiene_contraste(color_letra, color_fondo) que recibe un color de letra y un color de fondo .
+Pedile al usuario que ingrese un color para la letra.
+Pedile que ingrese un color para el fondo.
+Llamá a la función tiene_contraste con esos valores.
+Mostrá en pantalla si hay contraste o no.
+
+La tabla de verdad de tiene_contraste es:
+
+Letra clara	Fondo claro	Tiene contraste
+True	True	False
+True	False	True
+False	True	True
+False	False	False

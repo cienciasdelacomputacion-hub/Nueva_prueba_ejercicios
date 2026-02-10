@@ -1,0 +1,3 @@
+Carrito de Compras
+
+Crea una clase CarritoDeCompras que permita agregar productos y calcular el total de la compra.

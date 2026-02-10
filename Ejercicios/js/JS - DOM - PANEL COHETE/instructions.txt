@@ -1,0 +1,27 @@
+Directivas de la Misión
+
+Paso 1: ¡Actualizar el mensaje inicial!
+Selecciona el <span> con la clase .info-motor y cambia su textContent a "Verificando Sistemas".
+
+Paso 3: ¡Encender el motor!
+
+Cuando se haga clic en el button con id="botonEncender":
+
+Cambia el textContent del span.info-motor a "¡Encendido!".
+Cambia el atributo src de la imagenCohete a la URL de tu GIF.
+Modifica el textContent del span.info-combustible para que muestre "75%".
+Aplica el color red al texto de combustible usando element.style.
+
+Paso 4: ¡Apagar el motor!
+
+Cuando se haga clic en el button con id="botonApagar":
+
+Cambia el textContent del span.info-motor a "Apagado".
+Cambia el atributo src de la imagenCohete a una imagen distinta.
+
+Paso 5: ¡Recargar Combustible!
+
+Cuando se haga clic en el button con id="botonCarga":
+
+Cambia el textContent del span.info-combustible a "100%".
+Cambia el color de texto del párrafo con id="nivelCombustible" a blue (usando element.style).

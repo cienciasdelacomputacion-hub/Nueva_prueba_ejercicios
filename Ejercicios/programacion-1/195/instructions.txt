@@ -1,0 +1,18 @@
+Crea una función llamada valor_envido que calcule el valor de una carta en el truco:
+
+Condiciones:
+Las cartas del 1 al 7 valen su número.
+Las cartas del 10 al 12 valen 0.
+Ejemplo de entrada/salida:
+
+Entrada:
+
+print(valor_envido(7))
+
+print(valor_envido(11))
+
+Salida:
+
+7
+
+0

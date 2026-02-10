@@ -1,0 +1,26 @@
+🌍 Ejercicio 5: Jugando de local
+
+Hay veces que no queremos, o simplemente no tiene sentido, que nuestras variables sean accedidas por todas las funciones. Por suerte, podemos inicializar variables tanto directamente en el programa, como dentro de un def.
+
+Las variables inicializadas dentro de un def, conocidas como variables locales , sólo se pueden utilizar dentro del mismo. Si quiero referenciarla desde un programa externo, ¡el código se romperá!
+
+En cambio, las variables inicializadas directamente en el programa, conocidas como variables globales, pueden ser leídas desde cualquier def.
+
+📥 Actividad interactiva
+
+Vamos a poner en práctica lo aprendido sobre variables globales y locales. Imaginemos que estamos en un aeropuerto y queremos controlar el peso del equipaje:
+
+Creá una variable global llamada peso_maximo_del_equipaje_en_gramos con valor 5000.
+Definí una función equipaje_excede_limite que reciba el peso del equipaje como parámetro y diga si excede o no el límite global.
+Pedile al usuario que ingrese el peso de su valija (entrada de datos).
+
+
+Ayuda: Usá input() y convertí el valor a número con int(). Ejemplo: peso_valija = int(input("Ingrese el peso de su equipaje en gramos: "))
+
+Llamá a la función con el valor ingresado.
+Mostrá en pantalla un mensaje que indique si el equipaje está dentro del límite o si excede el peso permitido (salida de datos).
+
+Ejemplo esperado en consola:
+
+Ingrese el peso de su equipaje en gramos: 6200
+¿El equipaje excede el límite? True

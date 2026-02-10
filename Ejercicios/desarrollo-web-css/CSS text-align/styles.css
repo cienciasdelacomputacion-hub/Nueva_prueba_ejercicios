@@ -1,0 +1,26 @@
+ /* --- Propiedad: Text-Align --- */
+
+
+        .align-left {
+            /* Aplicando text-align: left */
+            text-align: left; /* Alineado a la izquierda */
+        }
+
+        .align-center {
+            /* Aplicando text-align: center */
+            text-align: center; /* Centrado */
+        }
+
+        .align-right {
+            /* Aplicando text-align: right */
+            text-align: right; /* Alineado a la derecha */
+        }
+
+        .align-justify {
+            /* Aplicando text-align: justify */
+            text-align: justify; /* Justificado (requiere suficiente texto) */
+        }
+
+        /* Solo para una base mínima */
+         body { font-family: Arial, sans-serif; margin: 20px; }
+         h1 { text-align: center; }

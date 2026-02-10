@@ -1,0 +1,37 @@
+/* Estilos generales para centrar el contenido */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f8ff;
+}
+
+/* Estilos iniciales de nuestra caja mágica */
+#cajaMagica {
+    width: 250px;
+    height: 150px;
+    border: 2px solid #4682B4; /* Borde azul acero */
+    background-color: #B0C4DE; /* Fondo azul claro */
+    color: #191970; /* Texto azul oscuro */
+    
+    /* Centramos el texto dentro de la caja */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer; /* El cursor cambia a una mano para indicar que es clickeable */
+    
+    /* Transición suave para los cambios de color */
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Estilo para el párrafo de instrucciones */
+.instrucciones {
+    margin-top: 20px;
+    color: #555;
+}

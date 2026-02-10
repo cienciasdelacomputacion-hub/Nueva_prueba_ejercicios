@@ -1,0 +1,22 @@
+🛠️ Tu Misión: Darle Vida a la Caja Mágica
+
+Tu objetivo es tomar los archivos HTML, CSS y JavaScript y programar una serie de interacciones. La "caja mágica" deberá reaccionar a cada acción del usuario de la siguiente manera:
+
+✨ Estado Inicial: Al cargar la página, la caja nace con un color de fondo y un texto de bienvenida.
+🖱️ Hover Mágico (mouseover / mouseout): La caja detecta la presencia del mouse. Cambia de color y texto cuando el puntero entra, y vuelve a la normalidad cuando sale.
+👉 Reacción al Toque (click): Al recibir un solo clic, la caja se quejará con un mensaje de "¡Auch!".
+⚡ Poder Secreto (dblclick): Un doble clic rápido desata su poder, cambiando la caja a un color dorado y revelando un mensaje especial.
+⌨️ Reseteo Universal (keydown): Al presionar la tecla 'r' en cualquier parte de la página, la caja mágica olvida todo y vuelve a su estado original.
+
+🌟 Reto Adicional: ¿Puedes añadir una funcionalidad extra? Haz que al presionar la tecla 'c', la caja cambie a un color aleatorio. ¡Tendrás que investigar cómo generar un color hexadecimal al azar con JavaScript!
+
+La Consigna:
+
+Usando los archivos HTML, CSS y JavaScript, lograremos el siguiente comportamiento:
+
+Al cargar la página: La caja tendrá un color de fondo y un texto inicial.
+Al pasar el mouse por encima (mouseover): La caja cambiará de color y mostrará un nuevo mensaje.
+Al quitar el mouse de encima (mouseout): La caja volverá a su estado original.
+Al hacer un solo clic (click): La caja mostrará un mensaje de "¡Auch!".
+Al hacer doble clic (dblclick): La caja se pondrá de un color especial y mostrará un mensaje de "¡Poder Mágico!".
+Al presionar la tecla 'r' en cualquier parte de la página (keydown): La caja se reseteará a su estado completamente original.

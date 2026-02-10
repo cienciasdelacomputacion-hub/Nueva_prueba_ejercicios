@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misión 3: Diseño de Dispositivos | Micro:bit DATA-QUEST</title>
+<link rel="stylesheet" href="styles.css">
+
+<script>
+function generarPDF() {
+    alert("⚠️ Atención: Para entregar en CREA, selecciona 'Guardar como PDF' en la opción de destino.");
+    window.print();
+}
+
+// --- Lógica del Minijuego 3 (Ensamblar Algoritmo) ---
+let algoritmoActual = "";
+let pasosAlgoCorrectos = 0;
+// Esta es la secuencia correcta basada en la hoja de apoyo
+const algoritmoCorrecto = "PARA_SIEMPRELEER_LUZSI_LUZ<50ENTONCESMOSTRAR_LEDSI_NOBORRAR_PANTALLAFIN_SI"; 
+
+function armarAlgoritmo(bloque, valor) {
+    const feedback = document.getElementById('feedback-algoritmo');
+    const ensamblado = document.getElementById('algoritmo-ensamblado');
+    
+    // Añadir indentación para bloques anidados
+    let prefijo = "";
+    if (["LEER_LUZ", "SI_LUZ<50", "ENTONCES", "SI_NO", "FIN_SI"].includes(valor)) {
+        prefijo = "  "; // 2 espacios
+    }
+    if (["MOSTRAR_LED", "BORRAR_PANTALLA"].includes(valor)) {
+        prefijo = "    "; // 4 espacios
+    }
+
+    let tempCodigoActual = algoritmoActual + valor;
+
+    if (algoritmoCorrecto.startsWith(tempCodigoActual)) {
+        // Es correcto Y en orden
+        algoritmoActual = tempCodigoActual; 
+        ensamblado.textContent += "\n" + prefijo + bloque;
+        pasosAlgoCorrectos++;
+        feedback.textContent = "✅ ¡Bloque correcto! Sigue así...";
+        feedback.className = "resultado correcto";
+        
+        if (pasosAlgoCorrectos === 8) { // 8 bloques en total
+            feedback.textContent = "✅ ¡Algoritmo Completo! Has diseñado una luz nocturna.";
+            feedback.style.border = '2px solid #64ffda';
+            // Resetear para jugar de nuevo
+            algoritmoActual = "";
+            pasosAlgoCorrectos = 0;
+            setTimeout(() => { ensamblado.textContent = ""; }, 2000);
+        }
+    } else {
+        // ERROR (Bloque incorrecto o fuera of orden)
+        feedback.textContent = "❌ Error. Ese bloque no va ahí. Revisa la lógica. ¡Reiniciando secuencia!";
+        feedback.className = "resultado incorrecto";
+        feedback.style.border = '2px solid #ff66b2';
+        // Resetear
+        algoritmoActual = "";
+        pasosAlgoCorrectos = 0;
+        setTimeout(() => { ensamblado.textContent = ""; }, 1500);
+    }
+}
+
+// --- Lógica del Ejercicio (Bucle o Condición) ---
+function verificarBucleOCon(boton, respuestaCorrecta) {
+    const preguntaDiv = boton.parentNode;
+    const feedbackSpan = preguntaDiv.querySelector('.feedback-bucle');
+    const botones = preguntaDiv.querySelectorAll('button');
+    const respuestaUsuario = boton.getAttribute('data-tipo');
+
+    botones.forEach(btn => btn.disabled = true);
+
+    if (respuestaUsuario === respuestaCorrecta) {
+        feedbackSpan.textContent = '✅ ¡Correcto!';
+        feedbackSpan.className = 'feedback-bucle correcto';
+        boton.style.borderColor = '#64ffda'; 
+        boton.style.backgroundColor = '#64ffda';
+        boton.style.color = '#1a1a2e';
+    } else {
+        feedbackSpan.textContent = '❌ Incorrecto. Revisa la definición.';
+        feedbackSpan.className = 'feedback-bucle incorrecto';
+        boton.style.borderColor = '#ff66b2'; 
+        boton.style.backgroundColor = '#ff66b2';
+        boton.style.color = '#1a1a2e';
+    }
+}
+</script>
+</head>
+
+<body>
+<div class="container">
+<header>
+    <h1>DATA-QUEST: Procesamiento de Datos con Micro:bit</h1>
+</header>
+
+<nav>
+    <a href="leccion1.html">Misión 1</a>
+    <a href="leccion2.html">Misión 2</a>
+    <a href="leccion3.html">Misión 3 (Actual)</a>
+    <a href="leccion4.html">Misión 4</a>
+    <a href="leccion5.html">Misión Final</a>
+</nav>
+
+<section>
+<h2>⚙️ Misión 3: Diseño de Dispositivos con Sensores</h2>
+<p>Duración total estimada: 60 minutos</p>
+
+<div class="concepto">
+    <h3>Consola de Conceptos Clave</h3>
+    
+    <div class="concepto-caja">
+        <h4>Los Pilares de un Dispositivo Inteligente</h4>
+        <p>En la Misión 2 usamos <span class="resaltado-texto">Input</span> (Botón A) y <span class="resaltado-texto">Output</span> (LEDs). Ahora, usaremos los bloques de control que hacen que un dispositivo sea "inteligente": Repetición y Selección.</p>
+
+        <div class="flip-grid">
+            
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <span>📜 ALGORITMO</span>
+                </div>
+                <div class="flip-card-back">
+                    <h4>¿Qué es?</h4>
+                    <p>Un conjunto de <span class="resaltado-texto">ordenados que dan solución a un problema. Son instrucciones paso a paso</span>, como una receta, que le dice a la computadora exactamente qué hacer para resolver un problema.</p>
+                </div>
+                </div>
+            </div>
+        
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <span>🔁 REPETICIÓN (Loop)</span>
+                </div>
+                <div class="flip-card-back">
+                    <h4>¿Qué es?</h4>
+                    <p>Es la acción de repetir un bloque de código. Usamos el bloque <span class="resaltado-texto">"Para Siempre"</span>.</p>
+                    <p>Es vital para que un sensor (como el de temperatura o luz) revise el entorno <span class="resaltado-texto">constantemente</span>, no solo una vez.</p>
+                </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <span>🧠 SELECCIÓN (SI entonces/SINO)</span>
+                </div>
+                <div class="flip-card-back">
+                    <h4>¿Qué es?</h4>
+                    <p>Es tomar una <span class="resaltado-texto">decisión</span>. Le permite a la Micro:bit elegir qué acción tomar basándose en el dato de un sensor.</p>
+                    <p>Ej: <span class="resaltado-texto">SI</span> la luz es menor que 50, <span class="resaltado-texto">ENTONCES</span> prender LEDs.</p>
+                    <p>Se usa para tomar decisiones y No para repetir</p>
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    <h3>Objetivos de Aprendizaje</h3>
+    <ul>
+        <li><span class="resaltado-texto">Explicar</span> cómo se usa la Repetición (Loops) para programar sensores.</li>
+        <li><span class="resaltado-texto">Escribir</span> algoritmos que usen Repetición y Selección.</li>
+    </ul>
+</div>
+
+<div class="identificacion">
+    <h3>Información de la Entrega</h3>
+    <label for="nombres">Nombre(s) del(os) integrante(s):</label>
+    <input type="text" id="nombres" name="nombres" placeholder="Ej: Juan Pérez y María García" required>
+    <label for="grupo">Grupo / Clase:</label>
+    <input type="text" id="grupo" name="grupo" placeholder="Ej: 3°A o Grupo 5" required>
+</div>
+
+<button class="btn-pdf" onclick="generarPDF()">Descargar PDF de Respuestas para CREA</button>
+
+<section>
+    <h3>🏃‍♂️ Actividad 1: ¡Bucle Infinito! (Desconectada) (5 min)</h3>
+    <div class="actividad">
+        <p>Meta: Entender físicamente el concepto de Repetición (Bucle "Para Siempre").</p>
+        <ol>
+            <li>Tu profesor/a dirá: "PARA SIEMPRE: hacer 1 salto de tijera".</li>
+            <li>Debes seguir haciéndolo hasta que el profesor cambie la instrucción (o te canses).</li>
+            <li>Esto demuestra cómo la Micro:bit ejecuta un código en bucle, revisando constantemente.</li>
+        </ol>
+
+        <div class="area-respuesta">
+            <label for="resp-act1">Reflexión sobre Repetición:</label>
+            <textarea id="resp-act1" name="resp-act1" placeholder="¿Por qué el bucle 'Para Siempre' es el bloque más importante para un sensor que necesita vigilar el entorno (como un termostato o una luz de calle)?"></textarea>
+        </div>
+    </div>
+</section>
+
+<hr>
+
+<section>
+    <h3>🧠 Actividad 2: Tomando Decisiones (Desconectada) (10 min)</h3>
+    <div class="actividad">
+        <p>Meta: Entender el concepto de Selección (Lógica "Si... Entonces... Si no...").</p>
+        <ol>
+            <li>Tu profesor te dará una condición (Ej: "SI levanto la mano derecha...")</li>
+            <li>...Y una acción ("...ENTONCES ustedes aplauden").</li>
+            <li>...Y una acción alternativa ("...SI NO (si levanto la izquierda), ustedes se quedan en silencio").</li>
+        </ol>
+
+        <div class="area-respuesta">
+            <label for="resp-act2">Reflexión sobre Selección:</label>
+            <textarea id="resp-act2" name="resp-act2" placeholder="¿Cómo usarías la 'Selección' (Si/Entonces) para hacer una alarma de luz (que suene si alguien enciende la luz en la noche)?"></textarea>
+        </div>
+    </div>
+</section>
+<hr>
+
+<section id="ejercicio-bucle-condicion" class="ejercicio-interactivo">
+    <h3>🧠 Ejercicio Interactivo: ¿Bucle o Condición?</h3>
+    <p>Lee cada situación y decide si la resolverías con un <span class="resaltado-texto">Bucle (Repetición)</span> o una <span class="resaltado-texto">Condición (Selección)</span>.</p>
+
+    <div class="pregunta-bucle">
+        <p>1. Revisar <span class="resaltado-texto">constantemente</span> la temperatura para un huevo de tortuga.</p>
+        <button data-tipo="bucle" onclick="verificarBucleOCon(this, 'bucle')">🔁 Bucle</button>
+        <button data-tipo="condicional" onclick="verificarBucleOCon(this, 'bucle')">🧠 Condición</button>
+        <span class="feedback-bucle"></span>
+    </div>
+
+    <div class="pregunta-bucle">
+        <p>2. <span class="resaltado-texto">Si</span> el jugador presiona el Botón A, mostrar el puntaje (solo una vez).</p>
+        <button data-tipo="bucle" onclick="verificarBucleOCon(this, 'condicional')">🔁 Bucle</button>
+        <button data-tipo="condicional" onclick="verificarBucleOCon(this, 'condicional')">🧠 Condición</button>
+        <span class="feedback-bucle"></span>
+    </div>
+
+    <div class="pregunta-bucle">
+        <p>3. Hacer que un corazón palpite en la pantalla <span class="resaltado-texto">sin parar</span>.</p>
+        <button data-tipo="bucle" onclick="verificarBucleOCon(this, 'bucle')">🔁 Bucle</button>
+        <button data-tipo="condicional" onclick="verificarBucleOCon(this, 'bucle')">🧠 Condición</button>
+        <span class="feedback-bucle"></span>
+    </div>
+
+    <div class="pregunta-bucle">
+        <p>4. <span class="resaltado-texto">Si</span> el nivel de luz es muy bajo, encender una luz (tomar la decisión).</p>
+        <button data-tipo="bucle" onclick="verificarBucleOCon(this, 'condicional')">🔁 Bucle</button>
+        <button data-tipo="condicional" onclick="verificarBucleOCon(this, 'condicional')">🧠 Condición</button>
+        <span class="feedback-bucle"></span>
+    </div>
+</section>
+<hr>
+
+<section id="ejercicio-makecode" class="ejercicio-interactivo">
+    <h3>📜 Minijuego 3: Ensambla el Algoritmo (10 min)</h3>
+    <p>Vamos a diseñar el algoritmo para una <span class="resaltado-texto">luz nocturna automática</span>. Debe encender los LEDs solo cuando está oscuro (Ej: nivel de luz < 50), en el caso contrario deberá mantenerse con la luz apagada.</p>
+    <p><strong>Bloques Disponibles (¡Mezclados y con distractores!):</strong></p>
+    <div>
+        <span class="bloque-codigo" onclick="armarAlgoritmo('Al presionar Botón A', 'BOTON_A')">Al presionar Botón A</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmo('SI (Luz < 50)', 'SI_LUZ<50')">SI (Luz < 50)</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmo('MOSTRAR LEDS (Luz encendida)', 'MOSTRAR_LED')">MOSTRAR LEDS (Luz encendida)</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmo('PARA SIEMPRE', 'PARA_SIEMPRE')">PARA SIEMPRE</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmo('SI (Luz > 50)', 'SI_LUZ>50')">SI (Luz > 50)</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmo('FIN SI', 'FIN_SI')">FIN SI</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmo('LEER SENSOR DE LUZ', 'LEER_LUZ')">LEER SENSOR DE LUZ</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmo('SI NO', 'SI_NO')">SI NO</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmo('mostrar número', 'MOSTRAR_NUMERO')">mostrar número</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmo('BORRAR PANTALLA (Luz apagada)', 'BORRAR_PANTALLA')">BORRAR PANTALLA (Luz apagada)</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmo('ENTONCES', 'ENTONCES')">ENTONCES</span>
+    </div>
+    
+    <p><strong>Algoritmo Ensamblado:</strong></p>
+    <div id="algoritmo-ensamblado"></div>
+    <div id="feedback-algoritmo" class="resultado" style="margin-top: 15px;"></div>
+</section>
+
+<hr>
+
+<section id="diseño-dispositivo">
+    <h3>💡 Actividad 4: ¡Tu Propio Invento! (25 min)</h3>
+    <div class="actividad">
+        <p>Meta: Diseñar tu propio dispositivo inteligente basado en un sensor de la Micro:bit.</p>
+        <p>Piensa en un problema: ¿una alarma para plantas que necesitan agua? ¿Un contador de pasos? ¿Una alarma si tu mochila se mueve?</p>
+        <p>Completa las siguientes secciones para tu diseño:</p>
+
+        <div class="area-respuesta">
+            <label for="resp-act4-1">1. ¿Qué hace tu dispositivo? (El problema que resuelve)</label>
+            <textarea id="resp-act4-1" name="resp-act4-1" placeholder="Ej: Una alarma que me avisa si olvido mi botella de agua en la mesa (usando el sensor de luz)."></textarea>
+        </div>
+        
+        <div class="area-respuesta">
+            <label for="resp-act4-2">2. ¿Qué sensor de la Micro:bit usará?</label>
+            <textarea id="resp-act4-2" name="resp-act4-2" placeholder="Ej: Sensor de Luz, Sensor de Temperatura, Acelerómetro (movimiento), Brújula (dirección)."></textarea>
+        </div>
+        
+        <div class="area-respuesta">
+            <label for="resp-act4-3">3. Criterios de Diseño (Mínimo 3 requisitos que debe cumplir)</label>
+            <textarea id="resp-act4-3" name="resp-act4-3" placeholder="1. Debe ser pequeño para llevar en la mochila.&#10;2. Debe sonar solo después de 5 minutos de oscuridad.&#10;3. Debe usar poca batería."></textarea>
+        </div>
+        
+        <div class="area-respuesta">
+            <label for="resp-act4-4">4. Tu Algoritmo (Escríbelo paso a paso)</label>
+            <textarea id="resp-act4-4" name="resp-act4-4" placeholder="1. PARA SIEMPRE...&#10;2.   LEER SENSOR DE LUZ...&#10;3.   SI (luz < 10) ..."></textarea>
+        </div>
+    </div>
+</section>
+
+<hr>
+
+<section id="evaluacion">
+    <h3>🎯 Autoevaluación rápida</h3>
+    <p>Marcá con una ✅ lo que sentís que ya dominás:</p>
+    <div class="actividad">
+        <ul>
+            <li><input type="checkbox"> Comprendí por qué usamos Repetición (Loops) con los sensores.</li>
+            <li><input type="checkbox"> Entendí cómo funciona la Selección (Si/Entonces) para tomar decisiones.</li>
+            <li><input type="checkbox"> Pude escribir un algoritmo simple usando Repetición y Selección.</li>
+            <li><input type="checkbox"> Diseñé un dispositivo con Criterios de Diseño claros.</li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    <p>🧩 Misión 3 completada. Prepárate para la Misión 4: Condiciones de Datos. &copy; Micro:bit DATA-QUEST.</p>
+</footer>
+
+</div>
+</body>
+</html>

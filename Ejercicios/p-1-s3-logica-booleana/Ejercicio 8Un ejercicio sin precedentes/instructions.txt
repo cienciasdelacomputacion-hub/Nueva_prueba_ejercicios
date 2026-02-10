@@ -1,0 +1,42 @@
+🟡 Ejercicio 8: Un ejercicio sin precedentes
+
+Si prestaste atención al ejercicio anterior, habrás notado que la operación con mayor precedencia es la negación not, seguida de la conjunción and y finalmente la disyunción or.
+Pero, ¿qué pasa si queremos alterar el orden en que se resuelven las operaciones?
+Al igual que en matemáticas, podemos usar paréntesis para agrupar las operaciones que queremos que se ejecuten primero.
+
+Delfi se puede concentrar cuando programa y toma infusiones, pero no cualquier infusión.
+Las reglas son:
+
+Mate a exactamente 80ºC
+Té a al menos 95ºC
+
+Definí la función se_puede_concentrar que recibe:
+
+bebida (string)
+temperatura (entero)
+prog (booleano que indica si Delfi está programando)
+
+Ejemplos de uso:
+
+se_puede_concentrar('té', 100, True)   # True
+se_puede_concentrar('mate', 70, True)  # False
+se_puede_concentrar('té', 95, False)   # False
+
+🟠 Ejercicio 9: ¿Puedo subir?
+
+En un parque de diversiones instalaron una nueva montaña rusa y necesitamos ayudar a determinar si las personas pueden subirse antes de hacer la fila.
+Los requisitos son:
+
+Alcanzar la altura mínima de 1.5 m (o 1.2 m si está acompañada por un adulto)
+No tener ninguna afección cardíaca
+
+Definí la función puede_subirse que recibe tres parámetros:
+
+altura (en metros)
+acompaniada (booleano, True si está acompañada por un adulto)
+cardiaco (booleano, True si tiene alguna afección cardíaca)
+
+Ejemplo de uso:
+
+puede_subirse(1.7, False, True)  # False
+# no puede subirse porque aunque mide más de 1.5m, tiene una afección cardíaca

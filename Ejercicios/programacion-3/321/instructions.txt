@@ -1,0 +1,9 @@
+Conociendo el Estado
+
+Los objetos tienen atributos que determinan su estado.
+
+¿Qué valores devolverán estas expresiones?
+
+celular_de_pedro.bateria
+
+celular_de_pedro.saldo

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Selectores: getElementsByClassName</title>   
+ <style>
+        .destacado {
+            font-weight: bold;
+            border: 1px solid gold;
+        }
+ </style>
+ 
+</head>
+<body> 
+   <p class="destacado">Este párrafo está destacado.</p>
+    <div class="destacado">Este div también está destacado.</div>
+    <span class="destacado">Y este span también.</span>
+    <p>Este párrafo NO está destacado.</p>
+
+ <script>
+        // Seleccionamos todos los elementos con la clase 'destacado'
+        let elementosDestacados = document.getElementsByClassName('destacado');
+        console.log("Elementos con la clase 'destacado':", elementosDestacados);
+        // ¡Ojo! Es una colección, para acceder a cada uno usamos un índice y un bucle.
+        for (let i = 0; i < elementosDestacados.length; i++) {
+            elementosDestacados[i].style.backgroundColor = "yellow"; // Ponemos un fondo amarillo a todos
+        }
+         elementosDestacados.style.backgroundColor = "blue"; 
+    </script>
+
+</body>
+</html>

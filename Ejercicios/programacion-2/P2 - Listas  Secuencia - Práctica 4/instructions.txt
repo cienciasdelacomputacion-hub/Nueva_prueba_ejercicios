@@ -1,0 +1,11 @@
+Ejercicio 4: Textos impresos 🐄
+
+Los textos largos pueden escribirse entre triples comillas """ para incluir saltos de línea. Cuando se imprime, Python muestra el texto tal cual, respetando los saltos.
+
+Tus misiones:
+Define una variable payada_de_la_vaca con el texto mostrado entre triples comillas.
+Imprime la variable con print().
+Imprime también el número de caracteres que tiene usando len().
+</div>
+
+# Escribe tu código aquí payada_de_la_vaca = """ Dígame usted compañero y conteste con prudencia Cual es la mansa paciencia que puebla nuestras praderas Y en melancólica espera con abnegada paciencia Nos da alimento y abrigo Fingiendo indiferencia """

@@ -1,0 +1,11 @@
+Ejercicio 6: La hora de la verdad ⏰
+
+¡El momento ha llegado! Ahora escribiremos nuestra primera función desde cero.
+Definí la función es_hora_de_la_verdad, que tome una hora y nos diga si son las 12. Probala en la consola:
+
+Solución esperada:
+
+es_hora_de_la_verdad(0)   # False
+es_hora_de_la_verdad(11)  # False
+es_hora_de_la_verdad(12)  # True
+es_hora_de_la_verdad(23)  # False

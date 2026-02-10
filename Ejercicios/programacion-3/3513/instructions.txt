@@ -1,0 +1,6 @@
+Tienda de Juguetes
+
+Crea la clase Tienda que almacene una lista de juguetes y permita:
+
+agregar_juguete(juguete): Agrega un juguete a la lista.
+catalogo_oferta(): Retorna una lista con los nombres de los juguetes que no son costosos.

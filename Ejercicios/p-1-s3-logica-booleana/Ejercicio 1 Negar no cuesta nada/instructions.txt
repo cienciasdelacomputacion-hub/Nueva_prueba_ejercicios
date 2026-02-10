@@ -1,0 +1,31 @@
+🚦 Ejercicio 1: Negar no cuesta nada
+
+Recordemos al operador not, también llamado negación o complemento lógico. Este operador invierte un valor booleano: si algo es verdadero se convierte en falso, y viceversa.
+
+Podemos aprovecharlo para reutilizar la lógica de funciones ya definidas. Por ejemplo, si contamos con una función que verifica si un número es par, basta con negar ese resultado para saber si es impar:
+
+
+def es_par(numero):
+  return numero % 2 == 0
+
+
+def es_impar(numero):
+  return not es_par(numero)
+
+
+
+
+
+Ahora es tu turno: definí dos funciones relacionadas con la mayoría de edad.
+
+es_mayor_de_edad: recibe una edad y devuelve True si la edad es mayor o igual a 18.
+es_menor_de_edad: utiliza la primera función y retorna el resultado opuesto con not.
+
+Actividad interactiva:
+
+Pedile al usuario que ingrese su edad con input().
+Convertí la entrada en un número entero usando int().
+Usá ambas funciones para verificar si es mayor o menor de edad.
+Mostrá en pantalla un mensaje indicando el resultado.
+
+Estas funciones representan dos estados complementarios: una persona puede ser mayor o menor de edad, pero nunca ambas cosas al mismo tiempo.

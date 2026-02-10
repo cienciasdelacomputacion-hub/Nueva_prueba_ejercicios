@@ -1,0 +1,21 @@
+Define un diccionario llamado estudiantes donde:
+
+Cada clave es el nombre de un estudiante (tipo str)
+
+El valor asociado es otro diccionario con las siguientes claves:
+
+"edad": un número entero que representa la edad del estudiante.
+
+"materia": el nombre de la materia que cursa.
+
+"calificacion": un número que representa su nota actual.
+
+Escribe una función llamada actualizar_calificacion (nombre_estudiante, nueva_calificacion) que:
+
+Reciba el nombre del estudiante y su nueva calificación.
+
+Verifique si el estudiante existe en el diccionario.
+
+Si existe, actualice su calificación.
+
+Si no existe, muestre un mensaje indicando que el estudiante no fue encontrado.

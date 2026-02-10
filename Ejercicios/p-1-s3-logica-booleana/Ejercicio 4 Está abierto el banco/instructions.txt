@@ -1,0 +1,29 @@
+🏦 Ejercicio 5: ¿Está abierto el banco?
+
+Ahora trabajaremos con condiciones más complejas. Queremos saber si el banco está abierto o no en un día y hora determinados.
+
+El banco abre únicamente cuando:
+
+No es feriado.
+El día no es sábado ni domingo.
+La hora está dentro del horario de atención.
+
+Para eso, vamos a usar las siguientes funciones auxiliares:
+
+dentro_de_horario_bancario(hora): devuelve True si la hora está dentro de la franja de atención.
+es_fin_de_semana(dia): devuelve True si el día es sábado o domingo.
+
+Actividad interactiva:
+
+Define las 3 funciones: dentro_de_horario_bancario(hora),es_fin_de_semana(dia) y esta_abierto(es_feriado(), dia, horario) .
+Pedí al usuario que ingrese si es feriado (True/False).
+Pedí que indique el día de la semana en texto.
+Pedí que ingrese la hora (entre 0 y 23).
+Usá la función esta_abierto para decirle si el banco está abierto.
+
+Probá estos ejemplos en la consola:
+
+esta_abierto(False, "sábado", 10) → False
+esta_abierto(True, "lunes", 10) → False
+esta_abierto(False, "martes", 20) → False
+esta_abierto(False, "jueves", 11) → True

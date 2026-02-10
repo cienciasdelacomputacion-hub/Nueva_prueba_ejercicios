@@ -1,0 +1,18 @@
+🦖 Ejercicio 7: Variables que cambian
+
+Hasta ahora usamos variables con valores fijos, pero... ¿por qué se llaman variables si nunca cambian? 🤔
+En realidad, sí pueden actualizarse a medida que avanza el programa. Veamos un ejemplo:
+
+# inicializamos la variable en 0
+dias_sin_incidentes_con_dinosaurios = 0
+
+# más adelante la modificamos
+dias_sin_incidentes_con_dinosaurios = dias_sin_incidentes_con_dinosaurios + 1
+
+# ¡ahora vale 1!
+
+
+Pero hay algo importante: si queremos actualizar una variable global dentro de una función, debemos indicarlo con la palabra global. Así le decimos a Python que estamos manipulando la variable definida fuera del def.
+
+En este ejemplo notamos algo distinto: ¡la función no devolvía nada! Eso es porque en realidad no era una función, sino un procedimiento.
+Un procedimiento se define igual que una función, pero su objetivo no es retornar un valor, sino generar un efecto, como modificar una variable global. Profundizaremos mas adelante!

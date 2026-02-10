@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login y Verificación de Edad</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        h2 {
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: none;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            display: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #mensaje {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+    <script>
+        function mostrarSiguiente(event, idActual, idSiguiente) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById(idActual).style.display = "none";
+                document.getElementById(idSiguiente).style.display = "block";
+                document.getElementById(idSiguiente).focus();
+            }
+        }
+
+        function verificarEdad() {
+            var nombre = document.getElementById("nombre").value;
+            var apellido = document.getElementById("apellido").value;
+            var anioNacimiento = document.getElementById("anioNacimiento").value;
+            var anioActual = new Date().getFullYear();
+            var edad = anioActual - anioNacimiento;
+            var mensaje = "";
+
+            if (edad >= 18) {
+                mensaje = "Bienvenido, " + nombre + " " + apellido + ". Usted puede votar.";
+            } else {
+                var espera = 18 - edad;
+                mensaje = "Lo sentimos, " + nombre + " " + apellido + ". Debe esperar " + espera + " años para votar.";
+            }
+
+            document.getElementById("mensaje").innerText = mensaje;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Inicio de Sesión</h2>
+        <form onsubmit="event.preventDefault(); verificarEdad();">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" onkeydown="mostrarSiguiente(event, 'nombre', 'apellido')" required style="display: block;">
+            
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" onkeydown="mostrarSiguiente(event, 'apellido', 'anioNacimiento')">
+            
+            <label for="anioNacimiento">Año de Nacimiento:</label>
+            <input type="number" id="anioNacimiento" min="1900" max="2025" onkeydown="if(event.key === 'Enter') { event.preventDefault(); document.getElementById('verificarBtn').style.display = 'block'; document.getElementById('verificarBtn').focus(); }">
+            
+            <button type="submit" id="verificarBtn">Verificar</button>
+        </form>
+        <h3 id="mensaje"></h3>
+    </div>
+</body>
+</html>

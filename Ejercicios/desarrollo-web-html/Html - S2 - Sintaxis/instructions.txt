@@ -1,0 +1,5 @@
+🧪 ¡Probalo tu mismo!
+
+El fragmento de código en el archivo index.html (panel izquierdo) no funciona. Detectá y correge los errores presentes.
+
+📝 Recordá incluir la estructura básica de una página HTML para que funcione correctamente.

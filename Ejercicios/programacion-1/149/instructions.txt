@@ -1,0 +1,12 @@
+El método len() en Python sirve para contar la cantidad de caracteres en una cadena de texto. Es muy fácil de usar:
+
+print(len(texto))
+
+- Resultado: 4 (porque "H", "o", "l", "a" son 4 caracteres)  
+
+
+¿Podrías contar cuantos caracteres tiene la cadena de texto “Hola Mundo” usando el método len()?
+
+Por último, cuenta las letras por tu cuenta y compáralas con el resultado, ¿qué podrías decir acerca de la diferencia?
+
+Crea una frase debe tener solo 7 letras (A-Z, a-z), pero que el len() sea 24.¿ Cómo sería?

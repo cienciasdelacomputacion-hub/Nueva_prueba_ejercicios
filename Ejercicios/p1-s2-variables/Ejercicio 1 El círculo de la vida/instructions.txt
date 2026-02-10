@@ -1,0 +1,19 @@
+✏️ Ejercicio 1: El círculo de la vida
+
+En programación buscamos resolver nuestros problemas usando programas. Y entre los problemas que casi nadie quiere resolver están los matemáticos. Sobre todo aquellos en los que aparecen números, como pi, con infinitos decimales imposibles de recordar.
+
+Considerando al número pi igual a 3.14159265358979 (no es infinito pero lo suficientemente preciso para nuestros cálculos), definí las funciones perimetro_circulo y area_circulo que reciben el radio de un círculo y nos devuelven su perímetro y su área.
+
+🔢 Ejercicio 2: PI-enso que así es más fácil
+
+Por suerte existe una herramienta que va a simplificar nuestra tarea de ahora en adelante: las variables.
+
+Las variables nos permiten nombrar y reutilizar valores. Similar a cómo las funciones nos permiten dar nombres y reutilizar soluciones a problemas más pequeños. Por ejemplo, si hacemos:
+
+primer_mes = "enero"
+
+...estamos asignándole el valor "enero" a la variable primer_mes. En criollo, estamos dándole ese valor a la variable. De esa forma, en nuestro código podremos usar primer_mes como sinónimo de "enero":
+
+"Primero de" + primer_mes → "Primero de enero"
+
+Cambiá los lugares donde aparece 3.14159265358979 por la variable pi en las funciones que tenemos definidas.

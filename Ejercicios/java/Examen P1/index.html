@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acreditación Septiembre 2025 – Programación 1 (Final)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        h2 {
+            color: #0056b3;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            resize: vertical;
+            box-sizing: border-box;
+            background-color: #f8f8f8;
+        }
+        .actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        button:first-child {
+            background-color: #28a745; 
+            color: white;
+        }
+        button:first-child:hover {
+            background-color: #1e7e34;
+        }
+        button:last-child {
+            background-color: #6c757d; 
+            color: white;
+        }
+        button:last-child:hover {
+            background-color: #5a6268;
+        }
+        .console {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #eee;
+            background-color: #333;
+            color: #f0f0f0;
+            border-radius: 4px;
+            min-height: 50px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .result-pass {
+            color: #28a745;
+        }
+        .result-fail {
+            color: #dc3545;
+        }
+        .result-error {
+            color: #ffc107;
+        }
+        .result-warn {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Acreditación Setiembre 2025 – Programación 1</h1>
+
+    <div class="card">
+        <h2>Ejercicio 1</h2>
+        <p>(3.33 ptos) Crea un programa en Java que solicite tres números y luego imprima 
+        "Ascendente", "Descendente" o "Sin orden".</p>
+        <strong> <ul>
+            <li>Por ejemplo, si la entrada es(1, 2, 3) se deberá imprimir “Ascendente”</li>
+<li>Si la entrada es (3,2,1) se deberá imprimir “Descendente”.</li>
+<li>Si la entrada es (2,1,3) se deberá imprimir “Sin orden”.</li>
+</ul>
+        </strong>
+        <textarea id="code1" spellcheck="false" rows="10"></textarea>
+        <div class="actions">
+            <button onclick="runCode(1)">▶ Ejecutar</button>
+            <button onclick="exportPDF(1)">📄 Exportar PDF</button>
+        </div>
+        <div id="console1" class="console"></div>
+    </div>
+
+    <div class="card">
+        <h2>Ejercicio 2</h2>
+        <p>(3.33 ptos) Solicitar un número entero y calcular la suma desde 1 hasta ese número. **Solo debe haber una línea de salida.**</p>
+        <p><strong>Por ejemplo, si ingresamos 5 valores (1 , 2 , 3 ,4 ,5 ), debería imprimir 15 como resultado de su suma.
+</strong></p>
+        <textarea id="code2" spellcheck="false" rows="10"></textarea>
+        <div class="actions">
+            <button onclick="runCode(2)">▶ Ejecutar</button>
+            <button onclick="exportPDF(2)">📄 Exportar PDF</button>
+        </div>
+        <div id="console2" class="console"></div>
+    </div>
+
+    <div class="card">
+        <h2>Ejercicio 3</h2>
+        <p>(3.33 ptos) Contar cuántos números negativos se ingresan hasta que se escriba 0. **Solo debe haber una línea de salida.**</p>
+        <p><strong>Por ejemplo, si ingresamos los valores(5, -3, 9, -1, -7, 0) se deberá imprimir: 3 como el resultado de números negativo ingresados.
+</strong></p>
+        <textarea id="code3" spellcheck="false" rows="10"></textarea>
+        <div class="actions">
+            <button onclick="runCode(3)">▶ Ejecutar</button>
+            <button onclick="exportPDF(3)">📄 Exportar PDF</button>
+        </div>
+        <div id="console3" class="console"></div>
+    </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

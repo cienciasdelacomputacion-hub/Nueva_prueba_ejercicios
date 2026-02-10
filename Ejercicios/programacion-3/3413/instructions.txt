@@ -1,0 +1,4 @@
+Descanso para los Zombis
+
+Cuando un Zombi o SuperZombi descansar(minutos), su hambre aumenta en la cantidad de minutos descansados.
+Definí el método descansar() en Zombi para que SuperZombi lo herede automáticamente.

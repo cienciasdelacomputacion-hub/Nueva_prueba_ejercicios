@@ -1,0 +1,10 @@
+Ejercicio 11: ¡GRITAR! 🔊
+
+Definí una función gritar que tome un string y lo devuelva en mayúsculas, entre signos de exclamación.
+Por ejemplo:
+
+gritar("miguel")
+# "¡MIGUEL!"
+
+
+Recordá que podés usar str.upper y concatenar strings con +.

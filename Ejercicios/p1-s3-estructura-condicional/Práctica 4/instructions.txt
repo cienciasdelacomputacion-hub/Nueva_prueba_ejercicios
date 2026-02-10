@@ -1,0 +1,33 @@
+🎫 Ejercicio 6: Cartelitos
+
+Para una conferencia, necesitamos crear cartelitos identificatorios para cada asistente.
+La idea es juntar el título, el nombre y el apellido en un único string.
+
+Definimos la función escribir_cartelito que reciba un título, un nombre y un apellido y genere el cartelito completo.
+
+✏️ Ejercicio 7: Más cartelitos
+
+A veces queremos un cartelito más corto, con sólo el título y el apellido.
+Ahora la función debe recibir 4 parámetros: título, nombre, apellido y un texto corto que indique si queremos un cartel corto si o no.
+
+escribir_cartelito("Lic.", "Tomás", "Peralta", True)   # "Lic. Peralta"
+escribir_cartelito("Ing.", "Dana", "Velázquez", False) # "Ing. Dana Velázquez"
+
+
+
+Recordá que usar nombres de parámetros expresivos como titulo, nombre, apellido y corto ayuda a que el código sea más legible.
+
+🎯 Ejercicio 8: Cartelitos óptimos
+
+Queremos que la función genere un cartelito de tamaño óptimo:
+si el nombre y el apellido suman más de 15 letras, el cartelito debe ser corto; de lo contrario, debe ser largo.
+
+Definí la función escribir_cartelito_optimo que reciba título, nombre y apellido, y use escribir_cartelito para generar el cartelito adecuado.
+
+escribir_cartelito_optimo("Ing.", "Carla", "Toledo")             # "Ing. Carla Toledo"
+escribir_cartelito_optimo("Dr.", "Estanislao", "Schwarzschild") # "Dr. Schwarzschild"
+
+
+📝 Práctica interactiva
+
+Probá la función pidiendo al usuario que ingrese título, nombre y apellido, y luego mostrar el cartelito óptimo:

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Ejercicio 1 - Java</title>
+<style>
+body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+.card { background-color: #fff; border-radius: 10px; box-shadow: 0 3px 6px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 20px; }
+textarea { width: 100%; height: 200px; font-family: monospace; font-size: 14px; }
+button { padding: 10px 15px; font-size: 16px; margin-top: 10px; cursor: pointer; border: none; border-radius: 5px; background-color: #4CAF50; color: white; }
+#resultado { margin-top: 15px; font-weight: bold; }
+.advertencia { color: #a94442; background-color: #f2dede; border: 1px solid #ebccd1; padding: 10px; border-radius: 4px; margin-bottom: 15px; }
+.seccion-clave { display: none; margin-top: 20px; border-top: 1px solid #ccc; padding-top: 15px; }
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h3>Ejercicio 1: Precio de Entradas con Descuento 🎟️</h3>
+    <p>Crea un método en Java llamado <strong><code>calcularPrecioEntrada</code></strong> que reciba una edad y que devuelva el precio (0,8 o 15) de la entrada según la edad.</p>
+   <p>
+       Los menores de 5 años no pagan entrada, Los menores o iguales a 12 años pagan 8 y todos los demas pagan 15 la entrada
+   </p>
+    <div class="advertencia">
+        ⚠️ **Advertencia:** Respeta el nombre del método, los parámetros y el tipo de retorno.
+    </div>
+    <iframe src="https://trinket.io/embed/java/82948ed9d10e" width="100%" height="400" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+    <p>Ingresá tu código en el área de texto:</p>
+    <textarea id="codigo"></textarea>
+    <button id="verificar">Verificar código</button>
+    <div id="resultado"></div>
+    <div id="solucionFinal" class="seccion-clave">
+        <p>✅ ¡Excelente! Tu solución es correcta.</p>
+        <h4>Clave de validación</h4>
+        <p>La clave para este ejercicio es: **PRECIO-ENTRADA-JAVA**</p>
+    </div>
+</div>
+
+<script>
+document.getElementById('codigo').addEventListener('keydown', function(e) {
+    if (e.key === 'Tab') {
+        e.preventDefault();
+        const start = this.selectionStart;
+        const end = this.selectionEnd;
+        const tab = "    ";
+        this.value = this.value.substring(0, start) + tab + this.value.substring(end);
+        this.selectionStart = this.selectionEnd = start + tab.length;
+    }
+});
+document.getElementById("verificar").addEventListener("click", function() {
+    const codigoUsuario = document.getElementById("codigo").value;
+    const resultadoDiv = document.getElementById("resultado");
+    const solucionFinalDiv = document.getElementById("solucionFinal");
+    solucionFinalDiv.style.display = 'none';
+    const codigoNormalizado = codigoUsuario.replace(/\s/g, '').replace(/[\n\r]+/g, '').trim();
+    const solucionesNormalizadas = [
+        'publicintcalcularPrecioEntrada(intedad){if(edad<5){return0;}else{if(edad<=12){return8;}else{return15;}}}'
+    ];
+    const patronSintaxis = /public\s+int\s+calcularPrecioEntrada\s*\(\s*int\s+edad\s*\)\s*\{/;
+    if (!patronSintaxis.test(codigoUsuario)) {
+        resultadoDiv.textContent = "❌ Error de sintaxis. Revisa la definición del método, el tipo de retorno y los parámetros.";
+        resultadoDiv.style.color = "red";
+        return;
+    }
+    if (solucionesNormalizadas.includes(codigoNormalizado)) {
+        resultadoDiv.textContent = "✅ ¡Excelente! Tu solución es correcta.";
+        resultadoDiv.style.color = "green";
+        solucionFinalDiv.style.display = 'block';
+    } else {
+        resultadoDiv.textContent = "❌ Error de lógica. Revisa las condiciones y los valores de retorno.";
+        resultadoDiv.style.color = "red";
+    }
+});
+</script>
+</body>
+</html>

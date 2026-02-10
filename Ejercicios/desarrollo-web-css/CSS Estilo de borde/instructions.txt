@@ -1,0 +1,9 @@
+Prueba tú mismo:
+
+Cambia border-style a un solo valor (ej: border-style: groove;). ¿Qué ocurre con los bordes? (Nota: los estilos 3D como groove, ridge, inset, outset a veces requieren un color y/o ancho para verse mejor).
+
+Prueba con dos valores (ej: border-style: ridge inset;). El primer valor se aplica arriba y abajo, el segundo a izquierda y derecha.
+
+Prueba con tres valores (ej: border-style: solid double dotted;). El primer valor es para arriba, el segundo para izquierda y derecha, el tercero para abajo.
+
+Aplica solo border-style: dashed; a un elemento sin especificar border-width ni border-color. ¿Es visible y por qué?

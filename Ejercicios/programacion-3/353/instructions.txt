@@ -1,0 +1,4 @@
+Registro de Estudiantes
+
+Crea una clase Estudiante que almacene el nombre y la edad de un estudiante.
+Luego crea a la estudiante Ana de 21 años.

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misión 2: Búsqueda del Tesoro | Micro:bit DATA-QUEST</title>
+<link rel="stylesheet" href="styles.css">
+
+<style>
+    /* ... [Estilos Omitidos por Brevedad: .identificacion, .btn-pdf, etc.] ... */
+
+    /* Estilos de Impresión (PDF de Respuestas) */
+    @media print {
+        /* Ocultar elementos NO deseados */
+        header, nav, footer, .btn-pdf, .concepto, .concepto-caja, .ejercicio-interactivo, .btn-agregar-fila, .makecode-img-container, .flip-grid {
+            display: none !important;
+        }
+        /* Mostrar solo el contenido de las preguntas y respuestas */
+        .container, .identificacion, section, .actividad, h2, h3, .area-respuesta, .carroll-tabla {
+            display: block !important;
+            visibility: visible !important;
+            margin: 0; padding: 0 10px; box-shadow: none;
+        }
+        .area-respuesta, .identificacion, .carroll-tabla {
+            border: 1px solid #000; background-color: white; page-break-inside: avoid;
+        }
+        .identificacion input[type="text"] { border: none; }
+        .carroll-tabla input[type="text"] { border: none; }
+        .pregunta-analisis { border-bottom: 1px solid #ccc !important; } /* Separador en PDF */
+    }
+
+    /* Estilos para el Ejercicio Interactivo 2 (MakeCode) */
+    .bloque-codigo {
+        display: inline-block;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 4px;
+        background-color: #4a4270;
+        border: 2px solid #663399;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: 'Consolas', monospace;
+    }
+    .bloque-codigo:hover {
+        border-color: #64ffda;
+        box-shadow: 0 0 5px #64ffda;
+    }
+    #codigo-ensamblado {
+        background-color: #1a1a2e;
+        border: 1px dashed #4a4270;
+        padding: 10px;
+        min-height: 50px;
+        border-radius: 5px;
+    }
+    
+    /* Estilos de tabla (reutilizando .carroll-tabla) */
+    .carroll-tabla { border-collapse: collapse; width: 100%; margin: 20px 0; color: #e4f2f9; }
+    .carroll-tabla th, .carroll-tabla td { border: 2px solid #663399; padding: 12px; text-align: center; }
+    .carroll-tabla th { background-color: #3e3868; font-weight: bold; color: #ff9900; }
+    .carroll-tabla input[type="text"] { background-color: #1a1a2e; color: #e4f2f9; border: 1px solid #663399; border-radius: 4px; padding: 5px; box-sizing: border-box; text-align: center; }
+
+    /* Estilo para el botón de agregar fila */
+    .btn-agregar-fila {
+        background-color: #3e3868;
+        color: #64ffda; /* Neon Cyan */
+        border: 1px solid #64ffda;
+        padding: 8px 15px;
+        margin-top: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 700;
+        transition: all 0.3s;
+    }
+    .btn-agregar-fila:hover {
+        background-color: #64ffda;
+        color: #1a1a2e;
+        box-shadow: 0 0 10px #64ffda;
+    }
+
+    /* Estilo para separar preguntas de análisis */
+    .pregunta-analisis {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px dashed #4a4270; /* Línea separadora estilo gamer */
+    }
+    .pregunta-analisis:last-child {
+        border-bottom: none; /* No poner línea en la última pregunta */
+    }
+    .pregunta-analisis label {
+        margin-top: 0 !important; /* Resetea el margin-top de las labels */
+    }
+
+    /* Estilo para resaltar texto (Gamer) */
+    .resaltado-texto {
+        color: #64ffda; /* Neon Cyan */
+        font-weight: 700;
+        text-shadow: 0 0 3px rgba(100, 255, 218, 0.5);
+    }
+    
+    /* ****** CSS NECESARIO PARA FLASHCARDS (AGREGADO) ****** */
+    .flip-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .flip-card {
+        background-color: transparent;
+        height: 280px; /* Altura de la tarjeta */
+        perspective: 1000px; /* Efecto 3D */
+    }
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: left;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+        border-radius: 15px; /* Bordes redondeados */
+    }
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden; /* Safari */
+        backface-visibility: hidden;
+        border-radius: 15px;
+        box-sizing: border-box; /* Para que el padding no rompa el tamaño */
+    }
+    /* Cara Frontal (Estilo Gamer) */
+    .flip-card-front {
+        background-color: #3e3868; /* Púrpura suave */
+        border: 3px solid #b366ff; /* Borde Morado Neón */
+        color: #64ffda; /* Cyan Neón */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5em;
+        font-weight: 700;
+        text-shadow: 0 0 5px #64ffda;
+        padding: 20px;
+        text-align: center;
+    }
+    /* Cara Trasera (Estilo Gamer) */
+    .flip-card-back {
+        background-color: #2c2a4a; /* Fondo de contenedor */
+        border: 2px solid #4a4270;
+        color: #e4f2f9;
+        padding: 20px;
+        transform: rotateY(180deg);
+    }
+    .flip-card-back h4 {
+        color: #ff9900; /* Naranja */
+        margin-top: 0;
+    }
+    .flip-card-back ul {
+        padding-left: 20px;
+        margin-top: 10px;
+    }
+    .flip-card-back li {
+        margin-bottom: 5px;
+    }
+
+</style>
+
+<script>
+function generarPDF() {
+    alert("⚠️ Atención: Para entregar en CREA, selecciona 'Guardar como PDF' en la opción de destino.");
+    window.print();
+}
+// --- ****** NUEVO: Lógica del Ejercicio (Selección de Sensor) ****** ---
+function verificarSensor(idSelect, respuestaCorrecta) {
+    const select = document.getElementById(idSelect);
+    const feedbackSpan = document.getElementById(idSelect + '-feedback');
+    const respuestaUsuario = select.value;
+
+    select.disabled = true; // Deshabilitar el combo
+
+    if (respuestaUsuario === respuestaCorrecta) {
+        feedbackSpan.textContent = '✅ ¡Correcto!';
+        feedbackSpan.className = 'feedback-bucle correcto';
+        select.style.borderColor = '#64ffda'; // Verde
+        select.style.backgroundColor = '#64ffda';
+        select.style.color = '#1a1a2e';
+    } else if (respuestaUsuario === "") {
+        feedbackSpan.textContent = 'Debes elegir una opción.';
+        feedbackSpan.className = 'feedback-bucle';
+        select.disabled = false; // Permitir reintentar si no eligió nada
+    } else {
+        feedbackSpan.textContent = '❌ Incorrecto. Piensa en qué dato necesitas medir.';
+        feedbackSpan.className = 'feedback-bucle incorrecto';
+        select.style.borderColor = '#ff66b2'; // Rosa
+        select.style.backgroundColor = '#ff66b2';
+        select.style.color = '#1a1a2e';
+    }
+}
+// --- Lógica del Ejercicio Interactivo (MakeCode) ---
+let codigoActual = "";
+let pasosCorrectos = 0;
+const codigoCorrecto = "AL_PRESIONAR_BOTON_AMOSTRAR_NUMEROTEMPERATURA";
+
+function armarCodigo(bloque, valor) {
+    const feedback = document.getElementById('feedback-makecode');
+    const ensamblado = document.getElementById('codigo-ensamblado');
+    
+    codigoActual += valor;
+    ensamblado.textContent += " " + bloque;
+
+    if (codigoCorrecto.startsWith(codigoActual)) {
+        pasosCorrectos++;
+        feedback.textContent = "✅ ¡Bloque correcto! Sigue así...";
+        feedback.className = "resultado correcto";
+        
+        if (pasosCorrectos === 4) {
+            feedback.textContent = "✅ ¡Programa Completo! Has creado un sensor de temperatura.";
+            feedback.style.border = '2px solid #64ffda';
+        }
+    } else {
+        feedback.textContent = "❌ Error de sintaxis. Revisa el orden. Reinicia la secuencia.";
+        feedback.className = "resultado incorrecto";
+        feedback.style.border = '2px solid #ff66b2';
+        // Resetear
+        codigoActual = "";
+        pasosCorrectos = 0;
+        setTimeout(() => { ensamblado.textContent = ""; }, 1000);
+    }
+}
+
+// --- Lógica para Agregar Fila (Actividad 1) ---
+function agregarFilaTesoro() {
+    const tableBody = document.getElementById('tabla-tesoro').getElementsByTagName('tbody')[0];
+    const rowCount = tableBody.rows.length;
+    const newRow = tableBody.insertRow();
+
+    const cell1 = newRow.insertCell(0);
+    const cell2 = newRow.insertCell(1);
+    const cell3 = newRow.insertCell(2);
+
+    cell1.innerHTML = rowCount + 1;
+    cell2.innerHTML = '<input type="text" placeholder="Nombre del Dato">';
+    cell3.innerHTML = '<input type="text" placeholder="Valor del Dato">';
+}
+
+// --- Lógica para Agregar Fila (Misión) ---
+function agregarFilaMision() {
+    const tableBody = document.getElementById('tabla-mision').getElementsByTagName('tbody')[0];
+    const rowCount = tableBody.rows.length;
+    const newRow = tableBody.insertRow();
+
+    const cell1 = newRow.insertCell(0);
+    const cell2 = newRow.insertCell(1);
+
+    // Usamos el rowCount + 1 para seguir la numeración base de 6
+    cell1.innerHTML = (rowCount + 1) + '. <input type="text" placeholder="Lugar Opcional">';
+    cell2.innerHTML = '<input type="text" placeholder="Registra el valor aquí">';
+}
+</script>
+</head>
+
+<body>
+<div class="container">
+<header>
+    <h1>DATA-QUEST: Procesamiento de Datos con Micro:bit</h1>
+</header>
+
+<nav>
+    <a href="leccion1.html">Misión 1</a>
+    <a href="leccion2.html">Misión 2 (Actual)</a>
+    <a href="leccion3.html">Misión 3</a>
+    <a href="leccion4.html">Misión 4</a>
+    <a href="leccion5.html">Misión Final</a>
+</nav>
+
+<section>
+<h2>🧭 Misión 2: La Búsqueda del Tesoro de Datos</h2>
+<p>Duración total estimada: 60 minutos</p>
+
+<div class="concepto">
+    <h3>Consola de Conceptos Clave</h3>
+    
+    <div class="concepto-caja">
+        <h4>Definición de Sensor</h4>
+        <p>Un <span class="resaltado-texto">Sensor</span> es un componente electrónico (un "sentido" digital) que detecta y responde a cambios en el entorno. Mide cosas como la luz, la temperatura, el sonido o el movimiento.</p>
+        <div style="width: 100%;"><div style="position: relative; padding-bottom: 56.25%; padding-top: 0; height: 0;"><iframe title="Espacio C - Curso Microbit - Componentes de una placa" frameborder="0" width="1200px" height="675px" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://view.genially.com/63ac75c712e4fc0018bf75f3" type="text/html" allowscriptaccess="always" allowfullscreen="true" scrolling="yes" allownetworking="all"></iframe> </div> </div>
+        
+        <p>Tu Micro:bit tiene varios sensores integrados. Hoy usaremos el <span class="resaltado-texto">sensor de temperatura</span>, que mide qué tan caliente o frío está el procesador de la placa.</p>
+    </div>
+    
+    <div class="concepto-caja">
+        <h4>Entrada (Input) y Salida (Output) de Datos</h4>
+        <p>La <span class="resaltado-texto">Micro:bit</span> recibe y envía información al mundo exterior. ¡Voltea las tarjetas para descubrir sus “sentidos” y “acciones”!</p>
+
+        <div class="flip-grid">
+        
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <span>🎯 ENTRADA (Input)</span>
+                </div>
+                <div class="flip-card-back">
+                    <h4>¿Qué es?</h4>
+                    <p>Todo lo que la Micro:bit usa para <span class="resaltado-texto">recibir datos</span> del entorno. Son sus sentidos digitales.</p>
+                    <ul>
+                        <li>Botones (A y B)</li>
+                        <li>Sensores: Temperatura, Luz, Brújula, Acelerómetro</li>
+                        <li>Pines (0, 1, 2)</li>
+                        <li>Radio</li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <span>🚀 SALIDA (Output)</span>
+                </div>
+                <div class="flip-card-back">
+                    <h4>¿Qué es?</h4>
+                    <p>Es cómo la Micro:bit <span class="resaltado-texto">muestra o actúa</span> sobre el mundo. Es su “voz” o acción.</p>
+                    <ul>
+                        <li>Pantalla LED (matriz 5x5)</li>
+                        <li>Pines (0, 1, 2)</li>
+                        <li>Radio</li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <span>🧩 MakeCode</span>
+                </div>
+                <div class="flip-card-back">
+                    <h4>Interfaz de Programación</h4>
+                    <p>Se divide en tres zonas:</p>
+                    <ul>
+                        <li><span class="resaltado-texto">Simulador:</span> Micro:bit virtual</li>
+                        <li><span class="resaltado-texto">Caja de Bloques:</span> Comandos disponibles</li>
+                        <li><span class="resaltado-texto">Área de Trabajo:</span> Donde ensamblás el programa</li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+
+        </div>
+        </div> <h3>Objetivos de Aprendizaje</h3>
+    <ul>
+        <li><span class="resaltado-texto">Comprender</span> que los dispositivos (como Micro:bit) usan sensores para obtener datos.</li>
+        <li><span class="resaltado-texto">Escribir</span> programas sencillos que lean los datos de un sensor.</li>
+        <li><span class="resaltado-texto">Utilizar</span> la Micro:bit para recolectar datos y empezar a identificar patrones.</li>
+    </ul>
+</div> <div class="identificacion">
+    <h3>Información de la Entrega</h3>
+    <label for="nombres">Nombre(s) del(os) integrante(s):</label>
+    <input type="text" id="nombres" name="nombres" placeholder="Ej: Juan Pérez y María García" required>
+    <label for="grupo">Grupo / Clase:</label>
+    <input type="text" id="grupo" name="grupo" placeholder="Ej: 3°A o Grupo 5" required>
+</div>
+
+<button class="btn-pdf" onclick="generarPDF()">Descargar PDF de Respuestas para CREA</button>
+
+<section>
+    <h3>🔎 Actividad 1: Búsqueda del Tesoro (Desconectada) (15 min)</h3>
+    <div class="actividad">
+        <p>Meta: Encontrar datos "analógicos" (no digitales) en tu entorno, antes de usar la Micro:bit.</p>
+        <ol>
+            <li>Recorre tu aula y busca ejemplos de datos (Ej: El número del salón, la fecha en la pizarra, el color de la puerta).</li>
+            <li>Para cada dato, identifica su Nombre y su Valor y regístralo en la tabla.</li>
+        </ol>
+
+        <table class="carroll-tabla" id="tabla-tesoro">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre del Dato (Ej: Color Puerta)</th>
+                    <th>Valor del Dato (Ej: "Verde")</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><input type="text" placeholder="Nombre del Dato"></td>
+                    <td><input type="text" placeholder="Valor del Dato"></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><input type="text" placeholder="Nombre del Dato"></td>
+                    <td><input type="text" placeholder="Valor del Dato"></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <button class="btn-agregar-fila" onclick="agregarFilaTesoro()">+ Agregar Fila</button>
+
+    </div>
+</section>
+<hr>
+<section id="ejercicio-bucle-condicion" class="ejercicio-interactivo">
+    <h3>🧠 Ejercicio Interactivo 1: ¿Bucle o Condición?</h3>
+    <p>Lee cada situación y decide si la resolverías con un <span class="resaltado-texto">Bucle (Repetición)</span> o una <span class="resaltado-texto">Condición (Selección)</span>.</p>
+    </section>
+
+<hr>
+
+<section id="ejercicio-sensor-combo" class="ejercicio-interactivo">
+    <h3>🧠 Minijuego 2: ¿Qué Sensor Usar?</h3>
+    <p>Para cada situación, elige el <span class="resaltado-texto">mejor sensor</span> de la Micro:bit desde el menú desplegable ("combo").</p>
+
+    <div class="pregunta-sensor">
+        <p>1. Crear un dispositivo que encienda las luces del patio <span class="resaltado-texto">automáticamente cuando oscurece</span>.</p>
+        <select id="sensor-q1" onchange="verificarSensor('sensor-q1', 'luz')">
+            <option value="">Elige un sensor...</option>
+            <option value="temperatura">Sensor de Temperatura</option>
+            <option value="luz">Sensor de Luz</option>
+            <option value="acelerometro">Acelerómetro</option>
+            <option value="brujula">Brújula (Compás)</option>
+        </select>
+        <span id="sensor-q1-feedback" class="feedback-bucle"></span>
+    </div>
+
+    <div class="pregunta-sensor">
+        <p>2. Diseñar una alarma para una incubadora de huevos que avise <span class="resaltado-texto">si hace demasiado frío</span>.</p>
+        <select id="sensor-q2" onchange="verificarSensor('sensor-q2', 'temperatura')">
+            <option value="">Elige un sensor...</option>
+            <option value="temperatura">Sensor de Temperatura</option>
+            <option value="luz">Sensor de Luz</option>
+            <option value="acelerometro">Acelerómetro</option>
+            <option value="brujula">Brújula (Compás)</option>
+        </select>
+        <span id="sensor-q2-feedback" class="feedback-bucle"></span>
+    </div>
+
+    <div class="pregunta-sensor">
+        <p>3. Programar un "Dado Digital" que elija un número al azar <span class="resaltado-texto">cuando agitas la placa</span>.</p>
+        <select id="sensor-q3" onchange="verificarSensor('sensor-q3', 'acelerometro')">
+            <option value="">Elige un sensor...</option>
+            <option value="temperatura">Sensor de Temperatura</option>
+            <option value="luz">Sensor de Luz</option>
+            <option value="acelerometro">Acelerómetro (Movimiento)</option>
+            <option value="brujula">Brújula (Compás)</option>
+        </select>
+        <span id="sensor-q3-feedback" class="feedback-bucle"></span>
+    </div>
+
+    <div class="pregunta-sensor">
+        <p>4. Hacer una brújula para un barco que <span class="resaltado-texto">siempre apunte al Norte</span>.</p>
+        <select id="sensor-q4" onchange="verificarSensor('sensor-q4', 'brujula')">
+            <option value="">Elige un sensor...</option>
+            <option value="temperatura">Sensor de Temperatura</option>
+            <option value="luz">Sensor de Luz</option>
+            <option value="acelerometro">Acelerómetro</option>
+            <option value="brujula">Brújula (Compás)</option>
+        </select>
+        <span id="sensor-q4-feedback" class="feedback-bucle"></span>
+    </div>
+</section>
+<section id="ejercicio-makecode" class="ejercicio-interactivo">
+    <h3>💻 Minijuego 2: Ensambla tu Sensor (10 min)</h3>
+    <p>Queremos crear un programa que muestre la temperatura en la pantalla LED cuando presionamos el Botón A. Haz clic en los bloques en el orden correcto para construir el programa.</p>
+    <p><strong>Bloques Disponibles:</strong></p>
+    <div>
+         <span class="bloque-codigo" onclick="armarCodigo('Para siempre ', 'PARA SIEMPRE ')">Para siempre </span>
+        <span class="bloque-codigo" onclick="armarCodigo('Al presionar Botón A', 'AL_PRESIONAR_BOTON_A')">Al presionar Botón A</span>
+        <span class="bloque-codigo" onclick="armarCodigo('mostrar número', 'MOSTRAR_NUMERO')">mostrar número</span>
+        <span class="bloque-codigo" onclick="armarCodigo('nivel de luz', 'NIVEL_DE_LUZ')">nivel de luz</span>
+        <span class="bloque-codigo" onclick="armarCodigo('temperatura (°C)', 'TEMPERATURA')">temperatura (°C)</span>
+    </div>
+    <p><strong>Código Ensamblado:</strong></p>
+    <div id="codigo-ensamblado"></div>
+    <div id="feedback-makecode" class="resultado" style="margin-top: 15px;"></div>
+</section>
+
+<hr>
+
+<section id="mision-recoleccion">
+    <h3>🌡️ Misión: Recolectar datos y analizarlos</h3>
+    <div class="actividad">
+        <p>Meta: Usar la Micro:bit como un termómetro científico para encontrar patrones de temperatura en tu entorno.</p>
+        <ol>
+            <li>
+                <strong>Descarga el programa:</strong> Carga el archivo `.hex` a tu Micro:bit (o usa el que ensamblaste en el minijuego).
+                <br>
+                
+            </li>
+            <li>
+                <strong>Completa la tabla:</strong> Lleva tu Micro:bit a las 6 ubicaciones listadas abajo. En cada lugar, espera 10 segundos y presiona el Botón A para registrar la temperatura.
+            </li>
+        </ol>
+
+        <table class="carroll-tabla" id="tabla-mision">
+            <thead>
+                <tr>
+                    <th>Ubicación</th>
+                    <th>Temperatura Registrada (°C)</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-mision">
+                <tr>
+                    <td>1. Junto a una ventana</td>
+                    <td><input type="text" placeholder="Registra el valor aquí"></td>
+                </tr>
+                <tr>
+                    <td>2. Junto a una puerta</td>
+                    <td><input type="text" placeholder="Registra el valor aquí"></td>
+                </tr>
+                <tr>
+                    <td>3. Sobre una mesa</td>
+                    <td><input type="text" placeholder="Registra el valor aquí"></td>
+                </tr>
+                <tr>
+                    <td>4. En tu bolsillo</td>
+                    <td><input type="text" placeholder="Registra el valor aquí"></td>
+                </tr>
+                <tr>
+                    <td>5. En tu zapato</td>
+                    <td><input type="text" placeholder="Registra el valor aquí"></td>
+                </tr>
+                <tr>
+                    <td>6. Debajo del brazo</td>
+                    <td><input type="text" placeholder="Registra el valor aquí"></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <button class="btn-agregar-fila" onclick="agregarFilaMision()">+ Agregar Fila (Opcional)</button>
+
+        <ol start="3">
+            <li>
+                <strong>Analiza los datos:</strong> Responde las preguntas en el área de análisis de patrones a continuación.
+            </li>
+        </OL>
+    </div>
+</section>
+
+<hr>
+
+<section id="analisis-patrones">
+    <h3>📊 Análisis de Patrones</h3>
+    <div class="actividad">
+        <p>Responde las siguientes preguntas basándote en la tabla de datos que completaste en la Misión.</p>
+
+        <div class="area-respuesta">
+            <div class="pregunta-analisis">
+                <label for="resp-act4-1">1. ¿Qué lugar registró la temperatura más alta? ¿Por qué crees que fue así?</label>
+                <textarea id="resp-act4-1" name="resp-act4-1" placeholder="Escribe tu respuesta aquí..."></textarea>
+            </div>
+            
+            <div class="pregunta-analisis">
+                <label for="resp-act4-2">2. ¿Qué lugar registró la temperatura más baja? ¿Cuál es tu hipótesis?</label>
+                <textarea id="resp-act4-2" name="resp-act4-2" placeholder="Escribe tu respuesta aquí..."></textarea>
+            </div>
+            
+            <div class="pregunta-analisis">
+                <label for="resp-act4-3">3. ¿Identificaste algún patrón?.</label>
+                <textarea id="resp-act4-3" name="resp-act4-3" placeholder="Escribe tu respuesta aquí..."></textarea>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr>
+
+<section id="evaluacion">
+    <h3>🎯 Autoevaluación rápida</h3>
+    <p>Marcá con una ✅ lo que sentís que ya dominás:</p>
+    <div class="actividad">
+        <ul>
+            <li><input type="checkbox"> Comprendí qué es un sensor y para qué sirve.</li>
+            <li><input type="checkbox"> Pude programar la Micro:bit para leer el sensor de temperatura.</li>
+            <li><input type="checkbox"> Recolecté datos usando la Micro:bit en diferentes lugares.</li>
+            <li><input type="checkbox"> Empecé a identificar patrones en los datos que recolecté.</li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    <p>🧩 Misión 2 completada. Prepárate para la Misión 3: Diseño de Dispositivos. &copy; Micro:bit DATA-QUEST.</p>
+</footer>
+
+</div>
+</body>
+</html>

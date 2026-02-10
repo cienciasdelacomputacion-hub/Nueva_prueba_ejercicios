@@ -1,0 +1,18 @@
+Verdadero o falso — usando and - or
+
+Otro famoso operador lógico es or, que sirve para realizar disyunciones lógicas. El "O lógico" tiene sus diferencias con and. ¿Te animás a descubrirlas?
+
+Prueba en la consola
+
+Antes de ejecutar cada línea, intentá predecir si devolverá True o False:
+
+Resumen
+and retorna True solo cuando ambas condiciones son True.
+or retorna True si al menos una de las condiciones es True. Solo retorna False si ambas condiciones son False.
+Ejemplos extra
+
+# Booleanos directos
+print(False or False)  # False
+print(True or False)   # True
+print(False or True)   # True
+print(True or True)    # True

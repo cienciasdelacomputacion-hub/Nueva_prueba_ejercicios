@@ -1,0 +1,8 @@
+Identidad de objetos
+
+Ahora, ejecuta las siguientes comparaciones en la consola:
+
+mario is fontanero
+mario is super_mario
+luigi is hermano_de_mario
+mario is hermano_de_mario

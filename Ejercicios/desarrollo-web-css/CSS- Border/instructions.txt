@@ -1,0 +1,6 @@
+Prueba tú mismo:
+Cambia el estilo del borde a dashed, dotted, double o groove. ¿Cómo se ve el borde?
+
+Modifica el ancho del borde a un valor más grande (ej: 10px) o más pequeño (ej: 1px).
+Prueba a usar un valor diferente para el color, como un HEX o RGB.
+Elimina la propiedad border-style (ej: deja solo border: 5px red;). ¿Qué ocurre y por qué?

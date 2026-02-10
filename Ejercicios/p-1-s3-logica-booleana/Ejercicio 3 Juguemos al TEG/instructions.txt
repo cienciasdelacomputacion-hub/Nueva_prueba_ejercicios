@@ -1,0 +1,22 @@
+🎲 Ejercicio 3: ¡Juguemos al T.E.G.!
+
+El operador lógico or (disyunción) devuelve True cuando al menos una de las condiciones evaluadas es verdadera. Es suficiente con que se cumpla una sola para que toda la expresión lo sea.
+
+En el juego T.E.G., un jugador puede ganar de dos maneras:
+
+Cumpliendo su objetivo secreto.
+Conquistando 30 o más países.
+
+Actividad interactiva:
+
+Preguntá al usuario si cumplió su objetivo secreto (True/False).
+Pedile que ingrese la cantidad de países conquistados.
+Llamá a la función gano y mostrale si ganó o no.
+
+La tabla de verdad de la disyunción es:
+
+A	B	A or B
+Verdadero	Verdadero	Verdadero
+Verdadero	Falso	Verdadero
+Falso	Verdadero	Verdadero
+Falso	Falso	Falso

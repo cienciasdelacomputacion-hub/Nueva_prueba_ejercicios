@@ -1,0 +1,7 @@
+Usando super() en la Carga de Combustible
+
+Cuando un colectivo carga combustible: Debe sumar normalmente la cantidad indicada (como hacen los demás transportes).
+
+Pero además, todos los pasajeros deben bajarse, por lo que self.pasajeros debe quedar en 0.
+
+Usá super() para llamar al método original cargar_combustible() de la superclase, y luego implementá la lógica adicional.

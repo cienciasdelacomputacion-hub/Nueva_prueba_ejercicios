@@ -1,0 +1,97 @@
+/* Estilos Generales para la página */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #f4f7f6; /* Fondo claro y suave */
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh; /* Altura mínima del body igual a la altura de la ventana */
+    padding: 20px; /* Añadir padding para pantallas pequeñas */
+}
+
+/* Contenedor principal del formulario */
+.form-container {
+    background-color: #fff; /* Fondo blanco para el formulario */
+    padding: 30px; /* Espacio interno */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    max-width: 500px; /* Limitar el ancho máximo */
+    width: 100%; /* Asegurar que ocupe el 100% del ancho disponible hasta max-width */
+}
+
+.form-container h2 {
+    text-align: center; /* Centrar el título del formulario */
+    color: #0056b3; /* Color de título */
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.form-container p {
+    text-align: center; /* Centrar el párrafo */
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Grupo de cada campo del formulario (label + input/textarea) */
+.form-group {
+    margin-bottom: 15px; /* Espacio entre grupos de campos */
+}
+
+/* Estilos para las etiquetas (labels) */
+.form-group label {
+    display: block; /* Hace que la etiqueta ocupe su propia línea */
+    margin-bottom: 8px; /* Espacio debajo de la etiqueta */
+    font-weight: bold; /* Texto en negrita */
+    color: #555;
+}
+
+/* Estilos para los campos de entrada de texto y email, y el area de texto */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    display: block; /* Asegura que ocupen su propia línea */
+    width: 100%; /* Ocupar todo el ancho del contenedor padre (.form-group) */
+    padding: 10px; /* Espacio interno */
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 4px; /* Bordes redondeados */
+    box-sizing: border-box; /* Incluye padding y border en el cálculo del width */
+    font-size: 1em;
+    font-family: 'Arial', sans-serif; /* Asegura que usen la misma fuente */
+}
+
+/* Estilo al enfocar un campo del formulario */
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group textarea:focus {
+    border-color: #007bff; /* Cambia el color del borde al enfocar */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3); /* Añade una sombra sutil al enfocar */
+}
+
+/* Estilos para el botón de envío */
+.submit-button {
+    display: block; /* Ocupar su propia línea */
+    width: 100%; /* Ocupar todo el ancho del formulario */
+    background-color: #007bff; /* Color de fondo azul */
+    color: white; /* Color de texto blanco */
+    padding: 12px 20px; /* Espacio interno */
+    border: none; /* Eliminar borde por defecto */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar el ratón */
+    font-size: 1.1em;
+}
+
+/* Estilo del botón al pasar el ratón */
+.submit-button:hover {
+    background-color: #0056b3; /* Azul más oscuro */
+}
+
+/* Estilo del botón al hacer clic */
+.submit-button:active {
+    background-color: #004085; /* Azul aún más oscuro */
+}
+
+/* Estilo del botón al seleccionarlo (con teclado) */
+.submit-button:focus {
+    outline: none; /* Elimina el outline por defecto si usamos box-shadow */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Sombra para el foco */
+}

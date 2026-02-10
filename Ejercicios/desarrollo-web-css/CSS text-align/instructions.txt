@@ -1,0 +1,9 @@
+Prueba tú mismo:
+
+Cambia la unidad de height de la .caja-altura-fija a porcentaje (ej: height: 50%;). Nota que un porcentaje de altura solo funciona si el contenedor padre tiene una altura definida.
+
+Cambia la altura de la imagen a un valor en vh (ej: height: 30vh;). Esto la hará 30% de la altura de la ventana (viewport).
+
+Elimina la propiedad height de uno de los elementos. ¿Qué ocurre (generalmente volverá al valor predeterminado auto)?
+
+Añade más texto al .caja-altura-fija para que su contenido sea más alto que 150px. ¿Qué ocurre con el texto que excede la altura definida? (Generalmente desbordará a menos que uses propiedades como overflow).

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misión 4: Condiciones y Variables | Micro:bit DATA-QUEST</title>
+<link rel="stylesheet" href="styles.css">
+
+<style>
+    /* Estilos de la Lección 1 (PDF, Identificación, etc.) */
+    /* ... [Estilos Omitidos por Brevedad, pero son los mismos que antes] ... */
+
+    /* Estilos de Impresión (PDF de Respuestas) */
+    @media print {
+        /* Ocultar elementos NO deseados */
+        header, nav, footer, .btn-pdf, .concepto, .concepto-caja, .ejercicio-interactivo, .btn-agregar-fila, .flip-grid, .makecode-img-container {
+            display: none !important;
+        }
+        /* Mostrar solo el contenido de las preguntas y respuestas */
+        .container, .identificacion, section, .actividad, h2, h3, .area-respuesta, .carroll-tabla {
+            display: block !important;
+            visibility: visible !important;
+            margin: 0; padding: 0 10px; box-shadow: none;
+        }
+        .area-respuesta, .identificacion, .carroll-tabla {
+            border: 1px solid #000; background-color: white; page-break-inside: avoid;
+            margin-top: 15px; /* Añadido margen para el PDF */
+        }
+        .identificacion input[type="text"] { border: none; }
+        .carroll-tabla input[type="text"] { border: none; }
+    }
+
+    /* Estilos para el Ejercicio Interactivo (MakeCode/Algoritmo) */
+    .bloque-codigo {
+        display: inline-block;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 4px;
+        background-color: #4a4270;
+        border: 2px solid #663399;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: 'Consolas', monospace;
+    }
+    .bloque-codigo:hover {
+        border-color: #64ffda;
+        box-shadow: 0 0 5px #64ffda;
+    }
+    #codigo-ensamblado, #algoritmo-ensamblado-termostato {
+        background-color: #1a1a2e;
+        border: 1px dashed #4a4270;
+        padding: 10px;
+        min-height: 50px;
+        border-radius: 5px;
+        font-family: 'Consolas', monospace;
+        white-space: pre-wrap; /* Para respetar los saltos de línea */
+    }
+    
+    /* Estilos de tabla (reutilizando .carroll-tabla) */
+    .carroll-tabla { border-collapse: collapse; width: 100%; margin: 20px 0; color: #e4f2f9; }
+    .carroll-tabla th, .carroll-tabla td { border: 2px solid #663399; padding: 12px; text-align: center; }
+    .carroll-tabla th { background-color: #3e3868; font-weight: bold; color: #ff9900; }
+    .carroll-tabla input[type="text"] { background-color: #1a1a2e; color: #e4f2f9; border: 1px solid #663399; border-radius: 4px; padding: 5px; box-sizing: border-box; text-align: center; }
+
+    /* Estilo para resaltar texto (Gamer) */
+    .resaltado-texto {
+        color: #64ffda; /* Neon Cyan */
+        font-weight: 700;
+        text-shadow: 0 0 3px rgba(100, 255, 218, 0.5);
+    }
+    
+    /* Estilos para Flashcards Interactivas */
+    /* ... [Estilos de .flip-grid, .flip-card, etc. OMITIDOS POR BREVEDAD] ... */
+    
+    /* Estilos para Ejercicio Bucle/Condición y Selección de Sensor */
+    .pregunta-bucle, .pregunta-sensor, .pregunta-variable {
+        padding: 15px;
+        background-color: #1a1a2e; /* Fondo oscuro */
+        border: 1px solid #4a4270;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+    .pregunta-bucle p, .pregunta-sensor p, .pregunta-variable p {
+        margin: 0 0 10px 0;
+        font-size: 1.1em;
+        color: #e4f2f9;
+    }
+    .pregunta-bucle button, .pregunta-sensor select, .btn-operador, .pregunta-variable button {
+        background-color: #3e3868;
+        color: #64ffda;
+        border: 1px solid #64ffda;
+        padding: 8px 12px;
+        margin-right: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 700;
+        min-width: 50px;
+    }
+    .pregunta-bucle button:hover, .pregunta-sensor select:hover, .btn-operador:hover, .pregunta-variable button:hover {
+        background-color: #64ffda;
+        color: #1a1a2e;
+    }
+    .pregunta-bucle button:disabled, .pregunta-sensor select:disabled, .pregunta-variable button:disabled {
+        background-color: #2c2a4a;
+        border-color: #4a4270;
+        color: #888;
+        cursor: not-allowed;
+    }
+    .feedback-bucle {
+        margin-left: 10px;
+        font-weight: 700;
+    }
+    .makecode-img-container {
+        max-width: 500px; /* Límite para que no sean gigantes */
+        margin: 15px auto;
+    }
+
+</style>
+
+<script>
+function generarPDF() {
+    alert("⚠️ Atención: Para entregar en CREA, selecciona 'Guardar como PDF' en la opción de destino.");
+    window.print();
+}
+
+// --- Minijuego 1 (Operadores) ---
+function verificarOperador(boton, respuestaCorrecta) {
+    const preguntaDiv = boton.parentNode;
+    const feedbackSpan = preguntaDiv.querySelector('.feedback-bucle');
+    const botones = preguntaDiv.querySelectorAll('button');
+    const respuestaUsuario = boton.getAttribute('data-op');
+
+    botones.forEach(btn => btn.disabled = true);
+
+    if (respuestaUsuario === respuestaCorrecta) {
+        feedbackSpan.textContent = '✅ ¡Correcto!';
+        feedbackSpan.className = 'feedback-bucle correcto';
+        boton.style.borderColor = '#64ffda'; 
+        boton.style.backgroundColor = '#64ffda';
+        boton.style.color = '#1a1a2e';
+    } else {
+        feedbackSpan.textContent = '❌ Incorrecto.';
+        feedbackSpan.className = 'feedback-bucle incorrecto';
+        boton.style.borderColor = '#ff66b2'; 
+        boton.style.backgroundColor = '#ff66b2';
+        boton.style.color = '#1a1a2e';
+    }
+}
+
+// --- ****** NUEVO: Minijuego 2 (Variables) ****** ---
+function verificarVariable(boton, respuestaCorrecta) {
+    const preguntaDiv = boton.parentNode;
+    const feedbackSpan = preguntaDiv.querySelector('.feedback-bucle');
+    const botones = preguntaDiv.querySelectorAll('button');
+    const respuestaUsuario = boton.getAttribute('data-tipo');
+
+    botones.forEach(btn => btn.disabled = true);
+
+    if (respuestaUsuario === respuestaCorrecta) {
+        feedbackSpan.textContent = '✅ ¡Correcto!';
+        feedbackSpan.className = 'feedback-bucle correcto';
+        boton.style.borderColor = '#64ffda'; 
+        boton.style.backgroundColor = '#64ffda';
+        boton.style.color = '#1a1a2e';
+    } else {
+        feedbackSpan.textContent = '❌ Incorrecto. Revisa la definición.';
+        feedbackSpan.className = 'feedback-bucle incorrecto';
+        boton.style.borderColor = '#ff66b2'; 
+        boton.style.backgroundColor = '#ff66b2';
+        boton.style.color = '#1a1a2e';
+    }
+}
+
+
+// --- ****** NUEVO: Minijuego 3 (Termostato) ****** ---
+let algoritmoTermostatoActual = "";
+let pasosTermostatoCorrectos = 0;
+// Secuencia correcta para el termostato
+const algoritmoCorrectoTermostato = "PARA_SIEMPRESI_TEMP<18ENTONCESMOSTRAR_ICONO_FRIO" + 
+                                     "SI_NO_SI_TEMP>25ENTONCESMOSTRAR_ICONO_CALOR" + 
+                                     "SI_NOBORRAR_PANTALLAFIN_SI"; 
+
+function armarAlgoritmoTermostato(bloque, valor) {
+    const feedback = document.getElementById('feedback-algoritmo-termostato');
+    const ensamblado = document.getElementById('algoritmo-ensamblado-termostato');
+    
+    // Indentación
+    let prefijo = "";
+    if (["SI_TEMP<18", "SI_NO_SI_TEMP>25", "SI_NO", "FIN_SI"].includes(valor)) {
+        prefijo = "  ";
+    }
+    if (["MOSTRAR_ICONO_FRIO", "MOSTRAR_ICONO_CALOR", "BORRAR_PANTALLA"].includes(valor)) {
+        prefijo = "    ";
+    }
+
+    let tempCodigoActual = algoritmoTermostatoActual + valor;
+
+    if (algoritmoCorrectoTermostato.startsWith(tempCodigoActual)) {
+        // Correcto
+        algoritmoTermostatoActual = tempCodigoActual; 
+        ensamblado.textContent += "\n" + prefijo + bloque;
+        pasosTermostatoCorrectos++;
+        feedback.textContent = "✅ ¡Bloque correcto! Sigue así...";
+        feedback.className = "resultado correcto";
+        
+        if (pasosTermostatoCorrectos === 9) { // 9 bloques
+            feedback.textContent = "✅ ¡Algoritmo Completo! ¡Termostato listo!";
+            feedback.style.border = '2px solid #64ffda';
+            algoritmoTermostatoActual = "";
+            pasosTermostatoCorrectos = 0;
+            setTimeout(() => { ensamblado.textContent = ""; }, 2000);
+        }
+    } else {
+        // Error
+        feedback.textContent = "❌ Error. Ese bloque no va ahí. Revisa la lógica. ¡Reiniciando secuencia!";
+        feedback.className = "resultado incorrecto";
+        feedback.style.border = '2px solid #ff66b2';
+        algoritmoTermostatoActual = "";
+        pasosTermostatoCorrectos = 0;
+        setTimeout(() => { ensamblado.textContent = ""; }, 1500);
+    }
+}
+
+// --- Minijuego 4 (Debugging) ---
+function verificarBug(boton, esCorrecto) {
+    const preguntaDiv = boton.parentNode;
+    const feedbackSpan = preguntaDiv.querySelector('.feedback-bucle');
+    const botones = preguntaDiv.querySelectorAll('button');
+
+    botones.forEach(btn => btn.disabled = true);
+
+    if (esCorrecto) {
+        feedbackSpan.textContent = '✅ ¡Correcto! El operador estaba invertido.';
+        feedbackSpan.className = 'feedback-bucle correcto';
+        boton.style.borderColor = '#64ffda'; 
+        boton.style.backgroundColor = '#64ffda';
+        boton.style.color = '#1a1a2e';
+    } else {
+        feedbackSpan.textContent = '❌ Incorrecto. Ese bloque está bien. Fíjate en la condición.';
+        feedbackSpan.className = 'feedback-bucle incorrecto';
+        boton.style.borderColor = '#ff66b2'; 
+        boton.style.backgroundColor = '#ff66b2';
+        boton.style.color = '#1a1a2e';
+    }
+}
+
+</script>
+</head>
+
+<body>
+<div class="container">
+<header>
+    <h1>DATA-QUEST: Procesamiento de Datos con Micro:bit</h1>
+</header>
+
+<nav>
+    <a href="leccion1.html">Misión 1</a>
+    <a href="leccion2.html">Misión 2</a>
+    <a href="leccion3.html">Misión 3</a>
+    <a href="leccion4.html">Misión 4 (Actual)</a>
+    <a href="leccion5.html">Misión Final</a>
+</nav>
+
+<section>
+<h2>⚡ Misión 4: Condiciones y Variables</h2>
+<p>Duración total estimada: 60 minutos</p>
+
+<div class="concepto">
+    <h3>Consola de Conceptos Clave</h3>
+    
+    <div class="concepto-caja">
+        <h4>Variables: Las "Cajas" de Memoria</h4>
+        <p>Una <span class="resaltado-texto">Variable</span> es un espacio en la memoria de la Micro:bit (como una caja) donde guardamos un dato que puede cambiar. Le ponemos un nombre (etiqueta) para saber qué hay dentro.</p>
+        <div class="flip-grid">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <span>🛰️ VARIABLE DE SISTEMA</span>
+                </div>
+                <div class="flip-card-back">
+                    <h4>¿Qué es?</h4>
+                    <p>Son variables que la Micro:bit ya trae creadas y que se actualizan solas.</p>
+                    <p>Ej: <span class="resaltado-texto">"temperatura"</span> y <span class="resaltado-texto">"nivel de luz"</span>. No necesitas crearlas, solo usarlas.</p>
+                </div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <span>📦 VARIABLE NUEVA</span>
+                </div>
+                <div class="flip-card-back">
+                    <h4>¿Qué es?</h4>
+                    <p>Son variables que TÚ creas para guardar datos específicos, como <span class="resaltado-texto">"puntaje"</span>, <span class="resaltado-texto">"vidas"</span> o <span class="resaltado-texto">"pasos"</span>.</p>
+                    <p>Usas el bloque <span class="resaltado-texto">"establecer [nombre] para..."</span> para crearla y darle un valor.</p>
+                    <div class="makecode-img-container">
+                        
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="concepto-caja">
+        <h4>Condiciones Lógicas y Múltiples Caminos</h4>
+        <p>Ahora usamos las variables para tomar decisiones.</p>
+        <div class="flip-grid">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <span>🧠 CONDICIÓN LÓGICA</span>
+                </div>
+                <div class="flip-card-back">
+                    <h4>¿Qué es?</h4>
+                    <p>Es una <span class="resaltado-texto">PREGUNTA</span> que le haces a la Micro:bit, cuya respuesta solo puede ser <span class="resaltado-texto">SÍ (Verdadero)</span> o <span class="resaltado-texto">NO (Falso)</span>.</p>
+                </div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <span>< > = OPERADORES</span>
+                </div>
+                <div class="flip-card-back">
+                    <h4>¿Qué son?</h4>
+                    <p>Son los símbolos que usamos para <span class="resaltado-texto">formular la pregunta</span> (la Condición Lógica).</p>
+                    <p>Ej: "Pregunta: ¿Es la variable 'temperatura' MENOR QUE 5?"</p>
+                    <p>Código: <span class="resaltado-texto">temperatura < 5</span></p>
+                </div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <span>🛣️ MÚLTIPLES CAMINOS</span>
+                </div>
+                <div class="flip-card-back">
+                    <h4>¿Qué es?</h4>
+                    <p>A veces no alcanza con 2 caminos (Si/Si no). ¿Qué pasa si hay 3 opciones (Frío, OK, Calor)?</p>
+                    <p>Para esto usamos el bloque <span class="resaltado-texto">"Si... Si no si... Si no"</span>. Es la forma de "anidar" (organizar) varias preguntas lógicas en orden.</p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3>Objetivos de Aprendizaje</h3>
+    <ul>
+        <li><span class="resaltado-texto">Diferenciar</span> entre variables de sistema (sensor) y variables creadas (puntaje).</li>
+        <li><span class="resaltado-texto">Formular</span> Condiciones Lógicas usando operadores de comparación.</li>
+        <li><span class="resaltado-texto">Escribir</span> programas con Múltiples Caminos (Si... Si no si... Si no).</li>
+    </ul>
+</div>
+
+<div class="identificacion">
+    <h3>Información de la Entrega</h3>
+    <label for="nombres">Nombre(s) del(os) integrante(s):</label>
+    <input type="text" id="nombres" name="nombres" placeholder="Ej: Juan Pérez y María García" required>
+    <label for="grupo">Grupo / Clase:</label>
+    <input type="text" id="grupo" name="grupo" placeholder="Ej: 3°A o Grupo 5" required>
+</div>
+
+<button class="btn-pdf" onclick="generarPDF()">Descargar PDF de Respuestas para CREA</button>
+
+<section id="actividad-tinkering">
+    <h3>🔧 Actividad 1: "Tinkering" (Jugar) con la Luz (10 min)</h3>
+    <div class="actividad">
+        <p>Meta: Experimentar (hacer "tinkering") para descubrir cómo funciona la variable <span class="resaltado-texto">nivel de luz</span>.</p>
+        <ol>
+            <li>Tu profesor te mostrará un algoritmo de "Luz de Calle" (similar al de la Misión 3).</li>
+            <li>El programa original podría decir: <span class="resaltado-texto">SI (nivel de luz < 0) ENTONCES mostrar LEDs</span>.</li>
+            <li>Prueba el programa. Verás que... ¡no funciona! El nivel de luz casi nunca es 0.</li>
+            <li>Tu tarea es hacer "tinkering": cambia el valor <span class="resaltado-texto">0</span> por un número diferente (ej: 50, 100, 150) hasta que la luz se encienda cuando tapas la Micro:bit.</li>
+        </ol>
+
+        <div class="area-respuesta">
+            <label for="resp-act1">Reflexión sobre "Tinkering":</label>
+            <textarea id="resp-act1" name="resp-act1" placeholder="¿Qué valor numérico usaste finalmente para que la luz se encienda en la oscuridad? ¿Por qué crees que 0 no funcionaba?"></textarea>
+        </div>
+    </div>
+</section>
+
+<hr>
+
+<section id="ejercicio-operadores" class="ejercicio-interactivo">
+    <h3>🧠 Minijuego 1: Formulando la Pregunta Lógica (5 min)</h3>
+    <p>Para cada situación, elige el <span class="resaltado-texto">Operador de Comparación</span> correcto para formular la "pregunta".</p>
+
+    <div class="pregunta-bucle">
+        <p>1. Encender la luz SI <span class="resaltado-texto">nivel de luz</span> es <span class="resaltado-texto">MENOR QUE</span> 50.</p>
+        <button class="btn-operador" data-op=">" onclick="verificarOperador(this, '<')"> > </button>
+        <button class="btn-operador" data-op="<" onclick="verificarOperador(this, '<')"> < </button>
+        <button class="btn-operador" data-op="=" onclick="verificarOperador(this, '<')"> = </button>
+        <span class="feedback-bucle"></span>
+    </div>
+    <div class="pregunta-bucle">
+        <p>2. Sonar una alarma SI <span class="resaltado-texto">temperatura</span> es <span class="resaltado-texto">MAYOR QUE</span> 30.</p>
+        <button class="btn-operador" data-op=">" onclick="verificarOperador(this, '>')"> > </button>
+        <button class="btn-operador" data-op="<" onclick="verificarOperador(this, '>')"> < </button>
+        <button class="btn-operador" data-op="=" onclick="verificarOperador(this, '>')"> = </button>
+        <span class="feedback-bucle"></span>
+    </div>
+</section>
+
+<hr>
+
+<section id="ejercicio-variables" class="ejercicio-interactivo">
+    <h3>🧠 Minijuego 2: ¿Qué Variable Usar? (5 min)</h3>
+    <p>Para cada situación, decide si necesitas <span class="resaltado-texto">Crear una Variable Nueva</span> o si puedes usar una <span class="resaltado-texto">Variable de Sistema</span>.</p>
+
+    <div class="pregunta-variable">
+        <p>1. Necesitas <span class="resaltado-texto">guardar el puntaje</span> de un juego de "piedra, papel o tijera".</p>
+        <button data-tipo="sistema" onclick="verificarVariable(this, 'nueva')">Usar Var. de Sistema (ej: 'temperatura')</button>
+        <button data-tipo="nueva" onclick="verificarVariable(this, 'nueva')">Crear Var. Nueva (ej: 'puntaje')</button>
+        <span class="feedback-bucle"></span>
+    </div>
+
+    <div class="pregunta-variable">
+        <p>2. Necesitas saber <span class="resaltado-texto">si está oscuro</span> para encender una luz.</p>
+        <button data-tipo="sistema" onclick="verificarVariable(this, 'sistema')">Usar Var. de Sistema (ej: 'nivel de luz')</button>
+        <button data-tipo="nueva" onclick="verificarVariable(this, 'sistema')">Crear Var. Nueva (ej: 'luz')</button>
+        <span class="feedback-bucle"></span>
+    </div>
+</section>
+<hr>
+
+<section id="ejercicio-makecode-termostato" class="ejercicio-interactivo">
+    <h3>📜 Minijuego 3: Ensambla el Termostato (Múltiples Caminos) (20 min)</h3>
+    <p>Vamos a diseñar un termostato. Debe mostrar un ícono de <span class="resaltado-texto">Frío</span> si la temp es < 18, un ícono de <span class="resaltado-texto">Calor</span> si es > 25, y <span class="resaltado-texto">borrar la pantalla</span> si está OK (entre 18 y 25).</p>
+    <p><strong>Bloques Disponibles (¡Mezclados!):</strong></p>
+    <div>
+        <span class="bloque-codigo" onclick="armarAlgoritmoTermostato('PARA SIEMPRE', 'PARA_SIEMPRE')">PARA SIEMPRE</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmoTermostato('SI (temp < 18)', 'SI_TEMP<18')">SI (temp < 18)</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmoTermostato('ENTONCES', 'ENTONCES')">ENTONCES</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmoTermostato('MOSTRAR ICONO (Frío)', 'MOSTRAR_ICONO_FRIO')">MOSTRAR ICONO (Frío)</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmoTermostato('SI NO SI (temp > 25)', 'SI_NO_SI_TEMP>25')">SI NO SI (temp > 25)</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmoTermostato('ENTONCES', 'ENTONCES')">ENTONCES</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmoTermostato('MOSTRAR ICONO (Calor)', 'MOSTRAR_ICONO_CALOR')">MOSTRAR ICONO (Calor)</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmoTermostato('SI NO', 'SI_NO')">SI NO</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmoTermostato('BORRAR PANTALLA', 'BORRAR_PANTALLA')">BORRAR PANTALLA</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmoTermostato('FIN SI', 'FIN_SI')">FIN SI</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmoTermostato('Al presionar Botón A', 'BOTON_A')">Al presionar Botón A</span>
+        <span class="bloque-codigo" onclick="armarAlgoritmoTermostato('SI (temp > 18)', 'SI_TEMP>18')">SI (temp > 18)</span>
+    </div>
+    
+    <p><strong>Algoritmo Ensamblado:</strong></p>
+    <div id="algoritmo-ensamblado-termostato"></div>
+    <div id="feedback-algoritmo-termostato" class="resultado" style="margin-top: 15px;"></div>
+</section>
+
+<hr>
+
+<section id="ejercicio-debugging" class="ejercicio-interactivo">
+    <h3>🐛 Actividad 2: ¡A Depurar! (Encuentra el Bug) (5 min)</h3>
+    <p>Este código debería encender una alarma (Icono Calavera) <span class="resaltado-texto">SI hace DEMASIADO CALOR</span> (Ej: temp > 35). Pero no funciona bien. ¿Qué bloque tiene el error?</p>
+    
+    <div class="actividad" style="background-color: #1a1a2e; border-color: #ff66b2;">
+        <pre style="color: #e4f2f9; font-family: 'Consolas', monospace; font-size: 1.1em;">
+  PARA SIEMPRE
+    SI ( <span class="resaltado-texto" style="color: #ff66b2;">temperatura < 35</span> )
+    ENTONCES
+      MOSTRAR ICONO (Calavera)
+    SI NO
+      BORRAR PANTALLA
+    FIN SI
+        </pre>
+    </div>
+
+    <div class="pregunta-bucle">
+        <p>¿Cuál es el bloque ERRÓNEO que impide que la alarma de calor funcione?</p>
+        <button class="btn-operador" data-op="para-siempre" onclick="verificarBug(this, false)">PARA SIEMPRE</button>
+        <button class="btn-operador" data-op="condicion" onclick="verificarBug(this, true)">SI (temperatura < 35)</button>
+        <button class="btn-operador" data-op="icono" onclick="verificarBug(this, false)">MOSTRAR ICONO (Calavera)</button>
+        <span class="feedback-bucle"></span>
+    </div>
+    
+    <div class="area-respuesta">
+        <label for="resp-act4">¿Cómo corregirías el error?</label>
+        <textarea id="resp-act4" name="resp-act4" placeholder="Escribe aquí el bloque corregido. Ej: SI (temperatura ... ?)"></textarea>
+    </div>
+</section>
+
+<hr>
+
+<section id="evaluacion">
+    <h3>🎯 Autoevaluación rápida</h3>
+    <p>Marcá con una ✅ lo que sentís que ya dominás:</p>
+    <div class="actividad">
+        <ul>
+            <li><input type="checkbox"> Entendí qué es una Variable y cómo crear la mía (ej: 'puntaje').</li>
+            <li><input type="checkbox"> Sé qué es una Condición Lógica (una pregunta de Sí/No).</li>
+            <li><input type="checkbox"> Sé usar los operadores (<, >, =) para formular la pregunta.</li>
+            <li><input type="checkbox"> Entendí cómo usar "Si... Si no si... Si no" para Múltiples Caminos.</li>
+            <li><input type="checkbox"> Pude encontrar el bug (error) en el código de la alarma de calor.</li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    <p>🧩 Misión 4 completada. Prepárate para la Misión Final: Asistentes Digitales. &copy; Micro:bit DATA-QUEST.</p>
+</footer>
+
+</div>
+</body>
+</html>

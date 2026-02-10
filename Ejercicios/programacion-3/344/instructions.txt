@@ -1,0 +1,9 @@
+Creando una Superclase
+
+Dado que Tablet y Notebook comparten varios métodos, podemos agruparlas dentro de una superclase Dispositivo.
+
+Creá la clase Dispositivo con los métodos comunes.
+Hacé que Tablet y Notebook hereden de Dispositivo.
+Notebook y Tablet deben mantener su propio método utilizar().
+
+Creá instancias (objetos) de Notebook y Tablet, y probá que sigan funcionando correctamente luego de heredar de la superclase Dispositivo. Verificá especialmente que el método utilizar() mantenga su comportamiento propio en cada clase.

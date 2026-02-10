@@ -1,0 +1,25 @@
+Registro de Empleados
+
+Queremos modelar una empresa que registra empleados mediante su ID.
+
+Creá una clase Empresa.
+
+Esta debe tener un atributo empleados, que será un diccionario donde:
+
+-La clave será el ID del empleado (por ejemplo, 101, 102).
+
+-El valor será el nombre del empleado (por ejemplo, "Ana", "Carlos").
+
+
+Agregá métodos para:
+
+- Agregar empleados
+
+- Obtener el nombre de un empleado por su ID
+
+- Eliminar empleados por su ID
+
+- Listar todos los empleados registrados
+
+
+📌 Sugerencia: usá self.empleados = {} en el constructor.

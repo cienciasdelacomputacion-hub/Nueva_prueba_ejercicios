@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Misterio Fase 3</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f1e3; padding: 20px; }
+    .caja { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    input, button { padding: 10px; margin-top: 10px; border-radius: 6px; border: 1px solid #ccc; }
+    .correcto { color: green; font-weight: bold; }
+    .incorrecto { color: red; font-weight: bold; }
+    pre { background: #eee; padding: 10px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <div class="caja">
+    <h3>🔎 Misterio de asesinato – Fase 3</h3>
+    <p>Encuentras una nota y necesitas saber si menciona un lugar clave.</p>
+   
+    <p>Tu tarea: Verificar si la palabra <code>"Central"</code> está incluida en la variable <code>lugar</code>, muestra en consola con un print() el valor booleano. Ingresa tu respuesa y envia .</p>
+    <iframe src="https://trinket.io/embed/python3/99d656af0dbd" width="100%" height="200" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+    <input type="text" id="respuesta">
+    <button onclick="verificar()">Enviar</button>
+    <p id="feedback"></p>
+  </div>
+
+  <script>
+    function verificar() {
+      let r = document.getElementById("respuesta").value.trim();
+      let fb = document.getElementById("feedback");
+      // Respuesta correcta: "Central" in "Biblioteca Central" => True
+      if (r === "True") {
+        fb.innerHTML = "✅ Correcto. Código secreto: <b>Z3V9R</b><b";
+        fb.className = "correcto";
+      } else {
+        fb.innerHTML = "❌ Incorrecto. Pista: usa la sintaxis 'palabra' in 'cadena'";
+        fb.className = "incorrecto";
+      }
+    }
+  </script>
+</body>
+</html>

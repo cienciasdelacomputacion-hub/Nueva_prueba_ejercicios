@@ -1,0 +1,3 @@
+Generación de Iniciales
+
+Crea una función obtener_iniciales que reciba un nombre y un apellido y retorne una tupla con sus iniciales.

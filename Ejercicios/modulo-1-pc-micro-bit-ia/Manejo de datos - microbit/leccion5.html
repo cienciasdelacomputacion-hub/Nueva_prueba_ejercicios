@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lección 5: Asistentes Digitales con Micro:bit</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Procesamiento de Datos con Micro:bit</h1>
+        </header>
+
+       <nav>
+            <a href="index.html">Lección 1</a>
+            <a href="leccion2.html">Lección 2</a>
+            <a href="leccion3.html">Lección 3 </a>
+            <a href="leccion4.html">Lección 4</a>
+            <a href="leccion5.html">Lección 5(Actual)</a>
+        </nav>
+        <section>
+            <h2>🗣️ Lección 5: Asistentes Digitales y Selección Múltiple</h2>
+            <p><strong>Duración Estimada:</strong> 60 minutos [cite: 65]</p>
+
+            <div class="concepto">
+                <h3>Concepto Clave: Selección con Múltiples Condiciones (`If... Else If...`)</h3>
+                <p>Los asistentes digitales como Alexa o Siri toman decisiones complejas basándose en **múltiples condiciones**[cite: 61, 89]. Para manejar diferentes rangos de datos (por ejemplo, temperaturas), necesitamos una selección más avanzada: el bloque **`If... Then, Else If... Then, Else`**[cite: 86].</p>
+                <p>Esto permite a nuestro programa evaluar una primera condición, y si no se cumple, evaluar una segunda, y así sucesivamente, hasta que se cumple una o se ejecuta la acción por defecto (`Else`)[cite: 82, 84].</p>
+                <p><strong>Objetivos:</strong></p>
+                <ul>
+                    <li>Leer y escribir algoritmos usando selección avanzada[cite: 67].</li>
+                    <li>Identificar cómo funciona un asistente digital[cite: 68].</li>
+                    <li>Escribir un programa para usar Micro:bit como un asistente digital[cite: 69].</li>
+                </ul>
+            </div>
+
+            <section>
+                <h3>🤖 Actividad 1: Modelando el Asistente Digital (20 min)</h3>
+                <div class="actividad">
+                    <p><strong>Concepto:</strong> Planificar cómo el asistente usa los datos (temperatura) para tomar una decisión (ropa)[cite: 62, 91].</p>
+                    <ol>
+                        <li>**Lógica de Selección Múltiple (Desconectada):** Participa en la actividad de las bandas de colores para entender cómo las condiciones múltiples (`If red band`, `Else If yellow band`, `Else`) dirigen diferentes acciones[cite: 78, 79, 84, 85].</li>
+                        <li>**Planificación de Vestuario:** Propón 5 ítems de ropa para diferentes rangos de temperatura (e.g., Frío, Templado, Cálido). Esto simula la **base de datos** del asistente[cite: 94].</li>
+                        <li>**Role-Play:** Trabaja en pareja, uno es el **usuario** ("¿Qué me pongo hoy?") y el otro es el **asistente digital**. El asistente "lee" una tarjeta de temperatura (el dato) y responde con la ropa adecuada del rango[cite: 98, 100, 101].</li>
+                        <li>**Diseño de Algoritmo:** Escribe el algoritmo completo para representar tu role-play, utilizando la estructura **`Si... entonces, si no si... entonces, si no...`** (o `If... else if... else`)[cite: 103, 104].</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section>
+                <h3>💻 Actividad 2: Programando el Asistente de Vestimenta (25 min)</h3>
+                <div class="actividad">
+                    <p><strong>Concepto:</strong> Implementar el algoritmo de selección múltiple en MakeCode usando el sensor de temperatura[cite: 106].</p>
+                    <ol>
+                        <li>**Secuenciar Bloques:** Accede al archivo inicial del asistente digital en MakeCode. Tu tarea es **secuenciar** correctamente los bloques disponibles para crear tu programa[cite: 108, 110].</li>
+                        <li>**Estructura de Condiciones:** Asegúrate de que tu programa:
+                            <ul>
+                                <li>Comience la acción al presionar el botón A (`if button A is pressed`)[cite: 109].</li>
+                                <li>Use el bloque de selección para evaluar la temperatura (el dato) con las condiciones que diseñaste (e.g., `If temperatura < 10`, `Else If temperatura < 20`)[cite: 97].</li>
+                                <li>Muestre un mensaje de texto para cada rango de temperatura (la ropa sugerida)[cite: 106].</li>
+                            </ul>
+                        </li>
+                        <li>**Prueba y Depuración:** Usa el deslizador de temperatura en el simulador (visible al presionar el Botón A) para probar que tu asistente sugiere la ropa correcta para diferentes rangos[cite: 111, 112].</li>
+                    </ol>
+                </div>
+            </section>
+        </section>
+
+        <footer>
+            <p>&copy; Unidad de Procesamiento de Datos con Micro:bit. Lección 5.</p>
+        </footer>
+    </div>
+</body>
+</html>

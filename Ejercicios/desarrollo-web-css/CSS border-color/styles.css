@@ -1,0 +1,6 @@
+.caja-colores-borde {
+  border-style: solid; /* Esencial para que el borde sea visible */
+  border-width: 5px; /* Le damos un ancho para que se vea bien */
+  border-color: red green blue orange; /* Top, Right, Bottom, Left */
+  padding: 20px;
+}

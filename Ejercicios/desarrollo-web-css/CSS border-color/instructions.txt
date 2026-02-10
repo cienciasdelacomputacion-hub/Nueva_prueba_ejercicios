@@ -1,0 +1,9 @@
+Prueba tú mismo:
+
+Cambia border-color a un solo valor (ej: border-color: purple;). ¿Qué ocurre con los bordes?
+
+Prueba con dos valores (ej: border-color: hotpink teal;). El primer valor se aplica arriba y abajo, el segundo a izquierda y derecha.
+
+Prueba con tres valores (ej: border-color: brown yellow cyan;). El primer valor es para arriba, el segundo para izquierda y derecha, el tercero para abajo.
+
+Intenta definir los colores usando valores HEX o RGB en lugar de nombres.

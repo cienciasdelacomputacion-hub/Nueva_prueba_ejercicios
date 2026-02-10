@@ -1,0 +1,44 @@
+/* Estilo para enlaces que aún no han sido visitados */
+a:link {
+  color: blue;
+  text-decoration: none; /* Quitar subrayado por defecto */
+}
+
+/* Estilo para enlaces que ya han sido visitados */
+a:visited {
+  color: purple;
+}
+
+/* Estilo para enlaces cuando el ratón pasa por encima */
+a:hover {
+  color: green;
+  text-decoration: underline; /* Añadir subrayado al pasar el ratón */
+}
+
+.styled-button {
+    display: block; /* Para que se posicione como bloque */
+    margin: 20px auto; /* Centra el botón */
+    padding: 10px 20px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+ /* Pseudo-clase :hover - Estilo del botón al pasar el ratón */
+.styled-button:hover {
+    background-color: darkblue; /* Azul oscuro */
+}
+
+/* Pseudo-clase :active - Estilo del botón al hacer clic */
+.styled-button:active {
+    background-color: red; /* Rojo al hacer clic */
+ }
+
+/* Pseudo-clase :focus - Estilo del botón al seleccionarlo (clic o teclado) */
+.styled-button:focus {
+     outline: 2px dashed orange; /* Destaca el foco con un outline punteado */
+}
+
+/* Solo para una base mínima */
+body { font-family: Arial, sans-serif; margin: 20px; }

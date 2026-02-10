@@ -1,0 +1,45 @@
+🕑 Ejercicio 9: Un mundo de alternativas
+
+Ahora que vimos varios if, vamos a mejorar la función saludar_a.
+
+
+saludar_a("Ivi", 17)  # "Buenos días Ivi" (como estaba antes)
+
+
+¿No es un poco tarde para decir buen día? ¿No sería mejor que saludar_a hiciera lo siguiente?
+
+Si es antes de las 12: "Buenos días"
+Si es antes de las 19: "Buenas tardes"
+Si es después: "Buenas noches"
+
+Sí, ¡eso es exactamente lo que queremos! Demos la bienvenida a un amigo inseparable del if y el else: el elif. Podemos lograrlo usando elif, que permite evaluar una condición cuando la anterior no se cumple:
+
+El orden de las condiciones importa: si invertimos <12 y <19, el resultado puede cambiar.
+
+🔢 Ejercicio 10: ¿De qué signo sos?
+
+Queremos una función signo que reciba un número y devuelva:
+
+1 si es positivo
+0 si es cero
+-1 si es negativo
+signo(5)   # 1
+signo(0)   # 0
+signo(-7)  # -1
+
+
+🏅 Ejercicio 11: Los premios
+
+El jurado de un torneo nos pide una función medalla_segun_puesto que devuelva la medalla según el puesto:
+
+1er puesto: "oro"
+2do puesto: "plata"
+3er puesto: "bronce"
+Otros puestos: "nada"
+medalla_segun_puesto(1)  # "oro"
+medalla_segun_puesto(5)  # "nada"
+
+
+📝 Práctica interactiva
+
+Probá las funciones pidiendo datos al usuario.

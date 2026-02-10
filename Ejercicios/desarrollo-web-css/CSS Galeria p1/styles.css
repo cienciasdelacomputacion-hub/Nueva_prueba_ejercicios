@@ -1,0 +1,87 @@
+/* Estilos Generales para la página */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0; /* Eliminamos margen por defecto */
+    background-color: #1e1e2f; /* Fondo oscuro moderno */
+    color: #c8c8c8; /* Texto gris claro */
+    line-height: 1.6;
+    padding: 20px; /* Espacio alrededor del contenido principal */
+}
+
+h1 {
+    text-align: center; /* Centramos el título */
+    color: #a77b00; /* Dorado */
+    margin-top: 0;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+}
+
+p {
+    margin-bottom: 15px;
+    color: #b8b8b8; /* Gris suave para párrafos */
+}
+
+
+/* Contenedor principal de la galería */
+.gallery-container {
+    /* Limpia los floats internos */
+    overflow: hidden; /* Técnica común de 'clearfix' */
+
+    max-width: 1200px; /* Ancho máximo mayor */
+    margin: 20px auto; /* Centra el contenedor y añade margen vertical */
+    background-color: #28283d; /* Fondo ligeramente más claro que el body */
+    padding: 20px; /* Relleno dentro del contenedor */
+    border-radius: 12px; /* Bordes más redondeados */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+}
+
+
+/* Estilos para cada "caja" de galería individual */
+div.gallery {
+    /* --- Propiedades de Layout y Box Model --- */
+    width: 280px; /* Ancho fijo para cada tarjeta (ajustado para las nuevas imágenes) */
+    float: left; /* Hace que las cajas floten a la izquierda */
+    margin: 15px; /* Espacio alrededor de cada caja */
+
+    /* --- Estilos Visuales de la Tarjeta --- */
+    background-color: #343a50; /* Fondo para la caja individual */
+    /* padding: 10px; */ /* Puedes añadir padding si no quieres que la imagen vaya al borde */
+    border-radius: 8px; /* Bordes redondeados en la tarjeta */
+    overflow: hidden; /* Asegura que las esquinas redondeadas de la tarjeta "corten" la imagen/contenido */
+}
+
+/* Efecto al pasar el ratón (Pseudo-clase: :hover) */
+div.gallery:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Sombra más intensa al pasar el ratón */
+    border: 1px solid #a77b00; /* Borde dorado al pasar el ratón */
+    margin: 14px; /* Ajustamos margen para compensar el borde si no se añade al tamaño con box-sizing */
+     /* transform: translateY(-5px); */ /* Ligeramente levanta la tarjeta (si transform fuera una propiedad cubierta) Como transform no fue dado, usamos solo box-shadow y  border-color */
+}
+
+
+/* Estilos para la imagen dentro de la caja de galería */
+div.gallery img {
+    /* --- Propiedades de Dimensiones --- */
+    width: 100%; /* La imagen ocupa todo el ancho de su contenedor (.gallery) */
+    height: auto; /* Mantiene la relación de aspecto de la imagen */
+    display: block; /* Asegura que width: 100% funcione bien */
+
+}
+
+/* Estilos para la descripción o pie de foto */
+div.desc {
+    /* --- Propiedades de Box Model y Texto --- */
+    padding: 15px; /* Espacio interno alrededor del texto */
+    text-align: center; /* Centra el texto */
+    color: #c8c8c8; /* Color del texto */
+    font-size: 0.9em;
+    background-color: #343a50; /* Mismo fondo que la tarjeta */
+}
+
+/* Estilo para el texto que sigue a la galería para limpiar floats */
+.clearfix-text {
+    clear: both; /* Fuerza a este elemento a posicionarse debajo de los floats */
+    text-align: center;
+    margin-top: 40px;
+    color: #a7a7a7;
+}

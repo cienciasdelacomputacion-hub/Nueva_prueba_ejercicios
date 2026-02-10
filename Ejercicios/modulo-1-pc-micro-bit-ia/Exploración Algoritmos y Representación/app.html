@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .cont {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+      width: 280px;
+      margin: auto;
+      text-align: center;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #mensaje {
+      margin-top: 12px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="cont">
+    <h3>Inicio de Sesión</h3>
+    <input id="nombre" placeholder="Nombre" type="text">
+    <input id="apellido" placeholder="Apellido" type="text">
+    <input id="anioNacimiento" placeholder="Año de nacimiento" type="number" min="1900" max="2025">
+    <button onclick="verificarEdad()">Verificar</button>
+    <div id="mensaje"></div>
+  </div>
+
+  <script>
+    function verificarEdad(){
+      var n=document.getElementById("nombre").value||"";
+      var a=document.getElementById("apellido").value||"";
+      var an=parseInt(document.getElementById("anioNacimiento").value);
+      var out=document.getElementById("mensaje");
+      if(!an){ out.innerText="Ingrese un año válido"; return; }
+      var anioActual=new Date().getFullYear();
+      var edad=anioActual-an;
+      if(edad>=18){
+        out.innerText="Bienvenido, "+n+" "+a+". Puede votar.";
+      } else {
+        var espera=18-edad;
+        out.innerText="Lo sentimos, "+n+" "+a+". Debe esperar "+espera+" años para votar.";
+      }
+    }
+  </script>
+</body>
+</html>

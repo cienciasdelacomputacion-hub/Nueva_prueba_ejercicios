@@ -1,0 +1,3 @@
+La interfaz de un objeto
+
+Basándonos en los métodos que probamos antes, ¿qué mensajes forman parte de la interfaz de auto_de_luis?

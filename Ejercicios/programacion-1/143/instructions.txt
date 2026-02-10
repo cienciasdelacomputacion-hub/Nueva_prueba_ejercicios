@@ -1,0 +1,3 @@
+Ejercicio — Descubre los errores en Python
+
+Cada línea tiene un error. Descomenta una línea y ejecuta una por una y agrega un comentario explicando nombre de error que aparece en la consola.

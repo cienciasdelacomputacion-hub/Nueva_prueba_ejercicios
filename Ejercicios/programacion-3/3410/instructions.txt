@@ -1,0 +1,7 @@
+Cambiando la Lógica de los Colectivos
+
+En el siguiente código, la clase MedioDeTransporte tiene un método llamado entran_personas(cantidad) que permite subir personas solo si no se supera un máximo (definido por maximo_personas()).
+
+En el caso de los Colectivos, queremos hacer una excepción: pueden subir personas sin importar la cantidad.
+
+✨ Sobrescribí el método entran_personas() en la clase Colectivo para que siempre devuelva True, sin importar el valor de cantidad.

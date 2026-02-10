@@ -1,0 +1,9 @@
+🖼️ ¡Pruébalo tú mismo!: Imágenes en HTML
+
+A continuación hay algunas imágenes insertadas con la etiqueta <img> en el código a la izquierda.
+
+🧪 Actividad
+Agregá una imagen nueva desde una URL externa (por ejemplo, un logo o ícono que te guste).
+Cambiá el tamaño con el atributo width.
+Escribí un texto alternativo en el atributo alt que describa la imagen.
+Probá qué pasa si escribís mal la dirección (¡el alt aparecerá!).

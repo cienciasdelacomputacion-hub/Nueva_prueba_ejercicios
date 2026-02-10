@@ -1,0 +1,19 @@
+🎲 Ejercicio 4: Cara o ceca
+
+A veces tenemos decisiones difíciles que tomar (por ejemplo, si comer pizzas o empanadas) y recurrimos al azar para decidir.
+Tomamos una moneda: si sale cara, hacemos una cosa; si sale ceca, hacemos otra.
+
+Definí la función decision_con_moneda que reciba tres parámetros:
+
+m: el resultado de la moneda ("cara" o "ceca")
+c1: la opción si sale cara
+c2: la opción si sale ceca
+
+Ejemplos de uso:
+
+decision_con_moneda("cara", "pizzas", "empanadas")   # "pizzas"
+decision_con_moneda("ceca", "pastas", "sopa")       # "sopa"
+
+📝 Práctica interactiva
+
+Probá la función pidiéndole al usuario que ingrese el resultado de la moneda y dos opciones, y luego mostrar la elección final:

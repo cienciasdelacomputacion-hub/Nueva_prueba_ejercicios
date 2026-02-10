@@ -1,0 +1,16 @@
+Prueba estas funciones y observa el resultado en la terminal:
+
+Mini-problema Matemático — La excursión de los estudiantes
+
+Un grupo de estudiantes del liceo organiza una excursión de tres días a las sierras cercanas. El profesor de matemáticas les pidió que registraran algunos datos para poder analizar el recorrido y tomar decisiones rápidas durante el viaje.
+
+Durante el primer día, el grupo experimentó variaciones de altura: descendieron 120 metros, subieron 45 metros y luego bajaron otros 30 metros, terminando con una subida final de 60 metros.
+
+El segundo día recorrieron 12.7 km, el tercero 15.3 km y el cuarto 9.8 km.
+
+El profesor quiere que respondan las siguientes preguntas usando Python y funciones matemáticas como abs(), round(), max() y min():
+
+Instrucciones
+
+Lee cuidadosamente la narrativa y extrae los datos principales.
+Usa Python y las funciones matemáticas indicadas para responder cada pregunta.

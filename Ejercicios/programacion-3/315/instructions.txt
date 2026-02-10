@@ -1,0 +1,15 @@
+Métodos que modifican y que retornan valores
+
+Ejecuta los siguientes comandos en la consola:
+
+"hola".upper()
+
+numeros = [10, 20, 30]
+
+list.append(numeros, 40)
+
+print(numeros)
+
+numeros.append(50)
+
+print(numeros)

@@ -1,0 +1,53 @@
+✅ Ejercicio 5: El retorno del booleano
+
+Ahora que ya vimos cómo escribir alternativas condicionales, recordemos un tip importante: si usás expresiones booleanas correctamente, muchas veces no hace falta usar if para devolver True o False.
+
+Por ejemplo, para una función que determine si alguien es mayor de edad podríamos escribir:
+
+def es_mayor_de_edad(edad):
+    if edad >= 18:
+        return True
+    else:
+        return False
+
+
+Pero este if es innecesario, porque la expresión edad >= 18 ya es booleana. Podemos simplificarlo así:
+
+def es_mayor_de_edad(edad):
+    return edad >= 18
+
+
+Ahora, consideremos otra función: para Ema, un número es de la suerte si cumple tres condiciones:
+
+Es positivo
+Es menor a 100
+No es 15
+
+Definí la función es_numero_de_la_suerte que dado un número, devuelva True si cumple todas estas condiciones. ¡No vale usar if!
+
+📝 Qué trabajamos en esta práctica
+
+Lo importante de este ejercicio no es sólo crear funciones que retornen True o False, sino aprender a trabajar con ese valor para mostrar mensajes personalizados al usuario.
+Aquí sí es correcto usar if-else al momento de interactuar con el usuario, por ejemplo:
+
+numero = int(input("Ingrese un número: "))
+
+if es_numero_de_la_suerte(numero):
+    print("¡Es un número de la suerte!")
+else:
+    print("No es un número de la suerte.")
+
+
+De esta manera podemos combinar funciones que retornan booleanos con estructuras condicionales para generar un comportamiento dinámico y personalizado.
+
+📝 Ejercicio final: ¿Puede entrar al club?
+
+Imaginemos que queremos controlar la entrada a un club. Los requisitos son:
+
+Tener al menos 18 años
+Poseer la clave VIP
+
+Definí una función puede_entrar que reciba la edad y un texto tiene_vip (la clave VIP ES PYTHON123) y devuelva True si puede entrar y False si no.
+Luego pedí al usuario que ingrese su edad y si tiene la clave VIP , y mostrá un mensaje personalizado usando if-else.
+
+En general, como regla práctica, si tenés ifs que devuelven Trues o Falses, probablemente lo estás haciendo mal . Y si bien funcionará, habrás escrito código innecesariamente complejo y/o extenso. Recordá: ¡menos código, más felicidad!

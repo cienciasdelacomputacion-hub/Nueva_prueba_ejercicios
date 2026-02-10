@@ -1,0 +1,10 @@
+🧪 Probalo tu mismo
+
+Agregá tus propios elementos mágicos a la lista, usando al menos:
+
+1 atributo id único
+1 atributo class compartido
+1 title con un hechizo inventado
+1 style para cambiar el color del texto
+
+Si querés, también podés agregar una <img> con un alt descriptivo, como este ejemplo:

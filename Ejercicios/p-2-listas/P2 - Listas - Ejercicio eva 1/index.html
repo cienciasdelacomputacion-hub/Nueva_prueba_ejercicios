@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Práctica 1: Lógica con Listas</title>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+<style>
+body { font-family: 'Segoe UI', sans-serif; background: #eef2e6; color: #333; margin: 0; padding: 0; }
+header { background: linear-gradient(135deg, #4a90e2, #1e5989); color: white; padding: 1.5rem; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+h1 { font-size: 2.2em; margin: 0; }
+main { max-width: 900px; margin: 2rem auto; padding: 1.5rem; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+h2 { color: #357abf; margin-top: 2rem; border-bottom: 2px solid #e0e6f0; padding-bottom: 0.5rem; }
+.section-description { background: #f0f4f7; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
+.task-list { padding-left: 20px; }
+.syntax-box { background: #eef2e6; color: #333; padding: 12px; border-radius: 6px; font-family: monospace; overflow-x: auto; margin: 10px 0; border: 1px solid #d0d6e0; }
+textarea { width: 100%; height: 180px; font-family: monospace; font-size: 14px; padding: 10px; border-radius: 6px; border: 1px solid #ccc; background: #f9f9f9; }
+textarea:focus { outline: 2px solid #4a90e2; }
+button { background: #4a90e2; color: white; border: none; padding: 0.7rem 1.2rem; margin-top: 0.5rem; border-radius: 6px; cursor: pointer; transition: background 0.3s ease; }
+button:hover { background: #357abf; }
+.console { background: #1e1e1e; color: #dcdcdc; padding: 12px; border-radius: 6px; margin-top: 10px; min-height: 100px; white-space: pre-wrap; font-family: monospace; font-size: 14px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); }
+table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+th, td { border: 1px solid #e0e6f0; padding: 10px; text-align: left; }
+th { background: #dce4ee; font-weight: bold; }
+td.pass { color: green; font-weight: bold; }
+td.fail { color: red; font-weight: bold; }
+.success-message { color: green; font-weight: bold; margin-top: 10px; }
+.fail-message { color: red; font-weight: bold; margin-top: 10px; }
+</style>
+</head>
+<body>
+<header><h1>Práctica 1: Lógica y Listas en Python</h1></header>
+<main>
+
+<h2>Paso 1: ¿Qué ves cuando me ves? 👀</h2>
+<div class="section-description">
+    <p>Vamos a crear una función para saber si una serie es recomendable o no, basándonos en un ranking. Una serie no es recomendable si no está en el ranking o si se encuentra entre las últimas 5 posiciones. La lista <code>ranking</code> ya está definida.</p>
+    <div class="syntax-box">
+        <code># Sintaxis para 'not in' y 'or'<br>resultado = elemento not in lista or condicion2</code>
+    </div>
+    <ul class="task-list">
+        <li>Define la función <code>serie_no_recomendable</code> que tome un parámetro `serie`.</li>
+        <li>La función debe retornar `True` si la serie no esta en la lista `ranking` o si su posición es mayor o igual a 5.</li>
+    </ul>
+</div>
+<textarea id="code1" spellcheck="false">ranking = ["Breaking Bad", "Game of Thrones", "Chernobyl", "The Wire", "Better Call Saul", "Attack on Titan", "The Mandalorian", "Black Mirror", "Mr. Robot", "Mindhunter"]
+</textarea>
+<br>
+<button onclick="runCode()">Ejecutar</button>
+<div class="console" id="output1">Consola del ejercicio 1...</div>
+<table id="resultsTable1">
+    <thead>
+        <tr><th>Caso de Prueba</th><th>Requisito</th><th>Estado</th></tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<div id="status1"></div>
+
+<script>
+let pyodideReadyPromise = loadPyodide();
+
+async function runCode() {
+    let pyodide = await pyodideReadyPromise;
+    let textarea = document.getElementById('code1');
+    let output = document.getElementById('output1');
+    let statusDiv = document.getElementById('status1');
+    let resultsTable = document.querySelector("#resultsTable1 tbody");
+
+    output.innerText = "Ejecutando código...";
+    statusDiv.innerHTML = "";
+    resultsTable.innerHTML = "";
+    
+    // Check for empty prints
+    const codeContent = textarea.value.trim();
+    if (/print\s*\(\s*\)/.test(codeContent) || codeContent.includes('print()')) {
+        output.innerText = "";
+        statusDiv.className = 'fail-message';
+        statusDiv.innerHTML = "IA DETECTADO 🤖, tú puedes solo. 😉";
+        return;
+    }
+
+    try {
+        let pythonCode = `
+import io, sys
+sys.stdout = io.StringIO()
+${codeContent}
+sys.stdout.getvalue()
+        `;
+        let result = await pyodide.runPythonAsync(pythonCode);
+        output.innerText = result;
+
+        let pythonTestCode = `
+${codeContent}
+def run_tests():
+    try:
+        results = {
+            'breaking_bad': serie_no_recomendable('Breaking Bad'),
+            'the_wire': serie_no_recomendable('The Wire'),
+            'mr_robot': serie_no_recomendable('Mr. Robot'),
+            'house_of_cards': serie_no_recomendable('House of Cards')
+        }
+        return results
+    except Exception as e:
+        return {'error': str(e)}
+run_tests()
+        `;
+
+        const test_results = await pyodide.runPythonAsync(pythonTestCode);
+        const results_js = test_results.toJs();
+        
+        let allTestsPass = true;
+        const checks = [
+            ['Serie en el top 5', "Breaking Bad", results_js.get('breaking_bad'), false, 'Debe retornar False (recomendable)'],
+            ['Serie en el top 5', "The Wire", results_js.get('the_wire'), false, 'Debe retornar False (recomendable)'],
+            ['Serie en últimas 5', "Mr. Robot", results_js.get('mr_robot'), true, 'Debe retornar True (no recomendable)'],
+            ['Serie no en ranking', "House of Cards", results_js.get('house_of_cards'), true, 'Debe retornar True (no recomendable)']
+        ];
+
+        for (const [testName, serie, result, expected, description] of checks) {
+            const testPassed = result === expected;
+            if (!testPassed) allTestsPass = false;
+            resultsTable.innerHTML += `<tr><td>${testName} (${serie})</td><td>${description}</td><td class="${testPassed ? 'pass' : 'fail'}">${testPassed ? '✅' : '❌'}</td></tr>`;
+        }
+        
+        if (results_js.has('error')) {
+            allTestsPass = false;
+            output.innerText = "Error detectado en la validación: " + results_js.get('error') + "\n\nRevisa tu código, podría estar lanzando un `IndexError` o `NameError`.";
+        }
+        
+        if (allTestsPass) {
+            statusDiv.className = 'success-message';
+            statusDiv.innerHTML = "¡Todas las pruebas pasadas! 🎉 Palabra clave: **TOP5NOT**";
+        } else {
+            statusDiv.className = 'fail-message';
+            statusDiv.innerHTML = "Revisa tu código, algo no coincide en la tabla de pruebas.";
+        }
+
+    } catch(err) {
+        output.innerText = "Error:\n" + err;
+        statusDiv.className = 'fail-message';
+        statusDiv.innerText = "Hubo un error en tu código. Revisa la sintaxis.";
+        resultsTable.innerHTML = `<tr><td colspan="3" class="fail">Error de ejecución. Revisa tu código.</td></tr>`;
+    }
+}
+
+document.getElementById('code1').addEventListener("keydown", function(e) {
+    if (e.key === 'Tab') {
+        e.preventDefault();
+        let start = this.selectionStart;
+        this.value = this.value.substring(0, start) + "    " + this.value.substring(this.selectionEnd);
+        this.selectionStart = this.selectionEnd = start + 4;
+    }
+});
+</script>
+</main>
+</body>
+</html>

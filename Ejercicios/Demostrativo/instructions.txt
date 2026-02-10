@@ -1,0 +1,11 @@
+🎯 ¡Probalo vos mismo!
+
+¡Es hora de poner manos al código y empezar a crear tu propio sitio! 🎬💻
+
+En esta práctica vas a aplicar las etiquetas básicas que ya conocés: <!DOCTYPE html>, <html>, <head> y <body>.
+
+Dentro del <body>, vas a estructurar tu página con las etiquetas semánticas más importantes:
+
+👉 <header> 👉 <main> 👉 <footer> 🧱 Este será el esqueleto inicial de tu sitio. Recordá: la práctica hace al maestro!💪
+
+¡Adelante, desarrollador/a! Tu app está por comenzar. 🌟

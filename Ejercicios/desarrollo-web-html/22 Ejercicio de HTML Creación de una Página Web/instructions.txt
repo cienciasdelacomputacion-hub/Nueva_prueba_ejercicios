@@ -1,0 +1,29 @@
+Actividad 2.2:
+
+Ejercicio de HTML. Creación de una Página Web sobre Tecnología utilizando Etiquetas Semánticas
+
+Objetivo: Crear una página web simple que contenga información sobre tecnología utilizando las siguientes etiquetas HTML, incluyendo etiquetas semánticas para una estructura más clara y significativa:
+
+Consigna para diseñar la página en HTML
+
+1. Título de la Página:
+Utiliza la etiqueta <title> para definir el título de la página como "Explorando el Mundo de la Tecnología".
+
+2. Encabezado:
+Utiliza la etiqueta <header> para el encabezado de la página. Dentro del encabezado, utiliza < h1> para crear un encabezado principal que diga "Explorando el Mundo de la Tecnología".
+
+3. Contenido Principal:
+Utiliza la etiqueta <main> para el contenido principal de la página. Dentro de <main>, crea al menos tres secciones (<section>) usando < h2> para los títulos de las secciones y
+
+para los párrafos que contienen información sobre un tema tecnológico específico. <main> es una etiqueta semántica que indica el contenido principal del documento HTML.
+
+<section> delimita secciones temáticas del contenido; reemplaza a <div> en muchos casos porque aporta significado semántico.
+
+4. Enlaces:
+Utiliza la etiqueta <nav> para la sección de navegación, donde puedes colocar enlaces a sitios web de noticias tecnológicas utilizando la etiqueta . Por ejemplo: 'Últimas Noticias Tecnológicas'. La etiqueta <nav> delimita claramente enlaces de navegación. Es una etiqueta semántica introducida en HTML5 que indica específicamente que el contenido son enlaces de navegación
+
+5. Imágenes:
+Utiliza la etiqueta <figure> para contener una imagen relacionada con un avance tecnológico, y dentro de <figure>, utiliza  para mostrar la imagen. Asegúrate de proporcionar la ruta de la imagen correcta y usa <figcaption> para proporcionar una descripción de la imagen.
+
+6. Listas:
+Utiliza las etiquetas < ul> y < ol> para crear listas no ordenadas y ordenadas respectivamente. Por ejemplo, dentro de < ul>, crea una lista de aplicaciones tecnológicas que utilizas a diario y dentro de < ol>, crea una lista ordenada de diferentes tipos de tecnologías.

@@ -1,0 +1,19 @@
+Crea tu Playlist Animal:
+
+Imagina que eres un DJ que crea playlists temáticas.
+En esta ocasión, la temática es "Animales y sus Sonidos".
+Elige 5 animales que te gusten (pueden ser reales o ficticios).
+Para cada animal, crea un diccionario anidado con la siguiente información:
+
+"sonido": El sonido que emite el animal (puedes usar onomatopeyas o descripciones creativas).
+"genero_musical": Un género musical que te recuerde al sonido o a la personalidad del animal (ejemplo: "rock", "electrónica", "clásica", "reggaeton").
+"cancion_representativa": Una canción que asocies con ese animal o con su sonido.
+"artista": El artista de la canción representativa.
+
+Construye tu Diccionario:
+Crea un diccionario principal llamado "playlist_animal" que contenga los 5 diccionarios anidados que creaste.
+
+Realiza Consultas Musicales:
+Escribe el código para responder a las siguientes preguntas:
+¿Qué canción representativa elegiste para el "animal 3"?
+¿Qué género musical asociaste con el "animal 1"?
