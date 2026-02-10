@@ -4,7 +4,7 @@
 import os, json
 from datetime import datetime
 
-ROOT = "ejercicios"
+ROOT = "Ejercicios"
 OUT = "mapa_del_proyecto.json"
 
 ALLOW = {".html", ".htm", ".css", ".js", ".mjs", ".py", ".json", ".md", ".txt", ".csv"}
