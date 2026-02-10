@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>CEIBAL IDE | v32 Full Export</title>
+  <title>CEIBAL IDE | v33 Fix TXT & PDF</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   
@@ -14,18 +14,25 @@
   <style>
     :root { --bg: #1e1e1e; --panel: #252526; --border: #3c3c3c; --accent: #007acc; --text: #cccccc; }
     body, html { height: 100%; margin: 0; background: #0a0a0a; color: var(--text); font-family: 'Inter', sans-serif; overflow: hidden; }
+    
+    /* DASHBOARD */
     #dashboard { height: 100vh; overflow-y: auto; padding: 20px; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; max-width: 1200px; margin: 0 auto; }
     .card { background: var(--panel); border: 1px solid var(--border); padding: 25px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-    .card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    
+    /* WORKSPACE */
     #workspace { display: none; height: 100vh; flex-direction: column; background: var(--bg); }
     .topbar { height: 50px; display: flex; align-items: center; padding: 0 15px; background: #323233; border-bottom: 1px solid var(--border); gap: 10px; }
     .main-container { flex: 1; display: flex; flex-direction: row; min-height: 0; overflow: hidden; }
+    
     .editor-section { flex: 1; display: flex; flex-direction: column; min-width: 0; }
     .output-section { width: 45%; display: flex; flex-direction: column; background: #0f0f1b; border-left: 1px solid var(--border); position: relative; }
-    .console { position: absolute; inset: 0; background: #000; color: #0f0; padding: 20px; font-family: 'Fira Code', monospace; font-size: 13px; overflow-y: auto; display: none; z-index: 10; }
-    .console.active { display: block; }
-    
+
+    /* VISOR DE TXT / CONSOLA */
+    .viewer-overlay { position: absolute; inset: 0; background: #1a1a2e; color: #e0e0e0; padding: 30px; font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; overflow-y: auto; display: none; z-index: 5; white-space: pre-wrap; }
+    .viewer-overlay.active { display: block; }
+    .python-mode { font-family: 'Fira Code', monospace; color: #0f0; background: #000; }
+
     @media (max-width: 768px) {
       .main-container { flex-direction: column; overflow-y: auto; }
       .editor-section { flex: none; height: 45vh; }
@@ -36,8 +43,9 @@
     .tabs { display: flex; background: #252526; height: 35px; border-bottom: 1px solid #1e1e1e; overflow-x: auto; scrollbar-width: none; }
     .tab { padding: 0 15px; display: flex; align-items: center; font-size: 11px; cursor: pointer; color: #969696; border-right: 1px solid #1e1e1e; white-space: nowrap; }
     .tab.active { background: #1e1e1e; color: white; border-top: 2px solid var(--accent); }
+    
     #editor { flex: 1; }
-    iframe { flex: 1; border: none; background: #1a1a2e; }
+    iframe { flex: 1; border: none; background: #1a1a2e; width: 100%; height: 100%; }
     .resizer-h { width: 6px; cursor: col-resize; background: #000; flex-shrink: 0; }
     .btn { padding: 8px 15px; border-radius: 4px; border: none; cursor: pointer; font-size: 11px; font-weight: 700; background: #3a3d3e; color: white; }
     .btn-run { background: #2ea043; }
@@ -47,7 +55,7 @@
 <body onload="loadMap()">
 
   <div id="dashboard">
-    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v32</h1>
+    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v33</h1>
     <div id="exercise-grid" class="grid"></div>
   </div>
 
@@ -55,7 +63,7 @@
     <div class="topbar">
       <button class="btn" onclick="location.reload()">MENÚ</button>
       <div id="ws-title" style="flex:1; font-size:11px; color:#888;"></div>
-      <button class="btn btn-pdf" id="pdf-btn" onclick="exportToPDF()">DESCARGAR ENTREGA (PDF)</button>
+      <button class="btn btn-pdf" id="pdf-btn" onclick="exportToPDF()">PDF</button>
       <button class="btn btn-run" onclick="runProject()">EJECUTAR</button>
     </div>
     <div class="main-container">
@@ -65,7 +73,7 @@
       </div>
       <div class="resizer-h" id="resizer-h"></div>
       <div class="output-section" id="output-sec">
-        <div id="python-console" class="console"></div>
+        <div id="txt-viewer" class="viewer-overlay"></div>
         <iframe id="web-preview"></iframe>
       </div>
     </div>
@@ -74,110 +82,41 @@
 <script>
 let editor, pyodide, allFiles = [], projectFiles = {}, activeFile = "", currentFolderPath = "";
 
-// --- LÓGICA DE PDF MEJORADA ---
+// --- LÓGICA DE PDF (PANTALLA + TODO EL CÓDIGO) ---
 async function exportToPDF() {
     const btn = document.getElementById('pdf-btn');
-    const originalText = btn.innerText;
-    btn.innerText = "PROCESANDO CÓDIGO...";
-    btn.disabled = true;
-
+    btn.innerText = "GENERANDO..."; btn.disabled = true;
     try {
         const { jsPDF } = window.jspdf;
-        const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-        const pageWidth = doc.internal.pageSize.getWidth();
-        const pageHeight = doc.internal.pageSize.getHeight();
-
-        // 1. CARÁTULA Y CAPTURA
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(18);
-        doc.text("ENTREGA DE PROYECTO", 15, 20);
+        const doc = new jsPDF();
         
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(12);
-        doc.text(`Proyecto: ${currentFolderPath}`, 15, 30);
-        doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 15, 37);
-
-        // Captura el área de previsualización
-        const canvas = await html2canvas(document.getElementById('output-sec'), { 
-            scale: 1, 
-            useCORS: true,
-            backgroundColor: '#1a1a2e'
-        });
-        const imgData = canvas.toDataURL('image/png');
-        // Ajustar imagen al ancho del PDF
-        const imgProps = doc.getImageProperties(imgData);
-        const pdfImgWidth = pageWidth - 30;
-        const pdfImgHeight = (imgProps.height * pdfImgWidth) / imgProps.width;
-        doc.addImage(imgData, 'PNG', 15, 45, pdfImgWidth, pdfImgHeight);
-
-        // 2. ITERAR POR TODOS LOS ARCHIVOS DEL PROYECTO
-        const fileNames = Object.keys(projectFiles).sort();
+        // Portada
+        doc.setFontSize(18); doc.text("REPORTE DE PROYECTO", 15, 20);
+        doc.setFontSize(10); doc.text(`Misión: ${currentFolderPath}`, 15, 30);
         
-        for (const fileName of fileNames) {
+        // Captura Visual
+        const canvas = await html2canvas(document.getElementById('output-sec'), { scale: 1 });
+        doc.addImage(canvas.toDataURL('image/png'), 'PNG', 15, 40, 180, 90);
+        
+        // Código Fuente
+        for (const [name, code] of Object.entries(projectFiles)) {
             doc.addPage();
-            
-            // Encabezado de archivo
-            doc.setFillColor(240, 240, 240);
-            doc.rect(0, 0, pageWidth, 15, 'F');
-            doc.setFont("courier", "bold");
-            doc.setFontSize(10);
-            doc.setTextColor(0, 122, 204);
-            doc.text(`ARCHIVO: ${fileName}`, 15, 10);
-            
-            // Contenido del código
-            doc.setFont("courier", "normal");
-            doc.setFontSize(8);
-            doc.setTextColor(40, 40, 40);
-            
-            const content = projectFiles[fileName];
-            const splitText = doc.splitTextToSize(content, pageWidth - 30);
-            
-            // Control de múltiples páginas por archivo si el código es muy largo
-            let yPosition = 25;
-            for (let i = 0; i < splitText.length; i++) {
-                if (yPosition > pageHeight - 20) {
-                    doc.addPage();
-                    yPosition = 20;
-                }
-                doc.text(splitText[i], 15, yPosition);
-                yPosition += 4;
-            }
+            doc.setFont("courier", "bold"); doc.setFontSize(10); doc.setTextColor(0, 122, 204);
+            doc.text(`ARCHIVO: ${name}`, 15, 10);
+            doc.setFont("courier", "normal"); doc.setFontSize(7); doc.setTextColor(0);
+            const lines = doc.splitTextToSize(code, 180);
+            doc.text(lines, 15, 18);
         }
-
-        doc.save(`Entrega_${currentFolderPath.replace(/\//g,'_')}.pdf`);
-    } catch (err) {
-        console.error(err);
-        alert("Error al generar PDF: " + err.message);
-    } finally {
-        btn.innerText = originalText;
-        btn.disabled = false;
-    }
+        doc.save(`Proyecto_${currentFolderPath.split('/').pop()}.pdf`);
+    } catch (e) { alert("Error PDF"); }
+    finally { btn.innerText = "PDF"; btn.disabled = false; }
 }
 
-// --- RESTO DE LA LÓGICA DEL IDE ---
-
+// --- UTILIDADES ---
 function getBaseUrl() {
     const sample = allFiles.find(f => (typeof f === 'string' ? f : f.path).includes('/' + currentFolderPath + '/'));
     const p = typeof sample === 'string' ? sample : sample.path;
     return p.substring(0, p.lastIndexOf('/') + 1);
-}
-
-function processHTMLContent(htmlRaw, baseUrl) {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlRaw, 'text/html');
-    doc.querySelectorAll('a').forEach(a => {
-        const href = a.getAttribute('href');
-        if(href && !href.startsWith('http') && !href.startsWith('#')) {
-            a.setAttribute('onclick', `window.parent.postMessage({type:'navigate', page:'${href}'}, '*'); return false;`);
-        }
-    });
-    doc.querySelectorAll('img, audio, source, video').forEach(el => {
-        const src = el.getAttribute('src');
-        if(src && !src.startsWith('http') && !projectFiles[src]) {
-            el.setAttribute('src', baseUrl + src.replace('./', ''));
-        }
-    });
-    return doc.body.innerHTML;
 }
 
 async function loadMap() {
@@ -202,8 +141,8 @@ async function enterExercise(path) {
     for (let f of files) {
         const fullPath = typeof f === 'string' ? f : f.path;
         const name = fullPath.split('/').pop();
-        projectFiles[name] = localStorage.getItem(`IDE_v32_${path}_${name}`) || await (await fetch(fullPath)).text();
-        if(!activeFile || name === 'index.html' || name.endsWith('.py')) activeFile = name;
+        projectFiles[name] = localStorage.getItem(`IDE_v33_${path}_${name}`) || await (await fetch(fullPath)).text();
+        if(!activeFile || name === 'index.html' || name.endsWith('.txt')) activeFile = name;
     }
 
     require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs' } });
@@ -214,7 +153,7 @@ async function enterExercise(path) {
             });
             editor.onDidChangeModelContent(() => {
                 projectFiles[activeFile] = editor.getValue();
-                localStorage.setItem(`IDE_v32_${currentFolderPath}_${activeFile}`, editor.getValue());
+                localStorage.setItem(`IDE_v33_${currentFolderPath}_${activeFile}`, editor.getValue());
             });
         }
         updateTabs();
@@ -233,42 +172,74 @@ function updateTabs() {
     });
     editor.setValue(projectFiles[activeFile]);
     const ext = activeFile.split('.').pop().toLowerCase();
-    const langMap = { 'py': 'python', 'html': 'html', 'css': 'css', 'js': 'javascript' };
+    const langMap = { 'py':'python', 'html':'html', 'css':'css', 'js':'javascript', 'txt':'plaintext' };
     monaco.editor.setModelLanguage(editor.getModel(), langMap[ext] || 'plaintext');
+    runProject();
 }
 
+// Escucha de navegación del iframe
 window.addEventListener('message', e => {
     if(e.data.type === 'navigate') {
         const target = e.data.page.replace('./', '');
-        if(projectFiles[target]) { activeFile = target; updateTabs(); runProject(); }
+        if(projectFiles[target]) { activeFile = target; updateTabs(); }
     }
 });
 
+// --- MOTOR DE EJECUCIÓN MEJORADO (SOPORTE TXT) ---
 async function runProject() {
     const web = document.getElementById('web-preview');
-    const consoleEl = document.getElementById('python-console');
+    const viewer = document.getElementById('txt-viewer');
     const baseUrl = getBaseUrl();
 
+    // CASO 1: ARCHIVO DE TEXTO (Instrucciones)
+    if (activeFile.endsWith('.txt')) {
+        web.style.display = 'none';
+        viewer.classList.add('active');
+        viewer.classList.remove('python-mode');
+        viewer.innerText = projectFiles[activeFile];
+        return;
+    }
+
+    // CASO 2: PYTHON
     if (activeFile.endsWith('.py')) {
-        web.style.display = 'none'; consoleEl.classList.add('active');
-        consoleEl.innerText = ">>> Ejecutando...";
+        web.style.display = 'none';
+        viewer.classList.add('active', 'python-mode');
+        viewer.innerText = ">>> Ejecutando Python...";
         if(!pyodide) pyodide = await loadPyodide();
         try {
             await pyodide.runPythonAsync(`import sys, io\nsys.stdout = io.StringIO()`);
             await pyodide.runPythonAsync(projectFiles[activeFile]);
-            consoleEl.innerText = pyodide.runPython("sys.stdout.getvalue()");
-        } catch (err) { consoleEl.innerText = err; }
-    } else {
-        consoleEl.classList.remove('active'); web.style.display = 'block';
-        const target = activeFile.endsWith('.html') ? activeFile : (projectFiles['index.html'] ? 'index.html' : activeFile);
-        const htmlRaw = projectFiles[target] || "";
-        const css = Object.keys(projectFiles).filter(n => n.endsWith('.css') && (htmlRaw.includes(n) || n === 'style.css'))
-            .map(n => `<style>${projectFiles[n].replace(/url\(['"]?([^'")]*)['"]?\)/g, (m, p) => p.startsWith('http') ? m : `url('${baseUrl}${p.replace('./','')}')`)}</style>`).join("");
-        const js = Object.keys(projectFiles).filter(n => n.endsWith('.js') && htmlRaw.includes(n))
-            .map(n => `<script>${projectFiles[n]}<\/script>`).join("");
-        web.srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${css}</head>
-            <body style="margin:0; background:#1a1a2e; ">${processHTMLContent(htmlRaw, baseUrl)}${js}</body></html>`;
+            viewer.innerText = pyodide.runPython("sys.stdout.getvalue()");
+        } catch (err) { viewer.innerText = err; }
+        return;
     }
+
+    // CASO 3: WEB (HTML/CSS/JS)
+    viewer.classList.remove('active');
+    web.style.display = 'block';
+    const target = activeFile.endsWith('.html') ? activeFile : (projectFiles['index.html'] ? 'index.html' : activeFile);
+    const htmlRaw = projectFiles[target] || "";
+
+    const css = Object.keys(projectFiles).filter(n => n.endsWith('.css') && (htmlRaw.includes(n) || n === 'style.css'))
+        .map(n => `<style>${projectFiles[n].replace(/url\(['"]?([^'")]*)['"]?\)/g, (m, p) => p.startsWith('http') ? m : `url('${baseUrl}${p.replace('./','')}')`)}</style>`).join("");
+
+    const js = Object.keys(projectFiles).filter(n => n.endsWith('.js') && htmlRaw.includes(n))
+        .map(n => `<script>${projectFiles[n]}<\/script>`).join("");
+
+    // Procesar enlaces y assets remotos
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlRaw, 'text/html');
+    doc.querySelectorAll('a').forEach(a => {
+        const h = a.getAttribute('href');
+        if(h && !h.startsWith('http')) a.setAttribute('onclick', `window.parent.postMessage({type:'navigate', page:'${h}'}, '*'); return false;`);
+    });
+    doc.querySelectorAll('img, audio, source, video').forEach(el => {
+        const s = el.getAttribute('src');
+        if(s && !s.startsWith('http') && !projectFiles[s]) el.setAttribute('src', baseUrl + s.replace('./', ''));
+    });
+
+    web.srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${css}</head>
+        <body style="margin:0; background:#1a1a2e; padding:15px;">${doc.body.innerHTML}${js}</body></html>`;
 }
 </script>
 </body>
