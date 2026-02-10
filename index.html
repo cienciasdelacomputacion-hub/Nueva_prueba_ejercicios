@@ -2,10 +2,10 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>CEIBAL IDE | v36.1 Path Fix (GitHub Pages)</title>
+  <title>CEIBAL IDE | v36 Stable Loader (BASE FIX)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
@@ -32,17 +32,17 @@
     iframe { flex: 1; border: none; background: #1a1a2e; }
     .btn { padding: 8px 15px; border-radius: 4px; border: none; cursor: pointer; font-size: 11px; font-weight: 700; background: #3a3d3e; color: white; }
     .btn-run { background: #2ea043; }
-    .pill { font-family: 'Fira Code', monospace; font-size: 11px; color: #aaa; border: 1px solid #444; padding: 3px 7px; border-radius: 999px; background: rgba(255,255,255,.03); }
+    .pill { font-family: 'Fira Code', monospace; font-size: 11px; color:#aaa; border:1px solid #444; padding:3px 7px; border-radius:999px; background: rgba(255,255,255,.03); }
   </style>
 </head>
 
 <body onload="loadMap()">
 
   <div id="dashboard">
-    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v36.1</h1>
-    <div style="max-width:1200px;margin:0 auto 14px;color:#888;font-size:12px;">
-      Base: <span class="pill" id="baseSpan"></span> |
-      Mapa: <span class="pill" id="mapSpan"></span>
+    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v36</h1>
+    <div style="max-width:1200px;margin:0 auto 12px;color:#888;font-size:12px;">
+      BASE: <span class="pill" id="basePill">—</span>
+      MAP: <span class="pill" id="mapPill">—</span>
     </div>
     <div id="exercise-grid" class="grid"></div>
   </div>
@@ -67,149 +67,83 @@
   </div>
 
 <script>
-let editor, pyodide;
-let allFiles = [];          // [{path:"ejercicios/..."}] normalizados
-let projectFiles = {};      // { "index.html": "..." }
-let activeFile = "";
-let currentFolderPath = ""; // ej: "242" o "Copy of ..."
+let editor, pyodide, allFiles = [], projectFiles = {}, activeFile = "", currentFolderPath = "";
 
-const BASE = new URL(".", window.location.href);
-document.getElementById("baseSpan").textContent = BASE.href;
+// ✅ BASE FIX: siempre apunta al directorio real publicado (incluye /repo/)
+function computeBaseDirUrl(){
+  let p = window.location.pathname;
+  if (!p.endsWith("/")) p = p.replace(/[^\/]*$/, "");
+  return window.location.origin + p;
+}
+const BASE = new URL(computeBaseDirUrl());
+document.getElementById("basePill").textContent = BASE.href;
 
 function urlFor(path) {
-  // ✅ siempre relativo a BASE del site (Pages o local)
   const clean = String(path || "").replace(/^\/+/, "");
   return new URL(encodeURI(clean), BASE);
 }
 
-// ✅ Normaliza cualquier path del mapa a algo que exista en el repo/pages
-function normalizeMapPath(p){
-  if(!p) return "";
-  let s = String(p).trim();
-
-  // windows -> unix
-  s = s.replace(/\\/g, "/");
-
-  // sacar prefijos tipo "C:/Users/.../"
-  // dejamos desde "ejercicios/..."
-  const idx = s.toLowerCase().indexOf("ejercicios/");
-  if(idx >= 0) s = s.slice(idx);
-
-  // quitar "./" al inicio
-  s = s.replace(/^\.\//, "");
-
-  // quitar "/" al inicio
-  s = s.replace(/^\/+/, "");
-
-  return s;
-}
-
-// devuelve la carpeta del ejercicio: lo que viene después de "ejercicios/"
-function folderFromPath(path){
-  const p = normalizeMapPath(path);
-  const parts = p.split("/");
-  if(parts[0].toLowerCase() !== "ejercicios") return "";
-  // ejercicios/<carpeta...>/<archivo>
-  // carpeta puede ser multi-segmento, así que devolvemos todo menos el archivo final
-  if(parts.length < 3) return "";
-  return parts.slice(1, -1).join("/");
-}
-
 async function loadMap() {
   try {
-    const mapUrl = urlFor("mapa_del_proyecto.json").href;
-    document.getElementById("mapSpan").textContent = mapUrl;
+    const mapUrl = urlFor('mapa_del_proyecto.json').href;
+    document.getElementById("mapPill").textContent = mapUrl;
 
     const res = await fetch(mapUrl, { cache: "no-cache" });
-    if(!res.ok) throw new Error("HTTP " + res.status + " al cargar mapa_del_proyecto.json");
+    if(!res.ok) throw new Error(`HTTP ${res.status} al cargar mapa_del_proyecto.json`);
 
     const data = await res.json();
-    const rawFiles = data.files || [];
+    allFiles = (data.files || []).map(f => (typeof f === 'string' ? f : f.path));
 
-    // ✅ normalizar todos los paths del mapa
-    allFiles = rawFiles
-      .map(f => typeof f === "string" ? { path: normalizeMapPath(f) } : { ...f, path: normalizeMapPath(f.path) })
-      .filter(f => f.path && f.path.toLowerCase().startsWith("ejercicios/"));
-
-    // ✅ construir lista de carpetas por parsing robusto
-    const folders = [...new Set(allFiles.map(f => folderFromPath(f.path)).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+    const folders = [...new Set(allFiles.map(p => String(p).split('/').slice(1, -1).join('/')))]
+      .filter(p => p !== "").sort();
 
     document.getElementById('exercise-grid').innerHTML = folders.map(p => `
       <div class="card" onclick="enterExercise('${p.replace(/'/g,"\\'")}')">
         <h3 style="margin:0; color:white; font-size:14px;">${p.split('/').pop().toUpperCase()}</h3>
-        <div style="margin-top:8px;color:#888;font-size:11px;">${p}</div>
       </div>`).join('');
-
-    if(folders.length === 0){
-      console.warn("Mapa cargado pero 0 carpetas. Ejemplo path:", allFiles[0]?.path);
-    }
   } catch(e) {
     console.error("Error cargando mapa:", e);
-    document.getElementById('exercise-grid').innerHTML = `
-      <div style="color:#ff6b6b;max-width:900px;margin:0 auto;">
-        <b>No pude cargar el mapa.</b><br/>
-        ${String(e.message || e)}<br/><br/>
-        Verificá que <span class="pill">mapa_del_proyecto.json</span> esté publicado en el mismo lugar que este index.html.
-      </div>`;
+    document.getElementById('exercise-grid').innerHTML =
+      `<div style="color:#ff6b6b;max-width:1200px;margin:0 auto;">${String(e.message||e)}</div>`;
   }
 }
 
 async function enterExercise(path) {
-  currentFolderPath = path; // ej "242" o "Copy of ..."
-
+  currentFolderPath = path;
   activeFile = "";
-  projectFiles = {};
-
   document.getElementById('dashboard').style.display = 'none';
   document.getElementById('workspace').style.display = 'flex';
-  document.getElementById('ws-title').innerText = "ejercicios/" + path;
+  document.getElementById('ws-title').innerText = path;
 
-  // ✅ filtro robusto: todo lo que empieza con "ejercicios/<path>/"
-  const prefix = "ejercicios/" + path.replace(/^\/+/, "") + "/";
-
-  const files = allFiles
-    .map(f => f.path)
-    .filter(p => p.toLowerCase().startsWith(prefix.toLowerCase()));
-
-  // cargar archivos
-  let first = "";
-  let instructions = "";
-  let index = "";
+  const files = allFiles.filter(p => String(p).includes('/' + path + '/'));
+  projectFiles = {};
 
   for (let fullPath of files) {
-    const name = fullPath.split('/').pop();
-    if(!first) first = name;
-    if(!instructions && name.toLowerCase() === "instructions.txt") instructions = name;
-    if(!index && name.toLowerCase() === "index.html") index = name;
-
+    const name = String(fullPath).split('/').pop();
     try {
       const lsKey = `IDE_v36_${path}_${name}`;
       const saved = localStorage.getItem(lsKey);
-      if (saved !== null) {
+      if (saved) {
         projectFiles[name] = saved;
       } else {
-        const res = await fetch(urlFor(fullPath).href, { cache:"no-cache" });
+        const res = await fetch(urlFor(fullPath).href, { cache: "no-cache" });
         projectFiles[name] = res.ok ? await res.text() : `// Error ${res.status}: No se encontró ${name}`;
       }
     } catch (err) {
-      projectFiles[name] = `// Error de conexión al cargar ${name}: ${String(err.message || err)}`;
+      projectFiles[name] = `// Error de conexión al cargar ${name}: ${String(err.message||err)}`;
     }
+
+    if (name.toLowerCase() === "instructions.txt") activeFile = name;
+    else if (!activeFile && name.toLowerCase() === "index.html") activeFile = name;
+    else if (!activeFile) activeFile = name;
   }
 
-  // prioridad de archivo a abrir
-  activeFile = instructions || index || first || "";
-
-  // init monaco
   require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs' } });
   require(['vs/editor/editor.main'], () => {
     if(!editor) {
       editor = monaco.editor.create(document.getElementById('editor'), {
-        theme: 'vs-dark',
-        automaticLayout: true,
-        fontSize: 14,
-        wordWrap: "on"
+        theme: 'vs-dark', automaticLayout: true, fontSize: 14, wordWrap: "on"
       });
-
       editor.onDidChangeModelContent(() => {
         if(!activeFile) return;
         projectFiles[activeFile] = editor.getValue();
@@ -223,7 +157,6 @@ async function enterExercise(path) {
 function updateTabs() {
   const container = document.getElementById('file-tabs');
   container.innerHTML = "";
-
   Object.keys(projectFiles).sort().forEach(name => {
     const tab = document.createElement('div');
     tab.className = `tab ${name === activeFile ? 'active' : ''}`;
@@ -231,13 +164,7 @@ function updateTabs() {
     tab.onclick = () => { activeFile = name; updateTabs(); };
     container.appendChild(tab);
   });
-
   editor.setValue(projectFiles[activeFile] || "");
-
-  const ext = (activeFile.split('.').pop() || "").toLowerCase();
-  const langMap = { 'py':'python', 'html':'html', 'css':'css', 'js':'javascript', 'txt':'plaintext', 'md':'markdown' };
-  monaco.editor.setModelLanguage(editor.getModel(), langMap[ext] || 'plaintext');
-
   runProject();
 }
 
@@ -245,21 +172,19 @@ async function runProject() {
   const web = document.getElementById('web-preview');
   const viewer = document.getElementById('txt-viewer');
 
-  if(!activeFile) return;
+  if (!activeFile) return;
 
-  const lower = activeFile.toLowerCase();
+  const low = activeFile.toLowerCase();
 
-  // TXT o PYTHON -> overlay
-  if (lower.endsWith('.txt') || lower.endsWith('.py')) {
+  if (low.endsWith('.txt') || low.endsWith('.py')) {
     web.style.display = 'none';
     viewer.classList.add('active');
 
-    if (lower.endsWith('.py')) {
+    if (low.endsWith('.py')) {
       viewer.innerText = ">>> Ejecutando Python...";
       if(!pyodide) pyodide = await loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.1/full/" });
-
       try {
-        await pyodide.runPythonAsync(`import sys, io\nsys.stdout = io.StringIO()`); // reset stdout
+        await pyodide.runPythonAsync(`import sys, io\nsys.stdout = io.StringIO()`);
         await pyodide.runPythonAsync(projectFiles[activeFile] || "");
         viewer.innerText = pyodide.runPython("sys.stdout.getvalue()");
       } catch (err) { viewer.innerText = String(err); }
@@ -269,15 +194,12 @@ async function runProject() {
     return;
   }
 
-  // WEB -> iframe srcdoc
   viewer.classList.remove('active');
   web.style.display = 'block';
+  const target = low.endsWith('.html') ? activeFile : (projectFiles['index.html'] ? 'index.html' : activeFile);
 
-  const target = lower.endsWith('.html') ? activeFile : (projectFiles['index.html'] ? 'index.html' : activeFile);
-
-  // inyectar CSS y JS locales
-  const css = Object.keys(projectFiles).filter(n => n.toLowerCase().endsWith('.css')).map(n => `<style>${projectFiles[n] || ""}</style>`).join("");
-  const js  = Object.keys(projectFiles).filter(n => n.toLowerCase().endsWith('.js')).map(n => `<script>${projectFiles[n] || ""}<\/script>`).join("");
+  const css = Object.keys(projectFiles).filter(n => n.toLowerCase().endsWith('.css')).map(n => `<style>${projectFiles[n]||""}</style>`).join("");
+  const js  = Object.keys(projectFiles).filter(n => n.toLowerCase().endsWith('.js')).map(n => `<script>${projectFiles[n]||""}<\/script>`).join("");
 
   web.srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8">${css}</head>
     <body style="margin:0; background:#1a1a2e; color:white; padding:15px;">
