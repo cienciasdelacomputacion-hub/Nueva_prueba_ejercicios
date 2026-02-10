@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>CEIBAL IDE | v38 Universal Fix</title>
+  <title>CEIBAL IDE | v39 Debugger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   
@@ -16,36 +16,35 @@
     body, html { height: 100%; margin: 0; background: #0a0a0a; color: var(--text); font-family: 'Inter', sans-serif; overflow: hidden; }
     #dashboard { height: 100vh; overflow-y: auto; padding: 20px; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; max-width: 1200px; margin: 0 auto; }
-    .card { background: var(--panel); border: 1px solid var(--border); padding: 25px; border-radius: 8px; cursor: pointer; transition: 0.3s; text-align: center; }
-    .card:hover { border-color: var(--accent); background: #2d2d2d; transform: translateY(-2px); }
+    .card { background: var(--panel); border: 1px solid var(--border); padding: 25px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+    .card:hover { border-color: var(--accent); background: #2d2d2d; }
     #workspace { display: none; height: 100vh; flex-direction: column; background: var(--bg); }
     .topbar { height: 50px; display: flex; align-items: center; padding: 0 15px; background: #323233; border-bottom: 1px solid var(--border); gap: 10px; }
     .main-container { flex: 1; display: flex; flex-direction: row; min-height: 0; overflow: hidden; }
     .editor-section { flex: 1; display: flex; flex-direction: column; min-width: 0; }
     .output-section { width: 45%; display: flex; flex-direction: column; background: #0f0f1b; border-left: 1px solid var(--border); position: relative; }
-    .viewer-overlay { position: absolute; inset: 0; background: #1a1a2e; color: #e0e0e0; padding: 30px; font-size: 14px; line-height: 1.6; overflow-y: auto; display: none; z-index: 5; white-space: pre-wrap; }
+    .viewer-overlay { position: absolute; inset: 0; background: #1a1a2e; color: #e0e0e0; padding: 30px; font-size: 14px; line-height: 1.6; overflow-y: auto; display: none; z-index: 5; white-space: pre-wrap; font-family: 'Fira Code', monospace; }
     .viewer-overlay.active { display: block; }
-    .tabs { display: flex; background: #252526; height: 35px; border-bottom: 1px solid #1e1e1e; overflow-x: auto; scrollbar-width: none; }
-    .tab { padding: 0 15px; display: flex; align-items: center; font-size: 11px; cursor: pointer; color: #969696; border-right: 1px solid #1e1e1e; }
+    .tabs { display: flex; background: #252526; height: 35px; border-bottom: 1px solid #1e1e1e; overflow-x: auto; }
+    .tab { padding: 0 15px; display: flex; align-items: center; font-size: 11px; cursor: pointer; color: #969696; border-right: 1px solid #1e1e1e; white-space: nowrap; }
     .tab.active { background: #1e1e1e; color: white; border-top: 2px solid var(--accent); }
     #editor { flex: 1; }
     iframe { flex: 1; border: none; background: #1a1a2e; width: 100%; }
     .btn { padding: 8px 15px; border-radius: 4px; border: none; cursor: pointer; font-size: 11px; font-weight: 700; background: #3a3d3e; color: white; }
     .btn-run { background: #2ea043; }
-    .pill { font-family: monospace; font-size: 10px; background: #444; padding: 2px 5px; border-radius: 4px; margin-left: 5px; }
   </style>
 </head>
 <body onload="initApp()">
 
   <div id="dashboard">
-    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v38</h1>
-    <p style="text-align:center; color:#888; font-size:12px;" id="status-info">Iniciando...</p>
+    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v39</h1>
+    <p id="debug-log" style="text-align:center; color: #007acc; font-family: monospace; font-size: 11px;"></p>
     <div id="exercise-grid" class="grid"></div>
   </div>
 
   <div id="workspace">
     <div class="topbar">
-      <button class="btn" onclick="location.href=location.pathname">MENÚ</button>
+      <button class="btn" onclick="window.location.hash=''; location.reload();">MENÚ</button>
       <div id="ws-title" style="flex:1; font-size:11px; color:#888; font-family:monospace;"></div>
       <button class="btn" onclick="exportToPDF()">PDF</button>
       <button class="btn btn-run" onclick="runProject()">EJECUTAR</button>
@@ -65,38 +64,42 @@
 <script>
 let editor, pyodide, allFiles = [], projectFiles = {}, activeFile = "", currentFolderPath = "";
 
-// ✅ 1. Determinar la base real del proyecto
-const BASE_URL = window.location.origin + window.location.pathname.replace(/[^\/]*$/, '');
+// ✅ DETECCIÓN DE RUTA BASE MEJORADA
+// Esto asegura que si estás en https://.../repo/, la base sea exactamente esa carpeta.
+const getBaseUrl = () => {
+    const loc = window.location;
+    const path = loc.pathname.endsWith('/') ? loc.pathname : loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
+    return loc.origin + path;
+};
+const BASE_URL = getBaseUrl();
 
 async function initApp() {
+    const log = document.getElementById('debug-log');
+    log.innerText = "Detectando base: " + BASE_URL;
+
     try {
-        const res = await fetch('mapa_del_proyecto.json?t=' + Date.now());
+        const res = await fetch(BASE_URL + 'mapa_del_proyecto.json?t=' + Date.now());
         const data = await res.json();
         
-        // Normalizar rutas: quitar "./", cambiar "\" por "/"
         allFiles = data.files.map(f => {
             let p = typeof f === 'string' ? f : f.path;
-            return p.replace(/\\/g, '/').replace(/^\.\//, '');
+            return p.replace(/\\/g, '/').replace(/^\.\//, '').replace(/^\//, '');
         });
 
-        // Extraer nombres de carpetas de ejercicios
         const folders = [...new Set(allFiles.map(f => {
             const parts = f.split('/');
             return parts.length > 1 ? parts.slice(0, -1).join('/') : null;
         }))].filter(Boolean).sort();
 
         renderGrid(folders);
-        document.getElementById('status-info').innerText = `Mapa cargado: ${folders.length} ejercicios encontrados.`;
 
-        // Manejar el Hash si existe (ej: #/ejercicio/242)
         const hash = window.location.hash;
         if (hash.includes('/ejercicio/')) {
-            const folderName = hash.split('/ejercicio/')[1];
-            if (folderName) enterExercise(decodeURIComponent(folderName));
+            const folderName = decodeURIComponent(hash.split('/ejercicio/')[1]);
+            enterExercise(folderName);
         }
     } catch (e) {
-        document.getElementById('status-info').innerText = "Error: No se pudo cargar el mapa del proyecto.";
-        console.error(e);
+        log.innerText = "Error cargando mapa: " + e.message;
     }
 }
 
@@ -114,37 +117,39 @@ async function enterExercise(folderPath) {
     currentFolderPath = folderPath;
     activeFile = "";
     projectFiles = {};
-    
-    // Actualizar URL sin recargar
     window.location.hash = `/ejercicio/${encodeURIComponent(folderPath)}`;
     
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('workspace').style.display = 'flex';
-    document.getElementById('ws-title').innerText = `ID: ${folderPath}`;
+    document.getElementById('ws-title').innerText = "Cargando: " + folderPath;
 
     const filesInFolder = allFiles.filter(f => f.startsWith(folderPath + '/'));
     
     for (let fullPath of filesInFolder) {
         const fileName = fullPath.split('/').pop();
+        const finalUrl = BASE_URL + fullPath;
+        console.log("Intentando cargar:", finalUrl);
+
         try {
-            const lsKey = `IDE_v38_${folderPath}_${fileName}`;
+            const lsKey = `IDE_v39_${folderPath}_${fileName}`;
             const saved = localStorage.getItem(lsKey);
             if (saved) {
                 projectFiles[fileName] = saved;
             } else {
-                const response = await fetch(BASE_URL + fullPath);
-                projectFiles[fileName] = response.ok ? await response.text() : `// Error 404: ${fileName}`;
+                const response = await fetch(finalUrl);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                projectFiles[fileName] = await response.text();
             }
         } catch (err) {
-            projectFiles[fileName] = `// Error al cargar: ${fileName}`;
+            projectFiles[fileName] = `// Error 404 / No se pudo cargar.\n// URL intentada: ${finalUrl}\n// Detalle: ${err.message}`;
         }
 
-        // Auto-seleccionar pestaña
         if (fileName.toLowerCase() === 'instructions.txt') activeFile = fileName;
         else if (!activeFile && fileName.toLowerCase() === 'index.html') activeFile = fileName;
         else if (!activeFile) activeFile = fileName;
     }
 
+    document.getElementById('ws-title').innerText = folderPath;
     initMonaco();
 }
 
@@ -158,7 +163,7 @@ function initMonaco() {
             editor.onDidChangeModelContent(() => {
                 if (activeFile) {
                     projectFiles[activeFile] = editor.getValue();
-                    localStorage.setItem(`IDE_v38_${currentFolderPath}_${activeFile}`, editor.getValue());
+                    localStorage.setItem(`IDE_v39_${currentFolderPath}_${activeFile}`, editor.getValue());
                 }
             });
         }
@@ -204,7 +209,7 @@ async function runProject() {
         web.style.display = 'block';
         const css = Object.keys(projectFiles).filter(n => n.endsWith('.css')).map(n => `<style>${projectFiles[n]}</style>`).join("");
         const js = Object.keys(projectFiles).filter(n => n.endsWith('.js')).map(n => `<script>${projectFiles[n]}<\/script>`).join("");
-        const html = projectFiles[activeFile.endsWith('.html') ? activeFile : 'index.html'] || projectFiles[Object.keys(projectFiles)[0]];
+        const html = projectFiles[activeFile.endsWith('.html') ? activeFile : 'index.html'] || projectFiles[Object.keys(projectFiles)[0]] || "";
         web.srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8">${css}</head><body style="margin:0; background:#1a1a2e; color:white; padding:15px;">${html}${js}</body></html>`;
     }
 }
@@ -219,7 +224,7 @@ async function exportToPDF() {
         doc.setFontSize(10); doc.text(`ARCHIVO: ${name}`, 15, 15);
         doc.setFontSize(8); doc.text(doc.splitTextToSize(code, 180), 15, 25);
     });
-    doc.save(`entrega_${currentFolderPath.replace(/\//g,'_')}.pdf`);
+    doc.save(`entrega.pdf`);
 }
 </script>
 </body>
