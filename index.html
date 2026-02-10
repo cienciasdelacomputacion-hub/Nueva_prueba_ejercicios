@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>CEIBAL IDE | v36 Stable Loader (BASE FIX)</title>
+  <title>CEIBAL IDE | v37 GitHub Fix</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   
@@ -16,34 +16,28 @@
     body, html { height: 100%; margin: 0; background: #0a0a0a; color: var(--text); font-family: 'Inter', sans-serif; overflow: hidden; }
     #dashboard { height: 100vh; overflow-y: auto; padding: 20px; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; max-width: 1200px; margin: 0 auto; }
-    .card { background: var(--panel); border: 1px solid var(--border); padding: 25px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-    .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .card { background: var(--panel); border: 1px solid var(--border); padding: 25px; border-radius: 8px; cursor: pointer; transition: 0.3s; text-align: center; }
+    .card:hover { border-color: var(--accent); background: #2d2d2d; }
     #workspace { display: none; height: 100vh; flex-direction: column; background: var(--bg); }
-    .topbar { height: 50px; display: flex; align-items: center; padding: 0 15px; background: #323233; border-bottom: 1px solid var(--border); gap: 10px; flex-shrink: 0; }
+    .topbar { height: 50px; display: flex; align-items: center; padding: 0 15px; background: #323233; border-bottom: 1px solid var(--border); gap: 10px; }
     .main-container { flex: 1; display: flex; flex-direction: row; min-height: 0; overflow: hidden; }
     .editor-section { flex: 1; display: flex; flex-direction: column; min-width: 0; }
     .output-section { width: 45%; display: flex; flex-direction: column; background: #0f0f1b; border-left: 1px solid var(--border); position: relative; }
     .viewer-overlay { position: absolute; inset: 0; background: #1a1a2e; color: #e0e0e0; padding: 30px; font-size: 15px; line-height: 1.6; overflow-y: auto; display: none; z-index: 5; white-space: pre-wrap; }
     .viewer-overlay.active { display: block; }
     .tabs { display: flex; background: #252526; height: 35px; border-bottom: 1px solid #1e1e1e; overflow-x: auto; scrollbar-width: none; }
-    .tab { padding: 0 15px; display: flex; align-items: center; font-size: 11px; cursor: pointer; color: #969696; border-right: 1px solid #1e1e1e; white-space: nowrap; }
+    .tab { padding: 0 15px; display: flex; align-items: center; font-size: 11px; cursor: pointer; color: #969696; border-right: 1px solid #1e1e1e; }
     .tab.active { background: #1e1e1e; color: white; border-top: 2px solid var(--accent); }
     #editor { flex: 1; }
     iframe { flex: 1; border: none; background: #1a1a2e; }
     .btn { padding: 8px 15px; border-radius: 4px; border: none; cursor: pointer; font-size: 11px; font-weight: 700; background: #3a3d3e; color: white; }
     .btn-run { background: #2ea043; }
-    .pill { font-family: 'Fira Code', monospace; font-size: 11px; color:#aaa; border:1px solid #444; padding:3px 7px; border-radius:999px; background: rgba(255,255,255,.03); }
   </style>
 </head>
-
 <body onload="loadMap()">
 
   <div id="dashboard">
-    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v36</h1>
-    <div style="max-width:1200px;margin:0 auto 12px;color:#888;font-size:12px;">
-      BASE: <span class="pill" id="basePill">—</span>
-      MAP: <span class="pill" id="mapPill">—</span>
-    </div>
+    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v37</h1>
     <div id="exercise-grid" class="grid"></div>
   </div>
 
@@ -69,158 +63,142 @@
 <script>
 let editor, pyodide, allFiles = [], projectFiles = {}, activeFile = "", currentFolderPath = "";
 
-// ✅ BASE FIX: siempre apunta al directorio real publicado (incluye /repo/)
-function computeBaseDirUrl(){
-  let p = window.location.pathname;
-  if (!p.endsWith("/")) p = p.replace(/[^\/]*$/, "");
-  return window.location.origin + p;
-}
-const BASE = new URL(computeBaseDirUrl());
-document.getElementById("basePill").textContent = BASE.href;
+// ✅ FIX: Obtener la base de la URL actual (funciona en local y en subcarpetas de GitHub)
+const APP_BASE = window.location.origin + window.location.pathname.replace(/[^\/]*$/, '');
 
-function urlFor(path) {
-  const clean = String(path || "").replace(/^\/+/, "");
-  return new URL(encodeURI(clean), BASE);
+function cleanGitHubPath(rawPath) {
+    // Si el JSON trae rutas de Windows (C:\...) o absolutas, las limpiamos para que sean relativas al repo
+    let path = rawPath.replace(/\\/g, '/'); // Convertir \ a /
+    if (path.includes(':/')) { // Si es ruta absoluta tipo C:/ o http://
+        const parts = path.split('/');
+        // Buscamos la carpeta 'ejercicios' o similar para reconstruir
+        const index = parts.findIndex(p => p.toLowerCase() === 'ejercicios');
+        if (index !== -1) return parts.slice(index).join('/');
+    }
+    return path.replace(/^\.\//, ''); // Quitar ./ al inicio
 }
 
 async function loadMap() {
-  try {
-    const mapUrl = urlFor('mapa_del_proyecto.json').href;
-    document.getElementById("mapPill").textContent = mapUrl;
-
-    const res = await fetch(mapUrl, { cache: "no-cache" });
-    if(!res.ok) throw new Error(`HTTP ${res.status} al cargar mapa_del_proyecto.json`);
-
-    const data = await res.json();
-    allFiles = (data.files || []).map(f => (typeof f === 'string' ? f : f.path));
-
-    const folders = [...new Set(allFiles.map(p => String(p).split('/').slice(1, -1).join('/')))]
-      .filter(p => p !== "").sort();
-
-    document.getElementById('exercise-grid').innerHTML = folders.map(p => `
-      <div class="card" onclick="enterExercise('${p.replace(/'/g,"\\'")}')">
-        <h3 style="margin:0; color:white; font-size:14px;">${p.split('/').pop().toUpperCase()}</h3>
-      </div>`).join('');
-  } catch(e) {
-    console.error("Error cargando mapa:", e);
-    document.getElementById('exercise-grid').innerHTML =
-      `<div style="color:#ff6b6b;max-width:1200px;margin:0 auto;">${String(e.message||e)}</div>`;
-  }
+    try {
+        const res = await fetch('mapa_del_proyecto.json?v=' + Date.now());
+        const data = await res.json();
+        allFiles = data.files.map(f => (typeof f === 'string' ? cleanGitHubPath(f) : cleanGitHubPath(f.path)));
+        
+        // Extraer carpetas únicas de ejercicios
+        const folders = [...new Set(allFiles.map(f => f.split('/').slice(0, -1).join('/')))].filter(p => p !== "").sort();
+        
+        document.getElementById('exercise-grid').innerHTML = folders.map(p => `
+            <div class="card" onclick="enterExercise('${p}')">
+                <h3 style="margin:0; color:white; font-size:14px;">${p.split('/').pop().toUpperCase()}</h3>
+            </div>`).join('');
+    } catch(e) { 
+        alert("Error cargando mapa_del_proyecto.json. Asegúrate de que el archivo esté en la raíz del repo.");
+    }
 }
 
 async function enterExercise(path) {
-  currentFolderPath = path;
-  activeFile = "";
-  document.getElementById('dashboard').style.display = 'none';
-  document.getElementById('workspace').style.display = 'flex';
-  document.getElementById('ws-title').innerText = path;
-
-  const files = allFiles.filter(p => String(p).includes('/' + path + '/'));
-  projectFiles = {};
-
-  for (let fullPath of files) {
-    const name = String(fullPath).split('/').pop();
-    try {
-      const lsKey = `IDE_v36_${path}_${name}`;
-      const saved = localStorage.getItem(lsKey);
-      if (saved) {
-        projectFiles[name] = saved;
-      } else {
-        const res = await fetch(urlFor(fullPath).href, { cache: "no-cache" });
-        projectFiles[name] = res.ok ? await res.text() : `// Error ${res.status}: No se encontró ${name}`;
-      }
-    } catch (err) {
-      projectFiles[name] = `// Error de conexión al cargar ${name}: ${String(err.message||err)}`;
+    currentFolderPath = path;
+    activeFile = "";
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('workspace').style.display = 'flex';
+    document.getElementById('ws-title').innerText = path;
+    
+    const files = allFiles.filter(f => f.startsWith(path + '/'));
+    projectFiles = {}; 
+    
+    for (let fullPath of files) {
+        const name = fullPath.split('/').pop();
+        try {
+            const lsKey = `IDE_v37_${path}_${name}`;
+            const saved = localStorage.getItem(lsKey);
+            if (saved) {
+                projectFiles[name] = saved;
+            } else {
+                // Forzamos la carga relativa al origen de la app
+                const res = await fetch(APP_BASE + fullPath);
+                projectFiles[name] = res.ok ? await res.text() : `// Error 404: No encontrado en ${fullPath}`;
+            }
+        } catch (err) {
+            projectFiles[name] = `// Error de conexión al cargar ${name}`;
+        }
+        
+        if (name.toLowerCase() === "instructions.txt") activeFile = name;
+        else if (!activeFile && name.toLowerCase() === "index.html") activeFile = name;
+        else if (!activeFile) activeFile = name;
     }
 
-    if (name.toLowerCase() === "instructions.txt") activeFile = name;
-    else if (!activeFile && name.toLowerCase() === "index.html") activeFile = name;
-    else if (!activeFile) activeFile = name;
-  }
-
-  require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs' } });
-  require(['vs/editor/editor.main'], () => {
-    if(!editor) {
-      editor = monaco.editor.create(document.getElementById('editor'), {
-        theme: 'vs-dark', automaticLayout: true, fontSize: 14, wordWrap: "on"
-      });
-      editor.onDidChangeModelContent(() => {
-        if(!activeFile) return;
-        projectFiles[activeFile] = editor.getValue();
-        localStorage.setItem(`IDE_v36_${currentFolderPath}_${activeFile}`, editor.getValue());
-      });
-    }
-    updateTabs();
-  });
+    require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs' } });
+    require(['vs/editor/editor.main'], () => {
+        if(!editor) {
+            editor = monaco.editor.create(document.getElementById('editor'), { 
+                theme: 'vs-dark', automaticLayout: true, fontSize: 14, wordWrap: "on" 
+            });
+            editor.onDidChangeModelContent(() => {
+                if(!activeFile) return;
+                projectFiles[activeFile] = editor.getValue();
+                localStorage.setItem(`IDE_v37_${currentFolderPath}_${activeFile}`, editor.getValue());
+            });
+        }
+        updateTabs();
+    });
 }
 
 function updateTabs() {
-  const container = document.getElementById('file-tabs');
-  container.innerHTML = "";
-  Object.keys(projectFiles).sort().forEach(name => {
-    const tab = document.createElement('div');
-    tab.className = `tab ${name === activeFile ? 'active' : ''}`;
-    tab.innerText = name;
-    tab.onclick = () => { activeFile = name; updateTabs(); };
-    container.appendChild(tab);
-  });
-  editor.setValue(projectFiles[activeFile] || "");
-  runProject();
+    const container = document.getElementById('file-tabs');
+    container.innerHTML = "";
+    Object.keys(projectFiles).sort().forEach(name => {
+        const tab = document.createElement('div');
+        tab.className = `tab ${name === activeFile ? 'active' : ''}`;
+        tab.innerText = name;
+        tab.onclick = () => { activeFile = name; updateTabs(); };
+        container.appendChild(tab);
+    });
+    editor.setValue(projectFiles[activeFile] || "");
+    runProject();
 }
 
 async function runProject() {
-  const web = document.getElementById('web-preview');
-  const viewer = document.getElementById('txt-viewer');
+    const web = document.getElementById('web-preview');
+    const viewer = document.getElementById('txt-viewer');
+    if (!activeFile) return;
 
-  if (!activeFile) return;
-
-  const low = activeFile.toLowerCase();
-
-  if (low.endsWith('.txt') || low.endsWith('.py')) {
-    web.style.display = 'none';
-    viewer.classList.add('active');
-
-    if (low.endsWith('.py')) {
-      viewer.innerText = ">>> Ejecutando Python...";
-      if(!pyodide) pyodide = await loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.1/full/" });
-      try {
-        await pyodide.runPythonAsync(`import sys, io\nsys.stdout = io.StringIO()`);
-        await pyodide.runPythonAsync(projectFiles[activeFile] || "");
-        viewer.innerText = pyodide.runPython("sys.stdout.getvalue()");
-      } catch (err) { viewer.innerText = String(err); }
-    } else {
-      viewer.innerText = projectFiles[activeFile] || "";
+    if (activeFile.toLowerCase().endsWith('.txt') || activeFile.toLowerCase().endsWith('.py')) {
+        web.style.display = 'none';
+        viewer.classList.add('active');
+        if (activeFile.toLowerCase().endsWith('.py')) {
+            viewer.innerText = ">>> Ejecutando Python...";
+            if(!pyodide) pyodide = await loadPyodide();
+            try {
+                await pyodide.runPythonAsync(`import sys, io\nsys.stdout = io.StringIO()`);
+                await pyodide.runPythonAsync(projectFiles[activeFile]);
+                viewer.innerText = pyodide.runPython("sys.stdout.getvalue()");
+            } catch (err) { viewer.innerText = err; }
+        } else {
+            viewer.innerText = projectFiles[activeFile];
+        }
+        return;
     }
-    return;
-  }
 
-  viewer.classList.remove('active');
-  web.style.display = 'block';
-  const target = low.endsWith('.html') ? activeFile : (projectFiles['index.html'] ? 'index.html' : activeFile);
-
-  const css = Object.keys(projectFiles).filter(n => n.toLowerCase().endsWith('.css')).map(n => `<style>${projectFiles[n]||""}</style>`).join("");
-  const js  = Object.keys(projectFiles).filter(n => n.toLowerCase().endsWith('.js')).map(n => `<script>${projectFiles[n]||""}<\/script>`).join("");
-
-  web.srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8">${css}</head>
-    <body style="margin:0; background:#1a1a2e; color:white; padding:15px;">
-      ${(projectFiles[target] || "")}
-      ${js}
-    </body></html>`;
+    viewer.classList.remove('active');
+    web.style.display = 'block';
+    const target = activeFile.toLowerCase().endsWith('.html') ? activeFile : (projectFiles['index.html'] ? 'index.html' : activeFile);
+    const css = Object.keys(projectFiles).filter(n => n.endsWith('.css')).map(n => `<style>${projectFiles[n]}</style>`).join("");
+    const js = Object.keys(projectFiles).filter(n => n.endsWith('.js')).map(n => `<script>${projectFiles[n]}<\/script>`).join("");
+    web.srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8">${css}</head><body style="margin:0; background:#1a1a2e; color:white; padding:15px;">${projectFiles[target] || ""}${js}</body></html>`;
 }
 
 async function exportToPDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-  const canvas = await html2canvas(document.getElementById('output-sec'), { scale: 1 });
-  doc.addImage(canvas.toDataURL('image/png'), 'PNG', 10, 10, 190, 100);
-
-  for (const [name, code] of Object.entries(projectFiles)) {
-    doc.addPage();
-    doc.setFont("courier", "bold"); doc.text(`ARCHIVO: ${name}`, 15, 15);
-    doc.setFont("courier", "normal"); doc.setFontSize(8);
-    doc.text(doc.splitTextToSize(code || "", 180), 15, 25);
-  }
-  doc.save("entrega.pdf");
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const canvas = await html2canvas(document.getElementById('output-sec'), { scale: 1 });
+    doc.addImage(canvas.toDataURL('image/png'), 'PNG', 10, 10, 190, 100);
+    for (const [name, code] of Object.entries(projectFiles)) {
+        doc.addPage();
+        doc.setFont("courier", "bold"); doc.text(`ARCHIVO: ${name}`, 15, 15);
+        doc.setFont("courier", "normal"); doc.setFontSize(8);
+        doc.text(doc.splitTextToSize(code, 180), 15, 25);
+    }
+    doc.save(`Entrega_${currentFolderPath.replace(/\//g,'_')}.pdf`);
 }
 </script>
 </body>
