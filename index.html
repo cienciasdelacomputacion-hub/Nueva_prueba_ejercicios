@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>CEIBAL IDE | v46 Link Fix</title>
+  <title>CEIBAL IDE | v47 Images Fix</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   
@@ -29,7 +29,7 @@
     .tab { padding: 0 15px; display: flex; align-items: center; font-size: 11px; cursor: pointer; color: #969696; border-right: 1px solid #1e1e1e; white-space: nowrap; }
     .tab.active { background: #1e1e1e; color: white; border-top: 2px solid var(--accent); }
     #editor { flex: 1; min-height: 0; }
-    iframe { flex: 1; border: none; background: #1a1a2e; width: 100%; }
+    iframe { flex: 1; border: none; background: #ffffff; width: 100%; } /* Fondo blanco para ver bien las imágenes */
     .btn { padding: 8px 15px; border-radius: 4px; border: none; cursor: pointer; font-size: 11px; font-weight: 700; background: #3a3d3e; color: white; white-space: nowrap; }
     .btn-run { background: #2ea043; }
 
@@ -38,15 +38,14 @@
       .editor-section { flex: none; height: 50vh; border-right: none; border-bottom: 2px solid var(--border); }
       .output-section { width: 100%; flex: none; height: 50vh; }
       .grid { grid-template-columns: 1fr; }
-      #ws-title { display: none; }
     }
   </style>
 </head>
 <body onload="initApp()">
 
   <div id="dashboard">
-    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v46</h1>
-    <p id="debug-log" style="text-align:center; color: #007acc; font-family: monospace; font-size: 11px;">Cargando sistema...</p>
+    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v47</h1>
+    <p id="debug-log" style="text-align:center; color: #007acc; font-family: monospace; font-size: 11px;">Cargando activos...</p>
     <div id="exercise-grid" class="grid"></div>
   </div>
 
@@ -114,11 +113,19 @@ async function enterExercise(folderPath) {
     for (let fullPath of filesInFolder) {
         const fileName = fullPath.split('/').pop();
         const safeUrl = BASE_URL + fullPath.split('/').map(p => encodeURIComponent(p)).join('/');
-        try {
-            const lsKey = `IDE_v43_${folderPath}_${fileName}`;
-            const saved = localStorage.getItem(lsKey);
-            projectFiles[fileName] = saved || await (await fetch(safeUrl)).text();
-        } catch (err) { projectFiles[fileName] = `// Error 404: ${fileName}`; }
+        
+        // Solo cargamos texto en el editor. Imágenes no se cargan como texto.
+        const isText = /\.(html|css|js|py|txt|json)$/i.test(fileName);
+        if (isText) {
+            try {
+                const lsKey = `IDE_v43_${folderPath}_${fileName}`;
+                const saved = localStorage.getItem(lsKey);
+                projectFiles[fileName] = saved || await (await fetch(safeUrl)).text();
+            } catch (err) { projectFiles[fileName] = `// Error 404: ${fileName}`; }
+        } else {
+            // Guardamos la URL de los binarios (imágenes) para referencia
+            projectFiles[fileName] = safeUrl; 
+        }
         
         if (fileName.toLowerCase() === 'instructions.txt' && !activeFile) activeFile = fileName;
         else if (fileName.toLowerCase() === 'index.html') activeFile = fileName;
@@ -133,7 +140,7 @@ function initMonaco() {
         if (!editor) {
             editor = monaco.editor.create(document.getElementById('editor'), { theme: 'vs-dark', automaticLayout: true, fontSize: 14, wordWrap: "on" });
             editor.onDidChangeModelContent(() => {
-                if (activeFile) {
+                if (activeFile && projectFiles[activeFile].length < 1000000) { // No guardar binarios en LS
                     projectFiles[activeFile] = editor.getValue();
                     localStorage.setItem(`IDE_v43_${currentFolderPath}_${activeFile}`, editor.getValue());
                 }
@@ -146,34 +153,54 @@ function initMonaco() {
 function updateTabs() {
     const container = document.getElementById('file-tabs');
     container.innerHTML = "";
-    Object.keys(projectFiles).sort().forEach(name => {
+    // Solo mostramos pestañas para archivos que no son imágenes pesadas
+    Object.keys(projectFiles).sort().filter(n => !/\.(png|jpg|jpeg|gif|webp|svg)$/i.test(n)).forEach(name => {
         const tab = document.createElement('div');
         tab.className = `tab ${name === activeFile ? 'active' : ''}`;
         tab.innerText = name;
         tab.onclick = () => { activeFile = name; updateTabs(); };
         container.appendChild(tab);
     });
-    editor.setValue(projectFiles[activeFile] || "");
+    
+    const content = projectFiles[activeFile];
+    editor.setValue(content.startsWith('http') ? `/* Archivo binario: ${activeFile} */` : content);
     runProject();
 }
 
-// ✅ INTERCEPTOR DE ENLACES PARA NAVEGACIÓN VIRTUAL
-function setupIframeInterception(iframe) {
-    iframe.onload = () => {
-        const doc = iframe.contentDocument || iframe.contentWindow.document;
-        doc.querySelectorAll('a').forEach(link => {
+// ✅ CORRECCIÓN DE RUTAS DE IMÁGENES
+function fixPaths(html) {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+    
+    // Corregir <img>
+    tempDiv.querySelectorAll('img').forEach(img => {
+        const src = img.getAttribute('src');
+        if (src && !src.startsWith('http')) {
+            img.src = BASE_URL + currentFolderPath + '/' + src;
+        }
+    });
+    
+    // Corregir enlaces <a> para navegación virtual
+    tempDiv.querySelectorAll('a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && projectFiles[href]) {
             link.onclick = (e) => {
-                const href = link.getAttribute('href');
-                // Si es un link a un archivo que tenemos cargado
-                if (href && projectFiles[href]) {
-                    e.preventDefault();
-                    activeFile = href; // Cambiamos el archivo activo
-                    updateTabs();      // Refrescamos editor e iframe
-                }
+                e.preventDefault();
+                parent.postMessage({action: 'navigate', file: href}, '*');
             };
-        });
-    };
+        }
+    });
+
+    return tempDiv.innerHTML;
 }
+
+// Escuchar navegación desde el iframe
+window.addEventListener('message', (e) => {
+    if (e.data.action === 'navigate') {
+        activeFile = e.data.file;
+        updateTabs();
+    }
+});
 
 async function runProject() {
     const web = document.getElementById('web-preview');
@@ -195,10 +222,12 @@ async function runProject() {
         viewer.classList.remove('active'); web.style.display = 'block';
         const css = Object.keys(projectFiles).filter(n => n.endsWith('.css')).map(n => `<style>${projectFiles[n]}</style>`).join("");
         const js = Object.keys(projectFiles).filter(n => n.endsWith('.js')).map(n => `<script>${projectFiles[n]}<\/script>`).join("");
-        const html = projectFiles[activeFile] || "";
         
-        setupIframeInterception(web); // Activamos el interceptor antes de cargar
-        web.srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8">${css}</head><body style="margin:0; background:#1a1a2e; color:white; padding:15px;">${html}${js}</body></html>`;
+        // Procesamos el HTML para arreglar las rutas de las fotos
+        const rawHtml = projectFiles[activeFile] || "";
+        const finalHtml = fixPaths(rawHtml);
+        
+        web.srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8">${css}</head><body style="margin:0; background:white; color:black; padding:15px;">${finalHtml}${js}</body></html>`;
     }
 }
 
@@ -207,7 +236,7 @@ async function exportToPDF() {
     const doc = new jsPDF();
     const canvas = await html2canvas(document.getElementById('output-sec'));
     doc.addImage(canvas.toDataURL('image/png'), 'PNG', 10, 10, 190, 100);
-    Object.entries(projectFiles).forEach(([name, code]) => {
+    Object.entries(projectFiles).filter(([n]) => !n.startsWith('http')).forEach(([name, code]) => {
         doc.addPage();
         doc.setFontSize(10); doc.text(`ARCHIVO: ${name}`, 15, 15);
         doc.setFontSize(8); doc.text(doc.splitTextToSize(code, 180), 15, 25);
