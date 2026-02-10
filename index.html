@@ -267,7 +267,7 @@ async function runProject() {
         const js = Object.keys(projectFiles).filter(n => n.endsWith('.js') && htmlRaw.includes(n))
             .map(n => `<script>${projectFiles[n]}<\/script>`).join("");
         web.srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">${css}</head>
-            <body style="margin:0; background:#1a1a2e; color:#333;">${processHTMLContent(htmlRaw, baseUrl)}${js}</body></html>`;
+            <body style="margin:0; background:#1a1a2e; ">${processHTMLContent(htmlRaw, baseUrl)}${js}</body></html>`;
     }
 }
 </script>
