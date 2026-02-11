@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>CEIBAL IDE | v48 Manual Run</title>
+  <title>CEIBAL IDE | v48 Manual & Nav Fix</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   
@@ -79,12 +79,14 @@ const getBaseUrl = () => {
 };
 const BASE_URL = getBaseUrl();
 
+// ESCUCHAR CLICS DESDE EL PREVIEW (Navegación interna)
 window.onmessage = function(e) {
     if (e.data && e.data.type === 'nav') {
         const targetFile = e.data.file;
         if (projectFiles[targetFile]) {
             activeFile = targetFile;
             updateTabs();
+            runProject(); // Si viene de un link, renderizamos automáticamente
         }
     }
 };
@@ -169,8 +171,7 @@ function updateTabs() {
     
     const content = projectFiles[activeFile];
     editor.setValue(content.startsWith('http') ? `/* Binary file: ${activeFile} */` : content);
-    
-    // HE QUITADO LA LLAMADA A runProject() AQUÍ PARA QUE NO SEA AUTOMÁTICO
+    // Ejecución manual únicamente (no llamamos a runProject aquí)
 }
 
 function processHTML(html) {
@@ -179,9 +180,10 @@ function processHTML(html) {
     doc.querySelectorAll('img').forEach(img => {
         const src = img.getAttribute('src');
         if (src && !src.startsWith('http')) {
-            img.src = BASE_URL + currentFolderPath + '/' + src;
+            img.src = projectFiles[src] && projectFiles[src].startsWith('http') ? projectFiles[src] : BASE_URL + currentFolderPath + '/' + src;
         }
     });
+
     const script = doc.createElement('script');
     script.textContent = `
         document.querySelectorAll('a').forEach(a => {
