@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>CEIBAL IDE | v48 Manual & Nav Fix</title>
+  <title>CEIBAL IDE | v49 Auto-Instructions</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   
@@ -45,7 +45,7 @@
 <body onload="initApp()">
 
   <div id="dashboard">
-    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v48</h1>
+    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v49</h1>
     <p id="debug-log" style="text-align:center; color: #007acc; font-family: monospace; font-size: 11px;">Sincronizando...</p>
     <div id="exercise-grid" class="grid"></div>
   </div>
@@ -79,14 +79,13 @@ const getBaseUrl = () => {
 };
 const BASE_URL = getBaseUrl();
 
-// ESCUCHAR CLICS DESDE EL PREVIEW (Navegación interna)
 window.onmessage = function(e) {
     if (e.data && e.data.type === 'nav') {
         const targetFile = e.data.file;
         if (projectFiles[targetFile]) {
             activeFile = targetFile;
             updateTabs();
-            runProject(); // Si viene de un link, renderizamos automáticamente
+            runProject(); 
         }
     }
 };
@@ -123,6 +122,8 @@ async function enterExercise(folderPath) {
     document.getElementById('ws-title').innerText = folderPath;
 
     const filesInFolder = allFiles.filter(f => f.startsWith(folderPath + '/'));
+    
+    // 1. Cargar todos los archivos primero
     for (let fullPath of filesInFolder) {
         const fileName = fullPath.split('/').pop();
         const safeUrl = BASE_URL + fullPath.split('/').map(p => encodeURIComponent(p)).join('/');
@@ -134,11 +135,18 @@ async function enterExercise(folderPath) {
                 projectFiles[fileName] = saved || await (await fetch(safeUrl)).text();
             } catch (err) { projectFiles[fileName] = ``; }
         } else { projectFiles[fileName] = safeUrl; }
-        
-        if (fileName.toLowerCase() === 'instructions.txt' && !activeFile) activeFile = fileName;
-        else if (fileName.toLowerCase() === 'index.html') activeFile = fileName;
     }
-    if(!activeFile) activeFile = Object.keys(projectFiles)[0];
+
+    // 2. Lógica de prioridad para el archivo por defecto
+    const fileNames = Object.keys(projectFiles);
+    if (fileNames.includes('instructions.txt')) {
+        activeFile = 'instructions.txt';
+    } else if (fileNames.includes('index.html')) {
+        activeFile = 'index.html';
+    } else {
+        activeFile = fileNames.sort()[0]; // El primero por orden alfabético si no hay ninguno de los anteriores
+    }
+
     initMonaco();
 }
 
@@ -171,7 +179,6 @@ function updateTabs() {
     
     const content = projectFiles[activeFile];
     editor.setValue(content.startsWith('http') ? `/* Binary file: ${activeFile} */` : content);
-    // Ejecución manual únicamente (no llamamos a runProject aquí)
 }
 
 function processHTML(html) {
