@@ -78,7 +78,6 @@ const getBaseUrl = () => {
 };
 const BASE_URL = getBaseUrl();
 
-// ESCUCHAR CLICS DESDE EL IFRAME
 window.onmessage = function(e) {
     if (e.data && e.data.type === 'nav') {
         const targetFile = e.data.file;
@@ -175,16 +174,12 @@ function updateTabs() {
 function processHTML(html) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
-    
-    // Arreglar imágenes
     doc.querySelectorAll('img').forEach(img => {
         const src = img.getAttribute('src');
         if (src && !src.startsWith('http')) {
             img.src = BASE_URL + currentFolderPath + '/' + src;
         }
     });
-
-    // Arreglar enlaces con script de intercepción inyectado
     const script = doc.createElement('script');
     script.textContent = `
         document.querySelectorAll('a').forEach(a => {
@@ -212,20 +207,24 @@ async function runProject() {
             viewer.innerText = ">>> Ejecutando...";
             if(!pyodide) pyodide = await loadPyodide();
             try {
-                await pyodide.runPythonAsync(`import sys, io\nsys.stdout = io.StringIO()`);
+                // Preparamos captura de salida y puenteamos el input()
+                await pyodide.runPythonAsync(`
+import sys, io, builtins, js
+sys.stdout = io.StringIO()
+def custom_input(prompt=""):
+    return js.prompt(prompt)
+builtins.input = custom_input
+                `);
                 await pyodide.runPythonAsync(projectFiles[activeFile]);
                 viewer.innerText = pyodide.runPython("sys.stdout.getvalue()");
-            } catch (e) { viewer.innerText = e; }
+            } catch (e) { viewer.innerText = "ERROR:\n" + e; }
         } else { viewer.innerText = projectFiles[activeFile]; }
     } else {
         viewer.classList.remove('active'); web.style.display = 'block';
         const css = Object.keys(projectFiles).filter(n => n.endsWith('.css')).map(n => `<style>${projectFiles[n]}</style>`).join("");
         const js = Object.keys(projectFiles).filter(n => n.endsWith('.js') && n !== activeFile).map(n => `<script>${projectFiles[n]}<\/script>`).join("");
-        
         const rawHtml = projectFiles[activeFile] || "";
         const finalHtml = processHTML(rawHtml);
-        
-        // El body ya no tiene colores forzados para respetar el CSS del alumno
         web.srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8">${css}</head><body>${finalHtml}${js}</body></html>`;
     }
 }
