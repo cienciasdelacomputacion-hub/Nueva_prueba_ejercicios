@@ -1,0 +1,10 @@
+Instrucciones:
+Pide al usuario que ingrese un puntaje entre 0 y 100.
+
+Usa una estructura if-elif-else para asignar la calificación:
+
+A: 91-100
+B: 81-90
+C: 71-80
+D: 61-70
+F: 0-60

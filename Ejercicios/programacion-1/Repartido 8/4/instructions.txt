@@ -1,0 +1,9 @@
+Crea un programa que convierta el nombre de un día en su descripción ("día laborable" o "fin de semana") usando match-case.
+
+Instrucciones:
+Pide al usuario un día de la semana (Lunes a Domingo).
+Usa match-case para imprimir si el día es laborable o de fin de semana.
+Ejemplo de entrada/salida:
+Entrada: Lunes
+
+Salida: Día laborable.

@@ -1,0 +1,9 @@
+Enunciado:
+Pide al usuario un número entero.
+
+Usa una estructura if-else para imprimir si el número es par o impar.
+
+Ejemplo de entrada/salida:
+Entrada: 7
+
+Salida: El número es impar.

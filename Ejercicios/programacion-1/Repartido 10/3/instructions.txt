@@ -1,0 +1,13 @@
+Crea una función llamada administrar_tarea que utilice una función anidada para gestionar una variable no local llamada estado.
+
+Instrucciones:
+Define una función principal llamada administrar_tarea.
+Dentro de esta función, crea una variable estado inicializada como "Pendiente".
+Define una función anidada llamada actualizar_estado que cambie el valor de estado a "Completada" utilizando nonlocal.
+La función administrar_tarea debe llamar a actualizar_estado y devolver el valor de estado.
+Ejemplo:
+print(administrar_tarea())
+
+Salida:
+
+"Completada"

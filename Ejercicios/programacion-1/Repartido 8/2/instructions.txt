@@ -1,0 +1,11 @@
+Instrucciones:
+Pide al usuario que ingrese una calificación en forma de letra (A-F).
+
+Usa match-case para imprimir una descripción de la calificación:
+
+A: Excelente
+B: Bueno
+C: Aceptable
+D: Deficiente
+F: Reprobado
+Cualquier otra letra: "Calificación no válida".

@@ -1,0 +1,11 @@
+Instrucciones:
+Pide al usuario su edad y si es estudiante (True o False).
+Usa estructuras condicionales anidadas para imprimir:
+"Estudiante adulto" si es mayor de 18 y estudiante.
+"Adulto" si es mayor de 18 y no es estudiante.
+"Estudiante menor de edad" si es menor de 18 y estudiante.
+"Menor de edad" si es menor de 18 y no es estudiante.
+Ejemplo de entrada/salida:
+Entrada: Edad: 20, Estudiante: True
+
+Salida: Estudiante adulto.

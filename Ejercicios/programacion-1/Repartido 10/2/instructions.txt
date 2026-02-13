@@ -1,0 +1,18 @@
+Escribe un procedimiento llamado incrementar_contador que aumente el valor de una variable global llamada contador en 1 cada vez que sea llamado.
+
+Instrucciones:
+Define la variable global contador con un valor inicial de 0.
+Crea una función llamadaincrementar_contador.
+Dentro de la función, usa global contador y suma 1 a su valor.
+Llama a la función 3 veces.
+Muestra el total de clics con print(clics).
+Ejemplo:
+incrementar_contador()
+
+incrementar_contador()
+
+print(contador)
+
+Salida:
+
+2

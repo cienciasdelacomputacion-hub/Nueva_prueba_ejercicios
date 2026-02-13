@@ -1,0 +1,11 @@
+Crea una función llamada saludo_completo que utilice una función anidada para construir un mensaje.
+
+Instrucciones:
+Crea una función llamada saludo_completo(nombre).
+Dentro de esa función, define una función anidada llamada saludo_personalizado() que no reciba parámetros, pero use la variable nombre desde la función exterior.
+saludo_personalizado debe devolver el texto: "¡Hola, <nombre>! Bienvenido/a al curso de Python."
+saludo_completo debe devolver el mensaje generado por saludo_personalizado.
+Ejemplo:
+Entrada: print(saludo_completo("Valentina"))
+
+Salida esperada: ¡Hola, Valentina! Bienvenido/a al curso de Python.

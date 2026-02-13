@@ -1,0 +1,11 @@
+Escribe un programa que simule el flujo de ejecución entre una función principal y una función anidada.
+
+Instrucciones:
+Define una función proceso_principal.
+Dentro de esta función, define otra llamada subproceso que imprima "Ejecutando subproceso".
+La función proceso_principal debe imprimir "Inicio del proceso principal", llamar a subproceso y luego imprimir "Fin del proceso principal".
+Ejemplo:
+proceso_principal()
+
+Salida:
+Inicio del proceso principal Ejecutando subproceso Fin del proceso principal

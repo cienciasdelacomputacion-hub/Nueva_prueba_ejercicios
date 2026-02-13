@@ -1,0 +1,14 @@
+Clasifica una temperatura ingresada en categorías específicas usando if-elif-else.
+
+Instrucciones:
+Pide al usuario una temperatura en grados Celsius.
+Usa estructuras condicionales para clasificarla:
+Menos de 0°C: "Congelante".
+0°C a 10°C: "Muy frío".
+11°C a 20°C: "Frío".
+21°C a 30°C: "Agradable".
+Más de 30°C: "Caluroso".
+Ejemplo de entrada/salida:
+Entrada: 15
+
+Salida: Frío.

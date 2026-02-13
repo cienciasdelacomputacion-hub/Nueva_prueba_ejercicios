@@ -1,0 +1,12 @@
+Crea una función llamada saludo_climatico que reciba:
+
+Un nombre.
+Una temperatura en grados Celsius.
+Condiciones:
+Si la temperatura es menor a 10°C, devuelve: "Hola [nombre], hace frío, abrígate!".
+Si está entre 10°C y 25°C, devuelve: "Hola [nombre], el clima está agradable.".
+Si es mayor a 25°C, devuelve: "Hola [nombre], hace calor, mantente fresco!".
+Ejemplo de entrada/salida:
+Entrada: Nombre: "Juan", Temperatura: 5
+
+Salida: Hola Juan, hace frío, abrígate!

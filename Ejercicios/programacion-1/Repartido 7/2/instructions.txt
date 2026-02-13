@@ -1,0 +1,10 @@
+Crea un programa que:
+Pide al usuario dos números enteros.
+Usa una estructura if-elif-else para imprimir:
+"El primer número es mayor."
+"El segundo número es mayor."
+"Ambos números son iguales."
+Ejemplo de entrada/salida:
+Entrada: 5, 10
+
+Salida: El segundo número es mayor.

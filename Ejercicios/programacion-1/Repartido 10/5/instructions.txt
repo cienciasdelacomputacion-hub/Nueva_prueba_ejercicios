@@ -1,0 +1,11 @@
+Combina una función y un procedimiento para implementar un contador.
+
+Instrucciones:
+Define una variable global llamada contador inicializada en 0.
+Escribe un procedimiento llamado incrementar que aumente el valor de contador en 1.
+Escribe una función llamada valor_actual que devuelva el valor actual de contador.
+Ejemplo:
+incrementar() incrementar() print(valor_actual())
+
+Salida:
+2

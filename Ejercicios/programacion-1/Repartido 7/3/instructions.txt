@@ -1,0 +1,13 @@
+Dado un puntaje entre 0 y 100, determina la calificación del estudiante según el siguiente criterio:
+
+Menos de 60: Reprobado.
+60-79: Aprobado.
+80-89: Notable.
+90-100: Sobresaliente.
+Instrucciones:
+Pide al usuario un puntaje entre 0 y 100.
+Usa una estructura if-elif-else para determinar su calificación.
+Ejemplo de entrada/salida:
+Entrada: 85
+
+Salida: Calificación: Notable.

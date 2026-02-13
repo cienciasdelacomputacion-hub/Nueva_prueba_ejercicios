@@ -1,0 +1,19 @@
+Crea una función llamada etiqueta_producto que reciba:
+
+El nombre del producto.
+Su precio.
+Un booleano indicando si el cliente quiere un formato corto.
+Condiciones:
+Si el formato es corto, devuelve solo el nombre del producto.
+Si el formato es largo, devuelve: "Producto: [nombre], Precio: $[precio]".
+Ejemplo de entrada/salida:
+Entrada:
+
+print(etiqueta_producto("Laptop", 1200, True))
+print(etiqueta_producto("Laptop", 1200, False))
+
+Salida:
+
+Laptop
+
+Producto: Laptop, Precio: $1200

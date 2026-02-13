@@ -1,0 +1,19 @@
+Dado un número que representa la edad de una persona, clasifícala según las siguientes categorías:
+
+Menor de 12 años: Niño.
+13-17 años: Adolescente.
+18-64 años: Adulto.
+65 años o más: Adulto mayor.
+Instrucciones:
+Pedí al usuario que ingrese su edad usando input().
+Convertí ese valor a número entero con int().
+Usá condicionales if, elif, else para determinar la categoría.
+Mostrá el resultado.
+⚠️ Atención:
+
+Asegúrate de que los rangos no se superpongan y de que cada edad esté correctamente incluida en una sola categoría. Por ejemplo, no ignores la edad 12 por error al escribir las condiciones.
+
+Ejemplo de entrada/salida:
+Entrada: 70
+
+Salida: Adulto mayor.
