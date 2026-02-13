@@ -1,0 +1,11 @@
+Comparar las siguientes cadenas:
+"Montevideo" y "Buenos Aires".
+"Python" y "JavaScript".
+"Uruguay" y "Paraguay".
+Enunciado:
+Usa la función len() para obtener la longitud de las cadenas.
+Usa operadores como > o < para determinar cuál es más larga.
+Ejemplo de entrada/salida:
+Entrada: "Montevideo", "Buenos Aires"
+
+Salida: "Buenos Aires" es más larga que "Montevideo".
