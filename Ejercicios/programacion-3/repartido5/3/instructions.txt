@@ -1,0 +1,9 @@
+Animales en Recuperación
+
+Ahora que los asistentes de zoológico pueden rehabilitar animales, definamos un animal que pueda recibir rehabilitación.
+
+Creá la clase Leon con los siguientes atributos y métodos:
+
+energia: atributo inicializado en el constructor.
+comer(gramos): aumenta la energía en la cantidad de gramos recibidos.
+recibir_rehabilitacion(): el león come 500 gramos de carne para recuperarse.

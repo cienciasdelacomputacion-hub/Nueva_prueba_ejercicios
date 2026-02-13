@@ -1,0 +1,3 @@
+Creando Nuestra Propia Clase
+
+Definí la clase Computadora con los atributos procesador y ram, inicializándolos en el constructor.

@@ -1,0 +1,7 @@
+Un Asistente Sin Estado
+
+Vamos a modelar un asistente de zoológico que ayuda a alimentar a los animales.
+
+Los asistentes no tienen atributos propios, pero pueden alimentar a los animales con una cantidad de comida dada.
+
+Definí la clase AsistenteDeZoologico con un método alimentar que reciba un animal y una cantidad de comida, enviándole el mensaje correspondiente al animal.

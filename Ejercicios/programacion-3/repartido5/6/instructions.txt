@@ -1,0 +1,4 @@
+¿Quién Puede Ser Rehabilitado?
+
+Queremos asegurarnos de que solo los animales con energía menor a 5000 puedan recibir rehabilitación.
+Modificá el método recibir_rehabilitacion() en cada clase para que solo aplique la rehabilitación si el animal tiene menos de 5000 de energía.

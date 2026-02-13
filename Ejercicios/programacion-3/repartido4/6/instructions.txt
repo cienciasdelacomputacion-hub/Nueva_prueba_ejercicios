@@ -1,0 +1,8 @@
+El Gato de Schrödinger
+
+Definí la clase Gato con los siguientes atributos y métodos:
+
+energia: representa la energía del gato.
+edad: representa la edad del gato.
+comer(gramos): su energía aumenta en la cantidad de gramos consumidos.
+cumplir_anios(): su edad aumenta en 1.

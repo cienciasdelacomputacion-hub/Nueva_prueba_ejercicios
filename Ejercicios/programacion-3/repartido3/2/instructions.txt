@@ -1,0 +1,17 @@
+Compatibilidad de Celulares
+
+Ahora, tenemos estos celulares:
+
+celular_de_pedro = Celular(50, 120)
+
+celular_de_ana = Celular(30, 200)
+
+Comprobemos qué sucede al ejecutar estas líneas:
+
+celular_de_ana.tiene_bateria_maxima()
+
+celular_de_ana.cargar_a_tope()
+
+celular_de_ana.necesita_saldo()
+
+¿Qué valores devolverán estas expresiones?

@@ -1,0 +1,9 @@
+Actualizando un Celular
+
+Ahora, creá una instancia de Celular llamada celular_de_pedro con los siguientes valores:
+
+50% de batería
+
+$120 de saldo
+
+Sistema operativo "Android 12"

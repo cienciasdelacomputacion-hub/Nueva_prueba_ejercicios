@@ -1,0 +1,11 @@
+Confirmando el Alta Médica
+
+Modificá la clase AsistenteDeZoologico agregando el método puede_dar_el_alta(animal), que verifique si el animal está listo para recibir el alta médica.
+
+📌 Reglas:
+
+Un animal puede recibir el alta si está feliz.
+Para eso, el asistente debe llamar al método esta_feliz() del animal.
+Si el animal es feliz, el método puede_dar_el_alta(animal) debe devolver True, de lo contrario, False.
+📌 Tarea:
+Modificá la clase AsistenteDeZoologico, agregando el método puede_dar_el_alta(animal), que verifique si el animal está feliz.

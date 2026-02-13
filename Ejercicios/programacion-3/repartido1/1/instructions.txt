@@ -1,0 +1,3 @@
+Identificación de objetos
+
+Como vimos, en la programación orientada a objetos trabajamos con... ¡objetos! Para ver cómo se representan, escribe en la consola lo siguiente y observa el resultado:

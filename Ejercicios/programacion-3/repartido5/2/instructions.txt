@@ -1,0 +1,8 @@
+El Médico de los Animales
+
+Los asistentes de zoológico no solo alimentan a los animales, sino que también ayudan en su rehabilitación.
+
+Definí la clase AsistenteDeZoologico con dos métodos:
+
+alimentar(animal, gramos): Hace que el animal coma.
+rehabilitar(animal): Hace que el animal reciba rehabilitación enviándole el mensaje recibir_rehabilitacion().

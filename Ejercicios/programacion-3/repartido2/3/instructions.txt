@@ -1,0 +1,3 @@
+Métodos con efectos
+
+Ejecuta lo siguiente en la consola: auto_de_luis.tiene_tanque_lleno() auto_de_luis.llenar_tanque() auto_de_luis.tiene_tanque_lleno()

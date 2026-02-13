@@ -1,0 +1,12 @@
+Diferencias entre Clases
+
+Indica cuáles de estas afirmaciones son verdaderas según el código previo:
+
+Nano entiende el mensaje galopar.
+Pepita entiende el mensaje galopar.
+"Cuarto De Milla" es la ciudad de Nano.
+Theo y Nano hacen lo mismo cuando reciben el mensaje comer.
+Theo y Kali hacen lo mismo cuando reciben el mensaje comer.
+Kali tiene más años que Theo.
+Si hacemos pepita.volar_hacia("Quilmes"), su ciudad será "Quilmes" y su energía 50.
+Si hacemos nano.comer(100), su energía será 700.

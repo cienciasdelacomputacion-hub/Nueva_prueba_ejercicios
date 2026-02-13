@@ -1,0 +1,12 @@
+Problemas con Otros Animales
+
+¿Qué pasará si intentamos rehabilitar un Elefante o un Mono?
+
+Ahora, probá este código:
+asistente = AsistenteDeZoologico()
+simba = Leon(1000)
+dumbo = Elefante(3000)
+coco = Mono(700)
+asistente.rehabilitar(simba)
+asistente.rehabilitar(dumbo)
+asistente.rehabilitar(coco)

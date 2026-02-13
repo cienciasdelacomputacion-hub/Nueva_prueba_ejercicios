@@ -1,0 +1,8 @@
+Enfrentando Criaturas
+
+Un Cazador puede enfrentar a las criaturas si no son peligrosas.
+
+Definí la clase Cazador, que tenga un atributo destreza y un método enfrentar(criatura).
+
+Si la criatura NO es un peligro, el cazador enfrenta a la criatura y su destreza aumenta en 10.
+Si la criatura es un peligro, el método debe lanzar una excepción con el mensaje "Es demasiado peligroso enfrentarlo".

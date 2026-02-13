@@ -1,0 +1,9 @@
+Criaturas Adaptables
+
+Se han detectado criaturas mutantes, que pueden ser Zombis, Vampiros o Lobos Oscuros.
+Sabemos que:
+
+Un Zombi es un peligro si su hambre es mayor a 50.
+Un Vampiro es un peligro si su sed de sangre es mayor a 30.
+Un Lobo Oscuro es un peligro si ha cazado más de 3 veces.
+Definí la clase LoboOscuro con el método es_un_peligro(), asegurándote de que sea polimórfica con Zombi y Vampiro.

@@ -1,0 +1,8 @@
+La Golondrina en Movimiento
+
+Definí la clase Golondrina con los siguientes atributos y métodos:
+
+energia: representa la energía de la golondrina.
+ciudad: representa la ciudad en la que está la golondrina.
+comer(gramos): su energía aumenta en la mitad de los gramos recibidos.
+volar_hacia(destino): cambia la ciudad al destino y reduce su energia a la mitad.

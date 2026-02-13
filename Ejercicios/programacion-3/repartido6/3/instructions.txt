@@ -1,0 +1,8 @@
+Criaturas en la Oscuridad
+
+En una aventura de terror, aparecen criaturas misteriosas.
+Definí las clases Zombi y Vampiro con estos comportamientos:
+
+Un Zombi tiene un atributo hambre y es un peligro si su hambre es mayor a 50.
+Un Vampiro tiene un atributo sed_de_sangre y es un peligro si su sed es mayor a 30.
+Agregá el método es_un_peligro() en ambas clases para determinar si la criatura representa un riesgo.
