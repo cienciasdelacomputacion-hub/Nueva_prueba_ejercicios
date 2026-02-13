@@ -1,0 +1,9 @@
+Dada la lista de colores:
+
+colores = ["rojo", "azul", "verde", "amarillo", "naranja"]
+
+Escribe un programa que:
+
+Compruebe si los colores "azul" y "morado" están en la lista.
+
+Muestre un mensaje indicando si están o no.

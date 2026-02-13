@@ -1,0 +1,1 @@
+Imprime los números del 1 al 10 en una lista, utilizando la función range.

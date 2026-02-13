@@ -1,0 +1,7 @@
+1 - Crea una lista llamada letras con los elementos "a", "b", "c", "d".
+
+2 - Crea una cadena llamada cadena con el texto "abcd".
+
+3 - Accede al segundo elemento de la lista y de la cadena, y muéstralos.
+
+4 - Usa slicing para mostrar los elementos desde el índice 1 hasta el 3 (excluyendo el 3) tanto en la lista como en la cadena.

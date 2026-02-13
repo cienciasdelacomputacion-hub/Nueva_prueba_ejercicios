@@ -1,0 +1,13 @@
+Crea una lista llamada paises con los siguientes elementos: "Argentina", "Brasil", "Chile", "Perú".
+
+Agrega el país "Colombia" al final de la lista utilizando el método .append().
+
+Elimina el país "Brasil" de la lista utilizando el método .remove().
+
+Muestra en pantalla la lista de países después de los cambios.
+
+Verifica si el país "Chile" está en la lista usando el operador in y muestra un mensaje.
+
+Encuentra el índice del país "Perú" usando el método .index() y muestra su posición.
+
+Intenta acceder a un índice fuera del rango de la lista (por ejemplo, índice 5)

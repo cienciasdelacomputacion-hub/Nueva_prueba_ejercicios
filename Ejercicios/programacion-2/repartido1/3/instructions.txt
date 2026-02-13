@@ -1,0 +1,7 @@
+Crear un programa sencillo que:
+
+1 - Empiece con una lista vacía,llamada frutas
+
+2 - Agregue cuatro frutas a la lista usando append() y luego borre 2, utilizando remove().
+
+3 - Muestre la lista actualizada después de cada operación.

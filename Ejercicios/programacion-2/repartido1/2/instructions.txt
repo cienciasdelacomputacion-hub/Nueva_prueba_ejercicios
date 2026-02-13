@@ -1,0 +1,15 @@
+A-Crea una lista llamada tipos_datos.
+
+Asegúrate de que la lista contenga al menos:
+
+Un número entero.
+
+Un número decimal.
+
+Una cadena de texto.
+
+Un valor booleano.
+
+Imprime la lista completa.
+
+B - Crear una lista vacía. llamada: lista_vacia.

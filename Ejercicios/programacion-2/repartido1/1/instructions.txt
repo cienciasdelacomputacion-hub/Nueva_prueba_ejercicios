@@ -1,0 +1,15 @@
+1 - Crear una lista de tus 5 frutas favoritas.
+
+Guarda esta lista en una variable llamada frutas.
+
+2 - Crea una lista con 5 números.
+
+Guarda esta lista en una variable llamada numeros.
+
+3 - Imprimir la lista de frutas Y números.
+
+Usa print() para mostrar la lista que creaste.
+
+4 - Acceder y mostrar el tercer elemento de la lista frutas y el 4 de la lista números.
+
+Imprime el tercer elemento de la lista, que en este caso será la fruta en el índice 2.

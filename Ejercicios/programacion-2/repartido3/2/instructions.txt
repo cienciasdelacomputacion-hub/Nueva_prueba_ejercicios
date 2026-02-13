@@ -1,0 +1,9 @@
+El objetivo de este ejercicio es usar triple comillado, el carácter especial \n y la función print() para mostrar un menú de opciones estático y un mensaje de despedida. En este caso, no hay interacción con el usuario (no se usa input()).
+
+Requisitos:
+
+1 - Utilizar triple comillas para definir el texto del menú(vertical) de un sitio web.
+
+2 - Insertar \n para generar saltos de línea entre las opciones y los mensajes.
+
+3 - Imprimir el menú seguido de un mensaje de despedida utilizando print().

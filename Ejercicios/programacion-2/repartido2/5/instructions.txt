@@ -1,0 +1,1 @@
+Completa el print del programa que intente acceder a un índice fuera del rango de la lista y observe el error que se genera.
