@@ -79,6 +79,7 @@ const getBaseUrl = () => {
 };
 const BASE_URL = getBaseUrl();
 
+// MANTENIDO: Lógica de navegación interna (indispensable)
 window.onmessage = function(e) {
     if (e.data && e.data.type === 'nav') {
         const targetFile = e.data.file;
@@ -90,50 +91,46 @@ window.onmessage = function(e) {
     }
 };
 
+// NUEVO: Ayudante para colores de Monaco
+function getLanguage(filename) {
+    const ext = filename.split('.').pop().toLowerCase();
+    const map = { 'py': 'python', 'html': 'html', 'js': 'javascript', 'css': 'css', 'json': 'json' };
+    return map[ext] || 'plaintext';
+}
+
 async function initApp() {
     try {
-        // 1. Obtener parámetros de grupo de la URL (?grupo=xxx)
         const urlParams = new URLSearchParams(window.location.search);
         const grupoDeseado = urlParams.get('grupo');
 
-        // 2. Cargar el mapa del proyecto generado automáticamente
         const res = await fetch(BASE_URL + 'mapa_del_proyecto.json?t=' + Date.now());
         const data = await res.json();
-        
         allFiles = data.files.map(f => {
             let p = typeof f === 'string' ? f : f.path;
             return p.replace(/\\/g, '/').replace(/^\.\//, '').replace(/^\//, '');
         });
 
-        // Extraer carpetas únicas de los archivos
         let folders = [...new Set(allFiles.map(f => f.split('/').length > 1 ? f.split('/').slice(0, -1).join('/') : null))].filter(Boolean).sort();
 
-        // 3. Lógica de filtrado por grupos
+        // INTEGRADO: Sistema de grupos por URL
         if (grupoDeseado) {
             try {
                 const resGrupos = await fetch(BASE_URL + 'grupos.json?t=' + Date.now());
                 if (resGrupos.ok) {
                     const grupos = await resGrupos.json();
                     if (grupos[grupoDeseado]) {
-                        // Filtramos las carpetas para que coincidan con la lista del grupo
                         folders = folders.filter(f => grupos[grupoDeseado].includes(f));
                         document.getElementById('main-title').innerText = `Ceibal EdTech - ${grupoDeseado.toUpperCase()}`;
                     }
                 }
-            } catch (err) {
-                console.warn("No se pudo cargar grupos.json, mostrando todo.", err);
-            }
+            } catch (err) { console.warn("Error cargando grupos.json"); }
         }
 
         renderGrid(folders);
-
-        // Si hay un hash directo a un ejercicio, entrar directamente
         if (window.location.hash.includes('/ejercicio/')) {
             enterExercise(decodeURIComponent(window.location.hash.split('/ejercicio/')[1]));
         }
-    } catch (e) { 
-        document.getElementById('debug-log').innerText = "Error: " + e.message; 
-    }
+    } catch (e) { document.getElementById('debug-log').innerText = "Error: " + e.message; }
 }
 
 function renderGrid(folders) {
@@ -168,13 +165,9 @@ async function enterExercise(folderPath) {
     }
 
     const fileNames = Object.keys(projectFiles);
-    if (fileNames.includes('instructions.txt')) {
-        activeFile = 'instructions.txt';
-    } else if (fileNames.includes('index.html')) {
-        activeFile = 'index.html';
-    } else {
-        activeFile = fileNames.sort()[0];
-    }
+    if (fileNames.includes('instructions.txt')) activeFile = 'instructions.txt';
+    else if (fileNames.includes('index.html')) activeFile = 'index.html';
+    else activeFile = fileNames.sort()[0];
 
     initMonaco();
 }
@@ -183,7 +176,9 @@ function initMonaco() {
     require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs' } });
     require(['vs/editor/editor.main'], () => {
         if (!editor) {
-            editor = monaco.editor.create(document.getElementById('editor'), { theme: 'vs-dark', automaticLayout: true, fontSize: 14, wordWrap: "on" });
+            editor = monaco.editor.create(document.getElementById('editor'), { 
+                theme: 'vs-dark', automaticLayout: true, fontSize: 14, wordWrap: "on" 
+            });
             editor.onDidChangeModelContent(() => {
                 if (activeFile && projectFiles[activeFile].length < 500000) {
                     projectFiles[activeFile] = editor.getValue();
@@ -207,9 +202,12 @@ function updateTabs() {
     });
     
     const content = projectFiles[activeFile];
-    editor.setValue(content.startsWith('http') ? `/* Binary file: ${activeFile} */` : content);
+    editor.setValue(content.startsWith('http') ? `/* Archivo binario: ${activeFile} */` : content);
+    // REINSTAURADO: Color de sintaxis dinámico
+    monaco.editor.setModelLanguage(editor.getModel(), getLanguage(activeFile));
 }
 
+// MANTENIDO: Procesamiento de HTML e inyección de script para navegación
 function processHTML(html) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
@@ -236,6 +234,7 @@ function processHTML(html) {
     return doc.documentElement.innerHTML;
 }
 
+// MANTENIDO: Ejecución completa para Python y Web
 async function runProject() {
     const web = document.getElementById('web-preview');
     const viewer = document.getElementById('txt-viewer');
@@ -250,8 +249,7 @@ async function runProject() {
                 await pyodide.runPythonAsync(`
 import sys, io, builtins, js
 sys.stdout = io.StringIO()
-def custom_input(prompt=""):
-    return js.prompt(prompt)
+def custom_input(prompt=""): return js.prompt(prompt)
 builtins.input = custom_input
                 `);
                 await pyodide.runPythonAsync(projectFiles[activeFile]);
@@ -262,8 +260,7 @@ builtins.input = custom_input
         viewer.classList.remove('active'); web.style.display = 'block';
         const css = Object.keys(projectFiles).filter(n => n.endsWith('.css')).map(n => `<style>${projectFiles[n]}</style>`).join("");
         const js = Object.keys(projectFiles).filter(n => n.endsWith('.js') && n !== activeFile).map(n => `<script>${projectFiles[n]}<\/script>`).join("");
-        const rawHtml = projectFiles[activeFile] || "";
-        const finalHtml = processHTML(rawHtml);
+        const finalHtml = processHTML(projectFiles[activeFile] || "");
         web.srcdoc = `<!DOCTYPE html><html><head><meta charset="utf-8">${css}</head><body>${finalHtml}${js}</body></html>`;
     }
 }
