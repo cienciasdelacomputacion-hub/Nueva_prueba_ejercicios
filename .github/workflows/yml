@@ -1,0 +1,33 @@
+name: Auto Generar Mapa del Proyecto
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'mapa_del_proyecto.json'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Ejecutar script generador
+        run: |
+          pwd
+          python ./tools/generar_mapas.py
+
+      - name: Confirmar y subir cambios
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add mapa_del_proyecto.json
+          git commit -m "chore: actualización automática del mapa del proyecto" || echo "No hay cambios para subir"
+          git push
