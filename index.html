@@ -45,7 +45,7 @@
 <body onload="initApp()">
 
   <div id="dashboard">
-    <h1 style="color:white; text-align:center;">Ceibal EdTech Lab v49</h1>
+    <h1 id="main-title" style="color:white; text-align:center;">Ceibal EdTech Lab v49</h1>
     <p id="debug-log" style="text-align:center; color: #007acc; font-family: monospace; font-size: 11px;">Sincronizando...</p>
     <div id="exercise-grid" class="grid"></div>
   </div>
@@ -92,17 +92,48 @@ window.onmessage = function(e) {
 
 async function initApp() {
     try {
+        // 1. Obtener parámetros de grupo de la URL (?grupo=xxx)
+        const urlParams = new URLSearchParams(window.location.search);
+        const grupoDeseado = urlParams.get('grupo');
+
+        // 2. Cargar el mapa del proyecto generado automáticamente
         const res = await fetch(BASE_URL + 'mapa_del_proyecto.json?t=' + Date.now());
         const data = await res.json();
+        
         allFiles = data.files.map(f => {
             let p = typeof f === 'string' ? f : f.path;
             return p.replace(/\\/g, '/').replace(/^\.\//, '').replace(/^\//, '');
         });
-        renderGrid([...new Set(allFiles.map(f => f.split('/').length > 1 ? f.split('/').slice(0, -1).join('/') : null))].filter(Boolean).sort());
+
+        // Extraer carpetas únicas de los archivos
+        let folders = [...new Set(allFiles.map(f => f.split('/').length > 1 ? f.split('/').slice(0, -1).join('/') : null))].filter(Boolean).sort();
+
+        // 3. Lógica de filtrado por grupos
+        if (grupoDeseado) {
+            try {
+                const resGrupos = await fetch(BASE_URL + 'grupos.json?t=' + Date.now());
+                if (resGrupos.ok) {
+                    const grupos = await resGrupos.json();
+                    if (grupos[grupoDeseado]) {
+                        // Filtramos las carpetas para que coincidan con la lista del grupo
+                        folders = folders.filter(f => grupos[grupoDeseado].includes(f));
+                        document.getElementById('main-title').innerText = `Ceibal EdTech - ${grupoDeseado.toUpperCase()}`;
+                    }
+                }
+            } catch (err) {
+                console.warn("No se pudo cargar grupos.json, mostrando todo.", err);
+            }
+        }
+
+        renderGrid(folders);
+
+        // Si hay un hash directo a un ejercicio, entrar directamente
         if (window.location.hash.includes('/ejercicio/')) {
             enterExercise(decodeURIComponent(window.location.hash.split('/ejercicio/')[1]));
         }
-    } catch (e) { document.getElementById('debug-log').innerText = "Error: " + e.message; }
+    } catch (e) { 
+        document.getElementById('debug-log').innerText = "Error: " + e.message; 
+    }
 }
 
 function renderGrid(folders) {
@@ -123,7 +154,6 @@ async function enterExercise(folderPath) {
 
     const filesInFolder = allFiles.filter(f => f.startsWith(folderPath + '/'));
     
-    // 1. Cargar todos los archivos primero
     for (let fullPath of filesInFolder) {
         const fileName = fullPath.split('/').pop();
         const safeUrl = BASE_URL + fullPath.split('/').map(p => encodeURIComponent(p)).join('/');
@@ -137,14 +167,13 @@ async function enterExercise(folderPath) {
         } else { projectFiles[fileName] = safeUrl; }
     }
 
-    // 2. Lógica de prioridad para el archivo por defecto
     const fileNames = Object.keys(projectFiles);
     if (fileNames.includes('instructions.txt')) {
         activeFile = 'instructions.txt';
     } else if (fileNames.includes('index.html')) {
         activeFile = 'index.html';
     } else {
-        activeFile = fileNames.sort()[0]; // El primero por orden alfabético si no hay ninguno de los anteriores
+        activeFile = fileNames.sort()[0];
     }
 
     initMonaco();
