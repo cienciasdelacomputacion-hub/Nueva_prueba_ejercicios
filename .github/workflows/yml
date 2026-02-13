@@ -22,7 +22,7 @@ jobs:
       - name: Ejecutar script generador
         run: |
           pwd
-          python ./tools/generar_mapas.py
+          python ./tools/generar_mapa.py
 
       - name: Confirmar y subir cambios
         run: |
