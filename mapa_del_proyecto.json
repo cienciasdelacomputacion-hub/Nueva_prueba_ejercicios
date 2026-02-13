@@ -1,1491 +1,501 @@
 {
   "root": "Ejercicios",
-  "generatedAt": "2026-02-10T19:04:30.963762Z",
+  "generatedAt": "2026-02-13T13:29:06.764630Z",
   "files": [
-    {
-      "path": "Ejercicios/242/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/242/main.py"
-    },
-    {
-      "path": "Ejercicios/Copy of Encuentro Doc -escape room ciberseguridad/index.html"
-    },
-    {
-      "path": "Ejercicios/Copy of Encuentro Doc -escape room ciberseguridad/mission6.html"
-    },
-    {
-      "path": "Ejercicios/Copy of Encuentro Doc -escape room ciberseguridad/script.js"
-    },
-    {
-      "path": "Ejercicios/Copy of Encuentro Doc -escape room ciberseguridad/style.css"
-    },
-    {
-      "path": "Ejercicios/Copy of HTML - Menú _ Semántica_ Form/contacto.html"
-    },
-    {
-      "path": "Ejercicios/Copy of HTML - Menú _ Semántica_ Form/index.html"
-    },
-    {
-      "path": "Ejercicios/Copy of HTML - Menú _ Semántica_ Form/tipos.html"
-    },
-    {
-      "path": "Ejercicios/Copy of JS - Salida y entrada de datos/index.html"
-    },
-    {
-      "path": "Ejercicios/Copy of JS - Salida y entrada de datos/script.js"
-    },
-    {
-      "path": "Ejercicios/Copy of JS - Salida y entrada de datos/styles.css"
-    },
-    {
-      "path": "Ejercicios/Demostrativo/index.html"
-    },
-    {
-      "path": "Ejercicios/Demostrativo/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/Demostrativo/pagina2.html"
-    },
-    {
-      "path": "Ejercicios/Demostrativo/style.css"
-    },
-    {
-      "path": "Ejercicios/Encuentro Doc -escape room ciberseguridad - GEMINI/game.html"
-    },
-    {
-      "path": "Ejercicios/Encuentro Doc -escape room ciberseguridad - GEMINI/index.html"
-    },
-    {
-      "path": "Ejercicios/Encuentro Doc -escape room ciberseguridad - GEMINI/mission6.html"
-    },
-    {
-      "path": "Ejercicios/Encuentro Doc -escape room ciberseguridad - GEMINI/prank_login.html"
-    },
-    {
-      "path": "Ejercicios/Encuentro Doc -escape room ciberseguridad - GEMINI/script.js"
-    },
-    {
-      "path": "Ejercicios/Encuentro Doc -escape room ciberseguridad - GEMINI/style.css"
-    },
-    {
-      "path": "Ejercicios/FAN PAGE - Super Mario/biografia.html"
-    },
-    {
-      "path": "Ejercicios/FAN PAGE - Super Mario/contacto.html"
-    },
-    {
-      "path": "Ejercicios/FAN PAGE - Super Mario/galeria.html"
-    },
-    {
-      "path": "Ejercicios/FAN PAGE - Super Mario/index.html"
-    },
-    {
-      "path": "Ejercicios/FAN PAGE - Super Mario/style.css"
-    },
-    {
-      "path": "Ejercicios/Prueba Ejercicios html  css en código/index.html"
-    },
-    {
-      "path": "Ejercicios/Repaso/index.html"
-    },
-    {
-      "path": "Ejercicios/Repaso/main.py"
-    },
-    {
-      "path": "Ejercicios/Rise 8/main.py"
-    },
-    {
-      "path": "Ejercicios/Untitled html trinket/index.html"
-    },
-    {
-      "path": "Ejercicios/Untitled python3 trinket/main.py"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS - background-color/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS - background-color/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS - background-color/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS -Integrando css a Miniflix - Prueba final/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS -Integrando css a Miniflix - Prueba final/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Estilo de borde/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Estilo de borde/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Estilo de borde/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Formulario/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Formulario/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Galeria p1/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Galeria p1/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Galeria p1/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Menu P2/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Menu P2/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Menu P2/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Menu P3 vertical/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Menu P3 vertical/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Menu P3 vertical/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Menu P4 horizontal/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Menu P4 horizontal/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Menu P4 horizontal/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Tipografía/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Tipografía/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS Tipografía/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS alineación de elementos/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS alineación de elementos/style.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS border- radius/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS border- radius/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS border- radius/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS border-color/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS border-color/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS border-color/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS bordes lados/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS bordes lados/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS bordes lados/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS display/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS display/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS height/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS height/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS height/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS pseudo-clases/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS pseudo-clases/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS pseudo-clases/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS text-align/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS text-align/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS text-align/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS width/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS width/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS width/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS- Border/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS- Border/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/CSS- Border/styles.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/Solución- Integrando CSS a Miniflix/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-css/Solución- Integrando CSS a Miniflix/style.css"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/22 Ejercicio de HTML Creación de una Página Web/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/22 Ejercicio de HTML Creación de una Página Web/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - ENLACES EJEMPLO/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - ENLACES EJEMPLO/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - Ejercicio - Párrafos Encabezados y Listas/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - Ejercicio semántica y multimedia/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - Ejercicio semántica y multimedia/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - Ejercicios 2 img y enlaces/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - Ejercicios 2 img y enlaces/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - FORM EJ_1/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - Img ejemplo/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - Img ejemplo/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - Menú _ Semántica_ Form/contacto.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - Menú _ Semántica_ Form/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - Menú _ Semántica_ Form/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - Menú _ Semántica_ Form/tipos.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - Práctica de integración A/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - Práctica de integración A/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - class e id - atributos extras - ejemplo/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/HTML - class e id - atributos extras - ejemplo/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/Hola mundo2 Trinket/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/Html - Listas - práctica y ejemplo/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/Html - Listas - práctica y ejemplo/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/Html - S2 - Encabezados ejemplo/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/Html - S2 - Párrafos ejemplos/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/Html - S2 - Sintaxis/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/Html - S2 - Sintaxis/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/Html _ S21 - Estructura/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/Html _ S21 - Estructura/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/Miniflix - Menú navegación ejemplo/destacadas.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/Miniflix - Menú navegación ejemplo/formulario.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/Miniflix - Menú navegación ejemplo/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/Miniflix - Menú navegación ejemplo/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/Miniflix/index.html"
-    },
-    {
-      "path": "Ejercicios/desarrollo-web-html/hola pithon/main.py"
-    },
-    {
-      "path": "Ejercicios/escape-room-ciberseguridad/ESCAPE ROOM CIBERSEGURIDAD - CHATGPT/index.html"
-    },
-    {
-      "path": "Ejercicios/escape-room-ciberseguridad/ESCAPE ROOM CIBERSEGURIDAD - CHATGPT/script.js"
-    },
-    {
-      "path": "Ejercicios/escape-room-ciberseguridad/ESCAPE ROOM CIBERSEGURIDAD - CHATGPT/style.css"
-    },
-    {
-      "path": "Ejercicios/escape-room-ciberseguridad/scape room ciberseguridad - GEMINI/index.html"
-    },
-    {
-      "path": "Ejercicios/escape-room-ciberseguridad/scape room ciberseguridad - GEMINI/script.js"
-    },
-    {
-      "path": "Ejercicios/escape-room-ciberseguridad/scape room ciberseguridad - GEMINI/style.css"
-    },
-    {
-      "path": "Ejercicios/java/Balanza de Autoservicio - Práctica ARRAY java/index.html"
-    },
-    {
-      "path": "Ejercicios/java/Ejercicio 1 Precio de Entradas con Descuento/index.html"
-    },
-    {
-      "path": "Ejercicios/java/Ejercicio 2 Suma de Números Pares/index.html"
-    },
-    {
-      "path": "Ejercicios/java/Ejercicio 3 Estado del Dispositivo/index.html"
-    },
-    {
-      "path": "Ejercicios/java/Ejercicio Autenticación de Contraseña/index.html"
-    },
-    {
-      "path": "Ejercicios/java/Ejercicio Verificación de Contraseña/index.html"
-    },
-    {
-      "path": "Ejercicios/java/Examen ISBO -P1/index.html"
-    },
-    {
-      "path": "Ejercicios/java/Examen ISBO -P1/script.js"
-    },
-    {
-      "path": "Ejercicios/java/Examen ISBO -P1/styles.css"
-    },
-    {
-      "path": "Ejercicios/java/Examen P1/index.html"
-    },
-    {
-      "path": "Ejercicios/java/Examen P1/script.js"
-    },
-    {
-      "path": "Ejercicios/java/Git y GitHub/index.html"
-    },
-    {
-      "path": "Ejercicios/java/Git y GitHub/script.js"
-    },
-    {
-      "path": "Ejercicios/java/Git y GitHub/style.css"
-    },
-    {
-      "path": "Ejercicios/java/LA FURIA DEL TWISTER - Demo 1/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS - Act 1- Variable/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS - Act 1- Variable/script.js"
-    },
-    {
-      "path": "Ejercicios/js/JS - Act 1- Variable/styles.css"
-    },
-    {
-      "path": "Ejercicios/js/JS - Act 2- Variable/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS - Act 2- Variable/script.js"
-    },
-    {
-      "path": "Ejercicios/js/JS - Act 2- Variable/styles.css"
-    },
-    {
-      "path": "Ejercicios/js/JS - Act 3- Tipo de datos/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS - Act 3- Tipo de datos/script.js"
-    },
-    {
-      "path": "Ejercicios/js/JS - Act 3- Tipo de datos/styles.css"
-    },
-    {
-      "path": "Ejercicios/js/JS - Act 4- Operadores/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS - Act 4- Operadores/script.js"
-    },
-    {
-      "path": "Ejercicios/js/JS - Act 4- Operadores/styles.css"
-    },
-    {
-      "path": "Ejercicios/js/JS - Act 6- Funciones/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS - Act 6- Funciones/script.js"
-    },
-    {
-      "path": "Ejercicios/js/JS - Act 6- Funciones/styles.css"
-    },
-    {
-      "path": "Ejercicios/js/JS - DOM - Eventos FORM/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS - DOM - Eventos FORM/script.js"
-    },
-    {
-      "path": "Ejercicios/js/JS - DOM - Eventos FORM/style.css"
-    },
-    {
-      "path": "Ejercicios/js/JS - DOM - Eventos/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS - DOM - Eventos/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/js/JS - DOM - Eventos/script.js"
-    },
-    {
-      "path": "Ejercicios/js/JS - DOM - Eventos/style.css"
-    },
-    {
-      "path": "Ejercicios/js/JS - DOM - PANEL COHETE/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS - DOM - PANEL COHETE/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/js/JS - DOM - PANEL COHETE/script.js"
-    },
-    {
-      "path": "Ejercicios/js/JS - DOM - PANEL COHETE/style.css"
-    },
-    {
-      "path": "Ejercicios/js/JS - Funciones/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS - Funciones/script.js"
-    },
-    {
-      "path": "Ejercicios/js/JS - Funciones/styles.css"
-    },
-    {
-      "path": "Ejercicios/js/JS - Operadores/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS - Operadores/script.js"
-    },
-    {
-      "path": "Ejercicios/js/JS - Operadores/styles.css"
-    },
-    {
-      "path": "Ejercicios/js/JS - Operadores2/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS - Operadores2/script.js"
-    },
-    {
-      "path": "Ejercicios/js/JS - Operadores2/styles.css"
-    },
-    {
-      "path": "Ejercicios/js/JS - Operadores3/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS - Operadores3/script.js"
-    },
-    {
-      "path": "Ejercicios/js/JS - Operadores3/styles.css"
-    },
-    {
-      "path": "Ejercicios/js/JS - Operadores4/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS - Operadores4/script.js"
-    },
-    {
-      "path": "Ejercicios/js/JS - Operadores4/styles.css"
-    },
-    {
-      "path": "Ejercicios/js/JS - Salida y entrada de datos/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS - Salida y entrada de datos/script.js"
-    },
-    {
-      "path": "Ejercicios/js/JS - Salida y entrada de datos/styles.css"
-    },
-    {
-      "path": "Ejercicios/js/JS - Variables/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS - Variables/script.js"
-    },
-    {
-      "path": "Ejercicios/js/JS - Variables/styles.css"
-    },
-    {
-      "path": "Ejercicios/js/JS getElementsByClass/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS getElementsById/index.html"
-    },
-    {
-      "path": "Ejercicios/js/JS querySelector/index.html"
-    },
-    {
-      "path": "Ejercicios/js/SOLUCION JS - DOM - PANEL COHETE/index.html"
-    },
-    {
-      "path": "Ejercicios/js/SOLUCION JS - DOM - PANEL COHETE/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/js/SOLUCION JS - DOM - PANEL COHETE/script.js"
-    },
-    {
-      "path": "Ejercicios/js/SOLUCION JS - DOM - PANEL COHETE/style.css"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/Detective Digital - Codeorg/index.html"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/Detective Digital - Codeorg/p2.html"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/Detective Digital - Codeorg/script.js"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/Detective Digital - Codeorg/styles.css"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/Exploración Algoritmos y Representación/app.html"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/Exploración Algoritmos y Representación/index.html"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/Exploración Algoritmos y Representación/script.js"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/Exploración Algoritmos y Representación/styles.css"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/Manejo de datos - microbit/index.html"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/Manejo de datos - microbit/leccion1.html"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/Manejo de datos - microbit/leccion2.html"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/Manejo de datos - microbit/leccion3.html"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/Manejo de datos - microbit/leccion4.html"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/Manejo de datos - microbit/leccion5.html"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/Manejo de datos - microbit/styles.css"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/Reto Arcade Pensamiento Computacional/index.html"
-    },
-    {
-      "path": "Ejercicios/modulo-1-pc-micro-bit-ia/votar o no votar/index.html"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Copy of Evaluacion - Lógica bool -1/index.html"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Ejercicio 1 Negar no cuesta nada/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Ejercicio 1 Negar no cuesta nada/main.py"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Ejercicio 2 Peripatéticas/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Ejercicio 2 Peripatéticas/main.py"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Ejercicio 3 Juguemos al TEG/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Ejercicio 3 Juguemos al TEG/main.py"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Ejercicio 4 Está abierto el banco/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Ejercicio 4 Está abierto el banco/main.py"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Ejercicio 5 Claroscuro/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Ejercicio 5 Claroscuro/main.py"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Ejercicio 6 Hola Mi nombre es Xor/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Ejercicio 6 Hola Mi nombre es Xor/main.py"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Ejercicio 7 Precedencia de operadores/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Ejercicio 7 Precedencia de operadores/main.py"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Ejercicio 8Un ejercicio sin precedentes/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Ejercicio 8Un ejercicio sin precedentes/main.py"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Evaluacion - Lógica bool -2/index.html"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Evaluacion - Lógica bool -3/index.html"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Evaluacion - Lógica bool -4/index.html"
-    },
-    {
-      "path": "Ejercicios/p-1-s3-logica-booleana/Evaluacion - Lógica bool/index.html"
-    },
-    {
-      "path": "Ejercicios/p-2-diccionarios/Diccionarios- Actividad guiada chatgpt/index.html"
-    },
-    {
-      "path": "Ejercicios/p-2-diccionarios/Diccionarios- Actividad guiada chatgpt/script.js"
-    },
-    {
-      "path": "Ejercicios/p-2-diccionarios/Diccionarios- Actividad guiada chatgpt/style.css"
-    },
-    {
-      "path": "Ejercicios/p-2-diccionarios/P2 - Actividad guiada - Diccionarios/index.html"
-    },
-    {
-      "path": "Ejercicios/p-2-listas/Copy of P2 - Listas - Ejercicio 1/index.html"
-    },
-    {
-      "path": "Ejercicios/p-2-listas/P2 - Lista - eva 3/index.html"
-    },
-    {
-      "path": "Ejercicios/p-2-listas/P2 - Listas - Actividad guiada/index.html"
-    },
-    {
-      "path": "Ejercicios/p-2-listas/P2 - Listas - Ejercicio 1/index.html"
-    },
-    {
-      "path": "Ejercicios/p-2-listas/P2 - Listas - Ejercicio 2/index.html"
-    },
-    {
-      "path": "Ejercicios/p-2-listas/P2 - Listas - Ejercicio eva 1/index.html"
-    },
-    {
-      "path": "Ejercicios/p-2-listas/P2 - Listas - Ejercicio eva 2/index.html"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Funciones str - f1/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Funciones str - f1/mis_funciones.py"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Funciones str - f2/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Funciones str - f2/mis_funciones.py"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Funciones str - f3/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Funciones str - f3/mis_funciones.py"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Funciones str - f4/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Funciones str - f4/mis_funciones.py"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Funciones str- f5/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Funciones str- f5/mis_funciones.py"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Misterio - F4/index.html"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Misterio - f2/index.html"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Misterio - f3/index.html"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Misterio - f5/index.html"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Misterio f1/index.html"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Misterio intro/index.html"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Practica guiada - Generando un posteo func -str/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s1-funciones-str-y-math/Practica guiada - Generando un posteo func -str/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 1 Comparaciones sospechosas/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 1 Comparaciones sospechosas/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 10 Un string no es parámetro/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 10 Un string no es parámetro/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 11 GRITAR/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 11 GRITAR/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 12 Terminando la semana/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 12 Terminando la semana/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 2 Una función al rescate/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 2 Una función al rescate/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 3 La clave en la sintaxis/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 3 La clave en la sintaxis/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 4 El error del impostor/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 4 El error del impostor/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 5 El desenlace/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 5 El desenlace/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 6 La hora de la verdad/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 6 La hora de la verdad/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 7 Plan Combo 20/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 7 Plan Combo 20/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 8 Libros de la buena memoria/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 8 Libros de la buena memoria/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 9 Entre los números y la pared/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Ejercicio 9 Entre los números y la pared/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-funciones/Practica guiada P1- Funciones propias/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-variables/Ejercicio 1 El círculo de la vida/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-variables/Ejercicio 1 El círculo de la vida/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-variables/Ejercicio 3 Esto no tiene valor/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-variables/Ejercicio 3 Esto no tiene valor/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-variables/Ejercicio 5 Jugando de local/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-variables/Ejercicio 5 Jugando de local/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-variables/Ejercicio 6 El restaurante lleno/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-variables/Ejercicio 6 El restaurante lleno/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s2-variables/Ejercicio 7 Variables que cambian/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s2-variables/Ejercicio 7 Variables que cambian/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Evaluación condicional - 1/index.html"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Evaluación condicional - 2/index.html"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Evaluación condicional - 3/index.html"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Práctica 1/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Práctica 1/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Práctica 2/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Práctica 2/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Práctica 3/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Práctica 3/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Práctica 4/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Práctica 4/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Práctica 5/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Práctica 5/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Práctica 6/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Práctica 6/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Práctica 7/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s3-estructura-condicional/Práctica 7/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s4-procedimientos/Copy of Procedimientos - Práctica 2/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s4-procedimientos/Copy of Procedimientos - Práctica 2/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s4-procedimientos/Ejercicio 1  Lógica booleana not and or/index.html"
-    },
-    {
-      "path": "Ejercicios/p1-s4-procedimientos/Ejercicio 2  Procedimiento con ifelse/index.html"
-    },
-    {
-      "path": "Ejercicios/p1-s4-procedimientos/Ejercicio 3 Ecuación de segundo grado/index.html"
-    },
-    {
-      "path": "Ejercicios/p1-s4-procedimientos/Procedimientos - Práctica 1/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s4-procedimientos/Procedimientos - Práctica 1/main.py"
-    },
-    {
-      "path": "Ejercicios/p1-s4-procedimientos/Procedimientos - Práctica 3/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/p1-s4-procedimientos/Procedimientos - Práctica 3/main.py"
-    },
-    {
-      "path": "Ejercicios/p2-bucles/La furia del twister/estudiantes.html"
-    },
-    {
-      "path": "Ejercicios/p2-bucles/La furia del twister/fairplay.html"
-    },
-    {
-      "path": "Ejercicios/p2-bucles/La furia del twister/index.html"
-    },
-    {
-      "path": "Ejercicios/p2-bucles/La furia del twister/script.js"
-    },
-    {
-      "path": "Ejercicios/p2-bucles/La furia del twister/style.css"
-    },
-    {
-      "path": "Ejercicios/p2-bucles/P2 - bucles - for - ej01/index.html"
-    },
-    {
-      "path": "Ejercicios/p2-bucles/P2 - bucles - for - ej01/new_activity.css"
-    },
-    {
-      "path": "Ejercicios/p2-bucles/P2 - bucles - for - ej01/new_activity.js"
-    },
-    {
-      "path": "Ejercicios/p2-bucles/P2- actividad guiada - bucles/index.html"
-    },
-    {
-      "path": "Ejercicios/p2-bucles/P2- bucles - while ej2/index.html"
-    },
-    {
-      "path": "Ejercicios/programacion-1/1106/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/1106/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/141/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/141/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/1411/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/1411/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/1412/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/1412/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/1413/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/1413/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/142/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/142/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/143/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/143/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/144/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/144/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/145/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/145/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/146/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/146/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/147/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/147/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/148/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/148/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/149/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/149/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/171/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/171/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/192/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/192/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/193/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/193/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/195/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/195/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/196/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-1/196/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-1/Apéndice Referencia Rápida del Lenguaje Python 1/index.html"
-    },
-    {
-      "path": "Ejercicios/programacion-1/Misterio - f4/index.html"
-    },
-    {
-      "path": "Ejercicios/programacion-2/241/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-2/241/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-2/244/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-2/244/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-2/245/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-2/245/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-2/258/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-2/258/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-2/261/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-2/261/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-2/262/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-2/262/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-2/263/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-2/263/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-2/264/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-2/264/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-2/265/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-2/265/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-2/266/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-2/266/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-2/App python - Galactic Pizza Corp/index.html"
-    },
-    {
-      "path": "Ejercicios/programacion-2/Apéndice de Python 2 bucles y estructuras de datos/index.html"
-    },
-    {
-      "path": "Ejercicios/programacion-2/Copy of LA FURIA DEL TWISTER -/index.html"
-    },
-    {
-      "path": "Ejercicios/programacion-2/Ejercicio 5/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-2/Ejercicio 5/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-2/Ejercicio 7/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-2/Ejercicio 7/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-2/P2 - Listas  Secuencia - Práctica 1/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-2/P2 - Listas  Secuencia - Práctica 1/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-2/P2 - Listas  Secuencia - Práctica 2/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-2/P2 - Listas  Secuencia - Práctica 2/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-2/P2 - Listas  Secuencia - Práctica 3/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-2/P2 - Listas  Secuencia - Práctica 3/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-2/P2 - Listas  Secuencia - Práctica 4/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-2/P2 - Listas  Secuencia - Práctica 4/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-2/Proyecto - Galactic Pizza Corp - Delivery - Solu/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/313/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/313/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/314/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/314/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/315/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/315/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/317/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/317/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/318/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/318/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/319/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/319/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/321/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/321/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/325/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/326/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/326/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/329/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/329/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/335/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/335/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/338/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/338/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/341/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/341/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3410/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3410/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3411/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3411/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3412/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3412/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3413/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3413/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3414/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3414/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3415/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3415/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/342/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/342/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/343/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/343/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/344/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/344/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/345/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/345/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/346/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/346/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/347/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/347/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/348/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/348/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/349/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/349/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/351/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/351/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3510/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3510/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3511/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3511/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3512/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3512/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3513/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/3513/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/352/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/352/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/353/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/353/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/354/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/354/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/355/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/355/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/356/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/356/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/357/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/357/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/358/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/358/main.py"
-    },
-    {
-      "path": "Ejercicios/programacion-3/359/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/programacion-3/359/main.py"
-    },
-    {
-      "path": "Ejercicios/prueba - GEMINI PLUS/index.html"
-    },
-    {
-      "path": "Ejercicios/prueba COPILOT/index.html"
-    },
-    {
-      "path": "Ejercicios/prueba chatGPT/index.html"
-    },
-    {
-      "path": "Ejercicios/prueba/instructions.txt"
-    },
-    {
-      "path": "Ejercicios/prueba/main.py"
-    },
-    {
-      "path": "Ejercicios/rise 82/main.py"
-    }
+    "Ejercicios/242/instructions.txt",
+    "Ejercicios/242/main.py",
+    "Ejercicios/Copy of Encuentro Doc -escape room ciberseguridad/index.html",
+    "Ejercicios/Copy of Encuentro Doc -escape room ciberseguridad/mission6.html",
+    "Ejercicios/Copy of Encuentro Doc -escape room ciberseguridad/script.js",
+    "Ejercicios/Copy of Encuentro Doc -escape room ciberseguridad/style.css",
+    "Ejercicios/Copy of HTML - Menú _ Semántica_ Form/contacto.html",
+    "Ejercicios/Copy of HTML - Menú _ Semántica_ Form/index.html",
+    "Ejercicios/Copy of HTML - Menú _ Semántica_ Form/tipos.html",
+    "Ejercicios/Copy of JS - Salida y entrada de datos/index.html",
+    "Ejercicios/Copy of JS - Salida y entrada de datos/script.js",
+    "Ejercicios/Copy of JS - Salida y entrada de datos/styles.css",
+    "Ejercicios/Demostrativo/index.html",
+    "Ejercicios/Demostrativo/instructions.txt",
+    "Ejercicios/Demostrativo/pagina2.html",
+    "Ejercicios/Demostrativo/style.css",
+    "Ejercicios/Encuentro Doc -escape room ciberseguridad - GEMINI/game.html",
+    "Ejercicios/Encuentro Doc -escape room ciberseguridad - GEMINI/index.html",
+    "Ejercicios/Encuentro Doc -escape room ciberseguridad - GEMINI/mission6.html",
+    "Ejercicios/Encuentro Doc -escape room ciberseguridad - GEMINI/prank_login.html",
+    "Ejercicios/Encuentro Doc -escape room ciberseguridad - GEMINI/script.js",
+    "Ejercicios/Encuentro Doc -escape room ciberseguridad - GEMINI/style.css",
+    "Ejercicios/FAN PAGE - Super Mario/biografia.html",
+    "Ejercicios/FAN PAGE - Super Mario/contacto.html",
+    "Ejercicios/FAN PAGE - Super Mario/galeria.html",
+    "Ejercicios/FAN PAGE - Super Mario/index.html",
+    "Ejercicios/FAN PAGE - Super Mario/style.css",
+    "Ejercicios/Prueba ejercicios html  css en código/index.html",
+    "Ejercicios/Repaso/index.html",
+    "Ejercicios/Repaso/main.py",
+    "Ejercicios/Rise 8/main.py",
+    "Ejercicios/Untitled html trinket/index.html",
+    "Ejercicios/Untitled python3 trinket/main.py",
+    "Ejercicios/desarrollo-web-css/CSS - background-color/index.html",
+    "Ejercicios/desarrollo-web-css/CSS - background-color/instructions.txt",
+    "Ejercicios/desarrollo-web-css/CSS - background-color/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS -Integrando css a Miniflix - Prueba final/index.html",
+    "Ejercicios/desarrollo-web-css/CSS -Integrando css a Miniflix - Prueba final/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS Estilo de borde/index.html",
+    "Ejercicios/desarrollo-web-css/CSS Estilo de borde/instructions.txt",
+    "Ejercicios/desarrollo-web-css/CSS Estilo de borde/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS Formulario/index.html",
+    "Ejercicios/desarrollo-web-css/CSS Formulario/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS Galeria p1/index.html",
+    "Ejercicios/desarrollo-web-css/CSS Galeria p1/instructions.txt",
+    "Ejercicios/desarrollo-web-css/CSS Galeria p1/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS Menu P2/index.html",
+    "Ejercicios/desarrollo-web-css/CSS Menu P2/instructions.txt",
+    "Ejercicios/desarrollo-web-css/CSS Menu P2/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS Menu P3 vertical/index.html",
+    "Ejercicios/desarrollo-web-css/CSS Menu P3 vertical/instructions.txt",
+    "Ejercicios/desarrollo-web-css/CSS Menu P3 vertical/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS Menu P4 horizontal/index.html",
+    "Ejercicios/desarrollo-web-css/CSS Menu P4 horizontal/instructions.txt",
+    "Ejercicios/desarrollo-web-css/CSS Menu P4 horizontal/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS Tipografía/index.html",
+    "Ejercicios/desarrollo-web-css/CSS Tipografía/instructions.txt",
+    "Ejercicios/desarrollo-web-css/CSS Tipografía/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS alineación de elementos/index.html",
+    "Ejercicios/desarrollo-web-css/CSS alineación de elementos/style.css",
+    "Ejercicios/desarrollo-web-css/CSS border- radius/index.html",
+    "Ejercicios/desarrollo-web-css/CSS border- radius/instructions.txt",
+    "Ejercicios/desarrollo-web-css/CSS border- radius/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS border-color/index.html",
+    "Ejercicios/desarrollo-web-css/CSS border-color/instructions.txt",
+    "Ejercicios/desarrollo-web-css/CSS border-color/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS bordes lados/index.html",
+    "Ejercicios/desarrollo-web-css/CSS bordes lados/instructions.txt",
+    "Ejercicios/desarrollo-web-css/CSS bordes lados/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS display/index.html",
+    "Ejercicios/desarrollo-web-css/CSS display/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS height/index.html",
+    "Ejercicios/desarrollo-web-css/CSS height/instructions.txt",
+    "Ejercicios/desarrollo-web-css/CSS height/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS pseudo-clases/index.html",
+    "Ejercicios/desarrollo-web-css/CSS pseudo-clases/instructions.txt",
+    "Ejercicios/desarrollo-web-css/CSS pseudo-clases/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS text-align/index.html",
+    "Ejercicios/desarrollo-web-css/CSS text-align/instructions.txt",
+    "Ejercicios/desarrollo-web-css/CSS text-align/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS width/index.html",
+    "Ejercicios/desarrollo-web-css/CSS width/instructions.txt",
+    "Ejercicios/desarrollo-web-css/CSS width/styles.css",
+    "Ejercicios/desarrollo-web-css/CSS- Border/index.html",
+    "Ejercicios/desarrollo-web-css/CSS- Border/instructions.txt",
+    "Ejercicios/desarrollo-web-css/CSS- Border/styles.css",
+    "Ejercicios/desarrollo-web-css/Solución- Integrando CSS a Miniflix/index.html",
+    "Ejercicios/desarrollo-web-css/Solución- Integrando CSS a Miniflix/style.css",
+    "Ejercicios/desarrollo-web-html/22 Ejercicio de HTML Creación de una Página Web/index.html",
+    "Ejercicios/desarrollo-web-html/22 Ejercicio de HTML Creación de una Página Web/instructions.txt",
+    "Ejercicios/desarrollo-web-html/HTML - ENLACES EJEMPLO/index.html",
+    "Ejercicios/desarrollo-web-html/HTML - ENLACES EJEMPLO/instructions.txt",
+    "Ejercicios/desarrollo-web-html/HTML - Ejercicio - Párrafos Encabezados y Listas/index.html",
+    "Ejercicios/desarrollo-web-html/HTML - Ejercicio semántica y multimedia/index.html",
+    "Ejercicios/desarrollo-web-html/HTML - Ejercicio semántica y multimedia/instructions.txt",
+    "Ejercicios/desarrollo-web-html/HTML - Ejercicios 2 img y enlaces/index.html",
+    "Ejercicios/desarrollo-web-html/HTML - Ejercicios 2 img y enlaces/instructions.txt",
+    "Ejercicios/desarrollo-web-html/HTML - FORM EJ_1/index.html",
+    "Ejercicios/desarrollo-web-html/HTML - Img ejemplo/index.html",
+    "Ejercicios/desarrollo-web-html/HTML - Img ejemplo/instructions.txt",
+    "Ejercicios/desarrollo-web-html/HTML - Menú _ Semántica_ Form/contacto.html",
+    "Ejercicios/desarrollo-web-html/HTML - Menú _ Semántica_ Form/index.html",
+    "Ejercicios/desarrollo-web-html/HTML - Menú _ Semántica_ Form/instructions.txt",
+    "Ejercicios/desarrollo-web-html/HTML - Menú _ Semántica_ Form/tipos.html",
+    "Ejercicios/desarrollo-web-html/HTML - Práctica de integración A/index.html",
+    "Ejercicios/desarrollo-web-html/HTML - Práctica de integración A/instructions.txt",
+    "Ejercicios/desarrollo-web-html/HTML - class e id - atributos extras - ejemplo/index.html",
+    "Ejercicios/desarrollo-web-html/HTML - class e id - atributos extras - ejemplo/instructions.txt",
+    "Ejercicios/desarrollo-web-html/Hola mundo2 Trinket/index.html",
+    "Ejercicios/desarrollo-web-html/Html - Listas - práctica y ejemplo/index.html",
+    "Ejercicios/desarrollo-web-html/Html - Listas - práctica y ejemplo/instructions.txt",
+    "Ejercicios/desarrollo-web-html/Html - S2 - Encabezados ejemplo/index.html",
+    "Ejercicios/desarrollo-web-html/Html - S2 - Párrafos ejemplos/index.html",
+    "Ejercicios/desarrollo-web-html/Html - S2 - Sintaxis/index.html",
+    "Ejercicios/desarrollo-web-html/Html - S2 - Sintaxis/instructions.txt",
+    "Ejercicios/desarrollo-web-html/Html _ S21 - Estructura/index.html",
+    "Ejercicios/desarrollo-web-html/Html _ S21 - Estructura/instructions.txt",
+    "Ejercicios/desarrollo-web-html/Miniflix - Menú navegación ejemplo/destacadas.html",
+    "Ejercicios/desarrollo-web-html/Miniflix - Menú navegación ejemplo/formulario.html",
+    "Ejercicios/desarrollo-web-html/Miniflix - Menú navegación ejemplo/index.html",
+    "Ejercicios/desarrollo-web-html/Miniflix - Menú navegación ejemplo/instructions.txt",
+    "Ejercicios/desarrollo-web-html/Miniflix/index.html",
+    "Ejercicios/desarrollo-web-html/hola pithon/main.py",
+    "Ejercicios/escape-room-ciberseguridad/ESCAPE ROOM CIBERSEGURIDAD - CHATGPT/index.html",
+    "Ejercicios/escape-room-ciberseguridad/ESCAPE ROOM CIBERSEGURIDAD - CHATGPT/script.js",
+    "Ejercicios/escape-room-ciberseguridad/ESCAPE ROOM CIBERSEGURIDAD - CHATGPT/style.css",
+    "Ejercicios/escape-room-ciberseguridad/scape room ciberseguridad - GEMINI/index.html",
+    "Ejercicios/escape-room-ciberseguridad/scape room ciberseguridad - GEMINI/script.js",
+    "Ejercicios/escape-room-ciberseguridad/scape room ciberseguridad - GEMINI/style.css",
+    "Ejercicios/java/Balanza de Autoservicio - Práctica ARRAY java/index.html",
+    "Ejercicios/java/Ejercicio 1 Precio de Entradas con Descuento/index.html",
+    "Ejercicios/java/Ejercicio 2 Suma de Números Pares/index.html",
+    "Ejercicios/java/Ejercicio 3 Estado del Dispositivo/index.html",
+    "Ejercicios/java/Ejercicio Autenticación de Contraseña/index.html",
+    "Ejercicios/java/Ejercicio Verificación de Contraseña/index.html",
+    "Ejercicios/java/Examen ISBO -P1/index.html",
+    "Ejercicios/java/Examen ISBO -P1/script.js",
+    "Ejercicios/java/Examen ISBO -P1/styles.css",
+    "Ejercicios/java/Examen P1/index.html",
+    "Ejercicios/java/Examen P1/script.js",
+    "Ejercicios/java/Git y GitHub/index.html",
+    "Ejercicios/java/Git y GitHub/script.js",
+    "Ejercicios/java/Git y GitHub/style.css",
+    "Ejercicios/java/LA FURIA DEL TWISTER - Demo 1/index.html",
+    "Ejercicios/js/JS - Act 1- Variable/index.html",
+    "Ejercicios/js/JS - Act 1- Variable/script.js",
+    "Ejercicios/js/JS - Act 1- Variable/styles.css",
+    "Ejercicios/js/JS - Act 2- Variable/index.html",
+    "Ejercicios/js/JS - Act 2- Variable/script.js",
+    "Ejercicios/js/JS - Act 2- Variable/styles.css",
+    "Ejercicios/js/JS - Act 3- Tipo de datos/index.html",
+    "Ejercicios/js/JS - Act 3- Tipo de datos/script.js",
+    "Ejercicios/js/JS - Act 3- Tipo de datos/styles.css",
+    "Ejercicios/js/JS - Act 4- Operadores/index.html",
+    "Ejercicios/js/JS - Act 4- Operadores/script.js",
+    "Ejercicios/js/JS - Act 4- Operadores/styles.css",
+    "Ejercicios/js/JS - Act 6- Funciones/index.html",
+    "Ejercicios/js/JS - Act 6- Funciones/script.js",
+    "Ejercicios/js/JS - Act 6- Funciones/styles.css",
+    "Ejercicios/js/JS - DOM - Eventos FORM/index.html",
+    "Ejercicios/js/JS - DOM - Eventos FORM/script.js",
+    "Ejercicios/js/JS - DOM - Eventos FORM/style.css",
+    "Ejercicios/js/JS - DOM - Eventos/index.html",
+    "Ejercicios/js/JS - DOM - Eventos/instructions.txt",
+    "Ejercicios/js/JS - DOM - Eventos/script.js",
+    "Ejercicios/js/JS - DOM - Eventos/style.css",
+    "Ejercicios/js/JS - DOM - PANEL COHETE/index.html",
+    "Ejercicios/js/JS - DOM - PANEL COHETE/instructions.txt",
+    "Ejercicios/js/JS - DOM - PANEL COHETE/script.js",
+    "Ejercicios/js/JS - DOM - PANEL COHETE/style.css",
+    "Ejercicios/js/JS - Funciones/index.html",
+    "Ejercicios/js/JS - Funciones/script.js",
+    "Ejercicios/js/JS - Funciones/styles.css",
+    "Ejercicios/js/JS - Operadores/index.html",
+    "Ejercicios/js/JS - Operadores/script.js",
+    "Ejercicios/js/JS - Operadores/styles.css",
+    "Ejercicios/js/JS - Operadores2/index.html",
+    "Ejercicios/js/JS - Operadores2/script.js",
+    "Ejercicios/js/JS - Operadores2/styles.css",
+    "Ejercicios/js/JS - Operadores3/index.html",
+    "Ejercicios/js/JS - Operadores3/script.js",
+    "Ejercicios/js/JS - Operadores3/styles.css",
+    "Ejercicios/js/JS - Operadores4/index.html",
+    "Ejercicios/js/JS - Operadores4/script.js",
+    "Ejercicios/js/JS - Operadores4/styles.css",
+    "Ejercicios/js/JS - Salida y entrada de datos/index.html",
+    "Ejercicios/js/JS - Salida y entrada de datos/script.js",
+    "Ejercicios/js/JS - Salida y entrada de datos/styles.css",
+    "Ejercicios/js/JS - Variables/index.html",
+    "Ejercicios/js/JS - Variables/script.js",
+    "Ejercicios/js/JS - Variables/styles.css",
+    "Ejercicios/js/JS getElementsByClass/index.html",
+    "Ejercicios/js/JS getElementsById/index.html",
+    "Ejercicios/js/JS querySelector/index.html",
+    "Ejercicios/js/SOLUCION JS - DOM - PANEL COHETE/index.html",
+    "Ejercicios/js/SOLUCION JS - DOM - PANEL COHETE/instructions.txt",
+    "Ejercicios/js/SOLUCION JS - DOM - PANEL COHETE/script.js",
+    "Ejercicios/js/SOLUCION JS - DOM - PANEL COHETE/style.css",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/Detective Digital - Codeorg/index.html",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/Detective Digital - Codeorg/p2.html",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/Detective Digital - Codeorg/script.js",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/Detective Digital - Codeorg/styles.css",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/Exploración Algoritmos y Representación/app.html",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/Exploración Algoritmos y Representación/index.html",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/Exploración Algoritmos y Representación/script.js",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/Exploración Algoritmos y Representación/styles.css",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/Manejo de datos - microbit/index.html",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/Manejo de datos - microbit/leccion1.html",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/Manejo de datos - microbit/leccion2.html",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/Manejo de datos - microbit/leccion3.html",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/Manejo de datos - microbit/leccion4.html",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/Manejo de datos - microbit/leccion5.html",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/Manejo de datos - microbit/styles.css",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/Reto Arcade Pensamiento Computacional/index.html",
+    "Ejercicios/modulo-1-pc-micro-bit-ia/votar o no votar/index.html",
+    "Ejercicios/p-1-s3-logica-booleana/Copy of Evaluacion - Lógica bool -1/index.html",
+    "Ejercicios/p-1-s3-logica-booleana/Ejercicio 1 Negar no cuesta nada/instructions.txt",
+    "Ejercicios/p-1-s3-logica-booleana/Ejercicio 1 Negar no cuesta nada/main.py",
+    "Ejercicios/p-1-s3-logica-booleana/Ejercicio 2 Peripatéticas/instructions.txt",
+    "Ejercicios/p-1-s3-logica-booleana/Ejercicio 2 Peripatéticas/main.py",
+    "Ejercicios/p-1-s3-logica-booleana/Ejercicio 3 Juguemos al TEG/instructions.txt",
+    "Ejercicios/p-1-s3-logica-booleana/Ejercicio 3 Juguemos al TEG/main.py",
+    "Ejercicios/p-1-s3-logica-booleana/Ejercicio 4 Está abierto el banco/instructions.txt",
+    "Ejercicios/p-1-s3-logica-booleana/Ejercicio 4 Está abierto el banco/main.py",
+    "Ejercicios/p-1-s3-logica-booleana/Ejercicio 5 Claroscuro/instructions.txt",
+    "Ejercicios/p-1-s3-logica-booleana/Ejercicio 5 Claroscuro/main.py",
+    "Ejercicios/p-1-s3-logica-booleana/Ejercicio 6 Hola Mi nombre es Xor/instructions.txt",
+    "Ejercicios/p-1-s3-logica-booleana/Ejercicio 6 Hola Mi nombre es Xor/main.py",
+    "Ejercicios/p-1-s3-logica-booleana/Ejercicio 7 Precedencia de operadores/instructions.txt",
+    "Ejercicios/p-1-s3-logica-booleana/Ejercicio 7 Precedencia de operadores/main.py",
+    "Ejercicios/p-1-s3-logica-booleana/Ejercicio 8Un ejercicio sin precedentes/instructions.txt",
+    "Ejercicios/p-1-s3-logica-booleana/Ejercicio 8Un ejercicio sin precedentes/main.py",
+    "Ejercicios/p-1-s3-logica-booleana/Evaluacion - Lógica bool -2/index.html",
+    "Ejercicios/p-1-s3-logica-booleana/Evaluacion - Lógica bool -3/index.html",
+    "Ejercicios/p-1-s3-logica-booleana/Evaluacion - Lógica bool -4/index.html",
+    "Ejercicios/p-1-s3-logica-booleana/Evaluacion - Lógica bool/index.html",
+    "Ejercicios/p-2-diccionarios/Diccionarios- Actividad guiada chatgpt/index.html",
+    "Ejercicios/p-2-diccionarios/Diccionarios- Actividad guiada chatgpt/script.js",
+    "Ejercicios/p-2-diccionarios/Diccionarios- Actividad guiada chatgpt/style.css",
+    "Ejercicios/p-2-diccionarios/P2 - Actividad guiada - Diccionarios/index.html",
+    "Ejercicios/p-2-listas/Copy of P2 - Listas - Ejercicio 1/index.html",
+    "Ejercicios/p-2-listas/P2 - Lista - eva 3/index.html",
+    "Ejercicios/p-2-listas/P2 - Listas - Actividad guiada/index.html",
+    "Ejercicios/p-2-listas/P2 - Listas - Ejercicio 1/index.html",
+    "Ejercicios/p-2-listas/P2 - Listas - Ejercicio 2/index.html",
+    "Ejercicios/p-2-listas/P2 - Listas - Ejercicio eva 1/index.html",
+    "Ejercicios/p-2-listas/P2 - Listas - Ejercicio eva 2/index.html",
+    "Ejercicios/p1-s1-funciones-str-y-math/Funciones str - f1/main.py",
+    "Ejercicios/p1-s1-funciones-str-y-math/Funciones str - f1/mis_funciones.py",
+    "Ejercicios/p1-s1-funciones-str-y-math/Funciones str - f2/main.py",
+    "Ejercicios/p1-s1-funciones-str-y-math/Funciones str - f2/mis_funciones.py",
+    "Ejercicios/p1-s1-funciones-str-y-math/Funciones str - f3/main.py",
+    "Ejercicios/p1-s1-funciones-str-y-math/Funciones str - f3/mis_funciones.py",
+    "Ejercicios/p1-s1-funciones-str-y-math/Funciones str - f4/main.py",
+    "Ejercicios/p1-s1-funciones-str-y-math/Funciones str - f4/mis_funciones.py",
+    "Ejercicios/p1-s1-funciones-str-y-math/Funciones str- f5/main.py",
+    "Ejercicios/p1-s1-funciones-str-y-math/Funciones str- f5/mis_funciones.py",
+    "Ejercicios/p1-s1-funciones-str-y-math/Misterio - F4/index.html",
+    "Ejercicios/p1-s1-funciones-str-y-math/Misterio - f2/index.html",
+    "Ejercicios/p1-s1-funciones-str-y-math/Misterio - f3/index.html",
+    "Ejercicios/p1-s1-funciones-str-y-math/Misterio - f5/index.html",
+    "Ejercicios/p1-s1-funciones-str-y-math/Misterio f1/index.html",
+    "Ejercicios/p1-s1-funciones-str-y-math/Misterio intro/index.html",
+    "Ejercicios/p1-s1-funciones-str-y-math/Practica guiada - Generando un posteo func -str/instructions.txt",
+    "Ejercicios/p1-s1-funciones-str-y-math/Practica guiada - Generando un posteo func -str/main.py",
+    "Ejercicios/p1-s2-funciones/Ejercicio 1 Comparaciones sospechosas/instructions.txt",
+    "Ejercicios/p1-s2-funciones/Ejercicio 1 Comparaciones sospechosas/main.py",
+    "Ejercicios/p1-s2-funciones/Ejercicio 10 Un string no es parámetro/instructions.txt",
+    "Ejercicios/p1-s2-funciones/Ejercicio 10 Un string no es parámetro/main.py",
+    "Ejercicios/p1-s2-funciones/Ejercicio 11 GRITAR/instructions.txt",
+    "Ejercicios/p1-s2-funciones/Ejercicio 11 GRITAR/main.py",
+    "Ejercicios/p1-s2-funciones/Ejercicio 12 Terminando la semana/instructions.txt",
+    "Ejercicios/p1-s2-funciones/Ejercicio 12 Terminando la semana/main.py",
+    "Ejercicios/p1-s2-funciones/Ejercicio 2 Una función al rescate/instructions.txt",
+    "Ejercicios/p1-s2-funciones/Ejercicio 2 Una función al rescate/main.py",
+    "Ejercicios/p1-s2-funciones/Ejercicio 3 La clave en la sintaxis/instructions.txt",
+    "Ejercicios/p1-s2-funciones/Ejercicio 3 La clave en la sintaxis/main.py",
+    "Ejercicios/p1-s2-funciones/Ejercicio 4 El error del impostor/instructions.txt",
+    "Ejercicios/p1-s2-funciones/Ejercicio 4 El error del impostor/main.py",
+    "Ejercicios/p1-s2-funciones/Ejercicio 5 El desenlace/instructions.txt",
+    "Ejercicios/p1-s2-funciones/Ejercicio 5 El desenlace/main.py",
+    "Ejercicios/p1-s2-funciones/Ejercicio 6 La hora de la verdad/instructions.txt",
+    "Ejercicios/p1-s2-funciones/Ejercicio 6 La hora de la verdad/main.py",
+    "Ejercicios/p1-s2-funciones/Ejercicio 7 Plan Combo 20/instructions.txt",
+    "Ejercicios/p1-s2-funciones/Ejercicio 7 Plan Combo 20/main.py",
+    "Ejercicios/p1-s2-funciones/Ejercicio 8 Libros de la buena memoria/instructions.txt",
+    "Ejercicios/p1-s2-funciones/Ejercicio 8 Libros de la buena memoria/main.py",
+    "Ejercicios/p1-s2-funciones/Ejercicio 9 Entre los números y la pared/instructions.txt",
+    "Ejercicios/p1-s2-funciones/Ejercicio 9 Entre los números y la pared/main.py",
+    "Ejercicios/p1-s2-funciones/Practica guiada P1- Funciones propias/main.py",
+    "Ejercicios/p1-s2-variables/Ejercicio 1 El círculo de la vida/instructions.txt",
+    "Ejercicios/p1-s2-variables/Ejercicio 1 El círculo de la vida/main.py",
+    "Ejercicios/p1-s2-variables/Ejercicio 3 Esto no tiene valor/instructions.txt",
+    "Ejercicios/p1-s2-variables/Ejercicio 3 Esto no tiene valor/main.py",
+    "Ejercicios/p1-s2-variables/Ejercicio 5 Jugando de local/instructions.txt",
+    "Ejercicios/p1-s2-variables/Ejercicio 5 Jugando de local/main.py",
+    "Ejercicios/p1-s2-variables/Ejercicio 6 El restaurante lleno/instructions.txt",
+    "Ejercicios/p1-s2-variables/Ejercicio 6 El restaurante lleno/main.py",
+    "Ejercicios/p1-s2-variables/Ejercicio 7 Variables que cambian/instructions.txt",
+    "Ejercicios/p1-s2-variables/Ejercicio 7 Variables que cambian/main.py",
+    "Ejercicios/p1-s3-estructura-condicional/Evaluación condicional - 1/index.html",
+    "Ejercicios/p1-s3-estructura-condicional/Evaluación condicional - 2/index.html",
+    "Ejercicios/p1-s3-estructura-condicional/Evaluación condicional - 3/index.html",
+    "Ejercicios/p1-s3-estructura-condicional/Práctica 1/instructions.txt",
+    "Ejercicios/p1-s3-estructura-condicional/Práctica 1/main.py",
+    "Ejercicios/p1-s3-estructura-condicional/Práctica 2/instructions.txt",
+    "Ejercicios/p1-s3-estructura-condicional/Práctica 2/main.py",
+    "Ejercicios/p1-s3-estructura-condicional/Práctica 3/instructions.txt",
+    "Ejercicios/p1-s3-estructura-condicional/Práctica 3/main.py",
+    "Ejercicios/p1-s3-estructura-condicional/Práctica 4/instructions.txt",
+    "Ejercicios/p1-s3-estructura-condicional/Práctica 4/main.py",
+    "Ejercicios/p1-s3-estructura-condicional/Práctica 5/instructions.txt",
+    "Ejercicios/p1-s3-estructura-condicional/Práctica 5/main.py",
+    "Ejercicios/p1-s3-estructura-condicional/Práctica 6/instructions.txt",
+    "Ejercicios/p1-s3-estructura-condicional/Práctica 6/main.py",
+    "Ejercicios/p1-s3-estructura-condicional/Práctica 7/instructions.txt",
+    "Ejercicios/p1-s3-estructura-condicional/Práctica 7/main.py",
+    "Ejercicios/p1-s4-procedimientos/Copy of Procedimientos - Práctica 2/instructions.txt",
+    "Ejercicios/p1-s4-procedimientos/Copy of Procedimientos - Práctica 2/main.py",
+    "Ejercicios/p1-s4-procedimientos/Ejercicio 1  Lógica booleana not and or/index.html",
+    "Ejercicios/p1-s4-procedimientos/Ejercicio 2  Procedimiento con ifelse/index.html",
+    "Ejercicios/p1-s4-procedimientos/Ejercicio 3 Ecuación de segundo grado/index.html",
+    "Ejercicios/p1-s4-procedimientos/Procedimientos - Práctica 1/instructions.txt",
+    "Ejercicios/p1-s4-procedimientos/Procedimientos - Práctica 1/main.py",
+    "Ejercicios/p1-s4-procedimientos/Procedimientos - Práctica 3/instructions.txt",
+    "Ejercicios/p1-s4-procedimientos/Procedimientos - Práctica 3/main.py",
+    "Ejercicios/p2-bucles/La furia del twister/estudiantes.html",
+    "Ejercicios/p2-bucles/La furia del twister/fairplay.html",
+    "Ejercicios/p2-bucles/La furia del twister/index.html",
+    "Ejercicios/p2-bucles/La furia del twister/script.js",
+    "Ejercicios/p2-bucles/La furia del twister/style.css",
+    "Ejercicios/p2-bucles/P2 - bucles - for - ej01/index.html",
+    "Ejercicios/p2-bucles/P2 - bucles - for - ej01/new_activity.css",
+    "Ejercicios/p2-bucles/P2 - bucles - for - ej01/new_activity.js",
+    "Ejercicios/p2-bucles/P2- actividad guiada - bucles/index.html",
+    "Ejercicios/p2-bucles/P2- bucles - while ej2/index.html",
+    "Ejercicios/programacion-1/1106/instructions.txt",
+    "Ejercicios/programacion-1/1106/main.py",
+    "Ejercicios/programacion-1/141/instructions.txt",
+    "Ejercicios/programacion-1/141/main.py",
+    "Ejercicios/programacion-1/1411/instructions.txt",
+    "Ejercicios/programacion-1/1411/main.py",
+    "Ejercicios/programacion-1/1412/instructions.txt",
+    "Ejercicios/programacion-1/1412/main.py",
+    "Ejercicios/programacion-1/1413/instructions.txt",
+    "Ejercicios/programacion-1/1413/main.py",
+    "Ejercicios/programacion-1/142/instructions.txt",
+    "Ejercicios/programacion-1/142/main.py",
+    "Ejercicios/programacion-1/143/instructions.txt",
+    "Ejercicios/programacion-1/143/main.py",
+    "Ejercicios/programacion-1/144/instructions.txt",
+    "Ejercicios/programacion-1/144/main.py",
+    "Ejercicios/programacion-1/145/instructions.txt",
+    "Ejercicios/programacion-1/145/main.py",
+    "Ejercicios/programacion-1/146/instructions.txt",
+    "Ejercicios/programacion-1/146/main.py",
+    "Ejercicios/programacion-1/147/instructions.txt",
+    "Ejercicios/programacion-1/147/main.py",
+    "Ejercicios/programacion-1/148/instructions.txt",
+    "Ejercicios/programacion-1/148/main.py",
+    "Ejercicios/programacion-1/149/instructions.txt",
+    "Ejercicios/programacion-1/149/main.py",
+    "Ejercicios/programacion-1/171/instructions.txt",
+    "Ejercicios/programacion-1/171/main.py",
+    "Ejercicios/programacion-1/192/instructions.txt",
+    "Ejercicios/programacion-1/192/main.py",
+    "Ejercicios/programacion-1/193/instructions.txt",
+    "Ejercicios/programacion-1/193/main.py",
+    "Ejercicios/programacion-1/195/instructions.txt",
+    "Ejercicios/programacion-1/195/main.py",
+    "Ejercicios/programacion-1/196/instructions.txt",
+    "Ejercicios/programacion-1/196/main.py",
+    "Ejercicios/programacion-1/Apéndice Referencia Rápida del Lenguaje Python 1/index.html",
+    "Ejercicios/programacion-1/Misterio - f4/index.html",
+    "Ejercicios/programacion-2/241/instructions.txt",
+    "Ejercicios/programacion-2/241/main.py",
+    "Ejercicios/programacion-2/244/instructions.txt",
+    "Ejercicios/programacion-2/244/main.py",
+    "Ejercicios/programacion-2/245/instructions.txt",
+    "Ejercicios/programacion-2/245/main.py",
+    "Ejercicios/programacion-2/258/instructions.txt",
+    "Ejercicios/programacion-2/258/main.py",
+    "Ejercicios/programacion-2/261/instructions.txt",
+    "Ejercicios/programacion-2/261/main.py",
+    "Ejercicios/programacion-2/262/instructions.txt",
+    "Ejercicios/programacion-2/262/main.py",
+    "Ejercicios/programacion-2/263/instructions.txt",
+    "Ejercicios/programacion-2/263/main.py",
+    "Ejercicios/programacion-2/264/instructions.txt",
+    "Ejercicios/programacion-2/264/main.py",
+    "Ejercicios/programacion-2/265/instructions.txt",
+    "Ejercicios/programacion-2/265/main.py",
+    "Ejercicios/programacion-2/266/instructions.txt",
+    "Ejercicios/programacion-2/266/main.py",
+    "Ejercicios/programacion-2/App python - Galactic Pizza Corp/index.html",
+    "Ejercicios/programacion-2/Apéndice de Python 2 bucles y estructuras de datos/index.html",
+    "Ejercicios/programacion-2/Copy of LA FURIA DEL TWISTER -/index.html",
+    "Ejercicios/programacion-2/Ejercicio 5/instructions.txt",
+    "Ejercicios/programacion-2/Ejercicio 5/main.py",
+    "Ejercicios/programacion-2/Ejercicio 7/instructions.txt",
+    "Ejercicios/programacion-2/Ejercicio 7/main.py",
+    "Ejercicios/programacion-2/P2 - Listas  Secuencia - Práctica 1/instructions.txt",
+    "Ejercicios/programacion-2/P2 - Listas  Secuencia - Práctica 1/main.py",
+    "Ejercicios/programacion-2/P2 - Listas  Secuencia - Práctica 2/instructions.txt",
+    "Ejercicios/programacion-2/P2 - Listas  Secuencia - Práctica 2/main.py",
+    "Ejercicios/programacion-2/P2 - Listas  Secuencia - Práctica 3/instructions.txt",
+    "Ejercicios/programacion-2/P2 - Listas  Secuencia - Práctica 3/main.py",
+    "Ejercicios/programacion-2/P2 - Listas  Secuencia - Práctica 4/instructions.txt",
+    "Ejercicios/programacion-2/P2 - Listas  Secuencia - Práctica 4/main.py",
+    "Ejercicios/programacion-2/Proyecto - Galactic Pizza Corp - Delivery - Solu/main.py",
+    "Ejercicios/programacion-3/313/instructions.txt",
+    "Ejercicios/programacion-3/313/main.py",
+    "Ejercicios/programacion-3/314/instructions.txt",
+    "Ejercicios/programacion-3/314/main.py",
+    "Ejercicios/programacion-3/315/instructions.txt",
+    "Ejercicios/programacion-3/315/main.py",
+    "Ejercicios/programacion-3/317/instructions.txt",
+    "Ejercicios/programacion-3/317/main.py",
+    "Ejercicios/programacion-3/318/instructions.txt",
+    "Ejercicios/programacion-3/318/main.py",
+    "Ejercicios/programacion-3/319/instructions.txt",
+    "Ejercicios/programacion-3/319/main.py",
+    "Ejercicios/programacion-3/321/instructions.txt",
+    "Ejercicios/programacion-3/321/main.py",
+    "Ejercicios/programacion-3/325/main.py",
+    "Ejercicios/programacion-3/326/instructions.txt",
+    "Ejercicios/programacion-3/326/main.py",
+    "Ejercicios/programacion-3/329/instructions.txt",
+    "Ejercicios/programacion-3/329/main.py",
+    "Ejercicios/programacion-3/335/instructions.txt",
+    "Ejercicios/programacion-3/335/main.py",
+    "Ejercicios/programacion-3/338/instructions.txt",
+    "Ejercicios/programacion-3/338/main.py",
+    "Ejercicios/programacion-3/341/instructions.txt",
+    "Ejercicios/programacion-3/341/main.py",
+    "Ejercicios/programacion-3/3410/instructions.txt",
+    "Ejercicios/programacion-3/3410/main.py",
+    "Ejercicios/programacion-3/3411/instructions.txt",
+    "Ejercicios/programacion-3/3411/main.py",
+    "Ejercicios/programacion-3/3412/instructions.txt",
+    "Ejercicios/programacion-3/3412/main.py",
+    "Ejercicios/programacion-3/3413/instructions.txt",
+    "Ejercicios/programacion-3/3413/main.py",
+    "Ejercicios/programacion-3/3414/instructions.txt",
+    "Ejercicios/programacion-3/3414/main.py",
+    "Ejercicios/programacion-3/3415/instructions.txt",
+    "Ejercicios/programacion-3/3415/main.py",
+    "Ejercicios/programacion-3/342/instructions.txt",
+    "Ejercicios/programacion-3/342/main.py",
+    "Ejercicios/programacion-3/343/instructions.txt",
+    "Ejercicios/programacion-3/343/main.py",
+    "Ejercicios/programacion-3/344/instructions.txt",
+    "Ejercicios/programacion-3/344/main.py",
+    "Ejercicios/programacion-3/345/instructions.txt",
+    "Ejercicios/programacion-3/345/main.py",
+    "Ejercicios/programacion-3/346/instructions.txt",
+    "Ejercicios/programacion-3/346/main.py",
+    "Ejercicios/programacion-3/347/instructions.txt",
+    "Ejercicios/programacion-3/347/main.py",
+    "Ejercicios/programacion-3/348/instructions.txt",
+    "Ejercicios/programacion-3/348/main.py",
+    "Ejercicios/programacion-3/349/instructions.txt",
+    "Ejercicios/programacion-3/349/main.py",
+    "Ejercicios/programacion-3/351/instructions.txt",
+    "Ejercicios/programacion-3/351/main.py",
+    "Ejercicios/programacion-3/3510/instructions.txt",
+    "Ejercicios/programacion-3/3510/main.py",
+    "Ejercicios/programacion-3/3511/instructions.txt",
+    "Ejercicios/programacion-3/3511/main.py",
+    "Ejercicios/programacion-3/3512/instructions.txt",
+    "Ejercicios/programacion-3/3512/main.py",
+    "Ejercicios/programacion-3/3513/instructions.txt",
+    "Ejercicios/programacion-3/3513/main.py",
+    "Ejercicios/programacion-3/352/instructions.txt",
+    "Ejercicios/programacion-3/352/main.py",
+    "Ejercicios/programacion-3/353/instructions.txt",
+    "Ejercicios/programacion-3/353/main.py",
+    "Ejercicios/programacion-3/354/instructions.txt",
+    "Ejercicios/programacion-3/354/main.py",
+    "Ejercicios/programacion-3/355/instructions.txt",
+    "Ejercicios/programacion-3/355/main.py",
+    "Ejercicios/programacion-3/356/instructions.txt",
+    "Ejercicios/programacion-3/356/main.py",
+    "Ejercicios/programacion-3/357/instructions.txt",
+    "Ejercicios/programacion-3/357/main.py",
+    "Ejercicios/programacion-3/358/instructions.txt",
+    "Ejercicios/programacion-3/358/main.py",
+    "Ejercicios/programacion-3/359/instructions.txt",
+    "Ejercicios/programacion-3/359/main.py",
+    "Ejercicios/prueba - GEMINI PLUS/index.html",
+    "Ejercicios/prueba COPILOT/index.html",
+    "Ejercicios/prueba chatGPT/index.html",
+    "Ejercicios/prueba/instructions.txt",
+    "Ejercicios/prueba/main.py",
+    "Ejercicios/rise 82/main.py"
   ]
 }
