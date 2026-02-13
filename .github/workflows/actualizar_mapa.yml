@@ -3,9 +3,9 @@ name: Auto Generar Mapa del Proyecto
 on:
   push:
     branches:
-      - main  # O el nombre de tu rama principal
+      - main
     paths-ignore:
-      - 'mapa_del_proyecto.json' # Evita que se dispare infinitamente al actualizarse a sí mismo
+      - 'mapa_del_proyecto.json'
 
 jobs:
   build:
@@ -20,7 +20,10 @@ jobs:
           python-version: '3.x'
 
       - name: Ejecutar script generador
-        run: python tools/generar_mapas.py
+        run: |
+          # Buscamos cualquier archivo que empiece con generar_mapa y termine en .py
+          # Esto evita errores de escritura (plural/singular)
+          python $(find tools -name "generar_mapa*.py")
 
       - name: Confirmar y subir cambios
         run: |
